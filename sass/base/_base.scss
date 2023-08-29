@@ -1,0 +1,67 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+  font-family: inherit;
+}
+
+html {
+  font-size: 62.5%;
+  @media (prefers-reduced-motion: no-preference) {
+    scroll-behavior: smooth;
+  }
+
+  @include respond(4K) {
+    font-size: 100%;
+  }
+}
+
+body {
+  height: 100vh;
+  background: var(--main-gradient);
+  background: -webkit-linear-gradient(to right, var(--secondary-gradient), var(--main-gradient));
+  background: linear-gradient(to right, var(--secondary-gradient), var(--main-gradient));
+
+  box-sizing: border-box;
+  text-align: center;
+  font-family: 'Rubik', sans-serif;
+  color: var(--text_color);
+  overflow-y: hidden;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+img,
+video {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+li {
+  list-style: none;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+textarea {
+  resize: none;
+}
+
+.drag__container {
+  display: flex;
+  margin: 20px;
+}

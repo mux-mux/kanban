@@ -1,8 +1,8 @@
 {
-  "name": "portfolio",
+  "name": "kanban",
   "version": "1.0.0",
-  "description": "Responsive portfolio",
-  "main": "index.js",
+  "description": "Kanban with Background music, Ping pong, and AI will recognise your drawing",
+  "main": "script.js",
   "scripts": {
     "prefix": "postcss --use autoprefixer -b 'last 10 versions' css/style.css -o css/style.css",
     "compress": "node-sass css/style.css css/style.css --output-style compressed",
@@ -13,11 +13,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mux-mux/portfolio.git"
+    "url": "git+https://github.com/mux-mux/kanban.git"
   },
   "author": "",
   "license": "ISC",
-  "homepage": "https://github.com/mux-mux/portfolio#readme",
+  "homepage": "https://github.com/mux-mux/kanban#readme",
   "devDependencies": {
     "autoprefixer": "^10.4.14",
     "http-server": "^14.1.1",
