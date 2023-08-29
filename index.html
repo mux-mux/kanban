@@ -31,6 +31,77 @@
     <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body>
+    <h1 class="header-primary">Kanban</h1>
+    <div class="drag">
+      <ul class="drag__list">
+        <li class="drag__column todo">
+          <h2 class="header-secondary">To-Do</h2>
+          <div class="todo__content custom-scroll">
+            <ul class="drag__item-list todo__list">
+              <li class="drag__item">Item #1</li>
+              <li class="drag__item">Item #2</li>
+              <li class="drag__item">Item #3</li>
+            </ul>
+          </div>
+          <div class="add-btn-group">
+            <div class="add-btn">
+              <span class="plus-sign">+</span>
+              <span>Add Item</span>
+            </div>
+            <div class="add-btn solid">
+              <span>Save Item</span>
+            </div>
+            <div class="add-container">
+              <div class="add-item"></div>
+            </div>
+          </div>
+        </li>
+        <li class="drag__column inprogress">
+          <h2 class="header-secondary">In Progress</h2>
+          <div class="inprogress__content custom-scroll">
+            <ul class="drag__item-list inprogress__list">
+              <li class="drag__item">Item #1</li>
+              <li class="drag__item">Item #2</li>
+              <li class="drag__item">Item #3</li>
+            </ul>
+          </div>
+          <div class="add-btn-group">
+            <div class="add-btn">
+              <span class="plus-sign">+</span>
+              <span>Add Item</span>
+            </div>
+            <div class="add-btn solid">
+              <span>Save Item</span>
+            </div>
+            <div class="add-container">
+              <div class="add-item"></div>
+            </div>
+          </div>
+        </li>
+        <li class="drag__column done">
+          <h2 class="header-secondary">Done</h2>
+          <div class="done__content custom-scroll">
+            <ul class="drag__item-list done__list">
+              <li class="drag__item">Item #1</li>
+              <li class="drag__item">Item #2</li>
+              <li class="drag__item">Item #3</li>
+            </ul>
+          </div>
+          <div class="add-btn-group">
+            <div class="add-btn">
+              <span class="plus-sign">+</span>
+              <span>Add Item</span>
+            </div>
+            <div class="add-btn solid">
+              <span>Save Item</span>
+            </div>
+            <div class="add-container">
+              <div class="add-item"></div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
     <script src="./js/script.js"></script>
   </body>
 </html>
