@@ -1,8 +1,26 @@
 .drag__column {
   flex: 1;
-  margin: 0 10px;
+  margin: 0 1rem;
   position: relative;
   background-color: rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  border-radius: 1rem;
   overflow-x: hidden;
+}
+
+.todo {
+  &__title {
+    background-color: $column-1;
+  }
+}
+
+.inprogress {
+  &__title {
+    background-color: $column-2;
+  }
+}
+
+.done {
+  &__title {
+    background-color: $column-3;
+  }
 }

@@ -1,3 +1,6 @@
+.p2 {
+  padding: 2px; }
+
 *,
 *::after,
 *::before {
@@ -54,7 +57,8 @@ textarea {
 
 .drag__container {
   display: flex;
-  margin: 20px; }
+  align-items: flex-start;
+  margin: 2rem; }
 
 .theme-light {
   --text-color: #666;
@@ -70,6 +74,11 @@ textarea {
   letter-spacing: 2px;
   text-shadow: 2px 2px 5px var(--text-color);
   font-size: 4rem; }
+
+.heading-secondary {
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 1px var(--text-color);
+  font-size: 2.4rem; }
 
 .add {
   display: flex;
@@ -103,8 +112,17 @@ textarea {
 
 .drag__column {
   flex: 1;
-  margin: 0 10px;
+  margin: 0 1rem;
   position: relative;
   background-color: rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  border-radius: 1rem;
   overflow-x: hidden; }
+
+.todo__title {
+  background-color: #f05852; }
+
+.inprogress__title {
+  background-color: #55b7ea; }
+
+.done__title {
+  background-color: #85c555; }
