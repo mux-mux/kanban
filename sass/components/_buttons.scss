@@ -1,6 +1,7 @@
 .add {
   display: flex;
   justify-content: space-between;
+  font-size: 1.8rem;
 
   &__btn {
     margin: 10px;
@@ -33,10 +34,9 @@
     }
 
     &-plus {
-      font-size: 1.5rem;
+      font-size: 2rem;
       margin-right: 5px;
-      position: relative;
-      top: -3px;
+      transform: translateY(-1px);
     }
   }
 }

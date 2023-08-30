@@ -1,0 +1,20 @@
+.drag__list {
+  min-height: 5rem;
+  &-item {
+    font-size: 1.8rem;
+    line-height: 1.8rem;
+    letter-spacing: 1px;
+    text-align: left;
+    margin: 1rem;
+    padding: 0.8rem;
+    height: fit-content;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 1rem;
+    cursor: pointer;
+    &:focus {
+      outline: none;
+      background-color: white;
+      color: black;
+    }
+  }
+}

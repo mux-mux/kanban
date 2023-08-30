@@ -1,6 +1,9 @@
 .p2 {
   padding: 2px; }
 
+.mt3 {
+  margin-top: 3rem; }
+
 *,
 *::after,
 *::before {
@@ -55,18 +58,24 @@ button {
 textarea {
   resize: none; }
 
-.drag__container {
-  display: flex;
-  align-items: flex-start;
-  margin: 2rem; }
+.drag {
+  max-width: 180rem;
+  margin: 0 auto; }
+  .drag__container {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin: 2rem; }
 
 .theme-light {
   --text-color: #666;
+  --background-color: #eee;
   --main-gradient: #757f9a;
   --secondary-gradient: #d7dde8; }
 
 .theme-dark {
   --text-color: #eee;
+  --background-color: #666;
   --main-gradient: #232526;
   --secondary-gradient: #414345; }
 
@@ -82,7 +91,8 @@ textarea {
 
 .add {
   display: flex;
-  justify-content: space-between; }
+  justify-content: space-between;
+  font-size: 1.8rem; }
   .add__btn {
     margin: 10px;
     padding: 5px 10px;
@@ -105,14 +115,13 @@ textarea {
         filter: brightness(95%);
         color: white; }
     .add__btn-plus {
-      font-size: 1.5rem;
+      font-size: 2rem;
       margin-right: 5px;
-      position: relative;
-      top: -3px; }
+      transform: translateY(-1px); }
 
 .drag__column {
-  flex: 1;
-  margin: 0 1rem;
+  flex: 1 30rem;
+  margin: 1rem;
   position: relative;
   background-color: rgba(0, 0, 0, 0.1);
   border-radius: 1rem;
@@ -126,3 +135,60 @@ textarea {
 
 .done__title {
   background-color: #85c555; }
+
+.add-container {
+  margin: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  min-height: 10rem;
+  display: none; }
+
+.add-item {
+  width: 100%;
+  min-height: 10rem;
+  height: auto;
+  background-color: var(--background-color);
+  border-radius: 1rem;
+  margin: 0.5rem auto;
+  resize: none;
+  color: var(--text-color);
+  padding: 1rem; }
+  .add-item:focus {
+    outline: none; }
+
+.custom-scroll {
+  overflow-y: auto;
+  max-height: 75vh; }
+
+.custom-scroll::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 0.5rem rgba(0, 0, 0, 0.4);
+  border-radius: 1rem;
+  background-color: rgba(255, 255, 255, 0.3);
+  margin-right: 0.5rem; }
+
+.custom-scroll::-webkit-scrollbar {
+  width: 1rem; }
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  border-radius: 1rem;
+  box-shadow: inset 0 0 0.5rem rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.8); }
+
+.drag__list {
+  min-height: 5rem; }
+  .drag__list-item {
+    font-size: 1.8rem;
+    line-height: 1.8rem;
+    letter-spacing: 1px;
+    text-align: left;
+    margin: 1rem;
+    padding: 0.8rem;
+    height: fit-content;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 1rem;
+    cursor: pointer; }
+    .drag__list-item:focus {
+      outline: none;
+      background-color: white;
+      color: black; }
