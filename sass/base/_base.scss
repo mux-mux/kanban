@@ -61,7 +61,13 @@ textarea {
   resize: none;
 }
 
-.drag__container {
-  display: flex;
-  margin: 20px;
+.drag {
+  max-width: 180rem;
+  margin: 0 auto;
+  &__container {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin: 2rem;
+  }
 }
