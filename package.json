@@ -4,6 +4,7 @@
   "description": "Kanban with Background music, Ping pong, and AI will recognise your drawing",
   "main": "script.js",
   "scripts": {
+    "webpack": "npx webpack",
     "prefix": "postcss --use autoprefixer -b 'last 10 versions' css/style.css -o css/style.css",
     "compress": "node-sass css/style.css css/style.css --output-style compressed",
     "build": "npm-run-all prefix compress",
@@ -19,10 +20,18 @@
   "license": "ISC",
   "homepage": "https://github.com/mux-mux/kanban#readme",
   "devDependencies": {
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.3",
+    "@babel/preset-env": "^7.20.2",
+    "@babel/preset-react": "^7.22.5",
     "autoprefixer": "^10.4.14",
+    "babel-loader": "^9.1.2",
+    "core-js": "^3.29.1",
     "http-server": "^14.1.1",
     "node-sass": "^8.0.0",
     "npm-run-all": "^4.1.5",
-    "postcss-cli": "^10.1.0"
+    "postcss-cli": "^10.1.0",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
   }
 }
