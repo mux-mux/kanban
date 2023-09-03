@@ -1,3 +1,5 @@
+import './styles/main.scss';
+
 import { getSavedColumns, setSavedColumns } from './modules/localStorage';
 
 let updatedOnLoad = false;
