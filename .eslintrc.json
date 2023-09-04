@@ -15,14 +15,15 @@
   "ignorePatterns": ["dist", "node_modules", "webpack.*"],
   "env": {
     "browser": true,
-    "es6": true
+    "es6": true,
+    "jest/globals": true
   },
   "extends": ["eslint:recommended", "prettier"],
   "parserOptions": {
     "ecmaVersion": 2021,
     "sourceType": "module"
   },
-  "plugins": ["prettier"],
+  "plugins": ["prettier", "jest"],
   "settings": {
     "import/resolver": {
       "webpack": {

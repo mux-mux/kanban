@@ -1,16 +1,16 @@
 import './styles/main.scss';
 
-import { getSavedColumns, setSavedColumns } from './modules/localStorage';
+import { getLocalItems, setLocalItems } from './modules/localStorage';
 
 let updatedOnLoad = false;
 
 function updateDOM() {
   if (!updatedOnLoad) {
-    getSavedColumns();
+    getLocalItems();
   }
 
   updatedOnLoad = true;
-  setSavedColumns();
+  setLocalItems();
 }
 
 updateDOM();
