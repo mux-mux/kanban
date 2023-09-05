@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -8,11 +8,7 @@
       content="Kanban Project with Pomodoro and Countdown timer with Relax zone(Background music, Ping Pong Game and Paint a Pet)"
     />
     <title>Kanban</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon/favicon-16x16.png" />
-    <link rel="icon" type="image/x-icon" href="./assets/favicon/favicon.ico" />
-    <link rel="manifest" href="./assets/favicon/site.webmanifest" />
+    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -28,7 +24,6 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body class="theme-light">
     <h1 class="heading-primary mt3">Kanban</h1>
@@ -37,12 +32,7 @@
         <li class="drag__column todo">
           <h2 class="heading-secondary todo__title p2">To-Do</h2>
           <div class="todo__content custom-scroll">
-            <ul class="drag__list todo__list">
-              <li class="drag__list-item" contenteditable="true" draggable="true">Item #1</li>
-              <li class="drag__list-item" contenteditable="true" draggable="true">Item #2</li>
-              <li class="drag__list-item" contenteditable="true" draggable="true">Item #3</li>
-              <li class="drag__list-item" contenteditable="true" draggable="true">Item #4</li>
-            </ul>
+            <ul class="drag__list" id="todo-list"></ul>
           </div>
           <div class="add">
             <div class="add__btn add__btn-add">
@@ -60,11 +50,7 @@
         <li class="drag__column inprogress">
           <h2 class="heading-secondary inprogress__title p2">In Progress</h2>
           <div class="inprogress__content custom-scroll">
-            <ul class="drag__list inprogress__list">
-              <li class="drag__list-item" contenteditable="true" draggable="true">Item #1</li>
-              <li class="drag__list-item" contenteditable="true" draggable="true">Item #2</li>
-              <li class="drag__list-item" contenteditable="true" draggable="true">Item #3</li>
-            </ul>
+            <ul class="drag__list" id="inprogress-list"></ul>
           </div>
           <div class="add">
             <div class="add__btn add__btn-add">
@@ -82,11 +68,7 @@
         <li class="drag__column done">
           <h2 class="heading-secondary done__title p2">Done</h2>
           <div class="done__content custom-scroll">
-            <ul class="drag__list done__list">
-              <li class="drag__list-item" contenteditable="true" draggable="true">Item #1</li>
-              <li class="drag__list-item" contenteditable="true" draggable="true">Item #2</li>
-              <li class="drag__list-item" contenteditable="true" draggable="true">Item #3</li>
-            </ul>
+            <ul class="drag__list" id="done-list"></ul>
           </div>
           <div class="add">
             <div class="add__btn add__btn-add">
