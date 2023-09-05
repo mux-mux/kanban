@@ -1,7 +1,8 @@
 let todoList = ['Plan a day', 'Make a coffee'],
   inprogressList = ['Do workout', 'Listen to music'],
-  doneList = ['Check LinkedIn messages', 'Read emails'],
-  listArrays = ['todo', 'inprogress', 'done'];
+  doneList = ['Check LinkedIn messages', 'Read emails'];
+const listArrays = ['todo', 'inprogress', 'done'],
+  itemsList = [todoList, inprogressList, doneList];
 
 function getLocalItems() {
   if (localStorage.getItem('todoItems')) {
@@ -9,7 +10,7 @@ function getLocalItems() {
     inprogressList = JSON.parse(localStorage.inprogressItems);
     doneList = JSON.parse(localStorage.doneItems);
   } else {
-    setLocalItems(listArrays, [todoList, inprogressList, doneList]);
+    setLocalItems(listArrays, itemsList);
   }
 }
 function setLocalItems(columns, items) {
@@ -18,4 +19,4 @@ function setLocalItems(columns, items) {
   });
 }
 
-export { getLocalItems, setLocalItems };
+export { getLocalItems, setLocalItems, itemsList };
