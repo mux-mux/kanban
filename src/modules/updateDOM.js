@@ -14,7 +14,7 @@ function updateDOM() {
     getLocalItems();
   }
 
-  elementsList.forEach((element) => (element.innerHTML = ''));
+  elementsList.forEach((element) => (element.textContent = ''));
 
   itemsList.forEach((items, index) => {
     items.forEach((item) => {
