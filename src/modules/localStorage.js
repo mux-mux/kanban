@@ -1,3 +1,5 @@
+import { updateDOM, elementsList } from './updateDOM';
+
 let todoList = ['Plan a day', 'Make a coffee'],
   inprogressList = ['Do workout', 'Listen to music'],
   doneList = ['Check LinkedIn messages', 'Read emails'];
@@ -19,4 +21,15 @@ function setLocalItems(columns, items) {
   });
 }
 
-export { getLocalItems, setLocalItems, itemsList };
+function updateLists() {
+  itemsList.forEach((list) => {
+    elementsList.forEach((element) => {
+      for (let i = 0; i < element.children.length; i++) {
+        list.push(element.children[i].textContent);
+      }
+    });
+  });
+  updateDOM();
+}
+
+export { getLocalItems, setLocalItems, updateLists, listArrays, itemsList };

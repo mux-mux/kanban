@@ -1,4 +1,4 @@
-import { getLocalItems, setLocalItems, itemsList } from './localStorage';
+import { getLocalItems, setLocalItems, listArrays, itemsList } from './localStorage';
 
 import { createItem } from './createItem';
 
@@ -23,7 +23,7 @@ function updateDOM() {
   });
 
   updatedOnLoad = true;
-  setLocalItems();
+  setLocalItems(listArrays, itemsList);
 }
 
-export { updateDOM };
+export { updateDOM, elementsList };

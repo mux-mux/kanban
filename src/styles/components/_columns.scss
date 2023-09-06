@@ -8,19 +8,22 @@
 }
 
 .todo {
-  &__title {
+  &__title,
+  & .over {
     background-color: $column-1;
   }
 }
 
 .inprogress {
-  &__title {
+  &__title,
+  & .over {
     background-color: $column-2;
   }
 }
 
 .done {
-  &__title {
+  &__title,
+  & .over {
     background-color: $column-3;
   }
 }
