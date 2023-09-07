@@ -1,4 +1,5 @@
 import { drag } from './dragDropItem';
+import { toggleInputBox } from './addItem';
 
 function createItem(columnElement, column, item) {
   const listElement = document.createElement('li');
