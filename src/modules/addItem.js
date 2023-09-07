@@ -24,7 +24,7 @@ function toggleInputBox(column, state) {
 function addToColumn(column) {
   const itemText = addItems[column].textContent;
   const selectedList = itemsList[column];
-  selectedList.push(itemText);
+  itemText.trim().length > 0 ? selectedList.push(itemText) : null;
   addItems[column].textContent = '';
   updateDOM();
 }
