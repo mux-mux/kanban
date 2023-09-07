@@ -3,7 +3,7 @@ import { updateDOM, elementsList } from './updateDOM';
 let todoList = ['Plan a day', 'Make a coffee'],
   inprogressList = ['Do workout', 'Listen to music'],
   doneList = ['Check LinkedIn messages', 'Read emails'],
-  itemsList = null;
+  itemsList = [todoList, inprogressList, doneList];
 const listArrays = ['todo', 'inprogress', 'done'];
 
 function getLocalItems() {
@@ -13,7 +13,6 @@ function getLocalItems() {
     doneList = JSON.parse(localStorage.doneItems);
     itemsList = [todoList, inprogressList, doneList];
   } else {
-    itemsList = [todoList, inprogressList, doneList];
     setLocalItems(listArrays, itemsList);
   }
 }
