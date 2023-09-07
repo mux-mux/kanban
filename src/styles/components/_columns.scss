@@ -29,7 +29,7 @@
 }
 
 .add {
-  &-container {
+  &__container {
     margin: 1rem;
     padding: 0.5rem 1rem;
     border-radius: 1rem;
@@ -38,16 +38,16 @@
     display: none;
   }
 
-  &-item {
+  &__item {
     width: 100%;
     min-height: 10rem;
     height: auto;
-    background-color: var(--background-color);
     border-radius: 1rem;
     margin: 0.5rem auto;
     resize: none;
     color: var(--text-color);
-    padding: 1rem;
+    font-size: 1.6rem;
+    text-align: left;
     &:focus {
       outline: none;
     }
