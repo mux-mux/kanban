@@ -16,9 +16,9 @@ function updateDOM() {
 
   elementsList.forEach((element) => (element.textContent = ''));
 
-  itemsList.forEach((items, index) => {
-    items.forEach((item) => {
-      createItem(elementsList[index], index, item);
+  itemsList.forEach((items, columnNum) => {
+    items.forEach((item, itemNum) => {
+      createItem(elementsList[columnNum], columnNum, item, itemNum);
     });
   });
 
