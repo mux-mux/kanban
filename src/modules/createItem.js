@@ -36,7 +36,7 @@ function dblclickEditable(currentelement, columnNum, itemNum) {
   });
 }
 
-function focusEnterEnd(ev, columnNum, itemNum) {
+function focusEnterEnd(ev) {
   ev.target.focus();
   const range = document.createRange();
   range.selectNodeContents(ev.target);
