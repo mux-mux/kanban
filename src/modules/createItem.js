@@ -1,5 +1,6 @@
 import { drag } from './dragDropItem';
 import { toggleInputBox } from './addItem';
+import { updateItem } from './updateItem';
 
 function createItem(columnElement, columnNum, item, itemNum) {
   const listElement = document.createElement('li');
@@ -10,7 +11,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
   listElement.addEventListener('dragstart', (e) => drag(e));
 
   hoverAppearIcon(listElement);
-  dblclickEditable(listElement);
+  dblclickEditable(listElement, columnNum, itemNum);
 
   columnElement.appendChild(listElement);
 }
@@ -24,17 +25,18 @@ function hoverAppearIcon(currentelement) {
   );
 }
 
-function dblclickEditable(currentelement) {
+function dblclickEditable(currentelement, columnNum, itemNum) {
   currentelement.addEventListener('dblclick', (e) => {
     e.target.setAttribute('contentEditable', true);
-    focusEnterEnd(e);
+    focusEnterEnd(e, columnNum, itemNum);
   });
-  currentelement.addEventListener('focusout', (e) =>
-    e.target.setAttribute('contentEditable', false)
-  );
+  currentelement.addEventListener('focusout', (e) => {
+    e.target.setAttribute('contentEditable', false);
+    updateItem(columnNum, itemNum);
+  });
 }
 
-function focusEnterEnd(ev) {
+function focusEnterEnd(ev, columnNum, itemNum) {
   ev.target.focus();
   const range = document.createRange();
   range.selectNodeContents(ev.target);
