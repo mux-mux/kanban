@@ -37,4 +37,4 @@ dragList.forEach((list, i) => {
   list.addEventListener('dragenter', () => dragEnter(i));
 });
 
-export { drag, allowDrop, drop };
+export { drag, allowDrop, drop, dragList };
