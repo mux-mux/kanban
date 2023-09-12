@@ -1,5 +1,4 @@
 import { drag } from './dragDropItem';
-import { toggleInputBox } from './addItem';
 import { updateItem } from './updateItem';
 import { deleteItem } from './deleteItem';
 
@@ -42,15 +41,15 @@ function dblClickEdit(currentelement, columnNum, itemNum, removeIcon) {
   currentelement.addEventListener('dblclick', (e) => {
     if (e.currentTarget.children[0] === removeIcon) {
       e.currentTarget.children[0].remove();
-      e.target.setAttribute('contentEditable', true);
-      e.target.setAttribute('draggable', false);
-      e.target.focus();
+      e.currentTarget.setAttribute('contentEditable', true);
+      e.currentTarget.setAttribute('draggable', false);
+      e.currentTarget.focus();
     }
     focusCarretEnd(e);
   });
   currentelement.addEventListener('focusout', (e) => {
-    e.target.setAttribute('contentEditable', false);
-    e.target.setAttribute('draggable', true);
+    e.currentTarget.setAttribute('contentEditable', false);
+    e.currentTarget.setAttribute('draggable', true);
     updateItem(columnNum, itemNum);
   });
 }
@@ -66,7 +65,7 @@ function focusCarretEnd(ev) {
 }
 
 function onEnterBlur(ev) {
-  ev.target.addEventListener('keypress', function (event) {
+  ev.currentTarget.addEventListener('keypress', function (event) {
     if (event.key === 'Enter') {
       event.preventDefault();
       ev.target.blur();

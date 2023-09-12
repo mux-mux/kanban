@@ -5,6 +5,7 @@ const addBtns = document.querySelectorAll('.add__btn-add');
 const saveBtns = document.querySelectorAll('.add__btn-save');
 const addContainers = document.querySelectorAll('.add__container');
 const addItems = document.querySelectorAll('.add__item');
+const dragList = document.querySelectorAll('.drag__list');
 
 function toggleInputBox(column, state) {
   const visibleState = state === 'show' ? 'hidden' : 'visible';
@@ -37,4 +38,4 @@ saveBtns.forEach((saveBtn, index) => {
   saveBtn.addEventListener('click', () => toggleInputBox(index, 'hide'));
 });
 
-export { toggleInputBox };
+export { dragList };
