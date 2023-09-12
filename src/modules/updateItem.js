@@ -1,5 +1,5 @@
 import { itemsList } from './localStorage';
-import { dragList } from './dragDropItem';
+import { dragList } from './addItem';
 import { updateDOM } from './updateDOM';
 import { deleteItem } from './deleteItem';
 

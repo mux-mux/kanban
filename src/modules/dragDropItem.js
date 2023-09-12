@@ -1,12 +1,12 @@
 import { updateLists } from './localStorage';
+import { dragList } from './addItem';
 
 let draggedItem = null,
   currentColumn = null;
 
-let dragList = document.querySelectorAll('.drag__list');
-
 function drag(e) {
-  draggedItem = e.target;
+  draggedItem = e.currentTarget;
+  draggedItem.style.setProperty('--display', 'none');
 }
 
 function dragEnter(column) {
@@ -37,4 +37,4 @@ dragList.forEach((list, i) => {
   list.addEventListener('dragenter', () => dragEnter(i));
 });
 
-export { drag, allowDrop, drop, dragList };
+export { drag, allowDrop, drop };
