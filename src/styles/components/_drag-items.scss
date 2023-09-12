@@ -22,9 +22,8 @@
       color: black;
     }
 
-    &::after {
+    &-remove {
       display: var(--display);
-      content: 'X';
       font-size: 1rem;
       position: absolute;
       top: 50%;
