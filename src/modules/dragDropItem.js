@@ -6,7 +6,8 @@ let draggedItem = null,
 let dragList = document.querySelectorAll('.drag__list');
 
 function drag(e) {
-  draggedItem = e.target;
+  draggedItem = e.currentTarget;
+  draggedItem.style.setProperty('--display', 'none');
 }
 
 function dragEnter(column) {

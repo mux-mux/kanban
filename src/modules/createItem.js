@@ -5,8 +5,8 @@ import { deleteItem } from './deleteItem';
 
 function createItem(columnElement, columnNum, item, itemNum) {
   const listElement = elementWithClass('li', 'drag__list-item');
-  const removeIcon = elementWithClass('span', 'drag__list-item-remove');
-  removeIcon.textContent = 'X';
+  const removeIcon = elementWithClass('img', 'drag__list-item-remove');
+  removeIcon.src = '../assets/remove.png';
   removeIcon.addEventListener('click', () => {
     deleteItem(columnNum, itemNum);
   });
@@ -25,10 +25,10 @@ function createItem(columnElement, columnNum, item, itemNum) {
 
 function hoverAppearIcon(currentelement) {
   currentelement.addEventListener('mouseover', (e) => {
-    e.target.style.setProperty('--display', 'block');
+    e.currentTarget.style.setProperty('--display', 'block');
   });
   currentelement.addEventListener('mouseout', (e) =>
-    e.target.style.setProperty('--display', 'none')
+    e.currentTarget.style.setProperty('--display', 'none')
   );
 }
 
@@ -41,25 +41,31 @@ function elementWithClass(element, clazz) {
 function dblClickEdit(currentelement, columnNum, itemNum, removeIcon) {
   currentelement.addEventListener('dblclick', (e) => {
     if (e.currentTarget.children[0] === removeIcon) {
-      e.currentTarget.children[0].textContent = '';
+      e.currentTarget.children[0].remove();
       e.target.setAttribute('contentEditable', true);
+      e.target.setAttribute('draggable', false);
+      e.target.focus();
     }
-    focusEnterEnd(e);
+    focusCarretEnd(e);
   });
   currentelement.addEventListener('focusout', (e) => {
     e.target.setAttribute('contentEditable', false);
+    e.target.setAttribute('draggable', true);
     updateItem(columnNum, itemNum);
   });
 }
 
-function focusEnterEnd(ev) {
-  ev.target.focus();
+function focusCarretEnd(ev) {
   const range = document.createRange();
-  range.selectNodeContents(ev.target);
-  // range.collapse(false);
+  range.selectNodeContents(ev.currentTarget);
+  range.collapse(false);
   const selection = window.getSelection();
   selection.removeAllRanges();
   selection.addRange(range);
+  onEnterBlur(ev);
+}
+
+function onEnterBlur(ev) {
   ev.target.addEventListener('keypress', function (event) {
     if (event.key === 'Enter') {
       event.preventDefault();
