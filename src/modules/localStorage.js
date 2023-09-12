@@ -24,10 +24,7 @@ function setLocalItems(columns, items) {
 
 function updateLists() {
   elementsList.forEach((element, index) => {
-    itemsList[index] = [];
-    for (let i = 0; i < element.children.length; i++) {
-      itemsList[index].push(element.children[i].textContent);
-    }
+    itemsList[index] = Array.from(element.children).map((item) => item.textContent);
   });
   updateDOM();
 }
