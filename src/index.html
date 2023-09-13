@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -25,10 +25,20 @@
       referrerpolicy="no-referrer"
     />
   </head>
-  <body class="theme-light">
-    <h1 class="heading-primary mt3">Kanban</h1>
-    <div class="drag">
-      <ul class="drag__container">
+  <body>
+    <div class="container">
+      <header class="header">
+        <h1 class="heading-primary m2">Kanban</h1>
+        <div class="theme-switch-wrapper">
+          <i class="fas fa-sun"></i>
+          <label class="switch">
+            <input type="checkbox" />
+            <span class="slider round"></span>
+          </label>
+          <i class="fas fa-moon"></i>
+        </div>
+      </header>
+      <ul class="drag">
         <li class="drag__column todo">
           <h2 class="heading-secondary todo__title p2">To-Do</h2>
           <div class="todo__content custom-scroll">

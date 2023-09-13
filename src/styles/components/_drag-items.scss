@@ -1,37 +1,45 @@
-.drag__list {
-  min-height: 5rem;
-  padding: 1rem;
-  --display: none;
+.drag {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 2rem;
+  &__list {
+    min-height: 5rem;
+    padding: 1rem;
+    --display: none;
 
-  &-item {
-    position: relative;
-    font-size: 1.8rem;
-    line-height: 1.8rem;
-    letter-spacing: 1px;
-    text-align: left;
-    margin: 1rem;
-    padding: 0.8rem 1.2rem;
-    height: fit-content;
-    background-color: rgba(0, 0, 0, 0.1);
-    border-radius: 1rem;
-    cursor: pointer;
+    &-item {
+      position: relative;
+      font-size: 1.8rem;
+      line-height: 1.8rem;
+      letter-spacing: 1px;
+      text-align: left;
+      color: var(--text-color);
+      margin: 1rem;
+      padding: 0.8rem 1.2rem;
+      height: fit-content;
+      background-color: rgba(0, 0, 0, 0.1);
+      border-radius: 1rem;
+      cursor: pointer;
 
-    &:focus {
-      outline: none;
-      background-color: white;
-      color: black;
-    }
+      &:focus {
+        outline: none;
+        background-color: white;
+        color: black;
+      }
 
-    &-remove {
-      display: var(--display);
-      font-size: 1rem;
-      position: absolute;
-      top: 50%;
-      right: 5px;
-      transform: translateY(-50%);
-      text-align: center;
-      line-height: 3;
-      width: 20px;
+      &-remove {
+        filter: var(--invert);
+        display: var(--display);
+        font-size: 1rem;
+        position: absolute;
+        top: 50%;
+        right: 5px;
+        transform: translateY(-50%);
+        text-align: center;
+        line-height: 3;
+        width: 20px;
+      }
     }
   }
 }

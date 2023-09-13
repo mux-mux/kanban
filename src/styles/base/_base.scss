@@ -1,3 +1,6 @@
+:root {
+  --theme-switch-height: 3.4rem;
+}
 *,
 *::after,
 *::before {
@@ -20,9 +23,8 @@ html {
 
 body {
   height: 100vh;
-  background: var(--main-gradient);
-  background: -webkit-linear-gradient(to right, var(--secondary-gradient), var(--main-gradient));
-  background: linear-gradient(to right, var(--secondary-gradient), var(--main-gradient));
+  background-color: var(--background-color);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23757f9a' fill-opacity='0.2' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
 
   box-sizing: border-box;
   text-align: center;
@@ -61,13 +63,7 @@ textarea {
   resize: none;
 }
 
-.drag {
+.container {
   max-width: 180rem;
   margin: 0 auto;
-  &__container {
-    display: flex;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    margin: 2rem;
-  }
 }
