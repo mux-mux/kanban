@@ -4,12 +4,14 @@
   background-color: rgba(0, 0, 0, 0.1);
   border-radius: 1rem;
   overflow-x: hidden;
+  box-shadow: 1px 1px 2px var(--shadow-column);
 }
 
 .todo {
   &__title,
   & .over {
     background-color: $column-1;
+    background-image: $background-column-header;
   }
 }
 
@@ -17,6 +19,7 @@
   &__title,
   & .over {
     background-color: $column-2;
+    background-image: $background-column-header;
   }
 }
 
@@ -24,6 +27,7 @@
   &__title,
   & .over {
     background-color: $column-3;
+    background-image: $background-column-header;
   }
 }
 
