@@ -15,6 +15,7 @@
     user-select: none;
 
     &-add {
+      color: var(--text-color);
       &:hover {
         background-color: rgba(255, 255, 255, 0.9);
         color: black;
@@ -26,12 +27,12 @@
     }
 
     &-save {
+      color: black;
       display: none;
       background-color: #50c878;
 
       &:hover {
         background-color: rgba(119, 221, 119, 0.9);
-        color: black;
       }
     }
 
