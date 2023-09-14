@@ -3,7 +3,7 @@ import { dragList } from './addItem';
 import { updateDOM } from './updateDOM';
 import { deleteItem } from './deleteItem';
 
-function updateItem(columnNum, itemNum) {
+function editItem(columnNum, itemNum) {
   const selectedList = itemsList[columnNum];
   const selectedItem = dragList[columnNum].children;
 
@@ -15,4 +15,4 @@ function updateItem(columnNum, itemNum) {
   updateDOM();
 }
 
-export { updateItem };
+export { editItem };

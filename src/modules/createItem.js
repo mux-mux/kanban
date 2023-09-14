@@ -1,5 +1,5 @@
 import { drag } from './dragDropItem';
-import { updateItem } from './updateItem';
+import { editItem } from './editItem';
 import { deleteItem } from './deleteItem';
 
 function createItem(columnElement, columnNum, item, itemNum) {
@@ -50,7 +50,7 @@ function dblClickEdit(currentelement, columnNum, itemNum, removeIcon) {
   currentelement.addEventListener('focusout', (e) => {
     e.currentTarget.setAttribute('contentEditable', false);
     e.currentTarget.setAttribute('draggable', true);
-    updateItem(columnNum, itemNum);
+    editItem(columnNum, itemNum);
   });
 }
 

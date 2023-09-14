@@ -1,9 +1,6 @@
 .theme-switch-wrapper {
-  position: absolute;
+  @extend .header-posAbs;
   right: 0;
-  top: 50%;
-  z-index: 100;
-  transform: translateY(-50%);
   font-size: 2.4rem;
   color: var(--text-color);
   line-height: var(--theme-switch-height);
