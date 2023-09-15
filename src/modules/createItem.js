@@ -21,7 +21,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
   listElement.addEventListener('dragstart', (e) => drag(e));
 
   hoverAppearIcon(listElement);
-  dblClickEdit(listElement, columnNum, itemNum, removeIcon, listElement);
+  dblClickEdit(listElement, columnNum, itemNum);
 
   listElement.appendChild(deadlinePick);
   listElement.appendChild(removeIcon);
@@ -43,17 +43,16 @@ function elementWithClass(element, clazz) {
   return newElement;
 }
 
-function dblClickEdit(currentelement, columnNum, itemNum, removeIcon) {
+function dblClickEdit(currentelement, columnNum, itemNum) {
   currentelement.addEventListener('dblclick', (e) => {
-    if (e.currentTarget.children[0] === removeIcon) {
-      e.currentTarget.children[0].remove();
-      e.currentTarget.setAttribute('contentEditable', true);
-      e.currentTarget.setAttribute('draggable', false);
-      e.currentTarget.focus();
-    }
+    e.currentTarget.textContent = e.currentTarget.innerText;
+    e.currentTarget.setAttribute('contentEditable', true);
+    e.currentTarget.setAttribute('draggable', false);
+    e.currentTarget.focus();
+
     focusCarretEnd(e);
   });
-  currentelement.addEventListener('focusout', (e) => {
+  currentelement.addEventListener('blur', (e) => {
     e.currentTarget.setAttribute('contentEditable', false);
     e.currentTarget.setAttribute('draggable', true);
     editItem(columnNum, itemNum);
