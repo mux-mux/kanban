@@ -1,32 +1,47 @@
 import { updateDOM, elementsList } from './updateDOM';
 
-let todoList = ['Plan a day', 'Make a coffee'],
-  inprogressList = ['Do workout', 'Listen to music'],
-  doneList = ['Check LinkedIn messages', 'Read emails'],
-  itemsList = [todoList, inprogressList, doneList];
-const listArrays = ['todo', 'inprogress', 'done'];
+const columns = {
+  todo: {
+    items: [
+      { name: 'Plan a day', deadline: '2023-09-15', pomodoro: false, sessions: 0 },
+      { name: 'Make a coffee', deadline: '2023-09-15', pomodoro: false, sessions: 0 },
+    ],
+  },
+  inprogress: {
+    items: [
+      { name: 'Do workout', deadline: '2023-09-15', pomodoro: false, sessions: 0 },
+      { name: 'Listen to music', deadline: '2023-09-15', pomodoro: false, sessions: 0 },
+    ],
+  },
+  done: {
+    items: [
+      { name: 'Check LinkedIn messages', deadline: '2023-09-15', pomodoro: false, sessions: 0 },
+      { name: 'Check emails', deadline: '2023-09-15', pomodoro: false, sessions: 0 },
+    ],
+  },
+};
 
-function getLocalItems() {
+function getLocalItems(columnNames) {
   if (localStorage.getItem('todoItems')) {
-    todoList = JSON.parse(localStorage.todoItems);
-    inprogressList = JSON.parse(localStorage.inprogressItems);
-    doneList = JSON.parse(localStorage.doneItems);
-    itemsList = [todoList, inprogressList, doneList];
+    return columnNames.map((column) => ({ [column]: { items: `${localStorage[column]}Items` } }));
   } else {
-    setLocalItems(listArrays, itemsList);
+    setLocalItems(Object.keys(columns));
   }
 }
-function setLocalItems(columns, items) {
-  columns.forEach((column, index) => {
-    localStorage.setItem(`${column}Items`, JSON.stringify(items[index]));
+
+function setLocalItems(columnNames) {
+  columnNames.forEach((column) => {
+    localStorage.setItem(`${column}Items`, JSON.stringify(columns[column].items));
   });
+  return columns;
 }
 
-function updateLists() {
-  elementsList.forEach((element, index) => {
-    itemsList[index] = Array.from(element.children).map((item) => item.textContent);
-  });
-  updateDOM();
-}
+// function updateLists() {
+//   elementsList.forEach((element, index) => {
+//     itemsList[index] = Array.from(element.children).map((item) => item.textContent);
+//   });
+//   updateDOM();
+// }
 
-export { getLocalItems, setLocalItems, updateLists, listArrays, itemsList };
+// export { getLocalItems, setLocalItems, updateLists, columns };
+export { getLocalItems, setLocalItems, columns };

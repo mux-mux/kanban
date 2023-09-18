@@ -1,4 +1,4 @@
-import { getLocalItems, setLocalItems, listArrays, itemsList } from './localStorage';
+import { getLocalItems, setLocalItems, columns } from './localStorage';
 
 import { createItem } from './createItem';
 
@@ -10,20 +10,22 @@ const todoElement = document.getElementById('todo-list'),
 let updatedOnLoad = false;
 
 function updateDOM() {
+  let localLoaded = [];
+
   if (!updatedOnLoad) {
-    getLocalItems();
+    localLoaded = getLocalItems(columns);
   }
 
   elementsList.forEach((element) => (element.textContent = ''));
 
-  itemsList.forEach((items, columnNum) => {
+  localLoaded.forEach((items, columnNum) => {
     items.forEach((item, itemNum) => {
       createItem(elementsList[columnNum], columnNum, item, itemNum);
     });
   });
 
   updatedOnLoad = true;
-  setLocalItems(listArrays, itemsList);
+  setLocalItems(columns);
 }
 
 export { updateDOM, elementsList };
