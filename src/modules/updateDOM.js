@@ -1,4 +1,4 @@
-import { getLocalItems, setLocalItems, columns } from './localStorage';
+import { getLocalItems, setLocalItems, columnNames } from './localStorage';
 
 import { createItem } from './createItem';
 
@@ -13,19 +13,22 @@ function updateDOM() {
   let localLoaded = [];
 
   if (!updatedOnLoad) {
-    localLoaded = getLocalItems(columns);
+    localLoaded = getLocalItems(columnNames);
   }
+
+  console.log(localLoaded);
 
   elementsList.forEach((element) => (element.textContent = ''));
 
-  localLoaded.forEach((items, columnNum) => {
-    items.forEach((item, itemNum) => {
+  columnNames.forEach((column, columnNum) => {
+    localLoaded[column].items.forEach((item, itemNum) => {
+      console.log(elementsList[columnNum], columnNum, item, itemNum);
       createItem(elementsList[columnNum], columnNum, item, itemNum);
     });
   });
 
   updatedOnLoad = true;
-  setLocalItems(columns);
+  setLocalItems(columnNames);
 }
 
 export { updateDOM, elementsList };

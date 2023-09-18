@@ -1,6 +1,6 @@
-import { drag } from './dragDropItem';
-import { editItem } from './editItem';
-import { deleteItem } from './deleteItem';
+// import { drag } from './dragDropItem';
+// import { editItem } from './editItem';
+// import { deleteItem } from './deleteItem';
 import { deadline } from './deadline';
 
 function createItem(columnElement, columnNum, item, itemNum) {
@@ -9,16 +9,17 @@ function createItem(columnElement, columnNum, item, itemNum) {
   const deadlinePick = elementWithClass('input', 'deadline');
   deadlinePick.setAttribute('type', 'date');
   deadlinePick.setAttribute('min', deadline());
+  deadlinePick.value = item.deadline;
 
-  removeIcon.src = '../assets/remove.png';
-  removeIcon.addEventListener('click', () => {
-    deleteItem(columnNum, itemNum);
-  });
+  // removeIcon.src = '../assets/remove.png';
+  // removeIcon.addEventListener('click', () => {
+  //   deleteItem(columnNum, itemNum);
+  // });
 
-  listElement.textContent = item;
+  listElement.textContent = item.name;
   listElement.draggable = true;
   listElement.id = itemNum;
-  listElement.addEventListener('dragstart', (e) => drag(e));
+  // listElement.addEventListener('dragstart', (e) => drag(e));
 
   hoverAppearIcon(listElement);
   dblClickEdit(listElement, columnNum, itemNum);
@@ -55,7 +56,7 @@ function dblClickEdit(currentelement, columnNum, itemNum) {
   currentelement.addEventListener('blur', (e) => {
     e.currentTarget.setAttribute('contentEditable', false);
     e.currentTarget.setAttribute('draggable', true);
-    editItem(columnNum, itemNum);
+    // editItem(columnNum, itemNum);
   });
 }
 
