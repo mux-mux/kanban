@@ -1,7 +1,7 @@
-import { localLoaded } from './updateDOM';
-import { columnNames } from './localStorage';
+import { localLoaded } from '../update/updateDOM';
+import { columnNames } from '../data/columns';
 import { undoItem } from './undoItem';
-import { updateDOM } from './updateDOM';
+import { updateDOM } from '../update/updateDOM';
 
 const overallRemoved = [];
 

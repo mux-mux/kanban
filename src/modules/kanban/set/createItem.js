@@ -1,7 +1,8 @@
 // import { drag } from './dragDropItem';
-// import { editItem } from './editItem';
-import { deleteItem } from './deleteItem';
+import { editItem } from '../modify/editItem';
+import { deleteItem } from '../modify/deleteItem';
 import { deadline } from './deadline';
+import { drag } from '../modify/dragDropItem';
 
 function createItem(columnElement, columnNum, item, itemNum) {
   const listElement = elementWithClass('li', 'drag__list-item');
@@ -19,7 +20,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
   listElement.textContent = item.name;
   listElement.draggable = true;
   listElement.id = itemNum;
-  // listElement.addEventListener('dragstart', (e) => drag(e));
+  listElement.addEventListener('dragstart', (e) => drag(e));
 
   hoverAppearIcon(listElement);
   dblClickEdit(listElement, columnNum, itemNum);
@@ -56,7 +57,7 @@ function dblClickEdit(currentelement, columnNum, itemNum) {
   currentelement.addEventListener('blur', (e) => {
     e.currentTarget.setAttribute('contentEditable', false);
     e.currentTarget.setAttribute('draggable', true);
-    // editItem(columnNum, itemNum);
+    editItem(columnNum, itemNum);
   });
 }
 

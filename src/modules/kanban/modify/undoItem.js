@@ -1,7 +1,6 @@
-import { columnNames } from './localStorage';
-import { updateDOM } from './updateDOM';
+import { columnNames } from '../data/columns';
+import { updateDOM, localLoaded } from '../update/updateDOM';
 import { overallRemoved } from './deleteItem';
-import { localLoaded } from './updateDOM';
 
 const undoBtn = document.querySelector('.tools__history');
 
