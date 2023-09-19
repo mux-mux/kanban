@@ -1,6 +1,6 @@
 // import { drag } from './dragDropItem';
 // import { editItem } from './editItem';
-// import { deleteItem } from './deleteItem';
+import { deleteItem } from './deleteItem';
 import { deadline } from './deadline';
 
 function createItem(columnElement, columnNum, item, itemNum) {
@@ -11,10 +11,10 @@ function createItem(columnElement, columnNum, item, itemNum) {
   deadlinePick.setAttribute('min', deadline());
   deadlinePick.value = item.deadline;
 
-  // removeIcon.src = '../assets/remove.png';
-  // removeIcon.addEventListener('click', () => {
-  //   deleteItem(columnNum, itemNum);
-  // });
+  removeIcon.src = '../assets/remove.png';
+  removeIcon.addEventListener('click', () => {
+    deleteItem(columnNum, itemNum);
+  });
 
   listElement.textContent = item.name;
   listElement.draggable = true;

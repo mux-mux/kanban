@@ -8,21 +8,19 @@ const todoElement = document.getElementById('todo-list'),
   elementsList = [todoElement, inprogressElement, doneElement];
 
 let updatedOnLoad = false;
+let localLoaded = [];
 
 function updateDOM() {
-  let localLoaded = [];
-
   if (!updatedOnLoad) {
     localLoaded = getLocalItems(columnNames);
   }
 
-  console.log(localLoaded);
+  console.log(updatedOnLoad);
 
   elementsList.forEach((element) => (element.textContent = ''));
 
   columnNames.forEach((column, columnNum) => {
     localLoaded[column].items.forEach((item, itemNum) => {
-      console.log(elementsList[columnNum], columnNum, item, itemNum);
       createItem(elementsList[columnNum], columnNum, item, itemNum);
     });
   });
@@ -31,4 +29,4 @@ function updateDOM() {
   setLocalItems(columnNames);
 }
 
-export { updateDOM, elementsList };
+export { updateDOM, elementsList, localLoaded };

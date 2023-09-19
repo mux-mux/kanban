@@ -1,4 +1,5 @@
 import { updateDOM, elementsList } from './updateDOM';
+import { localLoaded } from './updateDOM';
 
 const columns = {
   todo: {
@@ -38,7 +39,7 @@ function getLocalItems(columnNames) {
 
 function setLocalItems(columnNames) {
   columnNames.forEach((column) => {
-    localStorage.setItem(`${column}Items`, JSON.stringify(columns[column].items));
+    localStorage.setItem(`${column}Items`, JSON.stringify(localLoaded[column].items));
   });
   return columns;
 }
