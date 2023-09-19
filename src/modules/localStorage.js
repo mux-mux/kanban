@@ -39,7 +39,7 @@ function getLocalItems(columnNames) {
 
 function setLocalItems(columnNames) {
   columnNames.forEach((column) => {
-    localStorage.setItem(`${column}Items`, JSON.stringify(localLoaded[column].items));
+    localStorage.setItem(`${column}Items`, JSON.stringify(columns[column].items));
   });
   return columns;
 }

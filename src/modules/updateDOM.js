@@ -15,8 +15,6 @@ function updateDOM() {
     localLoaded = getLocalItems(columnNames);
   }
 
-  console.log(updatedOnLoad);
-
   elementsList.forEach((element) => (element.textContent = ''));
 
   columnNames.forEach((column, columnNum) => {
