@@ -1,4 +1,3 @@
-// import { drag } from './dragDropItem';
 import { editItem } from '../modify/editItem';
 import { deleteItem } from '../modify/deleteItem';
 import { deadline } from './deadline';

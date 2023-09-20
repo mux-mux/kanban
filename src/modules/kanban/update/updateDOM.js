@@ -30,11 +30,16 @@ function updateDOM() {
 
 function onDragUpdate() {
   elementsList.forEach((element, index) => {
-    // console.log(localLoaded[columnNames[index]].items);
     localLoaded[columnNames[index]].items = Array.from(element.children).map((item) => {
-      // console.dir(item);
-      console.log(item.childNodes.indexOf('input.deadline'));
-      // { name: item.textContent, deadline: '2023-09-19', pomodoro: false, sessions: 0 }
+      const deadlineIndex = Array.from(item.children).findIndex((item) =>
+        item.classList.contains('deadline')
+      );
+      return {
+        name: item.textContent,
+        deadline: item.children[deadlineIndex].value,
+        pomodoro: false,
+        sessions: 0,
+      };
     });
   });
   updateDOM();
