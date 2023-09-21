@@ -9,13 +9,14 @@ function drag(e) {
   draggedItem.style.setProperty('--display', 'none');
 }
 
-function dragEnter(column) {
+function dragEnter(e, column) {
+  e.preventDefault();
   dragList[column].classList.add('over');
   currentColumn = column;
 }
 
-function allowDrop(e) {
-  e.preventDefault();
+function dragLeave(column) {
+  dragList[column].classList.remove('over');
 }
 
 function drop(e) {
@@ -32,9 +33,9 @@ function drop(e) {
 }
 
 dragList.forEach((list, i) => {
-  list.addEventListener('dragover', (e) => allowDrop(e));
   list.addEventListener('drop', (e) => drop(e));
-  list.addEventListener('dragenter', () => dragEnter(i));
+  list.addEventListener('dragover', (e) => dragEnter(e, i));
+  list.addEventListener('dragleave', () => dragLeave(i));
 });
 
-export { drag, allowDrop, drop };
+export { drag, drop };
