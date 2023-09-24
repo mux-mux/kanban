@@ -1,5 +1,5 @@
-import { itemsList } from './localStorage';
-import { updateDOM } from './updateDOM';
+import { columnNames } from '../data/columns';
+import { updateDOM, localLoaded } from '../update/updateDOM';
 import { overallRemoved } from './deleteItem';
 
 const undoBtn = document.querySelector('.tools__history');
@@ -10,7 +10,8 @@ function undoItem(items, removed) {
   const [item, column] = undoItem.split(', ');
 
   const selectedList = items[column];
-  selectedList.push(item);
+
+  localLoaded[selectedList].items.push(JSON.parse(item)[0]);
 
   updateDOM();
 }
@@ -18,14 +19,14 @@ function undoItem(items, removed) {
 document.addEventListener('keydown', (event) => {
   if (event.ctrlKey && event.key === 'z') {
     if (overallRemoved.length !== 0) {
-      undoItem(itemsList, overallRemoved);
+      undoItem(columnNames, overallRemoved);
     }
   }
 });
 
 undoBtn.addEventListener('click', () => {
   if (overallRemoved.length !== 0) {
-    undoItem(itemsList, overallRemoved);
+    undoItem(columnNames, overallRemoved);
   }
 });
 

@@ -1,16 +1,16 @@
-import { itemsList } from './localStorage';
+import { columnNames } from '../data/columns';
+import { updateDOM, localLoaded } from '../update/updateDOM';
 import { dragList } from './addItem';
-import { updateDOM } from './updateDOM';
 import { deleteItem } from './deleteItem';
 
 function editItem(columnNum, itemNum) {
-  const selectedList = itemsList[columnNum];
+  const selectedList = columnNames[columnNum];
   const selectedItem = dragList[columnNum].children;
 
   if (selectedItem[itemNum].textContent === '') {
     deleteItem(columnNum, itemNum);
   } else {
-    selectedList[itemNum] = selectedItem[itemNum].textContent;
+    localLoaded[selectedList].items[itemNum].name = selectedItem[itemNum].textContent;
   }
   updateDOM();
 }

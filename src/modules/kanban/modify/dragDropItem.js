@@ -1,4 +1,4 @@
-import { updateLists } from './localStorage';
+import { onDragUpdate } from '../update/updateDOM';
 import { dragList } from './addItem';
 
 let draggedItem = null,
@@ -28,7 +28,7 @@ function drop(e) {
   const parent = dragList[currentColumn];
   parent.appendChild(draggedItem);
 
-  updateLists();
+  onDragUpdate();
 }
 
 dragList.forEach((list, i) => {
