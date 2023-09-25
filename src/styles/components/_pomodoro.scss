@@ -5,6 +5,7 @@
   transform: translateY(-50%);
 }
 .pomodoro {
+  @extend .absolute-top-center;
   &__icon {
     @extend .absolute-top-center;
     padding: 5px;
@@ -14,8 +15,11 @@
       color: #ebcc34;
     }
   }
+  &__text {
+    font-size: 1.8rem;
+    margin-right: 2rem;
+  }
   &__timer {
-    @extend .absolute-top-center;
     font-size: 2.4rem;
     color: var(--text-color);
   }
