@@ -1,0 +1,22 @@
+.absolute-top-center {
+  position: absolute;
+  right: 180px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.pomodoro {
+  &__icon {
+    @extend .absolute-top-center;
+    padding: 5px;
+    transition: color 0.5s;
+    display: var(--display);
+    &:hover {
+      color: #ebcc34;
+    }
+  }
+  &__timer {
+    @extend .absolute-top-center;
+    font-size: 2.4rem;
+    color: var(--text-color);
+  }
+}

@@ -7,6 +7,10 @@ function createItem(columnElement, columnNum, item, itemNum) {
   const listElement = elementWithClass('li', 'drag__list-item');
   const removeIcon = elementWithClass('img', 'drag__list-item-remove');
   const deadlinePick = elementWithClass('input', 'deadline');
+  const pomodoro = elementWithClass('i', 'fa-regular');
+  pomodoro.classList.add('fa-circle-play');
+  pomodoro.classList.add('pomodoro__icon');
+
   deadlinePick.setAttribute('type', 'date');
   deadlinePick.setAttribute('min', minDeadline());
   deadlinePick.value = item.deadline;
@@ -27,6 +31,10 @@ function createItem(columnElement, columnNum, item, itemNum) {
 
   hoverAppearIcon(listElement);
   dblClickEdit(listElement, columnNum, itemNum);
+
+  if (columnNum !== 2) {
+    listElement.appendChild(pomodoro);
+  }
 
   listElement.appendChild(deadlinePick);
   listElement.appendChild(removeIcon);
