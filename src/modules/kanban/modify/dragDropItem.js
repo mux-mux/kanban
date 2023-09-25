@@ -10,7 +10,7 @@ function drag(e) {
   draggedItem.style.setProperty('--display', 'none');
 }
 
-function dragEnter(e, column) {
+function dragOver(e, column) {
   e.preventDefault();
 
   const target = e.target;
@@ -21,12 +21,10 @@ function dragEnter(e, column) {
     dragList[currentColumn].appendChild(draggedItem);
   }
 
+  dragList.forEach((list) => list.classList.remove('over'));
+
   dragList[column].classList.add('over');
   currentColumn = column;
-}
-
-function dragLeave(column) {
-  dragList[column].classList.remove('over');
 }
 
 function drop(e) {
@@ -43,8 +41,7 @@ function drop(e) {
 
 dragList.forEach((list, i) => {
   list.addEventListener('drop', (e) => drop(e));
-  list.addEventListener('dragover', (e) => dragEnter(e, i));
-  list.addEventListener('dragleave', () => dragLeave(i));
+  list.addEventListener('dragover', (e) => dragOver(e, i));
 });
 
 export { drag, drop };
