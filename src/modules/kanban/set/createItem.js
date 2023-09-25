@@ -1,6 +1,6 @@
 import { editItem } from '../modify/editItem';
 import { deleteItem } from '../modify/deleteItem';
-import { deadline } from './deadline';
+import { minDeadline } from './deadline';
 import { drag } from '../modify/dragDropItem';
 
 function createItem(columnElement, columnNum, item, itemNum) {
@@ -8,8 +8,12 @@ function createItem(columnElement, columnNum, item, itemNum) {
   const removeIcon = elementWithClass('img', 'drag__list-item-remove');
   const deadlinePick = elementWithClass('input', 'deadline');
   deadlinePick.setAttribute('type', 'date');
-  deadlinePick.setAttribute('min', deadline());
+  deadlinePick.setAttribute('min', minDeadline());
   deadlinePick.value = item.deadline;
+
+  if (columnNum === 2) {
+    deadlinePick.setAttribute('disabled', 'disabled');
+  }
 
   removeIcon.src = '../assets/remove.png';
   removeIcon.addEventListener('click', () => {
