@@ -7,7 +7,6 @@ let draggedItem = null,
 function drag(e) {
   draggedItem = e.currentTarget;
 
-  e.dataTransfer.setData('text/html', draggedItem.innerHTML);
   draggedItem.style.setProperty('--display', 'none');
 }
 
@@ -33,7 +32,6 @@ function dragLeave(column) {
 function drop(e) {
   e.preventDefault();
 
-  draggedItem.innerHTML = e.dataTransfer.getData('text/html');
   draggedItem = null;
 
   dragList.forEach((list) => {
