@@ -1,29 +1,13 @@
 import { editItem } from '../modify/editItem';
 import { deleteItem } from '../modify/deleteItem';
-import { minDeadline } from './deadline';
+import { setDeadline } from './deadline';
 import { drag } from '../modify/dragDropItem';
 
 function createItem(columnElement, columnNum, item, itemNum) {
   const listElement = elementWithClass('li', 'drag__list-item');
   const removeIcon = elementWithClass('img', 'drag__list-item-remove');
-  const deadlinePick = elementWithClass('input', 'deadline');
-  const pomodoroText = document.querySelector('.pomodoro__text');
-  const pomodoroTimer = document.querySelector('.pomodoro__timer');
-  const pomodoro = elementWithClass('i', 'fa-regular');
-  pomodoro.classList.add('fa-circle-play');
-  pomodoro.classList.add('pomodoro__icon');
-  pomodoro.addEventListener('click', (e) => {
-    pomodoroText.textContent = e.target.parentElement.innerText;
-    pomodoroTimer.textContent = '25 : 00';
-  });
 
-  deadlinePick.setAttribute('type', 'date');
-  deadlinePick.setAttribute('min', minDeadline());
-  deadlinePick.value = item.deadline;
-
-  if (columnNum === 2) {
-    deadlinePick.setAttribute('disabled', 'disabled');
-  }
+  const deadlinePick = setDeadline(columnNum, item, itemNum);
 
   removeIcon.src = '../assets/remove.png';
   removeIcon.addEventListener('click', () => {
@@ -97,4 +81,4 @@ function onEnterBlur(ev) {
   });
 }
 
-export { createItem };
+export { createItem, elementWithClass };
