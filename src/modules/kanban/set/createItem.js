@@ -22,6 +22,10 @@ function createItem(columnElement, columnNum, item, itemNum) {
   hoverAppearIcon(listElement);
   dblClickEdit(listElement, columnNum, itemNum);
 
+  if (columnNum !== 2) {
+    listElement.appendChild(pomodoro);
+  }
+
   listElement.appendChild(deadlinePick);
   listElement.appendChild(removeIcon);
   columnElement.appendChild(listElement);
