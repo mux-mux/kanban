@@ -2,12 +2,11 @@ import { elementWithClass } from './createItem';
 import { localLoaded, updateDOM } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 
-function startPomodoroTimer(duration, breakDuration) {
-  const pause = document.querySelector('.fa-pause');
-  const play = document.querySelector('.fa-play');
-
+function startPomodoro(duration, breakDuration, pomodoro) {
   const MM = document.getElementById('minutes');
   const SS = document.getElementById('seconds');
+  const pause = document.querySelector('.fa-pause');
+  const play = document.querySelector('.fa-play');
 
   let timer = duration * 60;
   let isBreak = false;
@@ -16,48 +15,52 @@ function startPomodoroTimer(duration, breakDuration) {
   pause.addEventListener('click', () => {
     pause.style.display = 'none';
     play.style.display = 'block';
+    isPause = true;
+    pomodoro.classList.remove('fa-fade');
   });
 
   play.addEventListener('click', () => {
     play.style.display = 'none';
     pause.style.display = 'block';
+    isPause = false;
+    pomodoro.classList.add('fa-fade');
   });
 
-  if (!isPause) {
-    const interval = setInterval(() => {
-      const minutes = Math.floor(timer / 60);
-      const seconds = timer % 60;
+  const interval = setInterval(() => {
+    const minutes = Math.floor(timer / 60);
+    const seconds = timer % 60;
 
-      MM.textContent = minutes;
-      SS.textContent = seconds.toString().padStart(2, '0');
+    MM.textContent = minutes;
+    SS.textContent = seconds.toString().padStart(2, '0');
 
-      if (timer <= 0) {
-        clearInterval(interval);
+    if (timer <= 0) {
+      clearInterval(interval);
 
-        if (isBreak) {
-          startPomodoroTimer(duration, breakDuration);
-        } else {
-          startPomodoroTimer(breakDuration, duration);
-        }
+      if (isBreak) {
+        startPomodoro(duration, breakDuration);
+      } else {
+        startPomodoro(breakDuration, duration);
       }
-
+    }
+    if (!isPause) {
       timer--;
-    }, 1000);
-  }
+    }
+  }, 1000);
 }
 
 function setPomodoro(columnNum, itemNum) {
-  const pomodoroText = document.querySelector('.pomodoro__text');
-
   const pomodoro = elementWithClass('i', 'fa-regular');
   pomodoro.classList.add('fa-circle-play');
   pomodoro.classList.add('pomodoro__icon');
 
-  pomodoro.addEventListener('click', (e) => {
-    startPomodoroTimer(25, 5);
+  pomodoro.addEventListener('click', lunchPomodoro);
+
+  function lunchPomodoro() {
+    const pomodoroText = document.querySelector('.pomodoro__text');
+    startPomodoro(25, 5, pomodoro);
     document.querySelector('.pomodoro__controls').style.display = 'inline-block';
 
-    pomodoroText.textContent = e.target.parentElement.innerText;
+    pomodoroText.textContent = pomodoro.parentElement.innerText;
 
     for (const columnKey in localLoaded) {
       const column = localLoaded[columnKey];
@@ -69,9 +72,11 @@ function setPomodoro(columnNum, itemNum) {
 
     localLoaded[columnNames[columnNum]].items[itemNum].pomodoro = true;
 
-    e.currentTarget.style.cssText = 'display: block; color: #eccb34';
-    e.currentTarget.classList.add('fa-fade');
-  });
+    pomodoro.style.cssText = 'display: block; color: #eccb34';
+    pomodoro.classList.add('fa-fade');
+
+    pomodoro.removeEventListener('click', lunchPomodoro);
+  }
 
   return pomodoro;
 }
