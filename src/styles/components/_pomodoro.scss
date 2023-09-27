@@ -5,6 +5,10 @@
   transform: translateY(-50%);
 }
 .pomodoro {
+  & > * {
+    display: inline-block;
+    vertical-align: middle;
+  }
   @extend .absolute-top-center;
   &__icon {
     @extend .absolute-top-center;
@@ -20,7 +24,29 @@
     margin-right: 2rem;
   }
   &__timer {
+    min-width: 8rem;
+    text-align: left;
     font-size: 2.4rem;
     color: var(--text-color);
   }
+  &__controls {
+    display: none;
+    width: 4rem;
+  }
+  &__control {
+    display: block;
+    font-size: 2rem;
+    padding: 0.5rem 1rem;
+    transition: color 0.5s;
+    &:hover {
+      color: #999;
+      cursor: pointer;
+    }
+  }
+}
+.fa-pause {
+  display: block;
+}
+.fa-play {
+  display: none;
 }
