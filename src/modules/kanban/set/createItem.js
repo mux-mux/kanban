@@ -2,12 +2,14 @@ import { editItem } from '../modify/editItem';
 import { deleteItem } from '../modify/deleteItem';
 import { setDeadline } from './deadline';
 import { drag } from '../modify/dragDropItem';
+import { setPomodoro } from './pomodoro';
 
 function createItem(columnElement, columnNum, item, itemNum) {
   const listElement = elementWithClass('li', 'drag__list-item');
   const removeIcon = elementWithClass('img', 'drag__list-item-remove');
 
   const deadlinePick = setDeadline(columnNum, item, itemNum);
+  const pomodoro = setPomodoro(columnNum, itemNum);
 
   removeIcon.src = '../assets/remove.png';
   removeIcon.addEventListener('click', () => {
