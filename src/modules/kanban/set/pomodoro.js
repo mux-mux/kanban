@@ -71,11 +71,9 @@ function setPomodoro(columnNum, itemNum) {
     }
 
     localLoaded[columnNames[columnNum]].items[itemNum].pomodoro = true;
-
-    pomodoro.style.cssText = 'display: block; color: #eccb34';
-    pomodoro.classList.add('fa-fade');
-
     pomodoro.removeEventListener('click', lunchPomodoro);
+
+    updateDOM();
   }
 
   return pomodoro;
