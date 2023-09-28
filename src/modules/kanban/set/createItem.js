@@ -3,6 +3,8 @@ import { deleteItem } from '../modify/deleteItem';
 import { setDeadline } from './deadline';
 import { drag } from '../modify/dragDropItem';
 import { setPomodoro } from './pomodoro';
+import { localLoaded } from '../update/updateDOM';
+import { columnNames } from '../data/columns';
 
 function createItem(columnElement, columnNum, item, itemNum) {
   const listElement = elementWithClass('li', 'drag__list-item');
@@ -10,6 +12,11 @@ function createItem(columnElement, columnNum, item, itemNum) {
 
   const deadlinePick = setDeadline(columnNum, item, itemNum);
   const pomodoro = setPomodoro(columnNum, itemNum);
+
+  if (localLoaded[columnNames[columnNum]].items[itemNum].pomodoro === true) {
+    pomodoro.style.cssText = 'display: block; color: #eccb34';
+    pomodoro.classList.add('fa-fade');
+  }
 
   removeIcon.src = '../assets/remove.png';
   removeIcon.addEventListener('click', () => {
