@@ -1,12 +1,14 @@
 import { elementWithClass } from './createItem';
 import { localLoaded, updateDOM } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
+import { setLocalItems } from '../update/localStorage';
 
-function startPomodoro(duration, breakDuration, pomodoro) {
+function startPomodoro(duration, breakDuration, pomodoro, columnNum, itemNum) {
   const MM = document.getElementById('minutes');
   const SS = document.getElementById('seconds');
   const pause = document.querySelector('.fa-pause');
   const play = document.querySelector('.fa-play');
+  const itemData = localLoaded[columnNames[columnNum]].items[itemNum];
 
   let timer = duration * 60;
   let isBreak = false;
@@ -35,6 +37,8 @@ function startPomodoro(duration, breakDuration, pomodoro) {
 
     if (timer <= 0) {
       clearInterval(interval);
+      itemData.pomodoro = false;
+      itemData.session++;
 
       if (isBreak) {
         startPomodoro(duration, breakDuration);
@@ -45,7 +49,13 @@ function startPomodoro(duration, breakDuration, pomodoro) {
     if (!isPause) {
       timer--;
     }
+    if (itemData.pomodoro === true) {
+      itemData.time = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    }
+    setLocalItems(columnNames);
   }, 1000);
+
+  return interval;
 }
 
 function setPomodoro(columnNum, itemNum) {
@@ -57,7 +67,7 @@ function setPomodoro(columnNum, itemNum) {
 
   function lunchPomodoro() {
     const pomodoroText = document.querySelector('.pomodoro__text');
-    startPomodoro(25, 5, pomodoro);
+    startPomodoro(25, 5, pomodoro, columnNum, itemNum);
     document.querySelector('.pomodoro__controls').style.display = 'inline-block';
 
     pomodoroText.textContent = pomodoro.parentElement.innerText;
@@ -67,16 +77,16 @@ function setPomodoro(columnNum, itemNum) {
 
       for (const item of column.items) {
         item.pomodoro = false;
+        item.time = '';
       }
     }
 
     localLoaded[columnNames[columnNum]].items[itemNum].pomodoro = true;
-    pomodoro.removeEventListener('click', lunchPomodoro);
 
     updateDOM();
   }
 
-  return pomodoro;
+  return { pomodoro, lunchPomodoro };
 }
 
 export { setPomodoro };

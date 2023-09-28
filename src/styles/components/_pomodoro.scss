@@ -5,6 +5,7 @@
   transform: translateY(-50%);
 }
 .pomodoro {
+  color: var(--text-color);
   & > * {
     display: inline-block;
     vertical-align: middle;
@@ -27,7 +28,6 @@
     min-width: 8rem;
     text-align: left;
     font-size: 2.4rem;
-    color: var(--text-color);
   }
   &__controls {
     display: none;

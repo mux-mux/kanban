@@ -9,13 +9,22 @@ import { columnNames } from '../data/columns';
 function createItem(columnElement, columnNum, item, itemNum) {
   const listElement = elementWithClass('li', 'drag__list-item');
   const removeIcon = elementWithClass('img', 'drag__list-item-remove');
+  const MM = document.getElementById('minutes');
+  const SS = document.getElementById('seconds');
+  const pomodoroText = document.querySelector('.pomodoro__text');
 
   const deadlinePick = setDeadline(columnNum, item, itemNum);
-  const pomodoro = setPomodoro(columnNum, itemNum);
+  const timer = setPomodoro(columnNum, itemNum);
+  const itemData = localLoaded[columnNames[columnNum]].items[itemNum];
 
-  if (localLoaded[columnNames[columnNum]].items[itemNum].pomodoro === true) {
-    pomodoro.style.cssText = 'display: block; color: #eccb34';
-    pomodoro.classList.add('fa-fade');
+  if (itemData.pomodoro === true) {
+    timer.pomodoro.style.cssText = 'display: block; color: #eccb34';
+    timer.pomodoro.classList.add('fa-fade');
+    timer.pomodoro.removeEventListener('click', timer.lunchPomodoro);
+    const time = itemData.time.split(':');
+    MM.textContent = time[0];
+    SS.textContent = time[1];
+    pomodoroText.textContent = itemData.name;
   }
 
   removeIcon.src = '../assets/remove.png';
@@ -32,7 +41,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
   dblClickEdit(listElement, columnNum, itemNum);
 
   if (columnNum !== 2) {
-    listElement.appendChild(pomodoro);
+    listElement.appendChild(timer.pomodoro);
   }
 
   listElement.appendChild(deadlinePick);
