@@ -2,7 +2,7 @@ import { editItem } from '../modify/editItem';
 import { deleteItem } from '../modify/deleteItem';
 import { setDeadline } from './deadline';
 import { drag } from '../modify/dragDropItem';
-import { setPomodoro } from './pomodoro';
+import { setPomodoro, startPomodoro } from './pomodoro';
 import { localLoaded } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 
@@ -20,11 +20,16 @@ function createItem(columnElement, columnNum, item, itemNum) {
   if (itemData.pomodoro === true) {
     timer.pomodoro.style.cssText = 'display: block; color: #eccb34';
     timer.pomodoro.classList.add('fa-fade');
+    document.querySelector('.pomodoro__controls').style.display = 'inline-block';
     timer.pomodoro.removeEventListener('click', timer.lunchPomodoro);
-    const time = itemData.time.split(':');
+
+    const time = itemData.time === '' ? ['25', '00'] : itemData.time.split(':');
+
     MM.textContent = time[0];
     SS.textContent = time[1];
     pomodoroText.textContent = itemData.name;
+
+    startPomodoro(+time[0] + +time[1] / 60, 5, timer.pomodoro, columnNum, itemNum);
   }
 
   removeIcon.src = '../assets/remove.png';
