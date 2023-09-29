@@ -28,12 +28,9 @@ function startPomodoro(duration, breakDuration, pomodoro, columnNum, itemNum) {
     pomodoro.classList.add('fa-fade');
   });
 
-  const interval = setInterval(() => {
+  function pomodoroLogic() {
     const minutes = Math.floor(timer / 60);
     const seconds = timer % 60;
-
-    MM.textContent = minutes;
-    SS.textContent = seconds.toString().padStart(2, '0');
 
     if (timer <= 0) {
       clearInterval(interval);
@@ -48,14 +45,18 @@ function startPomodoro(duration, breakDuration, pomodoro, columnNum, itemNum) {
     }
     if (!isPause) {
       timer--;
+      MM.textContent = minutes;
+      SS.textContent = seconds.toString().padStart(2, '0');
     }
     if (itemData.pomodoro === true) {
       itemData.time = `${minutes}:${seconds.toString().padStart(2, '0')}`;
     }
     setLocalItems(columnNames);
-  }, 1000);
+  }
 
-  return interval;
+  pomodoroLogic();
+
+  const interval = setInterval(pomodoroLogic, 1000);
 }
 
 function setPomodoro(columnNum, itemNum) {
@@ -89,4 +90,4 @@ function setPomodoro(columnNum, itemNum) {
   return { pomodoro, lunchPomodoro };
 }
 
-export { setPomodoro };
+export { setPomodoro, startPomodoro };
