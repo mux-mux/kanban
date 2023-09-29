@@ -32,9 +32,6 @@ function startPomodoro(duration, breakDuration, pomodoro, columnNum, itemNum) {
     const minutes = Math.floor(timer / 60);
     const seconds = timer % 60;
 
-    MM.textContent = minutes;
-    SS.textContent = seconds.toString().padStart(2, '0');
-
     if (timer <= 0) {
       clearInterval(interval);
       itemData.pomodoro = false;
@@ -48,6 +45,8 @@ function startPomodoro(duration, breakDuration, pomodoro, columnNum, itemNum) {
     }
     if (!isPause) {
       timer--;
+      MM.textContent = minutes;
+      SS.textContent = seconds.toString().padStart(2, '0');
     }
     if (itemData.pomodoro === true) {
       itemData.time = `${minutes}:${seconds.toString().padStart(2, '0')}`;
