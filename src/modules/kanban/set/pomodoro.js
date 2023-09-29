@@ -57,7 +57,7 @@ function startPomodoro(duration, breakDuration, pomodoro, columnNum, itemNum) {
 
   pomodoroLogic();
 
-  const interval = setInterval(pomodoroLogic, 3000);
+  const interval = setInterval(pomodoroLogic, 1000);
 }
 
 function setPomodoro(columnNum, itemNum) {
