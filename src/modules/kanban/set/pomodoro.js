@@ -3,6 +3,8 @@ import { localLoaded, updateDOM } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 import { setLocalItems } from '../update/localStorage';
 
+let interval = null;
+
 function startPomodoro(duration, breakDuration, pomodoro, columnNum, itemNum) {
   const MM = document.getElementById('minutes');
   const SS = document.getElementById('seconds');
@@ -56,7 +58,12 @@ function startPomodoro(duration, breakDuration, pomodoro, columnNum, itemNum) {
 
   pomodoroLogic();
 
-  const interval = setInterval(pomodoroLogic, 1000);
+  if (interval) {
+    clearInterval(interval);
+    interval = setInterval(pomodoroLogic, 1000);
+  } else {
+    interval = setInterval(pomodoroLogic, 1000);
+  }
 }
 
 function setPomodoro(columnNum, itemNum) {
