@@ -97,4 +97,4 @@ function setPomodoro(columnNum, itemNum) {
   return { pomodoro, lunchPomodoro };
 }
 
-export { setPomodoro, startPomodoro };
+export { setPomodoro, startPomodoro, interval };

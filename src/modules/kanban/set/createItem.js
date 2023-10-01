@@ -9,31 +9,18 @@ import { columnNames } from '../data/columns';
 function createItem(columnElement, columnNum, item, itemNum) {
   const listElement = elementWithClass('li', 'drag__list-item');
   const removeIcon = elementWithClass('img', 'drag__list-item-remove');
-  const MM = document.getElementById('minutes');
-  const SS = document.getElementById('seconds');
-  const pomodoroText = document.querySelector('.pomodoro__text');
-
-  const deadlinePick = setDeadline(columnNum, item, itemNum);
   const timer = setPomodoro(columnNum, itemNum);
   const itemData = localLoaded[columnNames[columnNum]].items[itemNum];
 
+  const deadlinePick = setDeadline(columnNum, item, itemNum);
+
   if (itemData.pomodoro === true) {
-    timer.pomodoro.style.cssText = 'display: block; color: #eccb34';
-    timer.pomodoro.classList.add('fa-fade');
-    document.querySelector('.pomodoro__controls').style.display = 'inline-block';
-    timer.pomodoro.removeEventListener('click', timer.lunchPomodoro);
-
-    const time = itemData.time === '' ? ['25', '00'] : itemData.time.split(':');
-
-    MM.textContent = time[0];
-    SS.textContent = time[1];
-    pomodoroText.textContent = itemData.name;
-
-    startPomodoro(+time[0] + +time[1] / 60, 5, timer.pomodoro, columnNum, itemNum);
+    pomodoroInit(timer, itemData, 'init', columnNum, itemNum);
   }
 
   removeIcon.src = '../assets/remove.png';
   removeIcon.addEventListener('click', () => {
+    pomodoroInit(timer, itemData, 'remove', columnNum, itemNum);
     deleteItem(columnNum, itemNum);
   });
 
@@ -52,6 +39,37 @@ function createItem(columnElement, columnNum, item, itemNum) {
   listElement.appendChild(deadlinePick);
   listElement.appendChild(removeIcon);
   columnElement.appendChild(listElement);
+}
+
+function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
+  const MM = document.getElementById('minutes');
+  const SS = document.getElementById('seconds');
+
+  const pomodoroText = document.querySelector('.pomodoro__text');
+
+  timer.pomodoro.removeEventListener('click', timer.lunchPomodoro);
+
+  let time = itemData.time === '' ? ['25', '00'] : itemData.time.split(':');
+
+  timer.pomodoro.style.cssText =
+    state === 'init' ? 'display: block; color: #eccb34' : 'display: none; color: initial';
+  state === 'init'
+    ? timer.pomodoro.classList.add('fa-fade')
+    : timer.pomodoro.classList.remove('fa-fade');
+  document.querySelector('.pomodoro__controls').style.display =
+    state === 'init' ? 'inline-block' : 'none';
+  pomodoroText.textContent = state === 'init' ? itemData.name : '';
+
+  if (state === 'init') {
+    startPomodoro(+time[0] + +time[1] / 60, 5, timer.pomodoro, columnNum, itemNum);
+  } else {
+    itemData.pomodoro = false;
+    itemData.time = '';
+    time = ['25', '00'];
+  }
+
+  MM.textContent = time[0];
+  SS.textContent = time[1];
 }
 
 function hoverAppearIcon(currentelement) {
