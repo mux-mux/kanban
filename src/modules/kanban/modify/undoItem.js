@@ -1,4 +1,5 @@
 import { columnNames } from '../data/columns';
+import { minDeadline } from '../set/deadline';
 import { updateDOM, localLoaded } from '../update/updateDOM';
 import { overallRemoved } from './deleteItem';
 
@@ -12,8 +13,12 @@ function undoItem(items, removed, state) {
   column = state === 'done' ? 2 : column;
 
   const selectedList = items[column];
+  const parsedItem = JSON.parse(item)[0];
 
-  localLoaded[selectedList].items.push(JSON.parse(item)[0]);
+  if (state === 'done') {
+    parsedItem.done = minDeadline();
+  }
+  localLoaded[selectedList].items.push(parsedItem);
 
   updateDOM();
 }
