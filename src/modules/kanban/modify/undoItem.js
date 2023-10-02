@@ -4,10 +4,12 @@ import { overallRemoved } from './deleteItem';
 
 const undoBtn = document.querySelector('.tools__history');
 
-function undoItem(items, removed) {
+function undoItem(items, removed, state) {
   const undoItem = removed.pop();
 
-  const [item, column] = undoItem.split(', ');
+  let [item, column] = undoItem.split(', ');
+
+  column = state === 'done' ? 2 : column;
 
   const selectedList = items[column];
 

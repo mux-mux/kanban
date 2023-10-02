@@ -2,6 +2,9 @@ import { elementWithClass } from './createItem';
 import { localLoaded, updateDOM } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 import { setLocalItems } from '../update/localStorage';
+import { deleteItem, overallRemoved } from '../modify/deleteItem';
+import { pomodoroInit } from './createItem';
+import { undoItem } from '../modify/undoItem';
 
 let interval = null;
 
@@ -10,6 +13,7 @@ function startPomodoro(duration, breakDuration, pomodoro, columnNum, itemNum) {
   const SS = document.getElementById('seconds');
   const pause = document.querySelector('.fa-pause');
   const play = document.querySelector('.fa-play');
+  const done = document.querySelector('.fa-check');
   const itemData = localLoaded[columnNames[columnNum]].items[itemNum];
 
   let timer = duration * 60;
@@ -18,16 +22,22 @@ function startPomodoro(duration, breakDuration, pomodoro, columnNum, itemNum) {
 
   pause.addEventListener('click', () => {
     pause.style.display = 'none';
-    play.style.display = 'block';
+    play.style.display = 'inline-block';
     isPause = true;
     pomodoro.classList.remove('fa-fade');
   });
 
   play.addEventListener('click', () => {
     play.style.display = 'none';
-    pause.style.display = 'block';
+    pause.style.display = 'inline-block';
     isPause = false;
     pomodoro.classList.add('fa-fade');
+  });
+
+  done.addEventListener('click', () => {
+    pomodoroInit(setPomodoro(columnNum, itemNum), itemData, 'remove', columnNum, itemNum);
+    deleteItem(columnNum, itemNum);
+    undoItem(columnNames, overallRemoved, 'done');
   });
 
   function pomodoroLogic() {
@@ -75,7 +85,6 @@ function setPomodoro(columnNum, itemNum) {
 
   function lunchPomodoro() {
     const pomodoroText = document.querySelector('.pomodoro__text');
-    startPomodoro(25, 5, pomodoro, columnNum, itemNum);
     document.querySelector('.pomodoro__controls').style.display = 'inline-block';
 
     pomodoroText.textContent = pomodoro.parentElement.innerText;

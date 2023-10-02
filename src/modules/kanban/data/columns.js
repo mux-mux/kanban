@@ -19,8 +19,16 @@ const columns = {
         pomodoro: false,
         sessions: 0,
         time: '',
+        done: '2024-09-19',
       },
-      { name: 'Check emails', deadline: '2024-09-19', pomodoro: false, sessions: 0, time: '' },
+      {
+        name: 'Check emails',
+        deadline: '2024-09-19',
+        pomodoro: false,
+        sessions: 0,
+        time: '',
+        done: '2024-09-19',
+      },
     ],
   },
 };

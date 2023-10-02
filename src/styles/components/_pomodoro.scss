@@ -25,19 +25,20 @@
     margin-right: 2rem;
   }
   &__timer {
-    min-width: 8rem;
+    min-width: 9rem;
     text-align: left;
     font-size: 2.4rem;
   }
   &__controls {
     display: none;
-    width: 4rem;
+    width: 9rem;
   }
   &__control {
-    display: block;
+    display: inline-block;
     font-size: 2rem;
     padding: 0.5rem 1rem;
     transition: color 0.5s;
+    width: 4rem;
     &:hover {
       color: #999;
       cursor: pointer;
@@ -45,7 +46,7 @@
   }
 }
 .fa-pause {
-  display: block;
+  display: inline-block;
 }
 .fa-play {
   display: none;
