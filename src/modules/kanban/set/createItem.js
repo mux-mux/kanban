@@ -9,18 +9,18 @@ import { columnNames } from '../data/columns';
 function createItem(columnElement, columnNum, item, itemNum) {
   const listElement = elementWithClass('li', 'drag__list-item');
   const removeIcon = elementWithClass('img', 'drag__list-item-remove');
-  const timer = setPomodoro(columnNum, itemNum);
+  const pomodoroIcon = setPomodoro(columnNum, itemNum);
   const itemData = localLoaded[columnNames[columnNum]].items[itemNum];
 
   const deadlinePick = setDeadline(columnNum, item, itemNum);
 
   if (itemData.pomodoro === true) {
-    pomodoroInit(timer, itemData, 'init', columnNum, itemNum);
+    pomodoroInit(pomodoroIcon, itemData, 'init', columnNum, itemNum);
   }
 
   removeIcon.src = '../assets/remove.png';
   removeIcon.addEventListener('click', () => {
-    pomodoroInit(timer, itemData, 'remove', columnNum, itemNum);
+    pomodoroInit(pomodoroIcon, itemData, 'remove', columnNum, itemNum);
     deleteItem(columnNum, itemNum);
   });
 
@@ -33,7 +33,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
   dblClickEdit(listElement, columnNum, itemNum);
 
   if (columnNum !== 2) {
-    listElement.appendChild(timer.pomodoro);
+    listElement.appendChild(pomodoroIcon.pomodoro);
   }
 
   listElement.appendChild(deadlinePick);
@@ -122,4 +122,4 @@ function onEnterBlur(ev) {
   });
 }
 
-export { createItem, elementWithClass };
+export { createItem, elementWithClass, pomodoroInit };
