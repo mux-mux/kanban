@@ -35,10 +35,9 @@ function startPomodoro(duration, breakDuration, pomodoro, columnNum, itemNum) {
   });
 
   done.addEventListener('click', () => {
-    console.log(setPomodoro(columnNum, itemNum));
-    pomodoroInit('', itemData, 'remove', columnNum, itemNum);
-    // deleteItem(columnNum, itemNum);
-    // undoItem(columnNames, overallRemoved, 'done');
+    pomodoroInit(setPomodoro(columnNum, itemNum), itemData, 'remove', columnNum, itemNum);
+    deleteItem(columnNum, itemNum);
+    undoItem(columnNames, overallRemoved, 'done');
   });
 
   function pomodoroLogic() {
@@ -86,7 +85,6 @@ function setPomodoro(columnNum, itemNum) {
 
   function lunchPomodoro() {
     const pomodoroText = document.querySelector('.pomodoro__text');
-    startPomodoro(25, 5, pomodoro, columnNum, itemNum);
     document.querySelector('.pomodoro__controls').style.display = 'inline-block';
 
     pomodoroText.textContent = pomodoro.parentElement.innerText;
