@@ -7,6 +7,7 @@ import { pomodoroInit } from './createItem';
 import { undoItem } from '../modify/undoItem';
 
 let interval = null;
+let isBreak = false;
 
 function startPomodoro(duration, breakDuration, pomodoro, columnNum, itemNum) {
   const MM = document.getElementById('minutes');
@@ -14,10 +15,10 @@ function startPomodoro(duration, breakDuration, pomodoro, columnNum, itemNum) {
   const pause = document.querySelector('.fa-pause');
   const play = document.querySelector('.fa-play');
   const done = document.querySelector('.fa-check');
+  const rest = document.querySelector('.pomodoro__break');
   const itemData = localLoaded[columnNames[columnNum]].items[itemNum];
 
   let timer = duration * 60;
-  let isBreak = false;
   let isPause = false;
 
   pause.addEventListener('click', () => {
@@ -46,13 +47,21 @@ function startPomodoro(duration, breakDuration, pomodoro, columnNum, itemNum) {
 
     if (timer <= 0) {
       clearInterval(interval);
-      itemData.pomodoro = false;
-      itemData.session++;
+      // itemData.pomodoro = false;
+      if (!isBreak) {
+        itemData.sessions++;
+      }
+
+      updateDOM();
+
+      isBreak = !isBreak;
 
       if (isBreak) {
-        startPomodoro(duration, breakDuration);
+        rest.style.display = 'block';
+        startPomodoro(5, 25, pomodoro, columnNum, itemNum);
       } else {
-        startPomodoro(breakDuration, duration);
+        rest.style.display = 'none';
+        startPomodoro(25, 5, pomodoro, columnNum, itemNum);
       }
     }
     if (!isPause) {
