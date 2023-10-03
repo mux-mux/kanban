@@ -54,16 +54,16 @@ function startPomodoro(duration, pomodoro, columnNum, itemNum) {
         itemData.sessions++;
       }
 
-      updateDOM();
-
       itemData.break = !itemData.break;
 
       if (itemData.break) {
         pomodoroBreak.style.display = 'block';
         startPomodoro(5, pomodoro, columnNum, itemNum);
+        updateDOM();
       } else {
         pomodoroBreak.style.display = 'none';
         startPomodoro(25, pomodoro, columnNum, itemNum);
+        updateDOM();
       }
     }
     if (!isPause) {

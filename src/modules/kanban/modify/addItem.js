@@ -32,6 +32,8 @@ function addToColumn(column) {
         deadline: minDeadline(),
         pomodoro: false,
         sessions: 0,
+        time: '',
+        break: false,
       })
     : null;
   addItems[column].textContent = '';

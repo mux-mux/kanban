@@ -25,6 +25,8 @@ function createItem(columnElement, columnNum, item, itemNum) {
     pomodoroInit(pomodoroIcon, itemData, 'init', columnNum, itemNum);
   }
 
+  changeIconOnBreak(itemData, pomodoroIcon);
+
   removeIcon.src = '../assets/remove.png';
   removeIcon.addEventListener('click', () => {
     pomodoroInit(pomodoroIcon, itemData, 'remove', columnNum, itemNum);
@@ -57,7 +59,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
 
   timer.pomodoro.removeEventListener('click', timer.lunchPomodoro);
 
-  let time = itemData.time === '' ? ['1', '00'] : itemData.time.split(':');
+  let time = itemData.time === '' ? ['25', '00'] : itemData.time.split(':');
 
   timer.pomodoro.style.cssText =
     state === 'init' ? 'display: block; color: #eccb34' : 'display: none; color: initial';
@@ -73,11 +75,26 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   } else {
     itemData.pomodoro = false;
     itemData.time = '';
-    time = ['1', '00'];
+    time = ['25', '00'];
   }
 
   MM.textContent = time[0] < 10 ? `0${time[0]}` : time[0];
   SS.textContent = time[1];
+}
+
+function changeIconOnBreak(data, icon) {
+  if (data.break === true) {
+    changeIcon(icon, 'fa-regular', 'fa-circle-play', 'fa-solid', 'fa-mug-hot');
+  }
+
+  if (data.break === false && icon.pomodoro.classList.contains('fa-mug-hot')) {
+    changeIcon(icon, 'fa-solid', 'fa-mug-hot', 'fa-regular', 'fa-circle-play');
+  }
+
+  function changeIcon(icon, rem1, rem2, add1, add2) {
+    icon.pomodoro.classList.remove(rem1, rem2);
+    icon.pomodoro.classList.add(add1, add2);
+  }
 }
 
 function hoverAppearIcon(currentelement) {
