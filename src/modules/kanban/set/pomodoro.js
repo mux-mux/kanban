@@ -7,19 +7,22 @@ import { pomodoroInit } from './createItem';
 import { undoItem } from '../modify/undoItem';
 
 let interval = null;
-let isBreak = false;
 
-function startPomodoro(duration, breakDuration, pomodoro, columnNum, itemNum) {
+function startPomodoro(duration, pomodoro, columnNum, itemNum) {
   const MM = document.getElementById('minutes');
   const SS = document.getElementById('seconds');
   const pause = document.querySelector('.fa-pause');
   const play = document.querySelector('.fa-play');
   const done = document.querySelector('.fa-check');
-  const rest = document.querySelector('.pomodoro__break');
+  const pomodoroBreak = document.querySelector('.pomodoro__break');
   const itemData = localLoaded[columnNames[columnNum]].items[itemNum];
 
   let timer = duration * 60;
   let isPause = false;
+
+  if (itemData.break) {
+    pomodoroBreak.style.display = 'block';
+  }
 
   pause.addEventListener('click', () => {
     pause.style.display = 'none';
@@ -47,26 +50,25 @@ function startPomodoro(duration, breakDuration, pomodoro, columnNum, itemNum) {
 
     if (timer <= 0) {
       clearInterval(interval);
-      // itemData.pomodoro = false;
-      if (!isBreak) {
+      if (!itemData.break) {
         itemData.sessions++;
       }
 
       updateDOM();
 
-      isBreak = !isBreak;
+      itemData.break = !itemData.break;
 
-      if (isBreak) {
-        rest.style.display = 'block';
-        startPomodoro(5, 25, pomodoro, columnNum, itemNum);
+      if (itemData.break) {
+        pomodoroBreak.style.display = 'block';
+        startPomodoro(5, pomodoro, columnNum, itemNum);
       } else {
-        rest.style.display = 'none';
-        startPomodoro(25, 5, pomodoro, columnNum, itemNum);
+        pomodoroBreak.style.display = 'none';
+        startPomodoro(25, pomodoro, columnNum, itemNum);
       }
     }
     if (!isPause) {
       timer--;
-      MM.textContent = minutes;
+      MM.textContent = minutes < 10 ? `0${minutes}` : minutes;
       SS.textContent = seconds.toString().padStart(2, '0');
     }
     if (itemData.pomodoro === true) {

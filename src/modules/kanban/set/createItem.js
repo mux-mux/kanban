@@ -57,7 +57,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
 
   timer.pomodoro.removeEventListener('click', timer.lunchPomodoro);
 
-  let time = itemData.time === '' ? ['25', '00'] : itemData.time.split(':');
+  let time = itemData.time === '' ? ['1', '00'] : itemData.time.split(':');
 
   timer.pomodoro.style.cssText =
     state === 'init' ? 'display: block; color: #eccb34' : 'display: none; color: initial';
@@ -69,14 +69,14 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   pomodoroText.textContent = state === 'init' ? itemData.name : '';
 
   if (state === 'init') {
-    startPomodoro(+time[0] + +time[1] / 60, 5, timer.pomodoro, columnNum, itemNum);
+    startPomodoro(+time[0] + +time[1] / 60, timer.pomodoro, columnNum, itemNum);
   } else {
     itemData.pomodoro = false;
     itemData.time = '';
-    time = ['25', '00'];
+    time = ['1', '00'];
   }
 
-  MM.textContent = time[0];
+  MM.textContent = time[0] < 10 ? `0${time[0]}` : time[0];
   SS.textContent = time[1];
 }
 

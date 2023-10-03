@@ -31,7 +31,7 @@
   }
   &__controls {
     display: none;
-    width: 9rem;
+    width: 13rem;
   }
   &__control {
     display: inline-block;
@@ -61,7 +61,8 @@
     color: #32a1d9;
   }
 }
-.fa-pause {
+.fa-pause,
+.fa-stop {
   display: inline-block;
 }
 .fa-play {
