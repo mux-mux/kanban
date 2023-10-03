@@ -44,6 +44,17 @@
       cursor: pointer;
     }
   }
+  &__sessions {
+    position: absolute;
+    bottom: 0;
+    left: 15px;
+  }
+  &__session {
+    position: absolute;
+    bottom: 1px;
+    padding: 1px 4px;
+    background-color: green;
+  }
 }
 .fa-pause {
   display: inline-block;

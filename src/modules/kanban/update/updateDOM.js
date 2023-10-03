@@ -31,8 +31,8 @@ function updateDOM() {
 function onDragUpdate() {
   elementsList.forEach((element, index) => {
     localLoaded[columnNames[index]].items = Array.from(element.children).map((item) => {
-      const deadlineIndex = Array.from(item.children).findIndex((item) =>
-        item.classList.contains('deadline')
+      const deadlineIndex = Array.from(item.children).findIndex((child) =>
+        child.classList.contains('deadline')
       );
       return {
         name: item.textContent,
