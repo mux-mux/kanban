@@ -11,8 +11,15 @@ function createItem(columnElement, columnNum, item, itemNum) {
   const removeIcon = elementWithClass('img', 'drag__list-item-remove');
   const pomodoroIcon = setPomodoro(columnNum, itemNum);
   const itemData = localLoaded[columnNames[columnNum]].items[itemNum];
+  const sessionsContainer = elementWithClass('ul', 'pomodoro__sessions');
 
   const deadlinePick = setDeadline(columnNum, item, itemNum);
+
+  for (let i = 0; i < itemData.sessions; i++) {
+    const sessionElement = elementWithClass('li', 'pomodoro__session');
+    sessionElement.style.left = 12 * i + 'px';
+    sessionsContainer.appendChild(sessionElement);
+  }
 
   if (itemData.pomodoro === true) {
     pomodoroInit(pomodoroIcon, itemData, 'init', columnNum, itemNum);
@@ -36,6 +43,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
     listElement.appendChild(pomodoroIcon.pomodoro);
   }
 
+  listElement.appendChild(sessionsContainer);
   listElement.appendChild(deadlinePick);
   listElement.appendChild(removeIcon);
   columnElement.appendChild(listElement);
