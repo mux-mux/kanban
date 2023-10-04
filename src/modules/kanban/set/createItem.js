@@ -3,7 +3,7 @@ import { deleteItem } from '../modify/deleteItem';
 import { setDeadline } from './deadline';
 import { drag } from '../modify/dragDropItem';
 import { setPomodoro, startPomodoro } from './pomodoro';
-import { localLoaded } from '../update/updateDOM';
+import { localLoaded, updateDOM } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 
 function createItem(columnElement, columnNum, item, itemNum) {
@@ -59,10 +59,10 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
 
   timer.pomodoro.removeEventListener('click', timer.lunchPomodoro);
 
-  let time = itemData.time === '' ? ['25', '00'] : itemData.time.split(':');
+  let time = itemData.time === '' ? ['1', '00'] : itemData.time.split(':');
 
   timer.pomodoro.style.cssText =
-    state === 'init' ? 'display: block; color: #eccb34' : 'display: none; color: initial';
+    state === 'init' ? 'display: block; color: #eccb34' : 'display: var(--display);';
   state === 'init'
     ? timer.pomodoro.classList.add('fa-fade')
     : timer.pomodoro.classList.remove('fa-fade');
@@ -71,11 +71,13 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   pomodoroText.textContent = state === 'init' ? itemData.name : '';
 
   if (state === 'init') {
-    startPomodoro(+time[0] + +time[1] / 60, timer.pomodoro, columnNum, itemNum);
+    startPomodoro(+time[0] + +time[1] / 60, timer, columnNum, itemNum);
   } else {
     itemData.pomodoro = false;
     itemData.time = '';
-    time = ['25', '00'];
+    time = ['1', '00'];
+
+    updateDOM();
   }
 
   MM.textContent = time[0] < 10 ? `0${time[0]}` : time[0];
