@@ -31,9 +31,8 @@ function updateDOM() {
 function onDragUpdate() {
   elementsList.forEach((element, index) => {
     localLoaded[columnNames[index]].items = Array.from(element.children).map((item) => {
-      const deadlineIndex = Array.from(item.children).findIndex((child) =>
-        child.classList.contains('deadline')
-      );
+      const deadlineIndex = findClassIndex(item, 'deadline');
+
       return {
         name: item.textContent,
         deadline: item.children[deadlineIndex].value,
@@ -43,6 +42,10 @@ function onDragUpdate() {
     });
   });
   updateDOM();
+}
+
+function findClassIndex(item, clazz) {
+  return Array.from(item.children).findIndex((child) => child.classList.contains(clazz));
 }
 
 export { updateDOM, onDragUpdate, elementsList, localLoaded };

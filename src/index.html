@@ -28,8 +28,9 @@
   <body>
     <div class="container">
       <header class="header">
-        <div class="header__tools tools">
-          <i class="fa-solid fa-trash-can-arrow-up tools__history"></i>
+        <div class="header__tools">
+          <i class="fa-solid fa-trash-can-arrow-up tools tools-history"></i>
+          <i class="fa-solid fa-calendar-check tools tools-archive"></i>
         </div>
         <h1 class="heading-primary m2">Kanban</h1>
         <div class="pomodoro">
@@ -95,6 +96,9 @@
         </li>
         <li class="drag__column done">
           <h2 class="heading-secondary done__title p2">Done</h2>
+          <span class="move-to-archive">
+            Move Done Items to <i class="fa-solid fa-calendar-check move-to-archive-icon"></i>
+          </span>
           <div class="done__content custom-scroll">
             <ul class="drag__list" id="done-list"></ul>
           </div>

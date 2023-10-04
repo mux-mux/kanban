@@ -29,6 +29,7 @@ function addToColumn(column) {
   itemText.trim().length > 0
     ? localLoaded[selectedList].items.push({
         name: itemText,
+        add: minDeadline(),
         deadline: minDeadline(),
         pomodoro: false,
         sessions: 0,
