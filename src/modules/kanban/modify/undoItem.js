@@ -3,12 +3,12 @@ import { minDeadline } from '../set/deadline';
 import { updateDOM, localLoaded } from '../update/updateDOM';
 import { overallRemoved } from './deleteItem';
 
-const undoBtn = document.querySelector('.tools__history');
+const undoBtn = document.querySelector('.tools-history');
 
 function undoItem(items, removed, state) {
-  const undoItem = removed.pop();
+  const getBackItem = removed.pop();
 
-  let [item, column] = undoItem.split(', ');
+  let [item, column] = getBackItem.split(', ');
 
   column = state === 'done' ? 2 : column;
 

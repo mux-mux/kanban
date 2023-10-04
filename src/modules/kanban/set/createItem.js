@@ -80,7 +80,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     updateDOM();
   }
 
-  MM.textContent = time[0] < 10 ? `0${time[0]}` : time[0];
+  MM.textContent = +time[0] < 10 ? `0${time[0]}` : time[0];
   SS.textContent = time[1];
 }
 

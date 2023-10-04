@@ -83,7 +83,7 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
     if (!isPause) {
       tick--;
       MM.textContent = minutes < 10 ? `0${minutes}` : minutes;
-      SS.textContent = seconds.toString().padStart(2, '0');
+      SS.textContent = seconds < 10 ? `0${seconds}` : seconds;
     }
     if (itemData.pomodoro === true) {
       itemData.time = `${minutes}:${seconds.toString().padStart(2, '0')}`;

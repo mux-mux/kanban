@@ -9,18 +9,21 @@
 }
 
 .tools {
-  &__history {
-    @extend .header-posAbs;
+  @extend .header-posAbs;
+  font-size: 2.4rem;
+  padding: 1rem;
+  color: var(--text-color);
+  border-radius: 10px;
+  background: rgba(111, 111, 111, 0.2);
+  transition: background 0.5s;
+  &:hover {
+    background: rgba(111, 111, 111, 0.3);
+    cursor: pointer;
+  }
+  &-history {
     left: 0;
-    font-size: 2.4rem;
-    padding: 1rem;
-    color: var(--text-color);
-    border-radius: 10px;
-    background: rgba(111, 111, 111, 0.2);
-    transition: background 0.5s;
-    &:hover {
-      background: rgba(111, 111, 111, 0.3);
-      cursor: pointer;
-    }
+  }
+  &-archive {
+    left: 55px;
   }
 }
