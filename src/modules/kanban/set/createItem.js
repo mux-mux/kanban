@@ -59,7 +59,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
 
   timer.pomodoro.removeEventListener('click', timer.lunchPomodoro);
 
-  let time = itemData.time === '' ? ['1', '00'] : itemData.time.split(':');
+  let time = itemData.time === '' ? ['25', '00'] : itemData.time.split(':');
 
   timer.pomodoro.style.cssText =
     state === 'init' ? 'display: block; color: #eccb34' : 'display: var(--display);';
@@ -75,7 +75,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   } else {
     itemData.pomodoro = false;
     itemData.time = '';
-    time = ['1', '00'];
+    time = ['25', '00'];
 
     updateDOM();
   }
