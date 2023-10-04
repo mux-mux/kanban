@@ -1,14 +1,14 @@
 const columns = {
   todo: {
     items: [
-      { name: 'Plan a day', deadline: '2024-09-19', pomodoro: false, sessions: 0, time: '' },
-      { name: 'Make a coffee', deadline: '2024-09-19', pomodoro: false, sessions: 0, time: '' },
+      { name: 'Plan a day', deadline: '2024-09-19', pomodoro: false, sessions: 0, time: '', break: false },
+      { name: 'Make a coffee', deadline: '2024-09-19', pomodoro: false, sessions: 0, time: '', break: false },
     ],
   },
   inprogress: {
     items: [
-      { name: 'Do workout', deadline: '2024-09-19', pomodoro: false, sessions: 0, time: '' },
-      { name: 'Listen to music', deadline: '2024-09-19', pomodoro: false, sessions: 0, time: '' },
+      { name: 'Do workout', deadline: '2024-09-19', pomodoro: false, sessions: 0, time: '', break: false },
+      { name: 'Listen to music', deadline: '2024-09-19', pomodoro: false, sessions: 0, time: '', break: false },
     ],
   },
   done: {

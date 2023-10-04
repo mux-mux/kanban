@@ -3,7 +3,7 @@ import { deleteItem } from '../modify/deleteItem';
 import { setDeadline } from './deadline';
 import { drag } from '../modify/dragDropItem';
 import { setPomodoro, startPomodoro } from './pomodoro';
-import { localLoaded } from '../update/updateDOM';
+import { localLoaded, updateDOM } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 
 function createItem(columnElement, columnNum, item, itemNum) {
@@ -24,6 +24,8 @@ function createItem(columnElement, columnNum, item, itemNum) {
   if (itemData.pomodoro === true) {
     pomodoroInit(pomodoroIcon, itemData, 'init', columnNum, itemNum);
   }
+
+  changeIconOnBreak(itemData, pomodoroIcon);
 
   removeIcon.src = '../assets/remove.png';
   removeIcon.addEventListener('click', () => {
@@ -60,7 +62,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   let time = itemData.time === '' ? ['25', '00'] : itemData.time.split(':');
 
   timer.pomodoro.style.cssText =
-    state === 'init' ? 'display: block; color: #eccb34' : 'display: none; color: initial';
+    state === 'init' ? 'display: block; color: #eccb34' : 'display: var(--display);';
   state === 'init'
     ? timer.pomodoro.classList.add('fa-fade')
     : timer.pomodoro.classList.remove('fa-fade');
@@ -69,15 +71,32 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   pomodoroText.textContent = state === 'init' ? itemData.name : '';
 
   if (state === 'init') {
-    startPomodoro(+time[0] + +time[1] / 60, 5, timer.pomodoro, columnNum, itemNum);
+    startPomodoro(+time[0] + +time[1] / 60, timer, columnNum, itemNum);
   } else {
     itemData.pomodoro = false;
     itemData.time = '';
     time = ['25', '00'];
+
+    updateDOM();
   }
 
-  MM.textContent = time[0];
+  MM.textContent = time[0] < 10 ? `0${time[0]}` : time[0];
   SS.textContent = time[1];
+}
+
+function changeIconOnBreak(data, icon) {
+  if (data.break === true) {
+    changeIcon(icon, 'fa-regular', 'fa-circle-play', 'fa-solid', 'fa-mug-hot');
+  }
+
+  if (data.break === false && icon.pomodoro.classList.contains('fa-mug-hot')) {
+    changeIcon(icon, 'fa-solid', 'fa-mug-hot', 'fa-regular', 'fa-circle-play');
+  }
+
+  function changeIcon(icon, rem1, rem2, add1, add2) {
+    icon.pomodoro.classList.remove(rem1, rem2);
+    icon.pomodoro.classList.add(add1, add2);
+  }
 }
 
 function hoverAppearIcon(currentelement) {
