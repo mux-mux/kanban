@@ -2,14 +2,16 @@ import { editItem } from '../modify/editItem';
 import { deleteItem } from '../modify/deleteItem';
 import { setDeadline } from './deadline';
 import { drag } from '../modify/dragDropItem';
-import { setPomodoro, startPomodoro } from './pomodoro';
+import { interval, setPomodoro, startPomodoro } from './pomodoro';
 import { localLoaded, updateDOM } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
+
+let pomodoroIcon = null;
 
 function createItem(columnElement, columnNum, item, itemNum) {
   const listElement = elementWithClass('li', 'drag__list-item');
   const removeIcon = elementWithClass('img', 'drag__list-item-remove');
-  const pomodoroIcon = setPomodoro(columnNum, itemNum);
+  pomodoroIcon = setPomodoro(columnNum, itemNum);
   const itemData = localLoaded[columnNames[columnNum]].items[itemNum];
   const sessionsContainer = elementWithClass('ul', 'pomodoro__sessions');
 
@@ -36,7 +38,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
   listElement.textContent = item.name;
   listElement.draggable = true;
   listElement.id = itemNum;
-  listElement.addEventListener('dragstart', (e) => drag(e));
+  listElement.addEventListener('dragstart', (e) => drag(e, columnNum));
 
   hoverAppearIcon(listElement);
   dblClickEdit(listElement, columnNum, itemNum);
@@ -73,6 +75,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   if (state === 'init') {
     startPomodoro(+time[0] + +time[1] / 60, timer, columnNum, itemNum);
   } else {
+    clearInterval(interval);
     itemData.pomodoro = false;
     itemData.time = '';
     time = ['25', '00'];
@@ -149,4 +152,4 @@ function onEnterBlur(ev) {
   });
 }
 
-export { createItem, elementWithClass, pomodoroInit };
+export { createItem, elementWithClass, pomodoroInit, pomodoroIcon };

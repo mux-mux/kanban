@@ -2,9 +2,8 @@ import { elementWithClass } from './createItem';
 import { localLoaded, updateDOM } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 import { setLocalItems } from '../update/localStorage';
-import { deleteItem, overallRemoved } from '../modify/deleteItem';
 import { pomodoroInit } from './createItem';
-import { undoItem } from '../modify/undoItem';
+import { relocateItem } from '../modify/relocateItem';
 
 let interval = null;
 
@@ -25,7 +24,6 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
   if (itemData.break) {
     pomodoroBreak.style.display = 'block';
   }
-
   pause.addEventListener('click', () => {
     pause.style.display = 'none';
     play.style.display = 'inline-block';
@@ -42,20 +40,15 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
 
   reset.addEventListener('click', () => {
     pomodoroInit(timer, itemData, 'remove', columnNum, itemNum);
-    clearInterval(interval);
-    MM.textContent = '25';
-    pomodoroBreak.style.display = 'none';
 
     if (itemData.break === true) {
       itemData.break = false;
+      pomodoroBreak.style.display = 'none';
     }
-    updateDOM();
   });
 
   done.addEventListener('click', () => {
-    pomodoroInit(timer, itemData, 'remove', columnNum, itemNum);
-    deleteItem(columnNum, itemNum);
-    undoItem(columnNames, overallRemoved, 'done');
+    relocateItem(columnNum, itemNum, 2, localLoaded[columnNames[2]].items.length);
   });
 
   function pomodoroLogic() {

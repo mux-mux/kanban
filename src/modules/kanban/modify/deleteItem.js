@@ -2,6 +2,7 @@ import { localLoaded } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 import { updateDOM } from '../update/updateDOM';
 import { interval } from '../set/pomodoro';
+import { undoItem } from './undoItem';
 
 const overallRemoved = [];
 
