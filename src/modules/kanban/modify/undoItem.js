@@ -18,6 +18,7 @@ function undoItem(items, removed, state) {
   if (state === 'done') {
     parsedItem.done = minDeadline();
   }
+
   localLoaded[selectedList].items.push(parsedItem);
 
   updateDOM();

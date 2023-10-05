@@ -1,11 +1,18 @@
-import { onDragUpdate } from '../update/updateDOM';
 import { dragList } from './addItem';
+import { relocateItem } from '../modify/relocateItem';
 
 let draggedItem = null,
   currentColumn = null;
 
-function drag(e) {
+function drag(e, columnNum) {
   draggedItem = e.currentTarget;
+  const itemNum = draggedItem.id;
+
+  e.dataTransfer.clearData();
+
+  e.dataTransfer.setData('columnNum', columnNum);
+  e.dataTransfer.setData('itemNum', itemNum);
+  e.dataTransfer.setData('itemText', e.target.textContent);
 
   draggedItem.style.setProperty('--display', 'none');
 }
@@ -27,7 +34,7 @@ function dragOver(e, column) {
   currentColumn = column;
 }
 
-function drop(e) {
+function drop(e, newColNum) {
   e.preventDefault();
 
   draggedItem = null;
@@ -36,11 +43,17 @@ function drop(e) {
     list.classList.remove('over');
   });
 
-  onDragUpdate();
+  const columnNum = e.dataTransfer.getData('columnNum');
+  const itemNum = e.dataTransfer.getData('itemNum');
+  const itemText = e.dataTransfer.getData('itemText');
+
+  const newItemNum = itemText !== e.target.textContent ? +e.target.id + 1 : +e.target.id;
+
+  relocateItem(columnNum, itemNum, newColNum, newItemNum);
 }
 
 dragList.forEach((list, i) => {
-  list.addEventListener('drop', (e) => drop(e));
+  list.addEventListener('drop', (e) => drop(e, i));
   list.addEventListener('dragover', (e) => dragOver(e, i));
 });
 

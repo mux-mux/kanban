@@ -36,7 +36,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
   listElement.textContent = item.name;
   listElement.draggable = true;
   listElement.id = itemNum;
-  listElement.addEventListener('dragstart', (e) => drag(e));
+  listElement.addEventListener('dragstart', (e) => drag(e, columnNum));
 
   hoverAppearIcon(listElement);
   dblClickEdit(listElement, columnNum, itemNum);
