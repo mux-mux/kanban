@@ -1,20 +1,19 @@
 import { localLoaded } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 import { updateDOM } from '../update/updateDOM';
-import { pomodoroInit } from '../set/createItem';
-import { setPomodoro } from '../set/pomodoro';
-import { interval } from '../set/pomodoro';
+import { pomodoroInit, pomodoroIcon } from '../set/createItem';
+import { minDeadline } from '../set/deadline';
 
 function relocateItem(columnNum, itemNum, newColNum, newItemNum) {
-  const selectedList = localLoaded[columnNames[columnNum]];
+  const selectedList = localLoaded[columnNames[columnNum]].items;
   const newSelectedList = localLoaded[columnNames[newColNum]].items;
-  const currRemoved = selectedList.items.splice(itemNum, 1);
+  const currRemoved = selectedList.splice(itemNum, 1);
   newSelectedList.splice(newItemNum, 0, currRemoved[0]);
 
   if (newColNum == 2) {
     const itemData = localLoaded[columnNames[newColNum]].items[newItemNum];
-    clearInterval(interval);
-    pomodoroInit(setPomodoro(columnNum, itemNum), itemData, 'remove', columnNum, itemNum);
+    itemData.done = minDeadline();
+    pomodoroInit(pomodoroIcon, itemData, 'remove', columnNum, itemNum);
   } else {
     updateDOM();
   }

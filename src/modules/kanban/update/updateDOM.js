@@ -28,25 +28,4 @@ function updateDOM() {
   setLocalItems(columnNames);
 }
 
-// function onDragUpdate(columnNum, itemNum, newColNum, newItemNum) {
-// elementsList.forEach((element, indexCol) => {
-//   localLoaded[columnNames[indexCol]].items = Array.from(element.children).map((item) => {
-//     const deadlineIndex = findClassIndex(item, 'deadline');
-
-//     return {
-//       name: item.textContent,
-//       deadline: item.children[deadlineIndex].value,
-//       pomodoro: false,
-//       sessions: 0,
-//     };
-//   });
-// });
-// updateDOM();
-// }
-
-// function findClassIndex(item, clazz) {
-//   return Array.from(item.children).findIndex((child) => child.classList.contains(clazz));
-// }
-
-// export { updateDOM, onDragUpdate, elementsList, localLoaded };
 export { updateDOM, elementsList, localLoaded };
