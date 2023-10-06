@@ -25,7 +25,7 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
     pomodoroBreak.style.display = 'block';
   }
 
-  pause.addEventListener('click', pausePomodoro);
+  addControlListiners();
 
   function pausePomodoro() {
     pause.style.display = 'none';
@@ -34,16 +34,12 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
     timer.pomodoro.classList.remove('fa-fade');
   }
 
-  play.addEventListener('click', playPomodoro);
-
   function playPomodoro() {
     play.style.display = 'none';
     pause.style.display = 'inline-block';
     isPause = false;
     timer.pomodoro.classList.add('fa-fade');
   }
-
-  reset.addEventListener('click', resetPomodoro);
 
   function resetPomodoro() {
     pomodoroInit(timer, itemData, 'remove', columnNum, itemNum);
@@ -52,32 +48,26 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
       itemData.break = false;
       pomodoroBreak.style.display = 'none';
     }
-    removeControlsListiners(
-      play,
-      pause,
-      reset,
-      done,
-      playPomodoro,
-      pausePomodoro,
-      resetPomodoro,
-      donePomodoro
-    );
+    removeControlListiners();
   }
-
-  done.addEventListener('click', donePomodoro);
 
   function donePomodoro() {
     relocateItem(columnNum, itemNum, 2, localLoaded[columnNames[2]].items.length);
-    removeControlsListiners(
-      play,
-      pause,
-      reset,
-      done,
-      playPomodoro,
-      pausePomodoro,
-      resetPomodoro,
-      donePomodoro
-    );
+    removeControlListiners();
+  }
+
+  function addControlListiners() {
+    done.addEventListener('click', donePomodoro);
+    reset.addEventListener('click', resetPomodoro);
+    pause.addEventListener('click', pausePomodoro);
+    play.addEventListener('click', playPomodoro);
+  }
+
+  function removeControlListiners() {
+    done.removeEventListener('click', donePomodoro);
+    reset.removeEventListener('click', resetPomodoro);
+    pause.removeEventListener('click', pausePomodoro);
+    play.removeEventListener('click', playPomodoro);
   }
 
   function pomodoroLogic() {
@@ -151,22 +141,6 @@ function setPomodoro(columnNum, itemNum) {
   }
 
   return { pomodoro, lunchPomodoro };
-}
-
-function removeControlsListiners(
-  play,
-  pause,
-  reset,
-  done,
-  playPomodoro,
-  pausePomodoro,
-  resetPomodoro,
-  donePomodoro
-) {
-  done.removeEventListener('click', donePomodoro);
-  reset.removeEventListener('click', resetPomodoro);
-  pause.removeEventListener('click', pausePomodoro);
-  play.removeEventListener('click', playPomodoro);
 }
 
 export { setPomodoro, startPomodoro, interval };
