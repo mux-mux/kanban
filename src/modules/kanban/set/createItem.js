@@ -5,8 +5,10 @@ import { drag } from '../modify/dragDropItem';
 import { interval, setPomodoro, startPomodoro } from './pomodoro';
 import { localLoaded, updateDOM } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
+import { relocateItem } from '../modify/relocateItem';
 
 let pomodoroIcon = null;
+let isPause = false;
 
 function createItem(columnElement, columnNum, item, itemNum) {
   const listElement = elementWithClass('li', 'drag__list-item');
@@ -57,6 +59,12 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   const MM = document.getElementById('minutes');
   const SS = document.getElementById('seconds');
 
+  const pause = document.querySelector('.fa-pause');
+  const play = document.querySelector('.fa-play');
+  const done = document.querySelector('.fa-check');
+  const reset = document.querySelector('.fa-backward-step');
+  const pomodoroBreak = document.querySelector('.pomodoro__break');
+
   const pomodoroText = document.querySelector('.pomodoro__text');
 
   timer.pomodoro.removeEventListener('click', timer.lunchPomodoro);
@@ -73,19 +81,64 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   pomodoroText.textContent = state === 'init' ? itemData.name : '';
 
   if (state === 'init') {
+    addControlListiners();
     startPomodoro(+time[0] + +time[1] / 60, timer, columnNum, itemNum);
   } else {
     clearInterval(interval);
     itemData.pomodoro = false;
     itemData.time = '';
     time = ['25', '00'];
+    removeControlListiners();
 
     updateDOM();
   }
 
+  function pausePomodoro() {
+    pause.style.display = 'none';
+    play.style.display = 'inline-block';
+    isPause = true;
+    timer.pomodoro.classList.remove('fa-fade');
+  }
+
+  function playPomodoro() {
+    play.style.display = 'none';
+    pause.style.display = 'inline-block';
+    isPause = false;
+    timer.pomodoro.classList.add('fa-fade');
+  }
+
+  function resetPomodoro() {
+    removeControlListiners();
+    pomodoroInit(timer, itemData, 'remove', columnNum, itemNum);
+
+    if (itemData.break === true) {
+      itemData.break = false;
+      pomodoroBreak.style.display = 'none';
+    }
+  }
+
+  function donePomodoro() {
+    removeControlListiners();
+    relocateItem(columnNum, itemNum, 2, localLoaded[columnNames[2]].items.length);
+  }
+
+  function addControlListiners() {
+    done.addEventListener('click', donePomodoro);
+    reset.addEventListener('click', resetPomodoro);
+    pause.addEventListener('click', pausePomodoro);
+    play.addEventListener('click', playPomodoro);
+  }
+
+  function removeControlListiners() {
+    done.removeEventListener('click', donePomodoro);
+    reset.removeEventListener('click', resetPomodoro);
+    pause.removeEventListener('click', pausePomodoro);
+    play.removeEventListener('click', playPomodoro);
+  }
+
   MM.textContent = +time[0] < 10 ? `0${time[0]}` : time[0];
   SS.textContent = time[1];
-}
+} /*END INIT */
 
 function changeIconOnBreak(data, icon) {
   if (data.break === true) {
@@ -152,4 +205,4 @@ function onEnterBlur(ev) {
   });
 }
 
-export { createItem, elementWithClass, pomodoroInit, pomodoroIcon };
+export { createItem, elementWithClass, pomodoroInit, pomodoroIcon, isPause };
