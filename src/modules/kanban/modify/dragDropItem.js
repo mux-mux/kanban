@@ -12,7 +12,6 @@ function drag(e, columnNum) {
 
   e.dataTransfer.setData('columnNum', columnNum);
   e.dataTransfer.setData('itemNum', itemNum);
-  e.dataTransfer.setData('itemText', e.target.textContent);
 
   draggedItem.style.setProperty('--display', 'none');
 }
@@ -21,8 +20,20 @@ function dragOver(e, column) {
   e.preventDefault();
 
   const target = e.target;
+
+  const getNextElement = (cursorPos, currElem) => {
+    const currElemCoord = currElem.getBoundingClientRect();
+    const currElemCenter = currElemCoord.y + currElemCoord.height / 2;
+
+    const nextElement = cursorPos < currElemCenter ? currElem : currElem.nextSibling;
+
+    return nextElement;
+  };
+
+  const nextElement = getNextElement(e.clientY, target);
+
   if (target && target !== draggedItem && target.nodeName === 'LI') {
-    dragList[currentColumn].insertBefore(draggedItem, target.nextSibling);
+    dragList[currentColumn].insertBefore(draggedItem, nextElement);
   }
   if (target.childElementCount === 0) {
     dragList[currentColumn].appendChild(draggedItem);
@@ -45,9 +56,8 @@ function drop(e, newColNum) {
 
   const columnNum = e.dataTransfer.getData('columnNum');
   const itemNum = e.dataTransfer.getData('itemNum');
-  const itemText = e.dataTransfer.getData('itemText');
 
-  const newItemNum = itemText !== e.target.textContent ? +e.target.id + 1 : +e.target.id;
+  const newItemNum = Array.from(e.target.parentNode.children).indexOf(e.target);
 
   relocateItem(columnNum, itemNum, newColNum, newItemNum);
 }
