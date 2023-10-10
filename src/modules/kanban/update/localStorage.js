@@ -33,8 +33,9 @@ function setLocalItems(columnNames) {
 }
 
 function setLocalArchive() {
-  localStorage.setItem('archiveItems', JSON.stringify(archive.items));
-  return archive.items;
+  const archiveItems = archiveLoaded.length < 1 ? archive.items : archiveLoaded;
+  localStorage.setItem('archiveItems', JSON.stringify(archiveItems));
+  return archiveItems;
 }
 
 export { getLocalItems, setLocalItems, getLocalArchive, setLocalArchive };

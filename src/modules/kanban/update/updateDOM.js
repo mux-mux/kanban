@@ -16,6 +16,7 @@ function updateDOM() {
   if (!updatedOnLoad) {
     localLoaded = getLocalItems(columnNames);
     archiveLoaded = getLocalArchive();
+    renderArchive(archiveLoaded);
   }
 
   elementsList.forEach((element) => (element.textContent = ''));
@@ -25,8 +26,6 @@ function updateDOM() {
       createItem(elementsList[columnNum], columnNum, item, itemNum);
     });
   });
-
-  renderArchive();
 
   updatedOnLoad = true;
   setLocalItems(columnNames);

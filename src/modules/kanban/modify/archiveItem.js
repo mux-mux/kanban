@@ -8,25 +8,35 @@ function archiveItem() {
   const archiveContainer = document.querySelector('.archive__container');
 
   archiveBtn.addEventListener('click', toggleArchiveVisibility);
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.archive__container') && !e.target.matches('.tools-archive')) {
+      if (archiveContainer.classList.contains('archive__visible')) {
+        archiveContainer.classList.remove('archive__visible');
+      }
+    }
+  });
+
   moveToArchiveBtn.addEventListener('click', moveToArchive);
 
   function toggleArchiveVisibility() {
-    archiveContainer.classList.toggle('archive__visible');
+    archiveContainer.classList.add('archive__visible');
   }
 }
 
 function moveToArchive() {
-  archive.items = localLoaded.done.items.length > 0 ? localLoaded.done.items : archiveLoaded;
+  const archiveItems = localLoaded.done.items;
+  archive.items = archive.items.concat(archiveItems);
   localLoaded.done.items = [];
 
   updateDOM();
-  renderArchive();
+  renderArchive(archiveItems);
 }
 
-function renderArchive() {
+function renderArchive(archiveItems) {
   const archiveTable = document.querySelector('.archive');
 
-  archive.items.forEach((item) => {
+  archiveItems.forEach((item) => {
     const archiveRow = elementWithClass('tr', 'archive__item');
     delete item.break;
     delete item.pomodoro;
