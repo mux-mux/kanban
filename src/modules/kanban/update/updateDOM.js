@@ -1,6 +1,6 @@
-import { getLocalItems, setLocalItems } from './localStorage';
+import { getLocalItems, setLocalItems, getLocalArchive, setLocalArchive } from './localStorage';
 import { columnNames } from '../data/columns';
-
+import { renderArchive } from '../modify/archiveItem';
 import { createItem } from '../set/createItem';
 
 const todoElement = document.getElementById('todo-list'),
@@ -10,10 +10,13 @@ const todoElement = document.getElementById('todo-list'),
 
 let updatedOnLoad = false;
 let localLoaded = [];
+let archiveLoaded = [];
 
 function updateDOM() {
   if (!updatedOnLoad) {
     localLoaded = getLocalItems(columnNames);
+    archiveLoaded = getLocalArchive();
+    renderArchive(archiveLoaded);
   }
 
   elementsList.forEach((element) => (element.textContent = ''));
@@ -26,6 +29,7 @@ function updateDOM() {
 
   updatedOnLoad = true;
   setLocalItems(columnNames);
+  setLocalArchive();
 }
 
-export { updateDOM, elementsList, localLoaded };
+export { updateDOM, elementsList, localLoaded, archiveLoaded };

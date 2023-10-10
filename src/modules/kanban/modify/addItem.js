@@ -35,6 +35,7 @@ function addToColumn(column) {
         sessions: 0,
         time: '',
         break: false,
+        done: column === 2 ? minDeadline() : '',
       })
     : null;
   addItems[column].textContent = '';
