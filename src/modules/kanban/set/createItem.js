@@ -31,7 +31,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
 
   changeIconOnBreak(itemData, pomodoroIcon);
 
-  removeIcon.src = '../assets/remove.png';
+  removeIcon.src = './assets/remove.png';
   removeIcon.addEventListener('click', () => {
     pomodoroInit(pomodoroIcon, itemData, 'remove', columnNum, itemNum);
     deleteItem(columnNum, itemNum);

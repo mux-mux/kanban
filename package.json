@@ -1,7 +1,7 @@
 {
   "name": "kanban",
   "version": "1.0.0",
-  "description": "Kanban with Background music, Ping pong, and AI will recognise your drawing",
+  "description": "Kanban with Deadline set and Pomodoro timer",
   "main": "script.js",
   "scripts": {
     "start": "webpack serve --mode development --open",

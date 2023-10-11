@@ -30,7 +30,7 @@
 15. pomodoro
 16. drag_n_drop
 17. archive
-18. responsible
+18. responsive
 19. refactoring
 20. testing
 
