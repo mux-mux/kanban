@@ -14,8 +14,8 @@
     box-shadow: 0 0 10px #999;
   }
   @include respond(mobile) {
-    font-size: 1.2rem;
-    top: 9px;
+    font-size: 1rem;
+    top: 10px;
   }
 }
 .archive {

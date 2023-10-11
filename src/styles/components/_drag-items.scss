@@ -14,6 +14,10 @@
     padding: 1rem;
     --display: none;
 
+    @include respond(mobile) {
+      padding: 0;
+    }
+
     &-item {
       position: relative;
       display: flex;
@@ -30,6 +34,11 @@
       background-color: rgba(0, 0, 0, 0.1);
       border-radius: 1rem;
       cursor: pointer;
+
+      @include respond(mobile) {
+        font-size: 1.4rem;
+        line-height: 1.4rem;
+      }
 
       &:focus {
         outline: none;

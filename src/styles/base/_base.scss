@@ -30,7 +30,6 @@ body {
   text-align: center;
   font-family: 'Rubik', sans-serif;
   color: var(--text_color);
-  overflow-y: hidden;
 
   @include respond(mobile) {
     background-image: none;
@@ -69,7 +68,6 @@ textarea {
 
 .container {
   max-width: 180rem;
-  min-width: 42rem;
   margin: 0 auto;
   padding: 0 2rem;
 }

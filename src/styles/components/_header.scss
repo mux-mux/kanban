@@ -8,6 +8,14 @@
   &__tools {
     @include header_sides;
     gap: 1.5rem;
+
+    @include respond(mobile) {
+      min-width: auto;
+    }
+  }
+
+  @include respond(mobile) {
+    flex-direction: column;
   }
 }
 

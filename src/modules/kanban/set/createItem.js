@@ -43,14 +43,9 @@ function createItem(columnElement, columnNum, item, itemNum) {
   listElement.textContent = item.name;
   listElement.draggable = true;
   listElement.id = itemNum;
-  listElement.addEventListener('dragstart', (e) => drag(e, columnNum));
 
   if (!isTouch) {
-    hoverAppearIcon(listElement);
-  } else {
-    document
-      .querySelectorAll('.drag__list-item')
-      .forEach((item) => item.style.setProperty('--display', 'inline-block'));
+    listElement.addEventListener('dragstart', (e) => drag(e, columnNum));
   }
 
   dblClickEdit(listElement, columnNum, itemNum);
@@ -68,6 +63,14 @@ function createItem(columnElement, columnNum, item, itemNum) {
   listElement.appendChild(listSetContainer);
 
   columnElement.appendChild(listElement);
+
+  if (!isTouch) {
+    hoverAppearIcon(listElement);
+  } else {
+    document
+      .querySelectorAll('.drag__list-item')
+      .forEach((item) => item.style.setProperty('--display', 'inline-block'));
+  }
 }
 
 function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
