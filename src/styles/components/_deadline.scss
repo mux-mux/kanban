@@ -1,9 +1,8 @@
 .deadline {
-  position: absolute;
-  right: 50px;
+  flex-shrink: 0;
   background: none;
   border: none;
-  line-height: 1.4;
   color: #777;
   outline: none;
+  max-width: 10.5rem;
 }

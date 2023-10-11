@@ -30,7 +30,10 @@ body {
   text-align: center;
   font-family: 'Rubik', sans-serif;
   color: var(--text_color);
-  overflow-y: hidden;
+
+  @include respond(mobile) {
+    background-image: none;
+  }
 }
 ul {
   list-style-type: none;

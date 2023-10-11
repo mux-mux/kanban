@@ -1,9 +1,13 @@
 .theme-switch-wrapper {
-  @extend .header-posAbs;
-  right: 0;
+  @include header_sides;
+  justify-content: space-between;
   font-size: 2.4rem;
   color: var(--text-color);
   line-height: var(--theme-switch-height);
+
+  @include respond(mobile) {
+    font-size: 2rem;
+  }
 }
 .switch {
   position: relative;
