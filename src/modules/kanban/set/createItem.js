@@ -11,6 +11,7 @@ let pomodoroIcon = null;
 let isPause = false;
 
 function createItem(columnElement, columnNum, item, itemNum) {
+  const isTouch = 'ontouchstart' in window || navigator.msMaxTouchPoints > 0;
   const listElement = elementWithClass('li', 'drag__list-item');
   const listSetContainer = elementWithClass('div', 'drag__set-container');
   const removeIcon = elementWithClass('img', 'drag__list-item-remove-img');
@@ -44,7 +45,14 @@ function createItem(columnElement, columnNum, item, itemNum) {
   listElement.id = itemNum;
   listElement.addEventListener('dragstart', (e) => drag(e, columnNum));
 
-  hoverAppearIcon(listElement);
+  if (!isTouch) {
+    hoverAppearIcon(listElement);
+  } else {
+    document
+      .querySelectorAll('.drag__list-item')
+      .forEach((item) => item.style.setProperty('--display', 'inline-block'));
+  }
+
   dblClickEdit(listElement, columnNum, itemNum);
 
   if (columnNum !== 2) {
@@ -71,8 +79,10 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   const done = document.querySelector('.fa-check');
   const reset = document.querySelector('.fa-backward-step');
   const pomodoroBreak = document.querySelector('.pomodoro__break');
-
   const pomodoroText = document.querySelector('.pomodoro__text');
+
+  const kanbanHeading = document.querySelector('.heading-primary');
+  const pomodorContainer = document.querySelector('.pomodoro');
 
   timer.pomodoro.removeEventListener('click', timer.lunchPomodoro);
 
@@ -88,9 +98,11 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   pomodoroText.textContent = state === 'init' ? itemData.name : '';
 
   if (state === 'init') {
+    showHidePomodoro(kanbanHeading, pomodorContainer);
     addControlListiners();
     startPomodoro(+time[0] + +time[1] / 60, timer, columnNum, itemNum);
   } else {
+    showHidePomodoro(pomodorContainer, kanbanHeading);
     clearInterval(interval);
     itemData.pomodoro = false;
     itemData.time = '';
@@ -98,6 +110,11 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     removeControlListiners();
 
     updateDOM();
+  }
+
+  function showHidePomodoro(firstItem, secondItem) {
+    firstItem.style.display = 'none';
+    secondItem.style.display = 'block';
   }
 
   function pausePomodoro() {

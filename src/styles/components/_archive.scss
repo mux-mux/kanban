@@ -13,6 +13,10 @@
     cursor: pointer;
     box-shadow: 0 0 10px #999;
   }
+  @include respond(mobile) {
+    font-size: 1.2rem;
+    top: 9px;
+  }
 }
 .archive {
   &__container {
@@ -29,6 +33,14 @@
     visibility: hidden;
     opacity: 0;
     transition: all 0.7s;
+
+    @include respond(tablet) {
+      left: 0;
+      width: 100%;
+    }
+    @include respond(mobile) {
+      font-size: 1rem;
+    }
   }
 
   background-color: #eee;
@@ -48,5 +60,9 @@
     top: 30px;
     visibility: visible;
     opacity: 1;
+
+    @include respond(tablet) {
+      top: 100px;
+    }
   }
 }

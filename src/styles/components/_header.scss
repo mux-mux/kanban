@@ -3,7 +3,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 0;
+  min-height: 10rem;
 
   &__tools {
     @include header_sides;
@@ -22,5 +22,9 @@
   &:hover {
     background: rgba(111, 111, 111, 0.3);
     cursor: pointer;
+  }
+
+  @include respond(mobile) {
+    font-size: 2rem;
   }
 }
