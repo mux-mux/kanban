@@ -70,6 +70,7 @@ function setPomodoro(columnNum, itemNum) {
 
   function lunchPomodoro() {
     const pomodoroText = document.querySelector('.pomodoro__text');
+
     document.querySelector('.pomodoro__controls').style.display = 'inline-block';
 
     pomodoroText.textContent = pomodoro.parentElement.innerText;

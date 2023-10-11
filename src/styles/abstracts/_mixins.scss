@@ -21,3 +21,9 @@
     } //2880
   }
 }
+
+@mixin header_sides {
+  min-width: 12rem;
+  display: flex;
+  align-items: center;
+}

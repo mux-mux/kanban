@@ -20,7 +20,7 @@ function archiveItem() {
   moveToArchiveBtn.addEventListener('click', moveToArchive);
 
   function toggleArchiveVisibility() {
-    archiveContainer.classList.add('archive__visible');
+    archiveContainer.classList.toggle('archive__visible');
   }
 }
 

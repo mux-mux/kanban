@@ -1,6 +1,5 @@
 .deadline {
-  position: absolute;
-  right: 50px;
+  flex-shrink: 0;
   background: none;
   border: none;
   line-height: 1.4;

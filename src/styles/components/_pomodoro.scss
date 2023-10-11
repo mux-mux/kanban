@@ -1,19 +1,11 @@
-.absolute-top-center {
-  position: absolute;
-  right: 180px;
-  top: 50%;
-  transform: translateY(-50%);
-}
 .pomodoro {
   color: var(--text-color);
   & > * {
     display: inline-block;
     vertical-align: middle;
   }
-  @extend .absolute-top-center;
   &__icon {
-    @extend .absolute-top-center;
-    padding: 5px;
+    padding: 0 10px;
     transition: color 0.5s;
     display: var(--display);
     &:hover {
