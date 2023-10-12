@@ -3,7 +3,7 @@ import { deleteItem } from '../modify/deleteItem';
 import { setDeadline } from './deadline';
 import { drag } from '../modify/dragDropItem';
 import { interval, setPomodoro, startPomodoro } from './pomodoro';
-import { localLoaded, updateDOM } from '../update/updateDOM';
+import { localLoaded, updateDOM, updatedOnLoad } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 import { relocateItem } from '../modify/relocateItem';
 
@@ -101,6 +101,9 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   pomodoroText.textContent = state === 'init' ? itemData.name : '';
 
   if (state === 'init') {
+    if (!updatedOnLoad) {
+      pausePomodoro();
+    }
     showHidePomodoro(kanbanHeading, pomodorContainer);
     addControlListiners();
     startPomodoro(+time[0] + +time[1] / 60, timer, columnNum, itemNum);
@@ -181,9 +184,16 @@ function changeIconOnBreak(data, icon) {
   }
 }
 
+function showIcon(e) {
+  e.currentTarget.style.setProperty('--display', 'inline-block');
+}
+
 function hoverAppearIcon(currentelement) {
-  currentelement.addEventListener('mouseover', (e) => {
-    e.currentTarget.style.setProperty('--display', 'inline-block');
+  currentelement.addEventListener('mouseenter', showIcon);
+  currentelement.addEventListener('mousedown', () => {
+    document
+      .querySelectorAll('.drag__list-item')
+      .forEach((item) => item.removeEventListener('mouseenter', showIcon));
   });
   currentelement.addEventListener('mouseout', (e) =>
     e.currentTarget.style.setProperty('--display', 'none')

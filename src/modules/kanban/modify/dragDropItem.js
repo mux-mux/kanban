@@ -17,6 +17,7 @@ function drag(e, columnNum) {
 }
 
 function dragOver(e, column) {
+  currentColumn = column;
   e.preventDefault();
 
   const target = e.target;
@@ -42,7 +43,6 @@ function dragOver(e, column) {
   dragList.forEach((list) => list.classList.remove('over'));
 
   dragList[column].classList.add('over');
-  currentColumn = column;
 }
 
 function drop(e, newColNum) {
