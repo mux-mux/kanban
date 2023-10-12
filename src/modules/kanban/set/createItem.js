@@ -184,9 +184,16 @@ function changeIconOnBreak(data, icon) {
   }
 }
 
+function showIcon(e) {
+  e.currentTarget.style.setProperty('--display', 'inline-block');
+}
+
 function hoverAppearIcon(currentelement) {
-  currentelement.addEventListener('mouseover', (e) => {
-    e.currentTarget.style.setProperty('--display', 'inline-block');
+  currentelement.addEventListener('mouseenter', showIcon);
+  currentelement.addEventListener('mousedown', () => {
+    document
+      .querySelectorAll('.drag__list-item')
+      .forEach((item) => item.removeEventListener('mouseenter', showIcon));
   });
   currentelement.addEventListener('mouseout', (e) =>
     e.currentTarget.style.setProperty('--display', 'none')
