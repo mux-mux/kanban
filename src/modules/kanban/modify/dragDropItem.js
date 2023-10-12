@@ -46,6 +46,11 @@ function dragOver(e, column) {
 }
 
 function drop(e, newColNum) {
+  const pomodoroContainer = document.getElementById('pomodoro');
+  const pomodoroContainerClone = pomodoroContainer.cloneNode(true);
+
+  pomodoroContainer.parentNode.replaceChild(pomodoroContainerClone, pomodoroContainer);
+
   e.preventDefault();
 
   draggedItem = null;

@@ -110,7 +110,6 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     itemData.pomodoro = false;
     itemData.time = '';
     time = ['25', '00'];
-    removeControlListiners();
 
     updateDOM();
   }
