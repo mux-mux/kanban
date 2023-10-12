@@ -32,4 +32,4 @@ function updateDOM() {
   setLocalArchive();
 }
 
-export { updateDOM, elementsList, localLoaded, archiveLoaded };
+export { updateDOM, elementsList, localLoaded, archiveLoaded, updatedOnLoad };

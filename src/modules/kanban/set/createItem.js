@@ -3,7 +3,7 @@ import { deleteItem } from '../modify/deleteItem';
 import { setDeadline } from './deadline';
 import { drag } from '../modify/dragDropItem';
 import { interval, setPomodoro, startPomodoro } from './pomodoro';
-import { localLoaded, updateDOM } from '../update/updateDOM';
+import { localLoaded, updateDOM, updatedOnLoad } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 import { relocateItem } from '../modify/relocateItem';
 
@@ -101,6 +101,9 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   pomodoroText.textContent = state === 'init' ? itemData.name : '';
 
   if (state === 'init') {
+    if (!updatedOnLoad) {
+      pausePomodoro();
+    }
     showHidePomodoro(kanbanHeading, pomodorContainer);
     addControlListiners();
     startPomodoro(+time[0] + +time[1] / 60, timer, columnNum, itemNum);
