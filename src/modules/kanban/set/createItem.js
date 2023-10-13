@@ -12,20 +12,20 @@ let isPause = false;
 
 function createItem(columnElement, columnNum, item, itemNum) {
   const isTouch = 'ontouchstart' in window || navigator.msMaxTouchPoints > 0;
-  const listElement = elementWithClass('li', 'drag__list-item');
-  const listSetContainer = elementWithClass('div', 'drag__set-container');
-  const removeIcon = elementWithClass('img', 'drag__list-item-remove-img');
-  const removeContainer = elementWithClass('div', 'drag__list-item-remove');
-  pomodoroIcon = setPomodoro(columnNum, itemNum);
-  const itemData = localLoaded[columnNames[columnNum]].items[itemNum];
-  const sessionsContainer = elementWithClass('ul', 'pomodoro__sessions');
 
+  const listElement = createElementWithClass('li', 'drag__list-item');
+  const listSetContainer = createElementWithClass('div', 'drag__set-container');
+  const removeIcon = createElementWithClass('img', 'drag__list-item-remove-img');
+  const removeContainer = createElementWithClass('div', 'drag__list-item-remove');
+  const sessionsContainer = createElementWithClass('ul', 'pomodoro__sessions');
+
+  pomodoroIcon = setPomodoro(columnNum, itemNum);
   const deadlinePick = setDeadline(columnNum, item, itemNum);
 
+  const itemData = localLoaded[columnNames[columnNum]].items[itemNum];
+
   for (let i = 0; i < itemData.sessions; i++) {
-    const sessionElement = elementWithClass('li', 'pomodoro__session');
-    sessionElement.style.left = 12 * i + 'px';
-    sessionsContainer.appendChild(sessionElement);
+    appendSessionIcon(sessionsContainer, i);
   }
 
   if (itemData.pomodoro === true) {
@@ -40,12 +40,15 @@ function createItem(columnElement, columnNum, item, itemNum) {
     deleteItem(columnNum, itemNum);
   });
 
-  listElement.textContent = item.name;
-  listElement.draggable = true;
-  listElement.id = itemNum;
+  setElementAttributes(listElement, item.name, true, itemNum);
 
   if (!isTouch) {
     listElement.addEventListener('dragstart', (e) => drag(e, columnNum));
+    hoverAppearIcon(listElement);
+  } else {
+    document
+      .querySelectorAll('.drag__list-item')
+      .forEach((item) => item.style.setProperty('--display', 'inline-block'));
   }
 
   dblClickEdit(listElement, columnNum, itemNum);
@@ -55,22 +58,11 @@ function createItem(columnElement, columnNum, item, itemNum) {
   }
 
   removeContainer.appendChild(removeIcon);
-
   listSetContainer.appendChild(deadlinePick);
   listSetContainer.appendChild(removeContainer);
-
   listElement.appendChild(sessionsContainer);
   listElement.appendChild(listSetContainer);
-
   columnElement.appendChild(listElement);
-
-  if (!isTouch) {
-    hoverAppearIcon(listElement);
-  } else {
-    document
-      .querySelectorAll('.drag__list-item')
-      .forEach((item) => item.style.setProperty('--display', 'inline-block'));
-  }
 }
 
 function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
@@ -81,38 +73,41 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   const play = document.querySelector('.fa-play');
   const done = document.querySelector('.fa-check');
   const reset = document.querySelector('.fa-backward-step');
-  const pomodoroBreak = document.querySelector('.pomodoro__break');
-  const pomodoroText = document.querySelector('.pomodoro__text');
+  const coffee = document.querySelector('.pomodoro__break');
+  const text = document.querySelector('.pomodoro__text');
+  const icon = timer.pomodoro;
 
   const kanbanHeading = document.querySelector('.heading-primary');
-  const pomodorContainer = document.querySelector('.pomodoro');
+  const pomodoroContainer = document.querySelector('.pomodoro');
+  const controlsContainer = document.querySelector('.pomodoro__controls');
 
-  timer.pomodoro.removeEventListener('click', timer.lunchPomodoro);
+  icon.removeEventListener('click', timer.lunchPomodoro);
 
   let time = itemData.time === '' ? ['25', '00'] : itemData.time.split(':');
-
-  timer.pomodoro.style.cssText =
-    state === 'init' ? 'display: block; color: #eccb34' : 'display: var(--display);';
-  state === 'init'
-    ? timer.pomodoro.classList.add('fa-fade')
-    : timer.pomodoro.classList.remove('fa-fade');
-  document.querySelector('.pomodoro__controls').style.display =
-    state === 'init' ? 'inline-block' : 'none';
-  pomodoroText.textContent = state === 'init' ? itemData.name : '';
 
   if (state === 'init') {
     if (!updatedOnLoad) {
       pausePomodoro();
     }
-    showHidePomodoro(kanbanHeading, pomodorContainer);
+    showHidePomodoro(kanbanHeading, pomodoroContainer);
     addControlListiners();
     startPomodoro(+time[0] + +time[1] / 60, timer, columnNum, itemNum);
+
+    icon.style.cssText = 'display: block; color: #eccb34';
+    icon.classList.add('fa-fade');
+    controlsContainer.style.display = 'inline-block';
+    text.textContent = itemData.name;
   } else {
-    showHidePomodoro(pomodorContainer, kanbanHeading);
+    showHidePomodoro(pomodoroContainer, kanbanHeading);
     clearInterval(interval);
     itemData.pomodoro = false;
     itemData.time = '';
     time = ['25', '00'];
+
+    icon.style.cssText = 'display: var(--display);';
+    icon.classList.remove('fa-fade');
+    controlsContainer.style.display = 'none';
+    text.textContent = '';
 
     updateDOM();
   }
@@ -126,14 +121,14 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     pause.style.display = 'none';
     play.style.display = 'inline-block';
     isPause = true;
-    timer.pomodoro.classList.remove('fa-fade');
+    icon.classList.remove('fa-fade');
   }
 
   function playPomodoro() {
     play.style.display = 'none';
     pause.style.display = 'inline-block';
     isPause = false;
-    timer.pomodoro.classList.add('fa-fade');
+    icon.classList.add('fa-fade');
   }
 
   function resetPomodoro() {
@@ -142,7 +137,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
 
     if (itemData.break === true) {
       itemData.break = false;
-      pomodoroBreak.style.display = 'none';
+      coffee.style.display = 'none';
     }
   }
 
@@ -167,7 +162,19 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
 
   MM.textContent = +time[0] < 10 ? `0${time[0]}` : time[0];
   SS.textContent = time[1];
-} /*END INIT */
+}
+
+function appendSessionIcon(container, num) {
+  const sessionElement = createElementWithClass('li', 'pomodoro__session');
+  sessionElement.style.left = 12 * num + 'px';
+  container.appendChild(sessionElement);
+}
+
+function setElementAttributes(element, text, isDraggable, id) {
+  element.textContent = text;
+  element.draggable = isDraggable;
+  element.id = id;
+}
 
 function changeIconOnBreak(data, icon) {
   if (data.break === true) {
@@ -184,23 +191,24 @@ function changeIconOnBreak(data, icon) {
   }
 }
 
-function showIcon(e) {
-  e.currentTarget.style.setProperty('--display', 'inline-block');
-}
-
-function hoverAppearIcon(currentelement) {
-  currentelement.addEventListener('mouseenter', showIcon);
-  currentelement.addEventListener('mousedown', () => {
+function hoverAppearIcon(currentElement) {
+  currentElement.addEventListener('mouseover', showIcon);
+  currentElement.addEventListener('mouseout', hideIcon);
+  currentElement.addEventListener('mousedown', () => {
     document
       .querySelectorAll('.drag__list-item')
-      .forEach((item) => item.removeEventListener('mouseenter', showIcon));
+      .forEach((item) => item.removeEventListener('mouseover', showIcon));
   });
-  currentelement.addEventListener('mouseout', (e) =>
-    e.currentTarget.style.setProperty('--display', 'none')
-  );
+
+  function showIcon(e) {
+    e.currentTarget.style.setProperty('--display', 'inline-block');
+  }
+  function hideIcon(e) {
+    e.currentTarget.style.setProperty('--display', 'none');
+  }
 }
 
-function elementWithClass(element, clazz) {
+function createElementWithClass(element, clazz) {
   const newElement = document.createElement(element);
   newElement.classList.add(clazz);
   return newElement;
@@ -241,4 +249,4 @@ function onEnterBlur(ev) {
   });
 }
 
-export { createItem, elementWithClass, pomodoroInit, pomodoroIcon, isPause };
+export { createItem, createElementWithClass, pomodoroInit, pomodoroIcon, isPause };

@@ -1,16 +1,16 @@
-import { elementWithClass } from './createItem';
+import { createElementWithClass } from './createItem';
 import { localLoaded, updateDOM } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 
-function minDeadline() {
+function todayDate() {
   const todayDate = new Date().toISOString().split('T')[0];
   return todayDate;
 }
 
 function setDeadline(columnNum, item, itemNum) {
-  const deadlinePick = elementWithClass('input', 'deadline');
+  const deadlinePick = createElementWithClass('input', 'deadline');
 
-  const today = minDeadline();
+  const today = todayDate();
   let currDaedline = localLoaded[columnNames[columnNum]].items[itemNum].deadline;
 
   today > currDaedline && columnNum !== 2
@@ -32,4 +32,4 @@ function setDeadline(columnNum, item, itemNum) {
   return deadlinePick;
 }
 
-export { minDeadline, setDeadline };
+export { todayDate, setDeadline };

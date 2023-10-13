@@ -1,6 +1,6 @@
 import { updateDOM, localLoaded } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
-import { minDeadline } from '../set/deadline';
+import { todayDate } from '../set/deadline';
 
 const addBtns = document.querySelectorAll('.add__btn-add');
 const saveBtns = document.querySelectorAll('.add__btn-save');
@@ -29,13 +29,13 @@ function addToColumn(column) {
   itemText.trim().length > 0
     ? localLoaded[selectedList].items.push({
         name: itemText,
-        add: minDeadline(),
-        deadline: minDeadline(),
+        add: todayDate(),
+        deadline: todayDate(),
         pomodoro: false,
         sessions: 0,
         time: '',
         break: false,
-        done: column === 2 ? minDeadline() : '',
+        done: column === 2 ? todayDate() : '',
       })
     : null;
   addItems[column].textContent = '';
