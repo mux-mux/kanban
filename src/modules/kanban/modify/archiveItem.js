@@ -1,4 +1,4 @@
-import { elementWithClass } from '../set/createItem';
+import { createElementWithClass } from '../set/createItem';
 import { updateDOM, localLoaded, archiveLoaded } from '../update/updateDOM';
 import { archive } from '../data/archive';
 
@@ -37,7 +37,7 @@ function renderArchive(archiveItems) {
   const archiveTable = document.querySelector('.archive');
 
   archiveItems.forEach((item) => {
-    const archiveRow = elementWithClass('tr', 'archive__item');
+    const archiveRow = createElementWithClass('tr', 'archive__item');
     delete item.break;
     delete item.pomodoro;
     delete item.time;

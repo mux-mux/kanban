@@ -1,4 +1,4 @@
-import { elementWithClass, isPause } from './createItem';
+import { createElementWithClass, isPause } from './createItem';
 import { localLoaded, updateDOM } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 import { setLocalItems } from '../update/localStorage';
@@ -62,7 +62,7 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
 }
 
 function setPomodoro(columnNum, itemNum) {
-  const pomodoro = elementWithClass('i', 'fa-regular');
+  const pomodoro = createElementWithClass('i', 'fa-regular');
   pomodoro.classList.add('fa-circle-play');
   pomodoro.classList.add('pomodoro__icon');
 

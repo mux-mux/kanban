@@ -1,4 +1,4 @@
-import { elementWithClass } from './createItem';
+import { createElementWithClass } from './createItem';
 import { localLoaded, updateDOM } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 
@@ -8,7 +8,7 @@ function minDeadline() {
 }
 
 function setDeadline(columnNum, item, itemNum) {
-  const deadlinePick = elementWithClass('input', 'deadline');
+  const deadlinePick = createElementWithClass('input', 'deadline');
 
   const today = minDeadline();
   let currDaedline = localLoaded[columnNames[columnNum]].items[itemNum].deadline;
