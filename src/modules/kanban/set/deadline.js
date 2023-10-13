@@ -2,7 +2,7 @@ import { createElementWithClass } from './createItem';
 import { localLoaded, updateDOM } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 
-function todayData() {
+function todayDate() {
   const todayDate = new Date().toISOString().split('T')[0];
   return todayDate;
 }
@@ -10,7 +10,7 @@ function todayData() {
 function setDeadline(columnNum, item, itemNum) {
   const deadlinePick = createElementWithClass('input', 'deadline');
 
-  const today = todayData();
+  const today = todayDate();
   let currDaedline = localLoaded[columnNames[columnNum]].items[itemNum].deadline;
 
   today > currDaedline && columnNum !== 2
@@ -32,4 +32,4 @@ function setDeadline(columnNum, item, itemNum) {
   return deadlinePick;
 }
 
-export { todayData, setDeadline };
+export { todayDate, setDeadline };
