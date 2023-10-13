@@ -2,7 +2,7 @@ import { localLoaded } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 import { updateDOM } from '../update/updateDOM';
 import { pomodoroInit, pomodoroIcon } from '../set/createItem';
-import { minDeadline } from '../set/deadline';
+import { todayData } from '../set/deadline';
 
 function relocateItem(columnNum, itemNum, newColNum, newItemNum) {
   const selectedList = localLoaded[columnNames[columnNum]].items;
@@ -12,7 +12,7 @@ function relocateItem(columnNum, itemNum, newColNum, newItemNum) {
 
   if (newColNum == 2) {
     const itemData = localLoaded[columnNames[newColNum]].items[newItemNum];
-    itemData.done = minDeadline();
+    itemData.done = todayData();
     pomodoroInit(pomodoroIcon, itemData, 'remove', columnNum, itemNum);
   } else {
     updateDOM();
