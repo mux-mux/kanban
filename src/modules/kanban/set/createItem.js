@@ -191,6 +191,13 @@ function changeIconOnBreak(data, icon) {
   }
 }
 
+function showIcon(e) {
+  e.currentTarget.style.setProperty('--display', 'inline-block');
+}
+function hideIcon(e) {
+  e.currentTarget.style.setProperty('--display', 'none');
+}
+
 function hoverAppearIcon(currentElement) {
   currentElement.addEventListener('mouseover', showIcon);
   currentElement.addEventListener('mouseout', hideIcon);
@@ -199,13 +206,6 @@ function hoverAppearIcon(currentElement) {
       .querySelectorAll('.drag__list-item')
       .forEach((item) => item.removeEventListener('mouseover', showIcon));
   });
-
-  function showIcon(e) {
-    e.currentTarget.style.setProperty('--display', 'inline-block');
-  }
-  function hideIcon(e) {
-    e.currentTarget.style.setProperty('--display', 'none');
-  }
 }
 
 function createElementWithClass(element, clazz) {
