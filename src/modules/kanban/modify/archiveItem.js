@@ -1,5 +1,5 @@
 import { createElementWithClass } from '../set/createItem';
-import { updateDOM, localLoaded } from '../update/updateDOM';
+import { updateDOM, localLoaded, archiveLoaded } from '../update/updateDOM';
 import { archive } from '../data/archive';
 
 function archiveItem() {
@@ -27,6 +27,7 @@ function archiveItem() {
 function moveToArchive() {
   const archiveItems = localLoaded.done.items;
   archive.items = archive.items.concat(archiveItems);
+  archiveLoaded.push(...archive.items);
   localLoaded.done.items = [];
 
   updateDOM();
