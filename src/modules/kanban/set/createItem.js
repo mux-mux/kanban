@@ -94,7 +94,6 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     startPomodoro(+time[0] + +time[1] / 60, timer, columnNum, itemNum);
 
     icon.style.cssText = 'display: block; color: #eccb34';
-    icon.classList.add('fa-fade');
     controlsContainer.style.display = 'inline-block';
     text.textContent = itemData.name;
   } else {

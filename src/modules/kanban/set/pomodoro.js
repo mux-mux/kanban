@@ -19,8 +19,11 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
   }
 
   function pomodoroLogic() {
-    const minutes = Math.floor(tick / 60);
-    const seconds = tick % 60;
+    let minutes = Math.floor(tick / 60);
+    let seconds = tick % 60;
+
+    minutes = minutes < 10 ? `0${minutes}` : minutes;
+    seconds = seconds < 10 ? `0${seconds}` : seconds;
 
     if (tick <= 0) {
       clearInterval(interval);
@@ -41,17 +44,16 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
       }
     }
     if (!isPause) {
+      timer.pomodoro.classList.add('fa-fade');
       tick--;
-      MM.textContent = minutes < 10 ? `0${minutes}` : minutes;
-      SS.textContent = seconds < 10 ? `0${seconds}` : seconds;
+      MM.textContent = minutes;
+      SS.textContent = seconds;
     }
     if (itemData.pomodoro === true) {
-      itemData.time = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+      itemData.time = `${minutes}:${seconds}`;
     }
     setLocalItems(columnNames);
   }
-
-  pomodoroLogic();
 
   if (interval) {
     clearInterval(interval);
