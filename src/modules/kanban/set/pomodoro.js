@@ -49,11 +49,13 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
       MM.textContent = minutes;
       SS.textContent = seconds;
     }
-    if (itemData.pomodoro === true) {
+    if (itemData.pomodoro === true && !isPause) {
       itemData.time = `${minutes}:${seconds}`;
     }
     setLocalItems(columnNames);
   }
+
+  pomodoroLogic();
 
   if (interval) {
     clearInterval(interval);

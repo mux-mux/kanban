@@ -18,7 +18,7 @@ function toggleInputBox(column, state) {
   saveBtns[column].style.display = displayStyle;
   addContainers[column].style.display = displayStyle;
 
-  if (state === 'hide') {
+  if (state === 'add') {
     addToColumn(column);
   }
 }
@@ -47,7 +47,7 @@ addBtns.forEach((addBtn, index) => {
 });
 
 saveBtns.forEach((saveBtn, index) => {
-  saveBtn.addEventListener('click', () => toggleInputBox(index, 'hide'));
+  saveBtn.addEventListener('click', () => toggleInputBox(index, 'add'));
 });
 
 export { dragList };
