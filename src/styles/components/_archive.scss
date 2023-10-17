@@ -52,6 +52,13 @@
     border-radius: 3px;
   }
 
+  @include respond(mobile) {
+    &__head > th,
+    &__item > td {
+      padding: 0.2rem 0.5rem;
+    }
+  }
+
   &__item > td:first-of-type {
     text-align: left;
   }

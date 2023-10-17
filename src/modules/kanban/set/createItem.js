@@ -42,15 +42,6 @@ function createItem(columnElement, columnNum, item, itemNum) {
 
   setElementAttributes(listElement, item.name, true, itemNum);
 
-  if (!isTouch) {
-    listElement.addEventListener('dragstart', (e) => drag(e, columnNum));
-    hoverAppearIcon(listElement);
-  } else {
-    document
-      .querySelectorAll('.drag__list-item')
-      .forEach((item) => item.style.setProperty('--display', 'inline-block'));
-  }
-
   dblClickEdit(listElement, columnNum, itemNum);
 
   if (columnNum !== 2) {
@@ -63,6 +54,15 @@ function createItem(columnElement, columnNum, item, itemNum) {
   listElement.appendChild(sessionsContainer);
   listElement.appendChild(listSetContainer);
   columnElement.appendChild(listElement);
+
+  if (!isTouch) {
+    listElement.addEventListener('dragstart', (e) => drag(e, columnNum));
+    hoverAppearIcon(listElement);
+  } else {
+    document
+      .querySelectorAll('.drag__list-item')
+      .forEach((item) => item.style.setProperty('--display', 'inline-block'));
+  }
 }
 
 function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
@@ -99,6 +99,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   } else {
     showHidePomodoro(pomodoroContainer, kanbanHeading);
     clearInterval(interval);
+    isPause = false;
     itemData.pomodoro = false;
     itemData.time = '';
     time = ['25', '00'];
