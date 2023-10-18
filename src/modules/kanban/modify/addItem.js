@@ -12,10 +12,8 @@ function toggleInputBox(column, state) {
   const addVisibility = state === 'show' ? 'hidden' : 'visible';
   const saveVisibility = state === 'show' ? 'visible' : 'hidden';
   const addDisplay = state === 'show' ? 'block' : 'none';
-  const transitionStyle = state === 'show' ? 'unset' : 'background-color 0.3s ease-in';
 
   addBtns[column].style.visibility = addVisibility;
-  addBtns[column].style.transition = transitionStyle;
   saveBtns[column].style.visibility = saveVisibility;
   addContainers[column].style.display = addDisplay;
 
