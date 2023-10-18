@@ -6,13 +6,14 @@ import { interval, setPomodoro, startPomodoro } from './pomodoro';
 import { localLoaded, updateDOM, updatedOnLoad } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 import { relocateItem } from '../modify/relocateItem';
+import { dragList } from '../modify/addItem';
 
 let pomodoroIcon = null;
 let isPause = false;
+const moveData = {};
+const isTouch = 'ontouchstart' in window || navigator.msMaxTouchPoints > 0;
 
 function createItem(columnElement, columnNum, item, itemNum) {
-  const isTouch = 'ontouchstart' in window || navigator.msMaxTouchPoints > 0;
-
   const listElement = createElementWithClass('li', 'drag__list-item');
   const listSetContainer = createElementWithClass('div', 'drag__set-container');
   const removeIcon = createElementWithClass('img', 'drag__list-item-remove-img');
@@ -59,12 +60,30 @@ function createItem(columnElement, columnNum, item, itemNum) {
     listElement.addEventListener('dragstart', (e) => drag(e, columnNum));
     hoverAppearIcon(listElement);
   } else {
-    document
-      .querySelectorAll('.drag__list-item')
-      .forEach((item) => item.style.setProperty('--display', 'inline-block'));
-    document.querySelectorAll('.add__move').forEach((item) => (item.style.display = 'block'));
+    dragList.forEach((item) => item.style.setProperty('--display', 'inline-block'));
+
+    listElement.addEventListener('touchstart', (e) => {
+      document
+        .querySelectorAll('.drag__list-item')
+        .forEach((item) => item.classList.remove('touch__selected'));
+      e.currentTarget.classList.add('touch__selected');
+      moveData.columnNum = columnNum;
+      moveData.itemNum = +e.currentTarget.id;
+
+      // relocateItem(columnNum, e.currentTarget.id, 2, localLoaded[columnNames[2]].items.length);
+    });
   }
 }
+
+const addMoveBtns = document.querySelectorAll('.add__move');
+addMoveBtns.forEach((moveBtn, index) => {
+  moveBtn.style.display = 'block';
+  moveBtn.addEventListener('touchstart', () => {
+    const newColumnNum = moveData.columnNum != index ? index : index + 1;
+    moveData.newColumnNum = newColumnNum;
+    console.log(moveData);
+  });
+});
 
 function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   const MM = document.getElementById('minutes');

@@ -66,3 +66,17 @@
     }
   }
 }
+
+.touch {
+  &__selected {
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 0.8rem;
+      height: 100%;
+      background-color: rgba(0, 255, 0, 0.4);
+      border-radius: 1rem 0 0 1rem;
+    }
+  }
+}
