@@ -9,14 +9,15 @@ const addItems = document.querySelectorAll('.add__item');
 const dragList = document.querySelectorAll('.drag__list');
 
 function toggleInputBox(column, state) {
-  const visibleState = state === 'show' ? 'hidden' : 'visible';
-  const displayStyle = state === 'show' ? 'block' : 'none';
-  const transitionStyle = state === 'show' ? 'unset' : 'all 0.3s ease-in';
+  const addVisibility = state === 'show' ? 'hidden' : 'visible';
+  const saveVisibility = state === 'show' ? 'visible' : 'hidden';
+  const addDisplay = state === 'show' ? 'block' : 'none';
+  const transitionStyle = state === 'show' ? 'unset' : 'background-color 0.3s ease-in';
 
-  addBtns[column].style.visibility = visibleState;
+  addBtns[column].style.visibility = addVisibility;
   addBtns[column].style.transition = transitionStyle;
-  saveBtns[column].style.display = displayStyle;
-  addContainers[column].style.display = displayStyle;
+  saveBtns[column].style.visibility = saveVisibility;
+  addContainers[column].style.display = addDisplay;
 
   if (state === 'add') {
     addToColumn(column);

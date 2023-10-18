@@ -1,7 +1,15 @@
 .add {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-size: 1.8rem;
+
+  &__move {
+    display: none;
+    padding: 1rem;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
 
   &__btn {
     margin: 10px;
@@ -11,8 +19,8 @@
     cursor: pointer;
     width: fit-content;
     border-radius: 5px;
-    transition: all 0.3s ease-in;
     user-select: none;
+    transition: background-color 0.3s ease-in;
 
     &-add {
       color: var(--text-color);
@@ -28,7 +36,7 @@
 
     &-save {
       color: black;
-      display: none;
+      visibility: hidden;
       background-color: #50c878;
 
       &:hover {

@@ -62,6 +62,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
     document
       .querySelectorAll('.drag__list-item')
       .forEach((item) => item.style.setProperty('--display', 'inline-block'));
+    document.querySelectorAll('.add__move').forEach((item) => (item.style.display = 'block'));
   }
 }
 
