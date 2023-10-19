@@ -119,7 +119,12 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   let time = itemData.time === '' ? ['25', '00'] : itemData.time.split(':');
 
   if (state === 'init') {
-    !updatedOnLoad ? pausePomodoro() : playPomodoro();
+    if (!updatedOnLoad) {
+      pausePomodoro();
+    }
+    if (!isPause) {
+      playPomodoro();
+    }
 
     showHidePomodoro(kanbanHeading, pomodoroContainer);
     addControlListiners();
