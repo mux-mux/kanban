@@ -69,19 +69,20 @@ function createItem(columnElement, columnNum, item, itemNum) {
       e.currentTarget.classList.add('touch__selected');
       moveData.columnNum = columnNum;
       moveData.itemNum = +e.currentTarget.id;
-
-      // relocateItem(columnNum, e.currentTarget.id, 2, localLoaded[columnNames[2]].items.length);
     });
   }
 }
 
 const addMoveBtns = document.querySelectorAll('.add__move');
 addMoveBtns.forEach((moveBtn, index) => {
-  moveBtn.style.display = 'block';
+  if (isTouch) {
+    moveBtn.style.display = 'block';
+  }
   moveBtn.addEventListener('touchstart', () => {
     const newColumnNum = moveData.columnNum != index ? index : index + 1;
     moveData.newColumnNum = newColumnNum;
-    console.log(moveData);
+    moveData.newItemnNum = localLoaded[columnNames[newColumnNum]].items.length;
+    relocateItem(moveData.columnNum, moveData.itemNum, moveData.newColumnNum, moveData.newItemnNum);
   });
 });
 

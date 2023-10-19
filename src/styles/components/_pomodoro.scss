@@ -1,12 +1,14 @@
 .pomodoro {
   display: none;
   color: var(--text-color);
+  min-height: $header-min-height;
+  line-height: $header-min-height;
   & > * {
     display: inline-block;
     vertical-align: middle;
   }
   &__icon {
-    padding: 0 10px;
+    padding: 0 5px;
     transition: color 0.5s;
     display: var(--display);
     &:hover {

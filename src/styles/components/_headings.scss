@@ -2,6 +2,8 @@
   letter-spacing: 2px;
   text-shadow: 1px 1px 3px #ccc;
   font-size: 4rem;
+  min-height: $header-min-height;
+  line-height: $header-min-height;
 }
 
 .heading-secondary {

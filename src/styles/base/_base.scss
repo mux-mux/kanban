@@ -70,4 +70,8 @@ textarea {
   max-width: 180rem;
   margin: 0 auto;
   padding: 0 2rem;
+
+  @include respond(mobile) {
+    padding: 0 1rem;
+  }
 }
