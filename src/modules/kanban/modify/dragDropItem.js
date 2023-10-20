@@ -1,5 +1,6 @@
 import { dragList } from './addItem';
 import { relocateItem } from '../modify/relocateItem';
+import { removeControlListiners } from '../set/pomodoro';
 
 let draggedItem = null,
   currentColumn = null;
@@ -46,10 +47,7 @@ function dragOver(e, column) {
 }
 
 function drop(e, newColNum) {
-  const pomodoroContainer = document.getElementById('pomodoro');
-  const pomodoroContainerClone = pomodoroContainer.cloneNode(true);
-
-  pomodoroContainer.parentNode.replaceChild(pomodoroContainerClone, pomodoroContainer);
+  removeControlListiners();
 
   e.preventDefault();
 

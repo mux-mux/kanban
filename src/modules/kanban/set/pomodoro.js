@@ -75,6 +75,7 @@ function setPomodoro(columnNum, itemNum) {
   pomodoro.addEventListener('click', lunchPomodoro);
 
   function lunchPomodoro() {
+    removeControlListiners();
     const pomodoroText = document.querySelector('.pomodoro__text');
 
     document.querySelector('.pomodoro__controls').style.display = 'inline-block';
@@ -127,8 +128,9 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     }
 
     showHidePomodoro(kanbanHeading, pomodoroContainer);
-    addControlListiners();
     startPomodoro(+time[0] + +time[1] / 60, timer, columnNum, itemNum);
+
+    addControlListiners();
 
     icon.style.cssText = 'display: block; color: #eccb34';
     controlsContainer.style.display = 'inline-block';
@@ -190,15 +192,15 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     play.addEventListener('click', playPomodoro);
   }
 
-  function removeControlListiners() {
-    done.removeEventListener('click', donePomodoro);
-    reset.removeEventListener('click', resetPomodoro);
-    pause.removeEventListener('click', pausePomodoro);
-    play.removeEventListener('click', playPomodoro);
-  }
-
   MM.textContent = +time[0] < 10 ? `0${time[0]}` : time[0];
   SS.textContent = time[1];
 }
 
-export { setPomodoro, startPomodoro, pomodoroInit, interval };
+function removeControlListiners() {
+  const pomodoroContainer = document.getElementById('pomodoro');
+  const pomodoroContainerClone = pomodoroContainer.cloneNode(true);
+
+  pomodoroContainer.parentNode.replaceChild(pomodoroContainerClone, pomodoroContainer);
+}
+
+export { setPomodoro, startPomodoro, pomodoroInit, removeControlListiners, interval };
