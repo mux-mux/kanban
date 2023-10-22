@@ -31,17 +31,20 @@
         <div class="header__tools">
           <i class="fa-solid fa-trash-can-arrow-up tools tools-history"></i>
           <i class="fa-solid fa-calendar-check tools tools-archive"></i>
-          <table class="archive__container">
-            <tbody class="archive">
-              <tr class="archive__head">
-                <th>Name</th>
-                <th>Add date</th>
-                <th>Deadline date</th>
-                <th>Sessions</th>
-                <th>Done date</th>
-              </tr>
-            </tbody>
-          </table>
+          <div class="archive">
+            <table class="archive__table">
+              <tbody class="archive__body">
+                <tr class="archive__head">
+                  <th>Name</th>
+                  <th>Add date</th>
+                  <th>Deadline date</th>
+                  <th>Sessions</th>
+                  <th>Done date</th>
+                </tr>
+              </tbody>
+            </table>
+            <i class="fa-solid fa-xmark archive__close"></i>
+          </div>
         </div>
         <h1 class="heading-primary">Kanban</h1>
         <div id="pomodoro" class="pomodoro">
@@ -114,7 +117,7 @@
         <li class="drag__column done">
           <h2 class="heading-secondary done__title p2">Done</h2>
           <span class="move-to-archive">
-            Move tasks to <i class="fa-solid fa-calendar-check move-to-archive-icon"></i>
+            Move to <i class="fa-solid fa-calendar-check move-to-archive-icon"></i>
           </span>
           <div class="done__content custom-scroll">
             <ul class="drag__list" id="done-list"></ul>

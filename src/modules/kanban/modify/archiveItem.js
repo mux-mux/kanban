@@ -5,12 +5,12 @@ import { archive } from '../data/archive';
 function archiveItem() {
   const archiveBtn = document.querySelector('.tools-archive');
   const moveToArchiveBtn = document.querySelector('.move-to-archive');
-  const archiveContainer = document.querySelector('.archive__container');
+  const archiveContainer = document.querySelector('.archive');
 
   archiveBtn.addEventListener('click', toggleArchiveVisibility);
 
   document.addEventListener('click', (e) => {
-    if (!e.target.closest('.archive__container') && !e.target.matches('.tools-archive')) {
+    if (!e.target.closest('.archive') && !e.target.matches('.tools-archive')) {
       if (archiveContainer.classList.contains('archive__visible')) {
         archiveContainer.classList.remove('archive__visible');
       }
