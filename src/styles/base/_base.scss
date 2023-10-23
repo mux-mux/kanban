@@ -72,6 +72,6 @@ textarea {
   padding: 0 2rem;
 
   @include respond(mobile) {
-    padding: 0 1rem;
+    padding: 0 1rem 5rem;
   }
 }
