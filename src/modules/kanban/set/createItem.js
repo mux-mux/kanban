@@ -60,7 +60,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
     listElement.addEventListener('dragstart', (e) => drag(e, columnNum));
     hoverAppearIcon(listElement);
   } else {
-    dragList.forEach((item) => item.style.setProperty('--display', 'inline-block'));
+    dragList.forEach((item) => item.style.setProperty('--visibility', 'visible'));
 
     listElement.addEventListener('touchstart', (e) => {
       document
@@ -114,10 +114,10 @@ function changeIconOnBreak(data, icon) {
 }
 
 function showIcon(e) {
-  e.currentTarget.style.setProperty('--display', 'inline-block');
+  e.currentTarget.style.setProperty('--visibility', 'visible');
 }
 function hideIcon(e) {
-  e.currentTarget.style.setProperty('--display', 'none');
+  e.currentTarget.style.setProperty('--visibility', 'hidden');
 }
 
 function hoverAppearIcon(currentElement) {

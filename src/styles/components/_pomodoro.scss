@@ -10,7 +10,7 @@
   &__icon {
     padding: 0 5px;
     transition: color 0.5s;
-    display: var(--display);
+    visibility: var(--visibility);
     &:hover {
       color: #ebcc34;
     }

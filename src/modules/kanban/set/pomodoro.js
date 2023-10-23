@@ -132,7 +132,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
 
     addControlListiners();
 
-    icon.style.cssText = 'display: block; color: #eccb34';
+    icon.style.cssText = 'visibility: visible; color: #eccb34';
     controlsContainer.style.display = 'inline-block';
     text.textContent = itemData.name;
   } else {
@@ -143,7 +143,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     itemData.time = '';
     time = ['25', '00'];
 
-    icon.style.cssText = 'display: var(--display);';
+    icon.style.cssText = 'visibility: var(--visibility);';
     icon.classList.remove('fa-fade');
     controlsContainer.style.display = 'none';
     text.textContent = '';
