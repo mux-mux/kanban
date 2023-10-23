@@ -6,18 +6,28 @@ function archiveItem() {
   const archiveBtn = document.querySelector('.tools-archive');
   const moveToArchiveBtn = document.querySelector('.move-to-archive');
   const archiveContainer = document.querySelector('.archive');
+  const archiveClose = document.querySelector('.archive__close');
+  const columnsContainer = document.querySelector('.drag');
 
   archiveBtn.addEventListener('click', toggleArchiveVisibility);
 
-  document.addEventListener('click', (e) => {
+  archiveClose.addEventListener('click', () => {
+    removeArchiveVisibility();
+  });
+
+  columnsContainer.addEventListener('click', (e) => {
     if (!e.target.closest('.archive') && !e.target.matches('.tools-archive')) {
       if (archiveContainer.classList.contains('archive__visible')) {
-        archiveContainer.classList.remove('archive__visible');
+        removeArchiveVisibility();
       }
     }
   });
 
   moveToArchiveBtn.addEventListener('click', moveToArchive);
+
+  function removeArchiveVisibility() {
+    archiveContainer.classList.remove('archive__visible');
+  }
 
   function toggleArchiveVisibility() {
     archiveContainer.classList.toggle('archive__visible');
@@ -35,7 +45,7 @@ function moveToArchive() {
 }
 
 function renderArchive(archiveItems) {
-  const archiveTable = document.querySelector('.archive');
+  const archiveTable = document.querySelector('.archive__body');
 
   archiveItems.forEach((item) => {
     const archiveRow = createElementWithClass('tr', 'archive__item');

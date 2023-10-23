@@ -35,10 +35,15 @@
   transition: all 0.7s;
 
   @include respond(tablet) {
+    width: 100%;
     left: 0;
   }
   @include respond(mobile) {
     font-size: 1rem;
+  }
+
+  &__table {
+    width: 100%;
   }
 
   &__body {
@@ -54,7 +59,7 @@
     font-size: 1.2rem;
     color: var(--text-color);
     border-radius: 0 5px 0 5px;
-    background-color: rgba(255, 0, 0, 0.2);
+    background-color: rgba(255, 0, 0, 0.4);
     cursor: pointer;
   }
 
