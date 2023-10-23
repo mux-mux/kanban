@@ -1,6 +1,7 @@
 .pomodoro {
   display: none;
   box-sizing: border-box;
+  padding: 1rem 0;
   color: var(--text-color);
   min-height: $header-min-height;
   line-height: $header-min-height;
