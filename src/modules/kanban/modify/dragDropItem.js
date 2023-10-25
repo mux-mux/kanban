@@ -41,9 +41,11 @@ function dragOver(e, column) {
     dragList[currentColumn].appendChild(draggedItem);
   }
 
-  dragList.forEach((list) => list.classList.remove('over'));
-
   dragList[column].classList.add('over');
+}
+
+function dragLeave() {
+  dragList.forEach((list) => list.classList.remove('over'));
 }
 
 function drop(e, newColNum) {
@@ -68,6 +70,7 @@ function drop(e, newColNum) {
 dragList.forEach((list, i) => {
   list.addEventListener('drop', (e) => drop(e, i));
   list.addEventListener('dragover', (e) => dragOver(e, i));
+  list.addEventListener('dragleave', () => dragLeave());
 });
 
 export { drag, drop };

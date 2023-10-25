@@ -117,6 +117,7 @@ function showIcon(e) {
   e.currentTarget.style.setProperty('--visibility', 'visible');
 }
 function hideIcon(e) {
+  console.log('hidden');
   e.currentTarget.style.setProperty('--visibility', 'hidden');
 }
 
