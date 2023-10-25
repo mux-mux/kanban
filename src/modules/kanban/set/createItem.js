@@ -117,18 +117,12 @@ function showIcon(e) {
   e.currentTarget.style.setProperty('--visibility', 'visible');
 }
 function hideIcon(e) {
-  console.log('hidden');
   e.currentTarget.style.setProperty('--visibility', 'hidden');
 }
 
 function hoverAppearIcon(currentElement) {
   currentElement.addEventListener('mouseover', showIcon);
   currentElement.addEventListener('mouseout', hideIcon);
-  currentElement.addEventListener('mousedown', () => {
-    document
-      .querySelectorAll('.drag__list-item')
-      .forEach((item) => item.removeEventListener('mouseover', showIcon));
-  });
 }
 
 function createElementWithClass(element, clazz) {
