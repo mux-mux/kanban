@@ -1,14 +1,12 @@
 .pomodoro {
   display: none;
+  align-items: center;
+  gap: 2rem;
   box-sizing: border-box;
   color: var(--text-color);
   min-height: $header-min-height;
   line-height: $header-min-height;
   padding: $padding-pomodoro-heading;
-
-  & > * {
-    display: inline-block;
-  }
   &__icon {
     padding: 0 5px;
     transition: color 0.5s;
@@ -20,18 +18,18 @@
   &__text {
     font-size: 1.8rem;
     line-height: 2rem;
-    margin: 0 2rem;
   }
   &__timer {
     text-align: left;
     min-width: 10rem;
     font-size: 2.4rem;
-    background: var(--background-timer);
     padding: 0 1rem;
+    background: var(--background-timer);
     border-radius: 5px;
   }
   &__controls {
     display: none;
+    align-items: center;
     width: 13rem;
   }
   &__control {

@@ -79,7 +79,7 @@ function setPomodoro(columnNum, itemNum) {
     isPause = false;
     const pomodoroText = document.querySelector('.pomodoro__text');
 
-    document.querySelector('.pomodoro__controls').style.display = 'inline-block';
+    document.querySelector('.pomodoro__controls').style.display = 'flex';
 
     pomodoroText.textContent = pomodoro.parentElement.innerText;
 
@@ -129,7 +129,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     addControlListiners();
 
     icon.style.cssText = 'visibility: visible; color: #eccb34';
-    controlsContainer.style.display = 'inline-block';
+    controlsContainer.style.display = 'flex';
     text.textContent = itemData.name;
   } else {
     showHidePomodoro(pomodoroContainer, kanbanHeading);
@@ -149,7 +149,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
 
   function showHidePomodoro(firstItem, secondItem) {
     firstItem.style.display = 'none';
-    secondItem.style.display = 'block';
+    secondItem.style.display = 'flex';
   }
 
   function pausePomodoro() {
