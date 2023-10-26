@@ -76,6 +76,7 @@ function setPomodoro(columnNum, itemNum) {
 
   function lunchPomodoro() {
     removeControlListiners();
+    isPause = false;
     const pomodoroText = document.querySelector('.pomodoro__text');
 
     document.querySelector('.pomodoro__controls').style.display = 'inline-block';
@@ -120,12 +121,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   let time = itemData.time === '' ? ['25', '00'] : itemData.time.split(':');
 
   if (state === 'init') {
-    if (!updatedOnLoad) {
-      pausePomodoro();
-    }
-    if (!isPause) {
-      playPomodoro();
-    }
+    !updatedOnLoad || isPause ? pausePomodoro() : playPomodoro();
 
     showHidePomodoro(kanbanHeading, pomodoroContainer);
     startPomodoro(+time[0] + +time[1] / 60, timer, columnNum, itemNum);
