@@ -1,12 +1,18 @@
 .pomodoro {
   display: none;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   gap: 2rem;
   box-sizing: border-box;
   color: var(--text-color);
   min-height: $header-min-height;
   line-height: $header-min-height;
   padding: $padding-pomodoro-heading;
+  &__inner {
+    display: flex;
+    gap: 2rem;
+  }
   &__icon {
     padding: 0 5px;
     transition: color 0.5s;

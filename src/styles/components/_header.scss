@@ -12,6 +12,7 @@
 
     @include respond(mobile) {
       min-width: auto;
+      padding: 2rem 0 0 0;
     }
   }
 
