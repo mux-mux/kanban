@@ -36,8 +36,8 @@ function archiveItem() {
 
 function moveToArchive() {
   const archiveItems = localLoaded.done.items;
+  archiveLoaded.push(...archiveItems);
   archive.items = archive.items.concat(archiveItems);
-  archiveLoaded.push(...archive.items);
   localLoaded.done.items = [];
 
   updateDOM();
