@@ -5,4 +5,8 @@
   color: #777;
   outline: none;
   max-width: 10.6rem;
+
+  @include respond(mobile) {
+    font-size: 1rem;
+  }
 }
