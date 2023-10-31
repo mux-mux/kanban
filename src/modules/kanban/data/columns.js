@@ -48,7 +48,7 @@ const columns = {
       {
         name: 'Check LinkedIn messages',
         add: '2024-09-18',
-        deadline: '2024-09-19',
+        deadline: '2024-09-18',
         pomodoro: false,
         sessions: 1,
         time: '',
@@ -57,7 +57,7 @@ const columns = {
       {
         name: 'Check emails',
         add: '2024-09-18',
-        deadline: '2024-09-19',
+        deadline: '2024-09-20',
         pomodoro: false,
         sessions: 5,
         time: '',

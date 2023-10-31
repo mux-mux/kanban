@@ -1,5 +1,5 @@
 import { createElementWithClass } from '../set/createItem';
-import { updateDOM, localLoaded, archiveLoaded } from '../update/updateDOM';
+import { updateDOM, localLoaded, archiveLoaded, updatedOnLoad } from '../update/updateDOM';
 import { archive } from '../data/archive';
 
 function archiveItem() {
@@ -48,6 +48,17 @@ function renderArchive(archiveItems) {
   const archiveTable = document.querySelector('.archive__body');
 
   archiveItems.forEach((item) => {
+    if (item.deadline.includes('day') === false) {
+      let prependText;
+      const newDeadline = +item.deadline.replaceAll('-', '') - +item.add.replaceAll('-', '');
+      if (newDeadline > 1) {
+        prependText = ' days';
+      } else if (newDeadline === 1) {
+        prependText = ' day';
+      }
+      item.deadline = newDeadline === 0 ? 'today' : newDeadline + ' ' + prependText;
+    }
+
     const archiveRow = createElementWithClass('tr', 'archive__item');
     delete item.break;
     delete item.pomodoro;
