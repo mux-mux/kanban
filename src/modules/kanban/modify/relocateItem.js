@@ -11,11 +11,13 @@ function relocateItem(columnNum, itemNum, newColNum, newItemNum) {
   const currRemoved = selectedList.splice(itemNum, 1);
   newSelectedList.splice(newItemNum, 0, currRemoved[0]);
 
+  const itemData = localLoaded[columnNames[newColNum]].items[newItemNum];
+
   if (newColNum == 2) {
-    const itemData = localLoaded[columnNames[newColNum]].items[newItemNum];
     itemData.done = todayDate();
     pomodoroInit(pomodoroIcon, itemData, 'remove', columnNum, itemNum);
   } else {
+    itemData.done = '';
     updateDOM();
   }
 }
