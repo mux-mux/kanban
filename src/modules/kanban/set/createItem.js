@@ -10,7 +10,7 @@ import { dragList } from '../modify/addItem';
 import { pomodoroInit } from '../set/pomodoro';
 
 let pomodoroIcon = null;
-const moveData = {};
+let moveData = {};
 const isTouch = 'ontouchstart' in window || navigator.msMaxTouchPoints > 0;
 
 function createItem(columnElement, columnNum, item, itemNum) {
@@ -39,6 +39,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
   removeContainer.addEventListener('click', () => {
     pomodoroInit(pomodoroIcon, itemData, 'remove', columnNum, itemNum);
     deleteItem(columnNum, itemNum);
+    moveData = {};
   });
 
   setElementAttributes(listElement, item.name, true, itemNum);
@@ -82,7 +83,15 @@ addMoveBtns.forEach((moveBtn, index) => {
     const newColumnNum = moveData.columnNum != index ? index : index + 1;
     moveData.newColumnNum = newColumnNum;
     moveData.newItemnNum = localLoaded[columnNames[newColumnNum]].items.length;
-    relocateItem(moveData.columnNum, moveData.itemNum, moveData.newColumnNum, moveData.newItemnNum);
+    if (moveData.columnNum !== undefined) {
+      relocateItem(
+        moveData.columnNum,
+        moveData.itemNum,
+        moveData.newColumnNum,
+        moveData.newItemnNum
+      );
+      moveData = {};
+    }
   });
 });
 

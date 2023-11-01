@@ -3,27 +3,33 @@
   justify-content: space-between;
   align-items: center;
   font-size: 1.8rem;
+  gap: 3rem;
 
   &__move {
     display: none;
     padding: 1rem;
-    border-radius: 5px;
+    border-radius: 0.5rem;
     background-color: rgba(0, 0, 0, 0.1);
     color: var(--text-color);
   }
 
   &__btn {
-    margin: 10px;
-    padding: 5px 10px;
+    margin: 1rem 2rem;
+    padding: 0.5rem 1rem;
     display: flex;
     align-items: center;
     cursor: pointer;
     width: fit-content;
-    border-radius: 5px;
+    border-radius: 0.5rem;
     user-select: none;
+
+    @include respond(mobile) {
+      margin: 1rem;
+    }
 
     &-add {
       color: var(--text-color);
+
       &:hover {
         transition: background-color 0.3s ease-in;
         background-color: rgba(255, 255, 255, 0.9);
@@ -48,7 +54,7 @@
 
     &-plus {
       font-size: 2rem;
-      margin-right: 5px;
+      margin-right: 0.5rem;
       transform: translateY(-1px);
     }
   }
