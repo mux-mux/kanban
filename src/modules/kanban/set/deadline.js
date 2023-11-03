@@ -11,9 +11,9 @@ function setDeadline(columnNum, item, itemNum) {
   const deadlinePick = createElementWithClass('input', 'deadline');
 
   const today = todayDate();
-  let currDaedline = localLoaded[columnNames[columnNum]].items[itemNum].deadline;
+  let currDeadline = localLoaded[columnNames[columnNum]].items[itemNum].deadline;
 
-  today > currDaedline && columnNum !== 2
+  today > currDeadline && columnNum !== 2
     ? (deadlinePick.style.color = '#d02020')
     : (deadlinePick.style.color = '#777');
   deadlinePick.setAttribute('type', 'date');

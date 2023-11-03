@@ -2,7 +2,7 @@ const columns = {
   todo: {
     items: [
       {
-        name: 'Plan a day',
+        name: 'Take a walk',
         add: '2024-09-18',
         deadline: '2024-09-19',
         pomodoro: false,
@@ -11,7 +11,7 @@ const columns = {
         break: false,
       },
       {
-        name: 'Make a coffee',
+        name: 'Check emails',
         add: '2024-09-18',
         deadline: '2024-09-19',
         pomodoro: false,
@@ -24,7 +24,7 @@ const columns = {
   inprogress: {
     items: [
       {
-        name: 'Do workout',
+        name: 'Plan a day',
         add: '2024-09-18',
         deadline: '2024-09-19',
         pomodoro: false,
@@ -33,7 +33,7 @@ const columns = {
         break: false,
       },
       {
-        name: 'Listen to music',
+        name: 'Listen to the music',
         add: '2024-09-18',
         deadline: '2024-09-19',
         pomodoro: false,
@@ -46,7 +46,7 @@ const columns = {
   done: {
     items: [
       {
-        name: 'Check LinkedIn messages',
+        name: 'Do workout',
         add: '2024-09-18',
         deadline: '2024-09-18',
         pomodoro: false,
@@ -55,7 +55,7 @@ const columns = {
         done: '2024-09-19',
       },
       {
-        name: 'Check emails',
+        name: 'Make a coffee',
         add: '2024-09-18',
         deadline: '2024-09-20',
         pomodoro: false,

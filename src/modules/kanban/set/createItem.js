@@ -7,7 +7,7 @@ import { localLoaded } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 import { relocateItem } from '../modify/relocateItem';
 import { dragList } from '../modify/addItem';
-import { pomodoroInit } from '../set/pomodoro';
+import { pomodoroInit, removeControlListiners } from '../set/pomodoro';
 
 let pomodoroIcon = null;
 let moveData = {};
@@ -142,6 +142,7 @@ function createElementWithClass(element, clazz) {
 
 function dblClickEdit(currentelement, columnNum, itemNum) {
   currentelement.addEventListener('dblclick', (e) => {
+    removeControlListiners();
     e.currentTarget.textContent = e.currentTarget.innerText;
     e.currentTarget.setAttribute('contentEditable', true);
     e.currentTarget.setAttribute('draggable', false);
