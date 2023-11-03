@@ -55,7 +55,7 @@ const columns = {
         done: '2024-09-19',
       },
       {
-        name: 'Make a coffee',
+        name: 'Make coffee',
         add: '2024-09-18',
         deadline: '2024-09-20',
         pomodoro: false,
