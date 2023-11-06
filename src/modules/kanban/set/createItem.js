@@ -67,7 +67,9 @@ function createItem(columnElement, columnNum, item, itemNum) {
       document
         .querySelectorAll('.drag__list-item')
         .forEach((item) => item.classList.remove('touch__selected'));
-      e.currentTarget.classList.add('touch__selected');
+      if (!e.target.classList.contains('pomodoro__icon')) {
+        e.currentTarget.classList.add('touch__selected');
+      }
       moveData.columnNum = columnNum;
       moveData.itemNum = +e.currentTarget.id;
     });
