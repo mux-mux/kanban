@@ -24,6 +24,10 @@
   &__text {
     font-size: 1.8rem;
     line-height: 2rem;
+
+    @include respond(mobile) {
+      display: none;
+    }
   }
   &__timer {
     text-align: left;
