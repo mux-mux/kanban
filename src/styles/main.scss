@@ -2,10 +2,10 @@
 @import 'abstracts/mixins';
 @import 'abstracts/utilities';
 
-@import 'base/base';
-
 @import 'themes/light';
 @import 'themes/dark';
+
+@import 'base/base';
 
 @import 'components/header';
 @import 'components/theme-switch';
