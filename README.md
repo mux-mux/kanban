@@ -7,7 +7,7 @@
 <br/>
 
 <div align="center">
-  <img src="https://jsgo.pro/media/gif/kanban.gif" alt="Kanban Demo" width="100%" />
+  <img src="https://jsgo.pro/media/gif/kanban-.gif" alt="Kanban Demo" width="100%" />
   <br>
 </div>
 
