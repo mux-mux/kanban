@@ -18,6 +18,7 @@
 
   @include respond(mobile) {
     flex-direction: column;
+    min-height: 23rem;
   }
 }
 

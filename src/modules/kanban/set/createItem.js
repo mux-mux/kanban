@@ -36,6 +36,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
   changeIconOnBreak(itemData, pomodoroIcon);
 
   removeIcon.src = './assets/remove.png';
+  removeIcon.alt = 'remove element icon';
   removeContainer.addEventListener('click', () => {
     pomodoroInit(pomodoroIcon, itemData, 'remove', columnNum, itemNum);
     deleteItem(columnNum, itemNum);
@@ -63,16 +64,20 @@ function createItem(columnElement, columnNum, item, itemNum) {
   } else {
     dragList.forEach((item) => item.style.setProperty('--visibility', 'visible'));
 
-    listElement.addEventListener('touchstart', (e) => {
-      document
-        .querySelectorAll('.drag__list-item')
-        .forEach((item) => item.classList.remove('touch__selected'));
-      if (e.target.classList.contains('drag__list-item')) {
-        e.target.classList.add('touch__selected');
-      }
-      moveData.columnNum = columnNum;
-      moveData.itemNum = +e.currentTarget.id;
-    });
+    listElement.addEventListener(
+      'touchstart',
+      (e) => {
+        document
+          .querySelectorAll('.drag__list-item')
+          .forEach((item) => item.classList.remove('touch__selected'));
+        if (e.target.classList.contains('drag__list-item')) {
+          e.target.classList.add('touch__selected');
+        }
+        moveData.columnNum = columnNum;
+        moveData.itemNum = +e.currentTarget.id;
+      },
+      { passive: true }
+    );
   }
 }
 
@@ -81,20 +86,24 @@ addMoveBtns.forEach((moveBtn, index) => {
   if (isTouch) {
     moveBtn.style.display = 'block';
   }
-  moveBtn.addEventListener('touchstart', () => {
-    const newColumnNum = moveData.columnNum != index ? index : index + 1;
-    moveData.newColumnNum = newColumnNum;
-    moveData.newItemnNum = localLoaded[columnNames[newColumnNum]].items.length;
-    if (moveData.columnNum !== undefined) {
-      relocateItem(
-        moveData.columnNum,
-        moveData.itemNum,
-        moveData.newColumnNum,
-        moveData.newItemnNum
-      );
-      moveData = {};
-    }
-  });
+  moveBtn.addEventListener(
+    'touchstart',
+    () => {
+      const newColumnNum = moveData.columnNum != index ? index : index + 1;
+      moveData.newColumnNum = newColumnNum;
+      moveData.newItemnNum = localLoaded[columnNames[newColumnNum]].items.length;
+      if (moveData.columnNum !== undefined) {
+        relocateItem(
+          moveData.columnNum,
+          moveData.itemNum,
+          moveData.newColumnNum,
+          moveData.newItemnNum
+        );
+        moveData = {};
+      }
+    },
+    { passive: true }
+  );
 });
 
 function appendSessionIcon(container, num) {
