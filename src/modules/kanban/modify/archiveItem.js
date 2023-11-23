@@ -10,10 +10,8 @@ function archiveItem() {
   const columnsContainer = document.querySelector('.drag');
 
   archiveBtn.addEventListener('click', toggleArchiveVisibility);
-
-  archiveClose.addEventListener('click', () => {
-    removeArchiveVisibility();
-  });
+  archiveClose.addEventListener('click', removeArchiveVisibility);
+  moveToArchiveBtn.addEventListener('click', moveToArchive);
 
   columnsContainer.addEventListener('click', (e) => {
     if (!e.target.closest('.archive') && !e.target.matches('.tools-archive')) {
@@ -22,8 +20,6 @@ function archiveItem() {
       }
     }
   });
-
-  moveToArchiveBtn.addEventListener('click', moveToArchive);
 
   function removeArchiveVisibility() {
     archiveContainer.classList.remove('archive__visible');

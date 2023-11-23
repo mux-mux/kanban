@@ -13,6 +13,8 @@ function getTheme() {
     document.documentElement.className = currentTheme;
 
     currentTheme === 'dark' ? (themeSlider.checked = true) : setTheme('theme-light');
+  } else {
+    document.documentElement.className = 'theme-light';
   }
 }
 
