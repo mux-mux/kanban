@@ -52,6 +52,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',
+      inject: false,
     }),
     new CopyWebpackPlugin({
       patterns: [{ from: 'src/assets', to: 'assets' }],
