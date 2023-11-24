@@ -1,4 +1,4 @@
-const themeSlider = document.querySelector('input[type="checkbox"]');
+const themeSlider = document.querySelector('input.theme-checkbox');
 
 function switchTheme(event) {
   event.currentTarget.checked ? setTheme('theme-dark') : setTheme('theme-light');
