@@ -12,9 +12,7 @@ function getTheme() {
   if (currentTheme) {
     document.documentElement.className = currentTheme;
 
-    currentTheme === 'dark' ? (themeSlider.checked = true) : setTheme('theme-light');
-  } else {
-    document.documentElement.className = 'theme-light';
+    currentTheme === 'theme-dark' ? (themeSlider.checked = true) : setTheme('theme-light');
   }
 }
 
