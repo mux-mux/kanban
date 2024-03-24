@@ -24,10 +24,10 @@
   top: -1000px;
   left: 110px;
   z-index: 1000;
-  background-color: var(--background-archive);
+  background-color: var(--background-archive, #f6f6f6);
   padding: 1.5rem 1rem 1rem;
   border-radius: 5px;
-  box-shadow: 1px 1px 5px 1px var(--shadow-column);
+  box-shadow: 1px 1px 5px 1px var(--column-shadow, #999);
   font-size: 1.4rem;
   text-align: center;
   visibility: hidden;
@@ -58,7 +58,7 @@
     top: 0;
     padding: 1px 3px;
     font-size: 1.2rem;
-    color: var(--text-color);
+    color: var(--text-color, #222);
     border-radius: 0 5px 0 5px;
     background-color: rgba(255, 0, 0, 0.4);
     cursor: pointer;

@@ -10,7 +10,7 @@
     padding: 1rem;
     border-radius: 0.5rem;
     background-color: rgba(0, 0, 0, 0.1);
-    color: var(--text-color);
+    color: var(--text-color, #222);
     &-done {
       width: 3rem;
     }
@@ -31,7 +31,7 @@
     }
 
     &-add {
-      color: var(--text-color);
+      color: var(--text-color, #222);
 
       &:hover {
         transition: background-color 0.3s ease-in;

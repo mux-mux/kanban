@@ -4,7 +4,7 @@
   min-height: $header-min-height;
   line-height: $header-min-height;
   padding: $padding-pomodoro-heading;
-  color: var(--text-color);
+  color: var(--text-color, #222);
 }
 
 .heading-secondary {

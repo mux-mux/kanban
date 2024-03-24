@@ -2,7 +2,7 @@
   @include header_sides;
   justify-content: space-between;
   font-size: 2.4rem;
-  color: var(--text-color);
+  color: var(--text-color, #222);
   line-height: var(--theme-switch-height);
 
   @include respond(mobile) {
@@ -48,11 +48,11 @@
 }
 
 input:checked + .slider {
-  background-color: var(--background-slider);
+  background-color: var(--background-slider, #2196f3);
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px var(--background-slider);
+  box-shadow: 0 0 1px var(--background-slider, #2196f3);
 }
 
 input:checked + .slider:before {

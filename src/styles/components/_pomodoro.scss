@@ -5,7 +5,7 @@
   justify-content: center;
   gap: 2rem;
   box-sizing: border-box;
-  color: var(--text-color);
+  color: var(--text-color, #222);
   min-height: $header-min-height;
   line-height: $header-min-height;
   padding: $padding-pomodoro-heading;
@@ -16,7 +16,7 @@
   &__icon {
     padding: 0 5px;
     transition: color 0.5s;
-    visibility: var(--visibility);
+    visibility: var(--visibility, visible);
     &:hover {
       color: #ebcc34;
     }
@@ -34,7 +34,7 @@
     min-width: 10rem;
     font-size: 2.4rem;
     padding: 0 1rem;
-    background: var(--background-timer);
+    background: var(--background-timer, #f0f8ff);
     border-radius: 5px;
   }
   &__controls {
