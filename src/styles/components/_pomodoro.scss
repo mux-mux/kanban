@@ -22,9 +22,13 @@
     }
   }
   &__text {
+    max-width: 250px;
     font-size: 1.8rem;
     line-height: 2rem;
-    word-break: break-all;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-break: break-word;
 
     @include respond(mobile) {
       display: none;
