@@ -24,6 +24,7 @@
   &__text {
     font-size: 1.8rem;
     line-height: 2rem;
+    word-break: break-all;
 
     @include respond(mobile) {
       display: none;
