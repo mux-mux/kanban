@@ -74,7 +74,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
           e.target.classList.add('touch__selected');
         }
         moveData.columnNum = columnNum;
-        moveData.itemNum = +e.currentTarget.id;
+        moveData.itemNum = +e.currentTarget.attributes['data-in-list'].value;
       },
       { passive: true }
     );
@@ -112,10 +112,10 @@ function appendSessionIcon(container, num) {
   container.appendChild(sessionElement);
 }
 
-function setElementAttributes(element, text, isDraggable, id) {
+function setElementAttributes(element, text, isDraggable, num) {
   element.textContent = text;
   element.draggable = isDraggable;
-  element.id = id;
+  element.setAttribute('data-in-list', num);
 }
 
 function changeIconOnBreak(data, icon) {
