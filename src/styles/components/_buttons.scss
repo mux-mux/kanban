@@ -17,14 +17,14 @@
   }
 
   &__btn {
-    margin: 1rem 2rem;
-    padding: 0.5rem 1rem;
     display: flex;
     align-items: center;
-    cursor: pointer;
     width: fit-content;
+    margin: 1rem 2rem;
+    padding: 0.5rem 1rem;
     border-radius: 0.5rem;
-    user-select: none;
+    font-size: 1.8rem;
+    cursor: pointer;
 
     @include respond(mobile) {
       margin: 1rem;

@@ -45,7 +45,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
 
   setElementAttributes(listElement, item.name, true, itemNum);
 
-  dblClickEdit(listElement, columnNum, itemNum);
+  editItemText(listElement, columnNum, itemNum);
 
   if (columnNum !== 2) {
     listSetContainer.appendChild(pomodoroIcon.pomodoro);
@@ -151,8 +151,8 @@ function createElementWithClass(element, clazz) {
   return newElement;
 }
 
-function dblClickEdit(currentelement, columnNum, itemNum) {
-  currentelement.addEventListener('dblclick', (e) => {
+function editItemText(currentElement, columnNum, itemNum) {
+  currentElement.addEventListener('dblclick', (e) => {
     removeControlListiners();
     e.currentTarget.textContent = e.currentTarget.innerText;
     e.currentTarget.setAttribute('contentEditable', true);
@@ -161,7 +161,7 @@ function dblClickEdit(currentelement, columnNum, itemNum) {
 
     focusCarretEnd(e);
   });
-  currentelement.addEventListener('blur', (e) => {
+  currentElement.addEventListener('blur', (e) => {
     e.currentTarget.setAttribute('contentEditable', false);
     e.currentTarget.setAttribute('draggable', true);
     editItem(columnNum, itemNum);
