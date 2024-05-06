@@ -19,13 +19,15 @@ function toggleInputBox(column, state) {
 
   addContainers[column].scrollIntoView({ block: 'end' });
 
+  addItems[column].focus();
+
   if (state === 'add') {
     addToColumn(column);
   }
 }
 
 function addToColumn(column) {
-  const itemText = addItems[column].textContent;
+  const itemText = addItems[column].value;
   const selectedList = columnNames[column];
   itemText.trim().length > 0
     ? localLoaded[selectedList].items.push({
@@ -39,7 +41,7 @@ function addToColumn(column) {
         done: column === 2 ? todayDate() : '',
       })
     : null;
-  addItems[column].textContent = '';
+  addItems[column].value = '';
   updateDOM();
 }
 
