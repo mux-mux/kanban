@@ -17,9 +17,8 @@ function toggleInputBox(column, state) {
   saveBtns[column].style.visibility = saveVisibility;
   addContainers[column].style.display = addDisplay;
 
-  addContainers[column].scrollIntoView({ block: 'end' });
-
   addItems[column].focus();
+  addContainers[column].scrollIntoView({ block: 'end' });
 
   if (state === 'add') {
     addToColumn(column);
