@@ -2,14 +2,20 @@ import { updateDOM, localLoaded } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 import { todayDate } from '../set/deadline';
 
-const controller = new AbortController();
-const { signal } = controller;
-
 const addBtns = document.querySelectorAll('.add__btn-add');
 const saveBtns = document.querySelectorAll('.add__btn-save');
 const addContainers = document.querySelectorAll('.add__container');
 const addItems = document.querySelectorAll('.add__item');
 const dragList = document.querySelectorAll('.drag__list');
+
+const addKeypressSubmit = (e, column) => {
+  if (e.ctrlKey && e.code === 'Enter') {
+    addToColumn(column);
+  } else if (e.code === 'Escape') {
+    toggleInputBox(column, null);
+    addItems[column].value = '';
+  }
+};
 
 function toggleInputBox(column, state) {
   const addVisibility = state === 'add' ? 'hidden' : 'visible';
@@ -20,20 +26,9 @@ function toggleInputBox(column, state) {
   saveBtns[column].style.visibility = saveVisibility;
   addContainers[column].style.display = addDisplay;
 
-  const addKeypressSubmit = (e) => {
-    if (e.ctrlKey && e.code === 'Enter') {
-      addToColumn(column);
-    } else if (e.code === 'Escape') {
-      toggleInputBox(column, null);
-      addItems[column].value = '';
-    }
-  };
-
   if (state === 'save') {
     addToColumn(column);
-    controller.any();
-  } else {
-    addItems[column].addEventListener('keydown', addKeypressSubmit, { signal });
+  } else if (state === 'add') {
     addItems[column].focus();
     addContainers[column].scrollIntoView({ block: 'end' });
   }
@@ -67,6 +62,10 @@ addBtns.forEach((addBtn, index) => {
 
 saveBtns.forEach((saveBtn, index) => {
   saveBtn.addEventListener('click', () => toggleInputBox(index, 'save'));
+});
+
+addContainers.forEach((saveBtn, index) => {
+  saveBtn.addEventListener('keydown', (e) => addKeypressSubmit(e, index));
 });
 
 export { dragList };
