@@ -26,7 +26,7 @@
   left: 110px;
   z-index: 1000;
   background-color: var(--background-archive, #f6f6f6);
-  padding: 1.5rem 1rem 1rem;
+  padding: 2rem 1rem 1.5rem;
   border-radius: 5px;
   box-shadow: 1px 1px 5px 1px var(--column-shadow, #999);
   font-size: 1.4rem;
@@ -41,7 +41,7 @@
   }
   @include respond(mobile) {
     font-size: 0.9rem;
-    padding: 1.5rem 0.5rem 0.5rem;
+    padding: 2rem 0.5rem 0.5rem;
   }
 
   &__table {
@@ -57,7 +57,7 @@
     position: absolute;
     right: 0;
     top: 0;
-    padding: 1px 3px;
+    padding: 4px 8px;
     font-size: 1.2rem;
     color: var(--text-color, #222);
     border-radius: 0 5px 0 5px;
