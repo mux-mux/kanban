@@ -33,6 +33,7 @@
   text-align: center;
   visibility: hidden;
   opacity: 0;
+  overflow: hidden; /*hide corners of buttons*/
   transition: all 0.7s;
 
   @include respond(tablet) {
@@ -53,16 +54,25 @@
     opacity: 0.95;
   }
 
-  &__close {
+  &__button {
+    width: fit-content;
     position: absolute;
-    right: 0;
     top: 0;
-    padding: 4px 8px;
     font-size: 1.2rem;
     color: var(--text-color, #222);
-    border-radius: 0 5px 0 5px;
+    padding: 4px 8px;
     background-color: rgba(255, 0, 0, 0.4);
     cursor: pointer;
+  }
+
+  &__close {
+    right: 0;
+    border-radius: 0 5px;
+  }
+
+  &__clear {
+    left: 0;
+    border-radius: 5px 0;
   }
 
   &__head > th,
