@@ -7,11 +7,14 @@ function archiveItem() {
   const moveToArchiveBtn = document.querySelector('.move-to-archive');
   const archiveContainer = document.querySelector('.archive');
   const archiveClose = document.querySelector('.archive__close');
+  const archiveClear = document.querySelector('.archive__clear');
   const columnsContainer = document.querySelector('.drag');
 
   archiveBtn.addEventListener('click', toggleArchiveVisibility);
   archiveClose.addEventListener('click', removeArchiveVisibility);
   moveToArchiveBtn.addEventListener('click', moveToArchive);
+
+  archiveClear.addEventListener('click', clearArchiveTasks);
 
   columnsContainer.addEventListener('click', (e) => {
     if (!e.target.closest('.archive') && !e.target.matches('.tools-archive')) {
@@ -28,6 +31,14 @@ function archiveItem() {
   function toggleArchiveVisibility() {
     archiveContainer.classList.toggle('archive__visible');
   }
+
+  function clearArchiveTasks() {
+    archiveLoaded.length = 0;
+    archive.items = [];
+
+    updateDOM();
+    renderArchive(archiveLoaded);
+  }
 }
 
 function moveToArchive() {
@@ -42,6 +53,9 @@ function moveToArchive() {
 
 function renderArchive(archiveItems) {
   const archiveTable = document.querySelector('.archive__body');
+  const archiveElements = document.querySelectorAll('.archive__item');
+
+  archiveItems.length === 0 && archiveElements.forEach((item) => item.remove());
 
   archiveItems.forEach((item) => {
     if (item.deadline.includes('day') === false) {
