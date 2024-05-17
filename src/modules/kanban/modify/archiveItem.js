@@ -8,7 +8,6 @@ function archiveItem() {
   const archiveContainer = document.querySelector('.archive');
   const archiveClose = document.querySelector('.archive__close');
   const archiveClear = document.querySelector('.archive__clear');
-  const columnsContainer = document.querySelector('.drag');
 
   archiveBtn.addEventListener('click', toggleArchiveVisibility);
   archiveClose.addEventListener('click', removeArchiveVisibility);
@@ -16,11 +15,11 @@ function archiveItem() {
 
   archiveClear.addEventListener('click', clearArchiveTasks);
 
-  columnsContainer.addEventListener('click', (e) => {
-    if (!e.target.closest('.archive') && !e.target.matches('.tools-archive')) {
-      if (archiveContainer.classList.contains('archive__visible')) {
-        removeArchiveVisibility();
-      }
+  document.addEventListener('click', (e) => {
+    let clickInside = archiveContainer.contains(e.target) || archiveBtn.contains(e.target);
+
+    if (!clickInside) {
+      removeArchiveVisibility();
     }
   });
 
@@ -55,7 +54,9 @@ function renderArchive(archiveItems) {
   const archiveTable = document.querySelector('.archive__body');
   const archiveElements = document.querySelectorAll('.archive__item');
 
-  archiveItems.length === 0 && archiveElements.forEach((item) => item.remove());
+  archiveItems.length === 0 &&
+    archiveElements.length !== 0 &&
+    archiveElements.forEach((item) => item.remove());
 
   archiveItems.forEach((item) => {
     if (item.deadline.includes('day') === false) {
