@@ -12,16 +12,19 @@ function archiveItem() {
   archiveBtn.addEventListener('click', toggleArchiveVisibility);
   archiveClose.addEventListener('click', removeArchiveVisibility);
   moveToArchiveBtn.addEventListener('click', moveToArchive);
-
   archiveClear.addEventListener('click', clearArchiveTasks);
+  document.addEventListener('keydown', closeArchive);
+  document.addEventListener('click', closeArchive);
 
-  document.addEventListener('click', (e) => {
+  function closeArchive(e) {
     let clickInside = archiveContainer.contains(e.target) || archiveBtn.contains(e.target);
 
-    if (!clickInside) {
+    const archiveVisible = archiveContainer.classList.contains('archive__visible');
+
+    if (!clickInside || (archiveVisible && e.code === 'Escape')) {
       removeArchiveVisibility();
     }
-  });
+  }
 
   function removeArchiveVisibility() {
     archiveContainer.classList.remove('archive__visible');
