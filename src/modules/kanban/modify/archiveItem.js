@@ -32,6 +32,9 @@ function archiveItem() {
   }
 
   function clearArchiveTasks() {
+    const isConfirm = confirm('Do you really want to clear all archive tasks?');
+    if (!isConfirm) return;
+
     archiveLoaded.length = 0;
     archive.items = [];
 
