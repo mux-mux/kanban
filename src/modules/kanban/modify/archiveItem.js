@@ -13,15 +13,12 @@ function archiveItem() {
   archiveClose.addEventListener('click', removeArchiveVisibility);
   moveToArchiveBtn.addEventListener('click', moveToArchive);
   archiveClear.addEventListener('click', clearArchiveTasks);
-  document.addEventListener('keydown', closeArchive);
   document.addEventListener('click', closeArchive);
 
   function closeArchive(e) {
     let clickInside = archiveContainer.contains(e.target) || archiveBtn.contains(e.target);
 
-    const archiveVisible = archiveContainer.classList.contains('archive__visible');
-
-    if (!clickInside || (archiveVisible && e.code === 'Escape')) {
+    if (!clickInside) {
       removeArchiveVisibility();
     }
   }
@@ -32,6 +29,13 @@ function archiveItem() {
 
   function toggleArchiveVisibility() {
     archiveContainer.classList.toggle('archive__visible');
+
+    const timerId = setTimeout(() => {
+      archiveContainer.classList.contains('archive__visible')
+        ? archiveClose.focus()
+        : archiveClose.blur();
+      clearTimeout(timerId);
+    }, 100);
   }
 
   function clearArchiveTasks() {
