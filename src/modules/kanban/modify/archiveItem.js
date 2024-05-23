@@ -7,12 +7,12 @@ function archiveItem() {
   const moveToArchiveBtn = document.querySelector('.move-to-archive');
   const archiveContainer = document.querySelector('.archive');
   const archiveClose = document.querySelector('.archive__close');
-  const archiveClear = document.querySelector('.archive__clear');
+  const archiveDownload = document.querySelector('.archive__download');
 
   archiveBtn.addEventListener('click', toggleArchiveVisibility);
   archiveClose.addEventListener('click', removeArchiveVisibility);
+  archiveDownload.addEventListener('click', downloadArchiveAsJson);
   moveToArchiveBtn.addEventListener('click', moveToArchive);
-  archiveClear.addEventListener('click', clearArchiveTasks);
   document.addEventListener('click', closeArchive);
 
   function closeArchive(e) {
@@ -38,8 +38,25 @@ function archiveItem() {
     }, 100);
   }
 
+  function downloadArchiveAsJson() {
+    const dateISO = new Date().toISOString();
+    const dateNoT = dateISO.replace('T', ' ');
+    const dateTimeString = dateNoT.substring(0, dateNoT.indexOf('.'));
+
+    const archiveData =
+      'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(archiveLoaded));
+    const anchorNode = document.createElement('a');
+    anchorNode.setAttribute('href', archiveData);
+    anchorNode.setAttribute('download', dateTimeString + ' Kanban-Archive' + '.json');
+    document.body.appendChild(anchorNode);
+    anchorNode.click();
+    anchorNode.remove();
+
+    clearArchiveTasks();
+  }
+
   function clearArchiveTasks() {
-    const isConfirm = confirm('Do you really want to clear all archive tasks?');
+    const isConfirm = confirm('Do you want to clear all archive tasks?');
     if (!isConfirm) return;
 
     archiveLoaded.length = 0;

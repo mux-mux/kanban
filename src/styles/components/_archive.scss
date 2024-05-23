@@ -70,9 +70,10 @@
     border-radius: 0 5px;
   }
 
-  &__clear {
+  &__download {
     left: 0;
     border-radius: 5px 0;
+    background-color: rgba(0, 150, 0, 0.4);
   }
 
   &__head > th,
