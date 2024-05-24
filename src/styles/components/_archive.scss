@@ -61,13 +61,13 @@
     font-size: 1.2rem;
     color: var(--text-color, #222);
     padding: 4px 8px;
-    background-color: rgba(255, 0, 0, 0.4);
     cursor: pointer;
   }
 
   &__close {
     right: 0;
     border-radius: 0 5px;
+    background-color: rgba(255, 0, 0, 0.4);
   }
 
   &__download {

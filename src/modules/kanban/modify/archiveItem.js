@@ -11,7 +11,7 @@ function archiveItem() {
 
   archiveBtn.addEventListener('click', toggleArchiveVisibility);
   archiveClose.addEventListener('click', removeArchiveVisibility);
-  archiveDownload.addEventListener('click', downloadArchiveAsJson);
+  archiveDownload.addEventListener('click', downloadArchive);
   moveToArchiveBtn.addEventListener('click', moveToArchive);
   document.addEventListener('click', closeArchive);
 
@@ -38,16 +38,16 @@ function archiveItem() {
     }, 100);
   }
 
-  function downloadArchiveAsJson() {
+  function downloadArchive() {
     const dateISO = new Date().toISOString();
-    const dateNoT = dateISO.replace('T', ' ');
-    const dateTimeString = dateNoT.substring(0, dateNoT.indexOf('.'));
+    const dateFullTime = dateISO.replace('T', ' ');
+    const dateShortTime = dateFullTime.substring(0, dateFullTime.indexOf('.'));
 
     const archiveData =
       'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(archiveLoaded));
     const anchorNode = document.createElement('a');
     anchorNode.setAttribute('href', archiveData);
-    anchorNode.setAttribute('download', dateTimeString + ' Kanban-Archive' + '.json');
+    anchorNode.setAttribute('download', dateShortTime + ' Kanban-Archive' + '.json');
     document.body.appendChild(anchorNode);
     anchorNode.click();
     anchorNode.remove();
