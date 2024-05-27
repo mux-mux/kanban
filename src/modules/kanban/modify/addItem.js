@@ -10,6 +10,9 @@ const dragList = document.querySelectorAll('.drag__list');
 
 const addKeypressSubmit = (e, column) => {
   if (e.ctrlKey && e.code === 'Enter') {
+    addItems[column].value = addItems[column].value + '\n';
+  } else if (e.code === 'Enter') {
+    e.preventDefault();
     addToColumn(column);
   } else if (e.code === 'Escape') {
     toggleInputBox(column, null);
