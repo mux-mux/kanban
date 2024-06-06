@@ -39,6 +39,10 @@ function archiveItem() {
   }
 
   function downloadArchive() {
+    if (archiveLoaded.length === 0) {
+      return;
+    }
+
     const dateISO = new Date().toISOString();
     const dateFullTime = dateISO.replace('T', ' ');
     const dateShortTime = dateFullTime.substring(0, dateFullTime.indexOf('.'));
