@@ -8,10 +8,6 @@ const addContainers = document.querySelectorAll('.add__container');
 const addItems = document.querySelectorAll('.add__item');
 const dragList = document.querySelectorAll('.drag__list');
 
-const closeOnFocusout = (e, column) => {
-  toggleInputBox(column, null);
-};
-
 const handleKeypress = (e, column) => {
   if (e.ctrlKey && e.code === 'Enter') {
     if (addItems[column].value.length !== 0) {
@@ -75,7 +71,6 @@ saveBtns.forEach((saveBtn, index) => {
 
 addContainers.forEach((taskField, index) => {
   taskField.addEventListener('keydown', (e) => handleKeypress(e, index));
-  taskField.addEventListener('focusout', (e) => closeOnFocusout(e, index));
 });
 
 export { dragList };
