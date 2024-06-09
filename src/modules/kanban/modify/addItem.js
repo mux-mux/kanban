@@ -23,9 +23,9 @@ const handleKeypress = (e, column) => {
 };
 
 function toggleInputBox(column, state) {
-  const addVisibility = state === 'add' ? 'hidden' : 'visible';
-  const saveVisibility = state === 'add' ? 'visible' : 'hidden';
-  const addDisplay = state === 'add' ? 'block' : 'none';
+  const addVisibility = state === 'open' ? 'hidden' : 'visible';
+  const saveVisibility = state === 'open' ? 'visible' : 'hidden';
+  const addDisplay = state === 'open' ? 'block' : 'none';
 
   buttonsOpenTask[column].style.visibility = addVisibility;
   buttonsSaveTask[column].style.visibility = saveVisibility;
@@ -33,7 +33,7 @@ function toggleInputBox(column, state) {
 
   if (state === 'save') {
     addToColumn(column);
-  } else if (state === 'add') {
+  } else if (state === 'open') {
     textareaAddNewTask[column].focus();
     containersAddNewTask[column].scrollIntoView({ block: 'end' });
   }
@@ -62,7 +62,7 @@ function addToColumn(column) {
 }
 
 buttonsOpenTask.forEach((addBtn, index) => {
-  addBtn.addEventListener('click', () => toggleInputBox(index, 'add'));
+  addBtn.addEventListener('click', () => toggleInputBox(index, 'open'));
 });
 
 buttonsSaveTask.forEach((saveBtn, index) => {
