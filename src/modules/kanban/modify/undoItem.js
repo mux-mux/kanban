@@ -2,7 +2,7 @@ import { columnNames } from '../data/columns';
 import { updateDOM, localLoaded } from '../update/updateDOM';
 import { overallRemoved } from './deleteItem';
 
-const undoBtn = document.querySelector('.tools-history');
+const buttonUndoDelete = document.querySelector('.tools-history');
 
 function undoItem(items, removed) {
   const getBackItem = removed.pop();
@@ -25,7 +25,7 @@ document.addEventListener('keydown', (event) => {
   }
 });
 
-undoBtn.addEventListener('click', () => {
+buttonUndoDelete.addEventListener('click', () => {
   if (overallRemoved.length !== 0) {
     undoItem(columnNames, overallRemoved);
   }

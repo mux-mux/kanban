@@ -6,7 +6,7 @@ import { setPomodoro } from './pomodoro';
 import { localLoaded } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 import { relocateItem } from '../modify/relocateItem';
-import { dragList } from '../modify/addItem';
+import { taskLists } from '../modify/addItem';
 import { pomodoroInit, removeControlListiners } from '../set/pomodoro';
 
 let pomodoroIcon = null;
@@ -14,10 +14,10 @@ let moveData = {};
 const isTouch = 'ontouchstart' in window || navigator.msMaxTouchPoints > 0;
 
 function createItem(columnElement, columnNum, item, itemNum) {
-  const listElement = createElementWithClass('li', 'drag__list-item');
-  const listSetContainer = createElementWithClass('div', 'drag__set-container');
-  const removeIcon = createElementWithClass('img', 'drag__list-item-remove-img');
-  const removeContainer = createElementWithClass('div', 'drag__list-item-remove');
+  const listElement = createElementWithClass('li', 'tasks__list-item');
+  const listSetContainer = createElementWithClass('div', 'tasks__set-container');
+  const removeIcon = createElementWithClass('img', 'tasks__list-item-remove-img');
+  const removeContainer = createElementWithClass('div', 'tasks__list-item-remove');
   const sessionsContainer = createElementWithClass('ul', 'pomodoro__sessions');
 
   pomodoroIcon = setPomodoro(columnNum, itemNum);
@@ -62,15 +62,15 @@ function createItem(columnElement, columnNum, item, itemNum) {
     listElement.addEventListener('dragstart', (e) => drag(e, columnNum));
     hoverAppearIcon(listElement);
   } else {
-    dragList.forEach((item) => item.style.setProperty('--visibility', 'visible'));
+    taskLists.forEach((item) => item.style.setProperty('--visibility', 'visible'));
 
     listElement.addEventListener(
       'touchstart',
       (e) => {
         document
-          .querySelectorAll('.drag__list-item')
+          .querySelectorAll('.tasks__list-item')
           .forEach((item) => item.classList.remove('touch__selected'));
-        if (e.target.classList.contains('drag__list-item')) {
+        if (e.target.classList.contains('tasks__list-item')) {
           e.target.classList.add('touch__selected');
         }
         moveData.columnNum = columnNum;

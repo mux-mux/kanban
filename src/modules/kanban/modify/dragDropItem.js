@@ -1,4 +1,4 @@
-import { dragList } from './addItem';
+import { taskLists } from './addItem';
 import { relocateItem } from '../modify/relocateItem';
 import { removeControlListiners } from '../set/pomodoro';
 
@@ -35,14 +35,14 @@ function dragOver(e, column) {
   const nextElement = getNextElement(e.clientY, target);
 
   if (target && target !== draggedItem && target.nodeName === 'LI') {
-    dragList[currentColumn].insertBefore(draggedItem, nextElement);
+    taskLists[currentColumn].insertBefore(draggedItem, nextElement);
   }
   if (target.childElementCount === 0) {
-    dragList[currentColumn].appendChild(draggedItem);
+    taskLists[currentColumn].appendChild(draggedItem);
   }
 
-  dragList.forEach((column) => column.classList.remove('over'));
-  dragList[column].classList.add('over');
+  taskLists.forEach((column) => column.classList.remove('over'));
+  taskLists[column].classList.add('over');
 }
 
 function drop(e, newColNum) {
@@ -52,7 +52,7 @@ function drop(e, newColNum) {
 
   draggedItem = null;
 
-  dragList.forEach((list) => {
+  taskLists.forEach((list) => {
     list.classList.remove('over');
   });
 
@@ -64,7 +64,7 @@ function drop(e, newColNum) {
   relocateItem(columnNum, itemNum, newColNum, newItemNum);
 }
 
-dragList.forEach((list, i) => {
+taskLists.forEach((list, i) => {
   list.addEventListener('drop', (e) => drop(e, i));
   list.addEventListener('dragover', (e) => dragOver(e, i));
 });

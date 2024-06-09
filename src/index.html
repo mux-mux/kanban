@@ -73,14 +73,14 @@
           <i class="fas fa-moon"></i>
         </div>
       </header>
-      <ul class="drag">
-        <li class="drag__column todo">
+      <ul class="tasks">
+        <li class="tasks__column todo">
           <h2 class="heading-secondary todo__title p2">To-Do</h2>
           <div class="todo__content custom-scroll">
-            <ul class="drag__list" id="todo-list"></ul>
+            <ul class="tasks__list" id="todo-list"></ul>
           </div>
           <div class="add">
-            <button class="add__btn add__btn-add">
+            <button class="add__btn add__btn-open">
               <i class="fa-regular fa-square-plus"></i>
               <span class="add__btn-text">Item</span>
             </button>
@@ -99,13 +99,13 @@
             ></textarea>
           </div>
         </li>
-        <li class="drag__column inprogress">
+        <li class="tasks__column inprogress">
           <h2 class="heading-secondary inprogress__title p2">In Progress</h2>
           <div class="inprogress__content custom-scroll">
-            <ul class="drag__list" id="inprogress-list"></ul>
+            <ul class="tasks__list" id="inprogress-list"></ul>
           </div>
           <div class="add">
-            <button class="add__btn add__btn-add">
+            <button class="add__btn add__btn-open">
               <i class="fa-regular fa-square-plus"></i>
               <span class="add__btn-text">Item</span>
             </button>
@@ -124,16 +124,16 @@
             ></textarea>
           </div>
         </li>
-        <li class="drag__column done">
+        <li class="tasks__column done">
           <h2 class="heading-secondary done__title p2">Done</h2>
           <span class="move-to-archive">
             Move to <i class="fa-solid fa-calendar-check move-to-archive-icon"></i>
           </span>
           <div class="done__content custom-scroll">
-            <ul class="drag__list" id="done-list"></ul>
+            <ul class="tasks__list" id="done-list"></ul>
           </div>
           <div class="add">
-            <button class="add__btn add__btn-add">
+            <button class="add__btn add__btn-open">
               <i class="fa-regular fa-square-plus"></i>
               <span class="add__btn-text">Item</span>
             </button>

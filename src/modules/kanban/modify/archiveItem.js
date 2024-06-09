@@ -3,20 +3,20 @@ import { updateDOM, localLoaded, archiveLoaded } from '../update/updateDOM';
 import { archive } from '../data/archive';
 
 function archiveItem() {
-  const archiveBtn = document.querySelector('.tools-archive');
-  const moveToArchiveBtn = document.querySelector('.move-to-archive');
-  const archiveContainer = document.querySelector('.archive');
-  const archiveClose = document.querySelector('.archive__close');
-  const archiveDownload = document.querySelector('.archive__download');
+  const buttonToggleArchive = document.querySelector('.tools-archive');
+  const buttonMoveToArchive = document.querySelector('.move-to-archive');
+  const containerArchive = document.querySelector('.archive');
+  const buttonCloseArchive = document.querySelector('.archive__close');
+  const buttonDownloadArchive = document.querySelector('.archive__download');
 
-  archiveBtn.addEventListener('click', toggleArchiveVisibility);
-  archiveClose.addEventListener('click', removeArchiveVisibility);
-  archiveDownload.addEventListener('click', downloadArchive);
-  moveToArchiveBtn.addEventListener('click', moveToArchive);
+  buttonToggleArchive.addEventListener('click', toggleArchiveVisibility);
+  buttonCloseArchive.addEventListener('click', removeArchiveVisibility);
+  buttonDownloadArchive.addEventListener('click', downloadArchive);
+  buttonMoveToArchive.addEventListener('click', moveToArchive);
   document.addEventListener('click', closeArchive);
 
   function closeArchive(e) {
-    let clickInside = archiveContainer.contains(e.target) || archiveBtn.contains(e.target);
+    let clickInside = containerArchive.contains(e.target) || buttonToggleArchive.contains(e.target);
 
     if (!clickInside) {
       removeArchiveVisibility();
@@ -24,16 +24,16 @@ function archiveItem() {
   }
 
   function removeArchiveVisibility() {
-    archiveContainer.classList.remove('archive__visible');
+    containerArchive.classList.remove('archive__visible');
   }
 
   function toggleArchiveVisibility() {
-    archiveContainer.classList.toggle('archive__visible');
+    containerArchive.classList.toggle('archive__visible');
 
     const timerId = setTimeout(() => {
-      archiveContainer.classList.contains('archive__visible')
-        ? archiveClose.focus()
-        : archiveClose.blur();
+      containerArchive.classList.contains('archive__visible')
+        ? buttonCloseArchive.focus()
+        : buttonCloseArchive.blur();
       clearTimeout(timerId);
     }, 100);
   }
