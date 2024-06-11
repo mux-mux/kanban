@@ -10,17 +10,21 @@
     padding: 0 0 2rem 0;
   }
 }
+
+.theme-checkbox {
+  width: inherit;
+  height: inherit;
+
+  &:focus {
+    outline: 2px solid var(--text-color);
+  }
+}
+
 .switch {
   position: relative;
   display: inline-block;
   width: 60px;
   height: var(--theme-switch-height);
-}
-
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
 }
 
 .slider {
