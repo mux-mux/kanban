@@ -1,3 +1,5 @@
+import { createFocusTrap } from 'focus-trap';
+
 import { createElementWithClass } from '../set/createItem';
 import { updateDOM, localLoaded, archiveLoaded } from '../update/updateDOM';
 import { archive } from '../data/archive';
@@ -10,32 +12,29 @@ function archiveItem() {
   const buttonDownloadArchive = document.querySelector('.archive__download');
 
   buttonToggleArchive.addEventListener('click', toggleArchiveVisibility);
-  buttonCloseArchive.addEventListener('click', removeArchiveVisibility);
+  buttonCloseArchive.addEventListener('click', toggleArchiveVisibility);
   buttonDownloadArchive.addEventListener('click', downloadArchive);
   buttonMoveToArchive.addEventListener('click', moveToArchive);
-  document.addEventListener('click', closeArchive);
 
-  function closeArchive(e) {
-    let clickInside = containerArchive.contains(e.target) || buttonToggleArchive.contains(e.target);
-
-    if (!clickInside) {
-      removeArchiveVisibility();
-    }
-  }
-
-  function removeArchiveVisibility() {
-    containerArchive.classList.remove('archive__visible');
-  }
+  const focusTrap = createFocusTrap(containerArchive, {
+    onActivate: () => buttonCloseArchive.focus(),
+    onDeactivate: () => {
+      containerArchive.classList.remove('archive__visible');
+      buttonCloseArchive.blur();
+    },
+    allowOutsideClick: () => true,
+    clickOutsideDeactivates: () => true,
+  });
 
   function toggleArchiveVisibility() {
-    containerArchive.classList.toggle('archive__visible');
+    const isOpened = containerArchive.classList.contains('archive__visible');
 
-    const timerId = setTimeout(() => {
-      containerArchive.classList.contains('archive__visible')
-        ? buttonCloseArchive.focus()
-        : buttonCloseArchive.blur();
-      clearTimeout(timerId);
-    }, 100);
+    if (!isOpened) {
+      containerArchive.classList.add('archive__visible');
+      focusTrap.activate();
+    } else {
+      focusTrap.deactivate();
+    }
   }
 
   function downloadArchive() {

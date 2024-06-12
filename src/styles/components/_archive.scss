@@ -33,8 +33,7 @@
   text-align: center;
   visibility: hidden;
   opacity: 0;
-  overflow: hidden; /*hide corners of buttons*/
-  transition: all 0.7s;
+  overflow: hidden; /*hide corners of archive-tool buttons*/
 
   @include respond(tablet) {
     width: 100%;
