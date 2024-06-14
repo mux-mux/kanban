@@ -4,46 +4,62 @@ import { todayDate } from '../set/deadline';
 
 const buttonsOpenTask = document.querySelectorAll('.add__btn-open');
 const buttonsSaveTask = document.querySelectorAll('.add__btn-save');
-const containersNewTask = document.querySelectorAll('.add__container');
-const textareasNewTask = document.querySelectorAll('.add__item');
+const containersNewTask = document.querySelectorAll('.task');
+const containersTextarea = document.querySelectorAll('.add__container');
+const textareas = document.querySelectorAll('.add__item');
 const taskLists = document.querySelectorAll('.tasks__list');
 
-const handleKeypress = (e, column) => {
+function handleKeypress(e, column) {
   if (e.ctrlKey && e.code === 'Enter') {
-    if (textareasNewTask[column].value.length !== 0) {
-      textareasNewTask[column].value = textareasNewTask[column].value + '\n';
+    if (textareas[column].value.length !== 0) {
+      textareas[column].value = textareas[column].value + '\n';
     }
   } else if (e.code === 'Enter') {
     e.preventDefault();
-    addToColumn(column);
+    addNewTask(column);
   } else if (e.code === 'Escape') {
-    toggleInputBox(column, null);
-    textareasNewTask[column].value = '';
+    toggleNewTaskTextarea(column, null);
+    textareas[column].value = '';
   }
-};
+}
 
-function toggleInputBox(column, state) {
+function hideNewTaskTextarea(e) {
+  let column = null;
+  containersTextarea.forEach((container, index) => {
+    if (container.style.display === 'block') {
+      column = index;
+    }
+  });
+  if (column != null && !containersNewTask[column].contains(e.target)) {
+    containersTextarea.forEach((container, index) => toggleNewTaskTextarea(index, null));
+    document.removeEventListener('click', hideNewTaskTextarea);
+  }
+}
+
+function toggleNewTaskTextarea(column, state) {
   const buttonOpenVisibility = state === 'open' ? 'hidden' : 'visible';
   const buttonSaveVisibility = state === 'open' ? 'visible' : 'hidden';
   const containerDisplay = state === 'open' ? 'block' : 'none';
 
   buttonsOpenTask[column].style.visibility = buttonOpenVisibility;
   buttonsSaveTask[column].style.visibility = buttonSaveVisibility;
-  containersNewTask[column].style.display = containerDisplay;
+  containersTextarea[column].style.display = containerDisplay;
 
   if (state === 'save') {
-    addToColumn(column);
+    addNewTask(column);
+    document.removeEventListener('click', hideNewTaskTextarea);
   } else if (state === 'open') {
-    textareasNewTask[column].focus();
-    containersNewTask[column].scrollIntoView({ block: 'end' });
+    textareas[column].focus();
+    containersTextarea[column].scrollIntoView({ block: 'end' });
+    document.addEventListener('click', hideNewTaskTextarea);
   }
 }
 
-function addToColumn(column) {
-  if (textareasNewTask[column].value === '') {
+function addNewTask(column) {
+  if (textareas[column].value === '') {
     return;
   }
-  const itemText = textareasNewTask[column].value;
+  const itemText = textareas[column].value;
   const selectedList = columnNames[column];
   itemText.trim().length > 0
     ? localLoaded[selectedList].items.push({
@@ -57,19 +73,19 @@ function addToColumn(column) {
         done: column === 2 ? todayDate() : '',
       })
     : null;
-  textareasNewTask[column].value = '';
+  textareas[column].value = '';
   updateDOM();
 }
 
 buttonsOpenTask.forEach((openBtn, index) => {
-  openBtn.addEventListener('click', () => toggleInputBox(index, 'open'));
+  openBtn.addEventListener('click', () => toggleNewTaskTextarea(index, 'open'));
 });
 
 buttonsSaveTask.forEach((saveBtn, index) => {
-  saveBtn.addEventListener('click', () => toggleInputBox(index, 'save'));
+  saveBtn.addEventListener('click', () => toggleNewTaskTextarea(index, 'save'));
 });
 
-containersNewTask.forEach((taskField, index) => {
+containersTextarea.forEach((taskField, index) => {
   taskField.addEventListener('keydown', (e) => handleKeypress(e, index));
 });
 
