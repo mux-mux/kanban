@@ -20,6 +20,7 @@ function handleKeypress(e, column) {
   } else if (e.code === 'Escape') {
     toggleNewTaskTextarea(column, null);
     textareas[column].value = '';
+    document.removeEventListener('click', hideNewTaskTextarea);
   }
 }
 
