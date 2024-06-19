@@ -32,12 +32,18 @@ function hideNewTaskTextarea(e) {
     }
   });
   if (column != null && !containersNewTask[column].contains(e.target)) {
-    containersTextarea.forEach((container, index) => toggleNewTaskTextarea(index, null));
+    toggleNewTaskTextarea(column, null);
     document.removeEventListener('click', hideNewTaskTextarea);
   }
 }
 
 function toggleNewTaskTextarea(column, state) {
+  containersTextarea.forEach((container, index) => {
+    container.style.display = 'none';
+    buttonsOpenTask[index].style.visibility = 'visible';
+    buttonsSaveTask[index].style.visibility = 'hidden';
+  });
+
   const buttonOpenVisibility = state === 'open' ? 'hidden' : 'visible';
   const buttonSaveVisibility = state === 'open' ? 'visible' : 'hidden';
   const containerDisplay = state === 'open' ? 'block' : 'none';
