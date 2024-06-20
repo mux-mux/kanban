@@ -39,9 +39,11 @@ function hideNewTaskTextarea(e) {
 
 function toggleNewTaskTextarea(column, state) {
   containersTextarea.forEach((container, index) => {
-    container.style.display = 'none';
-    buttonsOpenTask[index].style.visibility = 'visible';
-    buttonsSaveTask[index].style.visibility = 'hidden';
+    if (container.style.display !== 'none') {
+      container.style.display = 'none';
+      buttonsOpenTask[index].style.visibility = 'visible';
+      buttonsSaveTask[index].style.visibility = 'hidden';
+    }
   });
 
   const buttonOpenVisibility = state === 'open' ? 'hidden' : 'visible';
