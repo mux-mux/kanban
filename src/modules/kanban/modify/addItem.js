@@ -5,6 +5,7 @@ import { todayDate } from '../set/deadline';
 const buttonsOpenTask = document.querySelectorAll('.add__btn-open');
 const buttonsSaveTask = document.querySelectorAll('.add__btn-save');
 const containersNewTask = document.querySelectorAll('.task');
+const containersAddButtons = document.querySelectorAll('.add');
 const containersTextarea = document.querySelectorAll('.add__container');
 const textareas = document.querySelectorAll('.add__item');
 const taskLists = document.querySelectorAll('.tasks__list');
@@ -21,6 +22,7 @@ function handleKeypress(e, column) {
     toggleNewTaskTextarea(column, null);
     textareas[column].value = '';
     document.removeEventListener('click', hideNewTaskTextarea);
+    containersAddButtons[column].style.flexDirection = 'initial';
   }
 }
 
@@ -57,10 +59,12 @@ function toggleNewTaskTextarea(column, state) {
   if (state === 'save') {
     addNewTask(column);
     document.removeEventListener('click', hideNewTaskTextarea);
+    containersAddButtons[column].style.flexDirection = 'initial';
   } else if (state === 'open') {
     textareas[column].focus();
     containersTextarea[column].scrollIntoView({ block: 'end' });
     document.addEventListener('click', hideNewTaskTextarea);
+    containersAddButtons[column].style.flexDirection = 'row-reverse';
   }
 }
 
