@@ -4,6 +4,7 @@ import { todayDate } from '../set/deadline';
 
 const buttonsOpenTask = document.querySelectorAll('.add__btn-open');
 const buttonsSaveTask = document.querySelectorAll('.add__btn-save');
+const buttonsCloseTask = document.querySelectorAll('.add__btn-close');
 const containersNewTask = document.querySelectorAll('.task');
 const containersAddButtons = document.querySelectorAll('.add');
 const containersTextarea = document.querySelectorAll('.add__container');
@@ -45,19 +46,24 @@ function toggleNewTaskTextarea(column, state) {
       container.style.display = 'none';
       buttonsOpenTask[index].style.visibility = 'visible';
       buttonsSaveTask[index].style.visibility = 'hidden';
+      buttonsCloseTask[index].style.display = 'none';
+      containersAddButtons[index].style.flexDirection = 'initial';
     }
   });
 
   const buttonOpenVisibility = state === 'open' ? 'hidden' : 'visible';
   const buttonSaveVisibility = state === 'open' ? 'visible' : 'hidden';
+  const buttonCloseDisplay = state === 'open' ? 'block' : 'none';
   const containerDisplay = state === 'open' ? 'block' : 'none';
 
   buttonsOpenTask[column].style.visibility = buttonOpenVisibility;
   buttonsSaveTask[column].style.visibility = buttonSaveVisibility;
+  buttonsCloseTask[column].style.display = buttonCloseDisplay;
   containersTextarea[column].style.display = containerDisplay;
 
-  if (state === 'save') {
-    addNewTask(column);
+  if (state === 'save' || state === 'close') {
+    (state === 'save') & addNewTask(column);
+    textareas[column].blur();
     document.removeEventListener('click', hideNewTaskTextarea);
     containersAddButtons[column].style.flexDirection = 'initial';
   } else if (state === 'open') {
@@ -96,6 +102,10 @@ buttonsOpenTask.forEach((openBtn, index) => {
 
 buttonsSaveTask.forEach((saveBtn, index) => {
   saveBtn.addEventListener('click', () => toggleNewTaskTextarea(index, 'save'));
+});
+
+buttonsCloseTask.forEach((closeBtn, index) => {
+  closeBtn.addEventListener('click', () => toggleNewTaskTextarea(index, 'close'));
 });
 
 containersTextarea.forEach((taskField, index) => {

@@ -55,6 +55,11 @@
       }
     }
 
+    &-close {
+      display: none;
+      background-color: $background-close-button;
+    }
+
     &-text {
       padding: 0 0.5rem;
     }
