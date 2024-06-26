@@ -62,7 +62,7 @@ function toggleNewTaskTextarea(column, state) {
   containersTextarea[column].style.display = containerDisplay;
 
   if (state === 'save' || state === 'close') {
-    (state === 'save') & addNewTask(column);
+    state === 'save' && addNewTask(column);
     textareas[column].blur();
     document.removeEventListener('click', hideNewTaskTextarea);
     containersAddButtons[column].style.flexDirection = 'initial';
