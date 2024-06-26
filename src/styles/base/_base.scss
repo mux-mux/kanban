@@ -30,6 +30,7 @@ body {
   text-align: center;
   font-family: 'Rubik', sans-serif;
   color: var(--text_color, #222);
+  overflow-y: scroll;
 
   @include respond(mobile) {
     background-image: none;

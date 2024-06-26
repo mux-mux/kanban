@@ -90,6 +90,7 @@ function addNewTask(column) {
         done: column === 2 ? todayDate() : '',
       })
     : null;
+  textareas[column].value = '';
   updateDOM();
 }
 
