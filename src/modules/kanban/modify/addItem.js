@@ -20,10 +20,7 @@ function handleKeypress(e, column) {
     e.preventDefault();
     addNewTask(column);
   } else if (e.code === 'Escape') {
-    toggleNewTaskTextarea(column, null);
-    textareas[column].value = '';
-    document.removeEventListener('click', hideNewTaskTextarea);
-    containersAddButtons[column].style.flexDirection = 'initial';
+    toggleNewTaskTextarea(column, 'close');
   }
 }
 
@@ -63,6 +60,7 @@ function toggleNewTaskTextarea(column, state) {
 
   if (state === 'save' || state === 'close') {
     state === 'save' && addNewTask(column);
+    textareas[column].value = '';
     textareas[column].blur();
     document.removeEventListener('click', hideNewTaskTextarea);
     containersAddButtons[column].style.flexDirection = 'initial';
@@ -92,7 +90,6 @@ function addNewTask(column) {
         done: column === 2 ? todayDate() : '',
       })
     : null;
-  textareas[column].value = '';
   updateDOM();
 }
 
