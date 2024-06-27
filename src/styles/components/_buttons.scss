@@ -25,6 +25,7 @@
     border-radius: 0.5rem;
     font-size: 1.8rem;
     cursor: pointer;
+    min-width: $button-width;
 
     @include respond(mobile) {
       margin: 1rem;
@@ -57,7 +58,14 @@
 
     &-close {
       display: none;
-      background-color: $background-close-button;
+      justify-content: right;
+      padding: 0;
+
+      &-inner {
+        background-color: $background-close-button;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+      }
     }
 
     &-text {

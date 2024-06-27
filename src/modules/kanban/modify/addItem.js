@@ -41,19 +41,19 @@ function toggleNewTaskTextarea(column, state) {
   containersTextarea.forEach((container, index) => {
     if (container.style.display !== 'none') {
       container.style.display = 'none';
-      buttonsOpenTask[index].style.visibility = 'visible';
+      buttonsOpenTask[index].style.display = 'flex';
       buttonsSaveTask[index].style.visibility = 'hidden';
       buttonsCloseTask[index].style.display = 'none';
       containersAddButtons[index].style.flexDirection = 'initial';
     }
   });
 
-  const buttonOpenVisibility = state === 'open' ? 'hidden' : 'visible';
+  const buttonOpenDisplay = state === 'open' ? 'none' : 'flex';
   const buttonSaveVisibility = state === 'open' ? 'visible' : 'hidden';
-  const buttonCloseDisplay = state === 'open' ? 'block' : 'none';
+  const buttonCloseDisplay = state === 'open' ? 'flex' : 'none';
   const containerDisplay = state === 'open' ? 'block' : 'none';
 
-  buttonsOpenTask[column].style.visibility = buttonOpenVisibility;
+  buttonsOpenTask[column].style.display = buttonOpenDisplay;
   buttonsSaveTask[column].style.visibility = buttonSaveVisibility;
   buttonsCloseTask[column].style.display = buttonCloseDisplay;
   containersTextarea[column].style.display = containerDisplay;
