@@ -45,6 +45,10 @@
       transform: scale(0.97);
     }
 
+    &-open {
+      color: var(--text-color);
+    }
+
     &-save {
       color: black;
       visibility: hidden;
