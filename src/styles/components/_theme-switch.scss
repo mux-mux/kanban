@@ -14,10 +14,6 @@
 .theme-checkbox {
   width: inherit;
   height: inherit;
-
-  &:focus {
-    outline: 2px solid var(--text-color);
-  }
 }
 
 .switch {
