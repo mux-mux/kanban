@@ -10,3 +10,9 @@
     font-size: 1rem;
   }
 }
+
+.theme-dark .deadline {
+  &::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+  }
+}
