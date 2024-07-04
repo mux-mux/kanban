@@ -14,11 +14,11 @@ let moveData = {};
 const isTouch = 'ontouchstart' in window || navigator.msMaxTouchPoints > 0;
 
 function createItem(columnElement, columnNum, item, itemNum) {
-  const listElement = createElementWithClass('li', 'tasks__list-item');
-  const listSetContainer = createElementWithClass('div', 'tasks__set-container');
-  const removeIcon = createElementWithClass('img', 'tasks__list-item-remove-img');
-  const removeContainer = createElementWithClass('div', 'tasks__list-item-remove');
-  const sessionsContainer = createElementWithClass('ul', 'pomodoro__sessions');
+  const taskContainer = createElementWithClass('li', 'tasks__list-item');
+  const taskManagment = createElementWithClass('div', 'tasks__set-container');
+  const taskRemoveIcon = createElementWithClass('img', 'tasks__list-item-remove-img');
+  const taskRemoveArea = createElementWithClass('div', 'tasks__list-item-remove');
+  const taskSessions = createElementWithClass('ul', 'pomodoro__sessions');
 
   pomodoroIcon = setPomodoro(columnNum, itemNum);
   const deadlinePick = setDeadline(columnNum, item, itemNum);
@@ -26,7 +26,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
   const itemData = localLoaded[columnNames[columnNum]].items[itemNum];
 
   for (let i = 0; i < itemData.sessions; i++) {
-    appendSessionIcon(sessionsContainer, i);
+    appendSessionIcon(taskSessions, i);
   }
 
   if (itemData.pomodoro === true) {
@@ -35,36 +35,36 @@ function createItem(columnElement, columnNum, item, itemNum) {
 
   changeIconOnBreak(itemData, pomodoroIcon);
 
-  removeIcon.src = './assets/remove.png';
-  removeIcon.alt = 'remove element icon';
-  removeContainer.addEventListener('click', () => {
+  taskRemoveIcon.src = './assets/remove.png';
+  taskRemoveIcon.alt = 'remove element icon';
+  taskRemoveArea.addEventListener('click', () => {
     pomodoroInit(pomodoroIcon, itemData, 'remove', columnNum, itemNum);
     deleteItem(columnNum, itemNum);
     moveData = {};
   });
 
-  setElementAttributes(listElement, item.name, true, itemNum);
+  setElementAttributes(taskContainer, item.name, true, itemNum);
 
-  editItemText(listElement, columnNum, itemNum);
+  editItemText(taskContainer, columnNum, itemNum);
 
   if (columnNum !== 2) {
-    listSetContainer.appendChild(pomodoroIcon.pomodoro);
+    taskManagment.appendChild(pomodoroIcon.pomodoro);
   }
 
-  removeContainer.appendChild(removeIcon);
-  listSetContainer.appendChild(deadlinePick);
-  listSetContainer.appendChild(removeContainer);
-  listElement.appendChild(sessionsContainer);
-  listElement.appendChild(listSetContainer);
-  columnElement.appendChild(listElement);
+  taskRemoveArea.appendChild(taskRemoveIcon);
+  taskManagment.appendChild(deadlinePick);
+  taskManagment.appendChild(taskRemoveArea);
+  taskContainer.appendChild(taskSessions);
+  taskContainer.appendChild(taskManagment);
+  columnElement.appendChild(taskContainer);
 
   if (!isTouch) {
-    listElement.addEventListener('dragstart', (e) => drag(e, columnNum));
-    hoverAppearIcon(listElement);
+    taskContainer.addEventListener('dragstart', (e) => drag(e, columnNum));
+    hoverAppearIcon(taskContainer);
   } else {
     taskLists.forEach((item) => item.style.setProperty('--visibility', 'visible'));
 
-    listElement.addEventListener(
+    taskContainer.addEventListener(
       'touchstart',
       (e) => {
         document
@@ -81,12 +81,11 @@ function createItem(columnElement, columnNum, item, itemNum) {
   }
 }
 
-const addMoveBtns = document.querySelectorAll('.add__move');
-addMoveBtns.forEach((moveBtn, index) => {
+document.querySelectorAll('.add__move').forEach((taskMoveButton, index) => {
   if (isTouch) {
-    moveBtn.style.display = 'block';
+    taskMoveButton.style.display = 'block';
   }
-  moveBtn.addEventListener(
+  taskMoveButton.addEventListener(
     'touchstart',
     () => {
       const newColumnNum = moveData.columnNum != index ? index : index + 1;
