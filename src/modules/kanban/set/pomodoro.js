@@ -1,3 +1,5 @@
+import { createFocusTrap } from 'focus-trap';
+
 import { createElementWithClass } from './createItem';
 import { localLoaded, updateDOM, updatedOnLoad } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
@@ -114,7 +116,15 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
 
   const kanbanHeading = document.querySelector('.heading-primary');
   const pomodoroContainer = document.querySelector('.pomodoro');
-  const controlsContainer = document.querySelector('.pomodoro__controls');
+  const pomodoroControls = document.querySelector('.pomodoro__controls');
+
+  const focusTrap = createFocusTrap(pomodoroControls, {
+    onActivate: () => pause.focus(),
+    onDeactivate: () => {
+      resetPomodoro();
+      pause.blur();
+    },
+  });
 
   icon.removeEventListener('click', timer.lunchPomodoro);
 
@@ -129,8 +139,9 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     addControlListiners();
 
     icon.style.cssText = 'visibility: visible; color: #eccb34';
-    controlsContainer.style.display = 'flex';
+    pomodoroControls.style.display = 'flex';
     text.textContent = itemData.name;
+    focusTrap.activate();
   } else {
     showHidePomodoro(pomodoroContainer, kanbanHeading);
     clearInterval(interval);
@@ -141,7 +152,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
 
     icon.style.cssText = 'visibility: var(--visibility);';
     icon.classList.remove('fa-fade');
-    controlsContainer.style.display = 'none';
+    pomodoroControls.style.display = 'none';
     text.textContent = '';
 
     updateDOM();
@@ -157,6 +168,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     play.style.display = 'inline-block';
     isPause = true;
     icon.classList.remove('fa-fade');
+    play.focus();
   }
 
   function playPomodoro() {
@@ -164,11 +176,13 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     pause.style.display = 'inline-block';
     isPause = false;
     icon.classList.add('fa-fade');
+    pause.focus();
   }
 
   function resetPomodoro() {
     removeControlListiners();
     pomodoroInit(timer, itemData, 'remove', columnNum, itemNum);
+    focusTrap.deactivate();
 
     if (itemData.break === true) {
       itemData.break = false;
@@ -179,6 +193,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   function donePomodoro() {
     removeControlListiners();
     relocateItem(columnNum, itemNum, 2, localLoaded[columnNames[2]].items.length);
+    focusTrap.deactivate();
   }
 
   function addControlListiners() {
