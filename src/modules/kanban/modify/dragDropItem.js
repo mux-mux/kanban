@@ -14,7 +14,7 @@ function drag(e, columnNum) {
   e.dataTransfer.setData('columnNum', columnNum);
   e.dataTransfer.setData('itemNum', itemNum);
 
-  draggedItem.style.setProperty('--visibility', 'hidden');
+  draggedItem.style.setProperty('--opacity', '0');
 }
 
 function dragOver(e, column) {

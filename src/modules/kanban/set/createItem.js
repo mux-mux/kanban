@@ -17,7 +17,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
   const taskContainer = createElementWithClass('li', 'tasks__list-item');
   const taskManagment = createElementWithClass('div', 'tasks__set-container');
   const taskRemoveIcon = createElementWithClass('img', 'tasks__list-item-remove-img');
-  const taskRemoveArea = createElementWithClass('div', 'tasks__list-item-remove');
+  const taskRemoveArea = createElementWithClass('button', 'tasks__list-item-remove');
   const taskSessions = createElementWithClass('ul', 'pomodoro__sessions');
 
   pomodoroIcon = setPomodoro(columnNum, itemNum);
@@ -62,7 +62,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
     taskContainer.addEventListener('dragstart', (e) => drag(e, columnNum));
     hoverAppearIcon(taskContainer);
   } else {
-    taskLists.forEach((item) => item.style.setProperty('--visibility', 'visible'));
+    taskLists.forEach((item) => item.style.setProperty('--opacity', '1'));
 
     taskContainer.addEventListener(
       'touchstart',
@@ -133,10 +133,10 @@ function changeIconOnBreak(data, icon) {
 }
 
 function showIcon(e) {
-  e.currentTarget.style.setProperty('--visibility', 'visible');
+  e.currentTarget.style.setProperty('--opacity', '1');
 }
 function hideIcon(e) {
-  e.currentTarget.style.setProperty('--visibility', 'hidden');
+  e.currentTarget.style.setProperty('--opacity', '0');
 }
 
 function hoverAppearIcon(currentElement) {

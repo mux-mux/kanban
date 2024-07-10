@@ -15,8 +15,9 @@
   }
   &__icon {
     padding: 0 5px;
+    font-size: 18px;
     transition: color 0.5s;
-    visibility: var(--visibility, visible);
+    opacity: var(--opacity, visible);
     &:hover {
       color: #ebcc34;
     }

@@ -70,7 +70,7 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
 }
 
 function setPomodoro(columnNum, itemNum) {
-  const pomodoro = createElementWithClass('i', 'fa-regular');
+  const pomodoro = createElementWithClass('button', 'fa-regular');
   pomodoro.classList.add('fa-circle-play');
   pomodoro.classList.add('pomodoro__icon');
 
@@ -138,7 +138,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
 
     addControlListiners();
 
-    icon.style.cssText = 'visibility: visible; color: #eccb34';
+    icon.style.cssText = 'opacity: 1; color: #eccb34';
     pomodoroControls.style.display = 'flex';
     text.textContent = itemData.name;
     focusTrap.activate();
@@ -150,7 +150,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     itemData.time = '';
     time = ['25', '00'];
 
-    icon.style.cssText = 'visibility: var(--visibility);';
+    icon.style.cssText = 'opacity: var(--opacity);';
     icon.classList.remove('fa-fade');
     pomodoroControls.style.display = 'none';
     text.textContent = '';
