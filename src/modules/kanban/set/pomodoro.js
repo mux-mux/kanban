@@ -1,6 +1,6 @@
 import { createFocusTrap } from 'focus-trap';
 
-import { createElementWithClass } from './createItem';
+import { createElementWithClass, showIcon, hideIcon } from './createItem';
 import { localLoaded, updateDOM, updatedOnLoad } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 import { setLocalItems } from '../update/localStorage';
@@ -69,12 +69,18 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
   }
 }
 
+function toggleIconOpacity(e, state) {
+  e.target.offsetParent.style.setProperty('--opacity', state);
+}
+
 function setPomodoro(columnNum, itemNum) {
   const pomodoro = createElementWithClass('button', 'fa-regular');
   pomodoro.classList.add('fa-circle-play');
   pomodoro.classList.add('pomodoro__icon');
 
   pomodoro.addEventListener('click', lunchPomodoro);
+  pomodoro.addEventListener('focus', (e) => toggleIconOpacity(e, 1));
+  pomodoro.addEventListener('blur', (e) => toggleIconOpacity(e, 0));
 
   function lunchPomodoro() {
     removeControlListiners();
@@ -214,4 +220,11 @@ function removeControlListiners() {
   pomodoroContainer.parentNode.replaceChild(pomodoroContainerClone, pomodoroContainer);
 }
 
-export { setPomodoro, startPomodoro, pomodoroInit, removeControlListiners, interval };
+export {
+  setPomodoro,
+  startPomodoro,
+  pomodoroInit,
+  removeControlListiners,
+  toggleIconOpacity,
+  interval,
+};
