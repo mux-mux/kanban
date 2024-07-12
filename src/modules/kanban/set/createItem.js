@@ -188,4 +188,4 @@ function onEnterBlur(ev) {
   });
 }
 
-export { createItem, createElementWithClass, pomodoroIcon, showIcon, hideIcon };
+export { createItem, createElementWithClass, pomodoroIcon };

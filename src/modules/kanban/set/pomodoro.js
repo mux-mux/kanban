@@ -1,6 +1,6 @@
 import { createFocusTrap } from 'focus-trap';
 
-import { createElementWithClass, showIcon, hideIcon } from './createItem';
+import { createElementWithClass } from './createItem';
 import { localLoaded, updateDOM, updatedOnLoad } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 import { setLocalItems } from '../update/localStorage';
@@ -175,6 +175,8 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     isPause = true;
     icon.classList.remove('fa-fade');
     play.focus();
+
+    playSound('pause.ogg');
   }
 
   function playPomodoro() {
@@ -183,6 +185,8 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     isPause = false;
     icon.classList.add('fa-fade');
     pause.focus();
+
+    playSound('play.ogg');
   }
 
   function resetPomodoro() {
@@ -200,6 +204,8 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     removeControlListiners();
     relocateItem(columnNum, itemNum, 2, localLoaded[columnNames[2]].items.length);
     focusTrap.deactivate();
+
+    playSound('done.ogg');
   }
 
   function addControlListiners() {
@@ -211,6 +217,11 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
 
   MM.textContent = time[0];
   SS.textContent = time[1];
+
+  function playSound(soundSample) {
+    const audio = new Audio('./assets/sounds/' + soundSample);
+    audio.play();
+  }
 }
 
 function removeControlListiners() {
