@@ -126,10 +126,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
 
   const focusTrap = createFocusTrap(pomodoroControls, {
     onActivate: () => pause.focus(),
-    onDeactivate: () => {
-      resetPomodoro();
-      pause.blur();
-    },
+    onDeactivate: () => pause.blur(),
   });
 
   icon.removeEventListener('click', timer.lunchPomodoro);
@@ -198,6 +195,8 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
       itemData.break = false;
       coffee.style.display = 'none';
     }
+
+    playSound('reset.ogg');
   }
 
   function donePomodoro() {
