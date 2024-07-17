@@ -32,6 +32,11 @@
           <button class="fa-solid fa-calendar-check tools tools-archive"></button>
           <div class="archive">
             <button class="fa-solid fa-download archive__button archive__download"></button>
+            <input type="file" id="selectedFile" accept="application/json" style="display: none" />
+            <button
+              onclick="document.getElementById('selectedFile').click();"
+              class="fa-solid fa-upload archive__button archive__upload"
+            ></button>
             <table class="archive__table">
               <tbody class="archive__body">
                 <tr class="archive__head">

@@ -10,10 +10,12 @@ function archiveItem() {
   const containerArchive = document.querySelector('.archive');
   const buttonCloseArchive = document.querySelector('.archive__close');
   const buttonDownloadArchive = document.querySelector('.archive__download');
+  const buttonUploadArchive = document.querySelector('#selectedFile');
 
   buttonToggleArchive.addEventListener('click', toggleArchiveVisibility);
   buttonCloseArchive.addEventListener('click', toggleArchiveVisibility);
   buttonDownloadArchive.addEventListener('click', downloadArchive);
+  buttonUploadArchive.addEventListener('change', uploadArchive);
   buttonMoveToArchive.addEventListener('click', moveToArchive);
 
   const focusTrap = createFocusTrap(containerArchive, {
@@ -56,6 +58,18 @@ function archiveItem() {
     anchorNode.remove();
 
     clearArchiveTasks();
+  }
+
+  function uploadArchive() {
+    const files = document.getElementById('selectedFile').files;
+
+    if (files.length <= 0) return;
+
+    const readData = new FileReader();
+
+    readData.onload = function (e) {
+      const result = JSON.parse(e.target.result);
+    };
   }
 
   function clearArchiveTasks() {
