@@ -60,16 +60,19 @@ function archiveItem() {
     clearArchiveTasks();
   }
 
-  function uploadArchive() {
+  function uploadArchive(e) {
     const files = document.getElementById('selectedFile').files;
-
     if (files.length <= 0) return;
 
     const readData = new FileReader();
+    readData.onload = onReaderLoad;
+    readData.readAsText(e.target.files[0]);
 
-    readData.onload = function (e) {
-      const result = JSON.parse(e.target.result);
-    };
+    function onReaderLoad(e) {
+      if (isJsonString(e.target.result)) {
+        const result = JSON.parse(e.target.result);
+      }
+    }
   }
 
   function clearArchiveTasks() {
@@ -125,6 +128,15 @@ function renderArchive(archiveItems) {
     }
     archiveTable.appendChild(archiveRow);
   });
+}
+
+function isJsonString(str) {
+  try {
+    JSON.parse(str);
+  } catch (e) {
+    return false;
+  }
+  return true;
 }
 
 export { archiveItem, renderArchive };
