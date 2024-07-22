@@ -16,7 +16,9 @@ function archiveItem() {
   buttonCloseArchive.addEventListener('click', toggleArchiveVisibility);
   buttonDownloadArchive.addEventListener('click', downloadArchive);
   buttonUploadArchive.addEventListener('change', uploadArchive);
-  buttonMoveToArchive.addEventListener('click', moveToArchive);
+  buttonMoveToArchive.addEventListener('click', () =>
+    moveToArchive(localLoaded.done.items, 'done')
+  );
 
   const focusTrap = createFocusTrap(containerArchive, {
     onActivate: () => buttonCloseArchive.focus(),
@@ -71,6 +73,7 @@ function archiveItem() {
     function onReaderLoad(e) {
       if (isJsonString(e.target.result)) {
         const result = JSON.parse(e.target.result);
+        moveToArchive(result, 'load');
       }
     }
   }
@@ -87,11 +90,11 @@ function archiveItem() {
   }
 }
 
-function moveToArchive() {
-  const archiveItems = localLoaded.done.items;
+function moveToArchive(doneTasks, action) {
+  const archiveItems = doneTasks;
   archiveLoaded.push(...archiveItems);
   archive.items = archive.items.concat(archiveItems);
-  localLoaded.done.items = [];
+  action === 'done' ? (localLoaded.done.items = []) : null;
 
   updateDOM();
   renderArchive(archiveItems);
