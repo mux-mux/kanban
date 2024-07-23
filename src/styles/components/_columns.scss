@@ -70,17 +70,15 @@
 
 .custom-scroll::-webkit-scrollbar-track {
   box-shadow: inset 0 0 0.5rem rgba(0, 0, 0, 0.4);
-  border-radius: 1rem;
   background-color: rgba(255, 255, 255, 0.3);
   margin-right: 0.5rem;
 }
 
 .custom-scroll::-webkit-scrollbar {
-  width: 1rem;
+  width: 0.5rem;
 }
 
 .custom-scroll::-webkit-scrollbar-thumb {
-  border-radius: 1rem;
   box-shadow: inset 0 0 0.5rem rgba(0, 0, 0, 0.3);
   background-color: rgba(0, 0, 0, 0.8);
 }

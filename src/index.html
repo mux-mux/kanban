@@ -31,24 +31,33 @@
           <button class="fa-solid fa-trash-can-arrow-up tools tools-history"></button>
           <button class="fa-solid fa-calendar-check tools tools-archive"></button>
           <div class="archive">
-            <button class="fa-solid fa-download archive__button archive__download"></button>
-            <input type="file" id="selectedFile" accept="application/json" style="display: none" />
-            <button
-              onclick="document.getElementById('selectedFile').click();"
-              class="fa-solid fa-upload archive__button archive__upload"
-            ></button>
-            <table class="archive__table">
-              <tbody class="archive__body">
-                <tr class="archive__head">
-                  <th>Name</th>
-                  <th>Add</th>
-                  <th>Deadline</th>
-                  <th>Sessions</th>
-                  <th>Done</th>
-                </tr>
-              </tbody>
-            </table>
-            <button class="fa-solid fa-xmark archive__button archive__close"></button>
+            <div class="archive__buttons">
+              <button class="fa-solid fa-download archive__button archive__download"></button>
+              <input
+                type="file"
+                id="selectedFile"
+                accept="application/json"
+                style="display: none"
+              />
+              <button
+                onclick="document.getElementById('selectedFile').click();"
+                class="fa-solid fa-upload archive__button archive__upload"
+              ></button>
+              <button class="fa-solid fa-xmark archive__button archive__close"></button>
+            </div>
+            <div class="archive__content custom-scroll">
+              <table class="archive__table">
+                <tbody class="archive__body">
+                  <tr class="archive__head">
+                    <th>Name</th>
+                    <th>Add</th>
+                    <th>Deadline</th>
+                    <th>Sessions</th>
+                    <th>Done</th>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
         <h1 class="heading-primary">Kanban</h1>
