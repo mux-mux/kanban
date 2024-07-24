@@ -17,6 +17,7 @@
     padding: 0 5px;
     font-size: 18px;
     transition: color 0.5s;
+    color: var(--text-color);
     opacity: var(--opacity, visible);
     &:hover {
       color: #ebcc34;
