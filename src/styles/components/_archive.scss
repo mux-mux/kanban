@@ -42,7 +42,8 @@
   }
   @include respond(mobile) {
     font-size: 0.9rem;
-    padding: 2rem 0.5rem 0.5rem;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
   }
 
   &__table {
