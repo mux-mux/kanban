@@ -1,7 +1,7 @@
 .tasks {
-  display: flex;
+  display: grid;
   align-items: flex-start;
-  flex-wrap: wrap;
+  grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
   gap: 2rem;
 
   &__set-container {
