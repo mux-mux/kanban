@@ -71,7 +71,7 @@ textarea {
   max-width: 180rem;
   min-width: 320px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 $padding-md;
 
   @include respond(mobile) {
     padding: 0 1rem 5rem;

@@ -4,7 +4,8 @@
   justify-content: space-between;
   align-items: center;
   gap: 2rem;
-  min-height: 12rem;
+  padding-top: $padding-md;
+  padding-bottom: $padding-md;
 
   &__tools {
     @include header_sides;
@@ -12,13 +13,12 @@
 
     @include respond(mobile) {
       min-width: auto;
-      padding: 2rem 0 0 0;
     }
   }
 
   @include respond(mobile) {
-    flex-direction: column;
-    min-height: 23rem;
+    flex-direction: column-reverse;
+    justify-content: center;
   }
 }
 

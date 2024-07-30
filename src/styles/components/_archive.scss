@@ -27,7 +27,7 @@
   left: 110px;
   z-index: 1000;
   background-color: var(--background-archive, #f6f6f6);
-  padding-top: 2rem;
+  padding-top: $padding-md;
   border-radius: 5px;
   box-shadow: 1px 1px 5px 1px var(--column-shadow, #999);
   font-size: 1.4rem;
@@ -42,7 +42,7 @@
   }
   @include respond(mobile) {
     font-size: 0.9rem;
-    padding-top: 2rem;
+    padding-top: $padding-md;
     padding-bottom: 1rem;
   }
 

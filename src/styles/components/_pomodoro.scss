@@ -8,7 +8,6 @@
   color: var(--text-color, #222);
   min-height: $header-min-height;
   line-height: $header-min-height;
-  padding: $padding-pomodoro-heading;
   &__inner {
     display: flex;
     gap: 2rem;
