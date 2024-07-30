@@ -68,12 +68,12 @@ textarea {
 }
 
 .container {
-  max-width: 180rem;
-  min-width: 320px;
+  max-width: $max-width;
+  min-width: $min-width;
   margin: 0 auto;
   padding: 0 $padding-md;
 
   @include respond(mobile) {
-    padding: 0 1rem 5rem;
+    padding: 0 calc($padding-md/2) 5rem;
   }
 }
