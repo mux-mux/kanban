@@ -159,6 +159,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     pomodoroControls.style.display = 'none';
     text.textContent = '';
 
+    focusTrap.deactivate();
     updateDOM();
   }
 
@@ -190,7 +191,6 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   function resetPomodoro() {
     removeControlListiners();
     pomodoroInit(timer, itemData, 'remove', columnNum, itemNum);
-    focusTrap.deactivate();
 
     if (itemData.break === true) {
       itemData.break = false;
