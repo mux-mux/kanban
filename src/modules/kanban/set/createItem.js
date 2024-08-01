@@ -153,7 +153,13 @@ function createElementWithClass(element, clazz) {
 }
 
 function editItemText(currentElement, columnNum, itemNum) {
-  currentElement.addEventListener('dblclick', (e) => {
+  if (!isTouch) {
+    currentElement.addEventListener('dblclick', editCurrentItem);
+  } else {
+    currentElement.addEventListener('touchend', detectDoubleTap());
+  }
+
+  function editCurrentItem(e) {
     removeControlListiners();
     e.currentTarget.textContent = e.currentTarget.innerText;
     e.currentTarget.setAttribute('contentEditable', true);
@@ -161,12 +167,32 @@ function editItemText(currentElement, columnNum, itemNum) {
     e.currentTarget.focus();
 
     focusCarretEnd(e);
-  });
-  currentElement.addEventListener('blur', (e) => {
-    e.currentTarget.setAttribute('contentEditable', false);
-    e.currentTarget.setAttribute('draggable', true);
-    editItem(columnNum, itemNum);
-  });
+
+    currentElement.addEventListener('blur', (e) => {
+      e.currentTarget.setAttribute('contentEditable', false);
+      e.currentTarget.setAttribute('draggable', true);
+      editItem(columnNum, itemNum);
+    });
+  }
+
+  function detectDoubleTap() {
+    let lastTap = 0;
+    let timeout;
+
+    return function detectDoubleTapTimer(event) {
+      const curTime = new Date().getTime();
+      const tapLen = curTime - lastTap;
+      if (tapLen < 500 && tapLen > 0) {
+        editCurrentItem(event);
+        event.preventDefault();
+      } else {
+        timeout = setTimeout(() => {
+          clearTimeout(timeout);
+        }, 500);
+      }
+      lastTap = curTime;
+    };
+  }
 }
 
 function focusCarretEnd(ev) {
