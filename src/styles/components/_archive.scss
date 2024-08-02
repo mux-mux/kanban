@@ -7,7 +7,7 @@
   right: 15px;
   font-size: 1.4rem;
   box-shadow: 0 0 1px #333;
-  padding: 0 3px;
+  padding: 0 $padding-sm;
   transition: box-shadow 0.5s;
   &:hover {
     cursor: pointer;
@@ -27,7 +27,7 @@
   left: 110px;
   z-index: 1000;
   background-color: var(--background-archive, #f6f6f6);
-  padding-top: $padding-md;
+  padding-top: $padding-lg;
   border-radius: 5px;
   box-shadow: 1px 1px 5px 1px var(--column-shadow, #999);
   font-size: 1.4rem;
@@ -42,8 +42,7 @@
   }
   @include respond(mobile) {
     font-size: 0.9rem;
-    padding-top: $padding-md;
-    padding-bottom: 1rem;
+    padding-bottom: $padding-md;
   }
 
   &__table {
@@ -56,8 +55,8 @@
   }
 
   &__content {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: $padding-md;
+    padding-right: $padding-md;
     margin-top: 1rem;
   }
 
@@ -67,7 +66,7 @@
     top: 0;
     font-size: 1.2rem;
     color: var(--text-color, #222);
-    padding: 4px 8px;
+    padding: $padding-sm $padding-md;
     cursor: pointer;
   }
 
@@ -91,7 +90,7 @@
 
   &__head > th,
   &__item > td {
-    padding: 0.5rem 1rem;
+    padding: $padding-sm $padding-md;
     border-radius: 3px;
   }
 
@@ -112,7 +111,7 @@
   @include respond(mobile) {
     &__head > th,
     &__item > td {
-      padding: 0.2rem 0.5rem;
+      padding: 2px $padding-sm;
     }
   }
 

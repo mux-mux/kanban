@@ -71,9 +71,9 @@ textarea {
   max-width: $max-width;
   min-width: $min-width;
   margin: 0 auto;
-  padding: 0 $padding-md;
+  padding: 0 $padding-lg;
 
   @include respond(mobile) {
-    padding: 0 calc($padding-md/2) 5rem;
+    padding: 0 calc($padding-lg/2) 5rem;
   }
 }

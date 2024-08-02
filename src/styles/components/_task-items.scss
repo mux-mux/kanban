@@ -1,7 +1,7 @@
 .tasks {
   display: grid;
   align-items: flex-start;
-  grid-template-columns: repeat(auto-fit, minmax(calc($min-width - $padding-md/2), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(calc($min-width - $padding-lg/2), 1fr));
   gap: 2rem;
 
   &__set-container {
@@ -11,7 +11,7 @@
   }
   &__list {
     min-height: 4rem;
-    padding: 1rem;
+    padding: $padding-md;
     --opacity: 0;
 
     @include respond(mobile) {
@@ -31,7 +31,7 @@
       white-space: pre-line;
       color: var(--text-color, #222);
       margin: 1rem;
-      padding: 0.8rem 3rem 0.8rem 1.2rem;
+      padding: 8px 30px 8px 12px;
       height: fit-content;
       background-color: rgba(0, 0, 0, 0.1);
       border-radius: 1rem;

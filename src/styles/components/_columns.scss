@@ -34,7 +34,7 @@
 .add {
   &__container {
     margin: 1rem;
-    padding: 0.5rem 1rem;
+    padding: $padding-sm $padding-md;
     border-radius: 1rem;
     background-color: rgba(255, 255, 255, 0.1);
     min-height: 10rem;

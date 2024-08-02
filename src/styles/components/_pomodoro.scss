@@ -13,7 +13,7 @@
     gap: 2rem;
   }
   &__icon {
-    padding: 0 5px;
+    padding: 0 $padding-sm;
     font-size: 18px;
     transition: color 0.5s;
     color: var(--text-color);
@@ -39,7 +39,7 @@
     text-align: left;
     min-width: 10rem;
     font-size: 2.4rem;
-    padding: 0 1rem;
+    padding: 0 $padding-md;
     background: var(--background-timer, #f0f8ff);
     border-radius: 5px;
   }
@@ -51,7 +51,7 @@
   &__control {
     display: inline-block;
     font-size: 2rem;
-    padding: 0.5rem 1rem;
+    padding: $padding-sm $padding-md;
     transition: color 0.5s;
     color: var(--text-color);
     width: 4rem;
@@ -68,7 +68,7 @@
   &__session {
     position: absolute;
     bottom: 1px;
-    padding: 1px 4px;
+    padding: 1px $padding-sm;
     background-color: green;
   }
   &__break {

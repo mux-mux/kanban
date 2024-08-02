@@ -4,8 +4,8 @@
   justify-content: space-between;
   align-items: center;
   gap: 2rem;
-  padding-top: $padding-md;
-  padding-bottom: $padding-md;
+  padding-top: $padding-lg;
+  padding-bottom: $padding-lg;
 
   &__tools {
     @include header_sides;
@@ -25,7 +25,7 @@
 .tools {
   gap: 1.5rem;
   font-size: 2.4rem;
-  padding: 1rem;
+  padding: $padding-md;
   color: var(--text-color, #222);
   border-radius: 10px;
   background: rgba(111, 111, 111, 0.2);
