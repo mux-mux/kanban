@@ -127,7 +127,8 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   const focusTrap = createFocusTrap(pomodoroControls, {
     onActivate: () => pause.focus(),
     onDeactivate: () => pause.blur(),
-    allowOutsideClick: true,
+    allowOutsideClick: () => true,
+    clickOutsideDeactivates: () => true,
   });
 
   icon.removeEventListener('click', timer.lunchPomodoro);

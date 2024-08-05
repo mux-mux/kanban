@@ -23,8 +23,8 @@ function archiveItem() {
   const focusTrap = createFocusTrap(containerArchive, {
     onActivate: () => buttonCloseArchive.focus(),
     onDeactivate: () => {
-      containerArchive.classList.remove('archive__visible');
       buttonCloseArchive.blur();
+      containerArchive.classList.remove('archive__visible');
     },
     allowOutsideClick: () => true,
     clickOutsideDeactivates: () => true,
