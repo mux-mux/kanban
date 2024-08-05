@@ -30,7 +30,7 @@
       word-break: break-word;
       white-space: pre-line;
       color: var(--text-color, #222);
-      margin: 1rem;
+      margin: $margin-md;
       padding: 8px 30px 8px 12px;
       height: fit-content;
       background-color: rgba(0, 0, 0, 0.1);

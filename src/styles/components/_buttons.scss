@@ -20,7 +20,7 @@
     display: flex;
     align-items: center;
     width: fit-content;
-    margin: 1rem 2rem;
+    margin: $margin-md $margin-lg;
     padding: $padding-sm $padding-md;
     border-radius: 0.5rem;
     font-size: 1.8rem;
@@ -28,7 +28,7 @@
     min-width: $button-width;
 
     @include respond(mobile) {
-      margin: 1rem;
+      margin: $margin-md;
     }
 
     &-add {
