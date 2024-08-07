@@ -28,7 +28,7 @@
   z-index: 1000;
   background-color: var(--background-archive, #f6f6f6);
   padding-top: $padding-lg;
-  border-radius: 5px;
+  border-radius: $border-radius-sm;
   box-shadow: 1px 1px 5px 1px var(--column-shadow, #999);
   font-size: 1.4rem;
   text-align: center;
@@ -72,26 +72,26 @@
 
   &__close {
     right: 0;
-    border-radius: 0 5px;
+    border-radius: 0 $border-radius-sm;
     background-color: $background-close-button;
   }
 
   &__download {
     left: 0;
-    border-radius: 5px 0;
+    border-radius: $border-radius-sm 0;
     background-color: rgba(0, 150, 0, 0.4);
   }
 
   &__upload {
     left: 40px;
-    border-radius: 5px 0;
+    border-radius: $border-radius-sm 0;
     background-color: rgba(0, 0, 150, 0.4);
   }
 
   &__head > th,
   &__item > td {
     padding: $padding-sm $padding-md;
-    border-radius: 3px;
+    border-radius: $border-radius-sm;
   }
 
   &__item > td:first-of-type {

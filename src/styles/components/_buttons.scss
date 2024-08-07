@@ -8,7 +8,7 @@
   &__move {
     display: none;
     padding: $padding-md;
-    border-radius: 0.5rem;
+    border-radius: $border-radius-sm;
     background-color: rgba(0, 0, 0, 0.1);
     color: var(--text-color, #222);
     &-done {
@@ -22,7 +22,7 @@
     width: fit-content;
     margin: $margin-md $margin-lg;
     padding: $padding-sm $padding-md;
-    border-radius: 0.5rem;
+    border-radius: $border-radius-sm;
     font-size: 1.8rem;
     cursor: pointer;
     min-width: $button-width;
@@ -68,7 +68,7 @@
       &-inner {
         background-color: $background-close-button;
         padding: $padding-sm $padding-md;
-        border-radius: 0.5rem;
+        border-radius: $border-radius-sm;
       }
     }
 

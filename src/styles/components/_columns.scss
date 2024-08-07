@@ -1,7 +1,7 @@
 .tasks__column {
   position: relative;
   background-color: rgba(0, 0, 0, 0.1);
-  border-radius: 1rem;
+  border-radius: $border-radius-md;
   overflow-x: hidden;
   box-shadow: 1px 1px 2px var(--column-shadow, #999);
   min-height: 13rem;
@@ -35,7 +35,7 @@
   &__container {
     margin: $margin-md;
     padding: $padding-sm $padding-md;
-    border-radius: 1rem;
+    border-radius: $border-radius-md;
     background-color: rgba(255, 255, 255, 0.1);
     min-height: 10rem;
     display: none;
@@ -47,7 +47,7 @@
     width: 100%;
     min-height: 10rem;
     height: auto;
-    border-radius: 1rem;
+    border-radius: $border-radius-md;
     margin: $margin-sm auto;
     resize: none;
     color: var(--text-color, #222);
