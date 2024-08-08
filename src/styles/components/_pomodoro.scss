@@ -3,14 +3,14 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
+  gap: $gap-md;
   box-sizing: border-box;
   color: var(--text-color, #222);
   min-height: $header-min-height;
   line-height: $header-min-height;
   &__inner {
     display: flex;
-    gap: 2rem;
+    gap: $gap-md;
   }
   &__icon {
     padding: 0 $padding-sm;

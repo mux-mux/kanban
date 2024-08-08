@@ -2,12 +2,12 @@
   display: grid;
   align-items: flex-start;
   grid-template-columns: repeat(auto-fit, minmax(calc($min-width - $padding-lg/2), 1fr));
-  gap: 2rem;
+  gap: $gap-md;
 
   &__set-container {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: $gap-sm;
   }
   &__list {
     min-height: 4rem;

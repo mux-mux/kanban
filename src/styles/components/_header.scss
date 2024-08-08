@@ -3,13 +3,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 2rem;
+  gap: $gap-md;
   padding-top: $padding-lg;
   padding-bottom: $padding-lg;
 
   &__tools {
     @include header_sides;
-    gap: 1.5rem;
+    gap: $gap-md;
 
     @include respond(mobile) {
       min-width: auto;
@@ -23,7 +23,6 @@
 }
 
 .tools {
-  gap: 1.5rem;
   font-size: 2.4rem;
   padding: $padding-md;
   color: var(--text-color, #222);

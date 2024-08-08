@@ -74,6 +74,6 @@ textarea {
   padding: 0 $padding-lg;
 
   @include respond(mobile) {
-    padding: 0 calc($padding-lg/2) 5rem;
+    padding: 0 calc($padding-lg/2) $padding-sm;
   }
 }
