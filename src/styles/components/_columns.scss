@@ -10,24 +10,21 @@
 .todo {
   &__title,
   & .over {
-    background-color: $column-1;
-    background-image: $background-column-header;
+    background-color: $bg-color-column-todo;
   }
 }
 
 .inprogress {
   &__title,
   & .over {
-    background-color: $column-2;
-    background-image: $background-column-header;
+    background-color: $bg-color-column-inprogress;
   }
 }
 
 .done {
   &__title,
   & .over {
-    background-color: $column-3;
-    background-image: $background-column-header;
+    background-color: $bg-color-column-done;
   }
 }
 
