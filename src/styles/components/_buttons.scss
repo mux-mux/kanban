@@ -25,6 +25,7 @@
     border-radius: $border-radius-sm;
     font-size: 1.8rem;
     cursor: pointer;
+    min-width: calc($width-xl - 15px);
 
     @include respond(mobile) {
       margin: $margin-md;
