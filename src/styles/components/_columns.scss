@@ -4,7 +4,7 @@
   border-radius: $border-radius-md;
   overflow-x: hidden;
   box-shadow: 1px 1px 2px var(--column-shadow, #999);
-  min-height: 13rem;
+  min-height: $height-xxl;
 }
 
 .todo {
@@ -37,7 +37,7 @@
     padding: $padding-sm $padding-md;
     border-radius: $border-radius-md;
     background-color: rgba(255, 255, 255, 0.1);
-    min-height: 10rem;
+    min-height: $height-xl;
     display: none;
   }
 
@@ -45,7 +45,7 @@
     background-color: initial;
     border: none;
     width: 100%;
-    min-height: 10rem;
+    min-height: $height-xl;
     height: auto;
     border-radius: $border-radius-md;
     margin: $margin-sm auto;
@@ -74,7 +74,7 @@
 }
 
 .custom-scroll::-webkit-scrollbar {
-  width: 0.5rem;
+  width: calc($width-sm / 2);
 }
 
 .custom-scroll::-webkit-scrollbar-thumb {

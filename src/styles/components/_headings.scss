@@ -1,8 +1,8 @@
 .heading-primary {
   letter-spacing: 2px;
   font-size: 4rem;
-  min-height: $header-min-height;
-  line-height: $header-min-height;
+  min-height: calc($height-md * 2);
+  line-height: calc($height-md * 2);
   color: var(--text-color, #222);
 }
 

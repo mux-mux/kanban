@@ -4,7 +4,7 @@
   gap: $gap-sm;
   font-size: 2.4rem;
   color: var(--text-color, #222);
-  line-height: var(--theme-switch-height);
+  line-height: calc($theme-slider-size + $theme-slider-shift);
 
   @include respond(mobile) {
     font-size: 2rem;
@@ -20,7 +20,7 @@
   position: relative;
   display: inline-block;
   width: 60px;
-  height: var(--theme-switch-height);
+  height: calc($theme-slider-size + $theme-slider-shift);
 }
 
 .slider {
@@ -38,10 +38,10 @@
 .slider:before {
   position: absolute;
   content: '';
-  height: 2.6rem;
-  width: 2.6rem;
-  left: 4px;
-  bottom: 4px;
+  height: calc($theme-slider-size - $theme-slider-shift);
+  width: calc($theme-slider-size - $theme-slider-shift);
+  left: $theme-slider-shift;
+  bottom: $theme-slider-shift;
   background-color: white;
   -webkit-transition: 0.4s;
   transition: 0.4s;
@@ -62,7 +62,7 @@ input:checked + .slider:before {
 }
 
 .slider.round {
-  border-radius: var(--theme-switch-height);
+  border-radius: calc($theme-slider-size + $theme-slider-shift);
 }
 
 .slider.round:before {

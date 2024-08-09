@@ -12,7 +12,7 @@
     background-color: rgba(0, 0, 0, 0.1);
     color: var(--text-color, #222);
     &-done {
-      width: 3rem;
+      width: $width-md;
     }
   }
 
@@ -25,7 +25,6 @@
     border-radius: $border-radius-sm;
     font-size: 1.8rem;
     cursor: pointer;
-    min-width: $button-width;
 
     @include respond(mobile) {
       margin: $margin-md;

@@ -6,8 +6,8 @@
   gap: $gap-md;
   box-sizing: border-box;
   color: var(--text-color, #222);
-  min-height: $header-min-height;
-  line-height: $header-min-height;
+  min-height: calc($height-md * 2);
+  line-height: calc($height-md * 2);
   &__inner {
     display: flex;
     gap: $gap-md;
@@ -37,7 +37,7 @@
   }
   &__timer {
     text-align: left;
-    min-width: 10rem;
+    min-width: $width-xl;
     font-size: 2.4rem;
     padding: 0 $padding-md;
     background: var(--background-timer, #f0f8ff);
@@ -46,7 +46,6 @@
   &__controls {
     display: none;
     align-items: center;
-    width: 13rem;
   }
   &__control {
     display: inline-block;
@@ -54,7 +53,7 @@
     padding: $padding-sm $padding-md;
     transition: color 0.5s;
     color: var(--text-color);
-    width: 4rem;
+    width: $width-lg;
     &:hover {
       color: #999;
       cursor: pointer;

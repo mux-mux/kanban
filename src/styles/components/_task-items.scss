@@ -10,7 +10,7 @@
     gap: $gap-sm;
   }
   &__list {
-    min-height: 4rem;
+    min-height: $height-lg;
     padding: $padding-md;
     --opacity: 0;
 
@@ -75,7 +75,7 @@
       content: '';
       position: absolute;
       left: 0;
-      width: 0.8rem;
+      width: $width-sm;
       height: 100%;
       background-color: rgba(0, 255, 0, 0.4);
       border-radius: $border-radius-md 0 0 $border-radius-md;

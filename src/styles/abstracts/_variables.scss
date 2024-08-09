@@ -3,12 +3,13 @@ $column-2: #55b7ea;
 $column-3: #85c555;
 $background-column-header: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23757f9a' fill-opacity='0.5' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
 
-$header-min-height: 6rem;
 $background-close-button: rgba(255, 0, 0, 0.4);
-$button-width: 85px;
 
 $min-width: 320px;
 $max-width: 1800px;
+
+$theme-slider-size: 30px;
+$theme-slider-shift: 4px;
 
 $padding-sm: 5px;
 $padding-md: 10px;
@@ -25,3 +26,15 @@ $border-radius-lg: 20px;
 $gap-sm: 10px;
 $gap-md: 20px;
 $gap-lg: 30px;
+
+$width-sm: 10px;
+$width-md: 30px;
+$width-lg: 40px;
+$width-xl: 100px;
+$width-xxl: 130px;
+
+$height-sm: 10px;
+$height-md: 30px;
+$height-lg: 40px;
+$height-xl: 100px;
+$height-xxl: 130px;
