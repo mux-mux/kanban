@@ -24,7 +24,7 @@
       justify-content: space-between;
       align-items: center;
       font-size: 1.8rem;
-      line-height: 1.8rem;
+      line-height: 1;
       letter-spacing: 1px;
       text-align: left;
       word-break: break-word;
@@ -39,7 +39,7 @@
 
       @include respond(mobile) {
         font-size: 1.4rem;
-        line-height: 1.4rem;
+        line-height: 1;
       }
 
       &:focus {
