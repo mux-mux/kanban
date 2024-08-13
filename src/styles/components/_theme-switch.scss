@@ -2,12 +2,12 @@
   @include header_sides;
   justify-content: flex-end;
   gap: $gap-sm;
-  font-size: 2.4rem;
+  font-size: $font-size-xxl;
   color: var(--text-color, #222);
   line-height: calc($theme-slider-size + $theme-slider-shift);
 
   @include respond(mobile) {
-    font-size: 2rem;
+    font-size: $font-size-xl;
   }
 }
 

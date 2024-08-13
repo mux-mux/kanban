@@ -1,6 +1,6 @@
 .heading-primary {
   letter-spacing: 2px;
-  font-size: 4rem;
+  font-size: calc($font-size-xxl * 1.75);
   min-height: calc($height-md * 2);
   line-height: calc($height-md * 2);
   color: var(--text-color, #222);
@@ -8,5 +8,5 @@
 
 .heading-secondary {
   letter-spacing: 1px;
-  font-size: 2.4rem;
+  font-size: $font-size-xxl;
 }

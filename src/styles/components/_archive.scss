@@ -5,7 +5,7 @@
   position: absolute;
   top: 8px;
   right: 15px;
-  font-size: 1.4rem;
+  font-size: $font-size-lg;
   box-shadow: 0 0 1px #333;
   padding: 0 $padding-sm;
   transition: box-shadow 0.5s;
@@ -14,7 +14,7 @@
     box-shadow: 0 0 10px #999;
   }
   @include respond(mobile) {
-    font-size: 1.2rem;
+    font-size: $font-size-md;
     top: 9px;
   }
 }
@@ -30,7 +30,7 @@
   padding-top: $padding-lg;
   border-radius: $border-radius-sm;
   box-shadow: 1px 1px 5px 1px var(--column-shadow, #999);
-  font-size: 1.4rem;
+  font-size: $font-size-lg;
   text-align: center;
   visibility: hidden;
   opacity: 0;
@@ -41,7 +41,7 @@
     left: 0;
   }
   @include respond(mobile) {
-    font-size: 0.9rem;
+    font-size: $font-size-sm;
     padding-bottom: $padding-md;
   }
 
@@ -64,7 +64,7 @@
     width: fit-content;
     position: absolute;
     top: 0;
-    font-size: 1.2rem;
+    font-size: $font-size-md;
     color: var(--text-color, #222);
     padding: $padding-sm $padding-md;
     cursor: pointer;

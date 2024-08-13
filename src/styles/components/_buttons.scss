@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 1.8rem;
+  font-size: $font-size-xl;
   gap: $gap-lg;
 
   &__move {
@@ -23,7 +23,7 @@
     margin: $margin-md $margin-lg;
     padding: $padding-sm $padding-md;
     border-radius: $border-radius-sm;
-    font-size: 1.8rem;
+    font-size: $font-size-xl;
     cursor: pointer;
     min-width: calc($width-xl - 15px);
 

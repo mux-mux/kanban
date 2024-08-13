@@ -23,7 +23,7 @@
 }
 
 .tools {
-  font-size: 2.4rem;
+  font-size: $font-size-xxl;
   padding: $padding-md;
   color: var(--text-color, #222);
   border-radius: $border-radius-md;
@@ -35,6 +35,6 @@
   }
 
   @include respond(mobile) {
-    font-size: 2rem;
+    font-size: $font-size-xl;
   }
 }

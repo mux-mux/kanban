@@ -23,7 +23,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 1.8rem;
+      font-size: $font-size-xl;
       line-height: 1;
       letter-spacing: 1px;
       text-align: left;
@@ -39,7 +39,7 @@
       cursor: pointer;
 
       @include respond(mobile) {
-        font-size: 1.4rem;
+        font-size: $font-size-lg;
         line-height: 1;
       }
 
@@ -60,7 +60,7 @@
         border-radius: 0 $border-radius-md $border-radius-md 0;
 
         &-img {
-          font-size: 1rem;
+          font-size: $font-size-sm;
           text-align: center;
           line-height: 3;
           width: 18px;

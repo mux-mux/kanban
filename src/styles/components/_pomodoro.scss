@@ -24,7 +24,7 @@
   }
   &__text {
     max-width: 250px;
-    font-size: 1.8rem;
+    font-size: $font-size-xl;
     line-height: 1.1;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -38,7 +38,7 @@
   &__timer {
     text-align: left;
     min-width: $width-xl;
-    font-size: 2.4rem;
+    font-size: $font-size-xxl;
     padding: 0 $padding-md;
     background: var(--background-timer, #f0f8ff);
     border-radius: $border-radius-sm;
@@ -49,7 +49,7 @@
   }
   &__control {
     display: inline-block;
-    font-size: 2rem;
+    font-size: $font-size-xxl;
     padding: $padding-sm $padding-md;
     transition: color 0.5s;
     color: var(--text-color);
@@ -72,7 +72,7 @@
   }
   &__break {
     display: none;
-    font-size: 1.6rem;
+    font-size: $font-size-xl;
     color: #32a1d9;
   }
 }
