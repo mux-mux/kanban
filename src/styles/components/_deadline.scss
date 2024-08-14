@@ -6,9 +6,12 @@
   outline: none;
   white-space: initial;
   font-size: $font-size-md;
+  max-width: 100px;
+  letter-spacing: -1px;
 
   @include respond(laptop) {
     font-size: $font-size-sm;
+    max-width: 85px;
   }
 }
 
