@@ -20,7 +20,7 @@
 }
 .archive {
   width: auto;
-  min-width: $min-width;
+  min-width: calc($min-width - $padding-lg/2);
   max-height: calc(100vh - 30px);
   position: absolute;
   top: -1000px;
