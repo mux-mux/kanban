@@ -14,6 +14,11 @@
 .theme-checkbox {
   width: inherit;
   height: inherit;
+
+  &:focus {
+    outline: 2px solid Highlight;
+    outline: 2px solid -webkit-focus-ring-color;
+  }
 }
 
 .switch {
