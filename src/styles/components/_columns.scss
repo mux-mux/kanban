@@ -56,6 +56,10 @@
     &::placeholder {
       opacity: 0.3;
     }
+
+    @include respond(mobile) {
+      font-size: $font-size-lg;
+    }
   }
 }
 
