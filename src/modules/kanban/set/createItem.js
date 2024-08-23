@@ -37,6 +37,8 @@ function createItem(columnElement, columnNum, item, itemNum) {
 
   taskRemoveIcon.src = './assets/remove.png';
   taskRemoveIcon.alt = 'remove element icon';
+
+  taskRemoveArea.setAttribute('aria-label', `Move to trash ${itemData.name} task`);
   taskRemoveArea.addEventListener('click', () => {
     pomodoroInit(pomodoroIcon, itemData, 'remove', columnNum, itemNum);
     deleteItem(columnNum, itemNum);

@@ -75,8 +75,11 @@ function toggleIconOpacity(e, state) {
 
 function setPomodoro(columnNum, itemNum) {
   const pomodoro = createElementWithClass('button', 'fa-regular');
+  const taskText = localLoaded[columnNames[columnNum]].items[itemNum].name;
+
   pomodoro.classList.add('fa-circle-play');
   pomodoro.classList.add('pomodoro__icon');
+  pomodoro.setAttribute('aria-label', `Start pomodoro timer for ${taskText} task`);
 
   pomodoro.addEventListener('click', lunchPomodoro);
   pomodoro.addEventListener('focus', (e) => toggleIconOpacity(e, 1));
