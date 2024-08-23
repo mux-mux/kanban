@@ -15,6 +15,7 @@
   &__icon {
     padding: 0 $padding-sm;
     font-size: 18px;
+    line-height: 1;
     transition: color 0.5s;
     color: var(--text-color);
     opacity: var(--opacity, visible);
