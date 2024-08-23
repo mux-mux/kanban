@@ -28,11 +28,20 @@
     <div class="container">
       <header class="header">
         <div class="header__tools">
-          <button class="fa-solid fa-trash-can-arrow-up tools tools-history"></button>
-          <button class="fa-solid fa-calendar-check tools tools-archive"></button>
+          <button
+            class="fa-solid fa-trash-can-arrow-up tools tools-history"
+            aria-label="Undo task deletion"
+          ></button>
+          <button
+            class="fa-solid fa-calendar-check tools tools-archive"
+            aria-label="Show done tasks history"
+          ></button>
           <div class="archive">
             <div class="archive__buttons">
-              <button class="fa-solid fa-download archive__button archive__download"></button>
+              <button
+                class="fa-solid fa-download archive__button archive__download"
+                aria-label="Download done task into json file"
+              ></button>
               <input
                 type="file"
                 id="selectedFile"
@@ -42,8 +51,12 @@
               <button
                 onclick="document.getElementById('selectedFile').click();"
                 class="fa-solid fa-upload archive__button archive__upload"
+                aria-label="Upload done task from json file"
               ></button>
-              <button class="fa-solid fa-xmark archive__button archive__close"></button>
+              <button
+                class="fa-solid fa-xmark archive__button archive__close"
+                aria-label="Close done tasks history modal"
+              ></button>
             </div>
             <div class="archive__content custom-scroll">
               <table class="archive__table">
@@ -71,10 +84,22 @@
             </div>
             <div class="pomodoro__break"><i class="fa-solid fa-mug-hot"></i></div>
             <div class="pomodoro__controls">
-              <button class="fa-solid fa-pause pomodoro__control"></button>
-              <button class="fa-solid fa-play pomodoro__control"></button>
-              <button class="fa-solid fa-check pomodoro__control"></button>
-              <button class="fa-solid fa-backward-step pomodoro__control"></button>
+              <button
+                class="fa-solid fa-pause pomodoro__control"
+                aria-label="Pause pomodoro timer"
+              ></button>
+              <button
+                class="fa-solid fa-play pomodoro__control"
+                aria-label="Start pomodoro timer"
+              ></button>
+              <button
+                class="fa-solid fa-check pomodoro__control"
+                aria-label="Move to done pomodoro task"
+              ></button>
+              <button
+                class="fa-solid fa-backward-step pomodoro__control"
+                aria-label="Reset pomodoro timer"
+              ></button>
             </div>
           </div>
         </div>
@@ -95,19 +120,19 @@
           </div>
           <div class="task">
             <div class="add">
-              <button class="add__btn add__btn-close">
+              <button class="add__btn add__btn-close" aria-label="Close add new task field">
                 <span class="add__btn-close-inner"
                   ><i class="fa-regular fa-rectangle-xmark"></i
                 ></span>
               </button>
-              <button class="add__btn add__btn-open">
+              <button class="add__btn add__btn-open" aria-label="Open add new task field">
                 <i class="fa-regular fa-square-plus"></i>
                 <span class="add__btn-text">Item</span>
               </button>
-              <button class="add__move">
+              <button class="add__move" aria-label="Move task to another column">
                 <i class="fa-solid fa-arrows-up-down"></i>
               </button>
-              <button class="add__btn add__btn-save">
+              <button class="add__btn add__btn-save" aria-label="Confirm add new task">
                 <i class="fa-regular fa-floppy-disk"></i>
                 <span class="add__btn-text">Item</span>
               </button>
@@ -127,19 +152,19 @@
           </div>
           <div class="task">
             <div class="add">
-              <button class="add__btn add__btn-close">
+              <button class="add__btn add__btn-close" aria-label="Close add new task field">
                 <span class="add__btn-close-inner"
                   ><i class="fa-regular fa-rectangle-xmark"></i
                 ></span>
               </button>
-              <button class="add__btn add__btn-open">
+              <button class="add__btn add__btn-open" aria-label="Open add new task field">
                 <i class="fa-regular fa-square-plus"></i>
                 <span class="add__btn-text">Item</span>
               </button>
-              <button class="add__move">
+              <button class="add__move" aria-label="Move task to another column">
                 <i class="fa-solid fa-arrows-up-down"></i>
               </button>
-              <button class="add__btn add__btn-save">
+              <button class="add__btn add__btn-save" aria-label="Confirm add new task">
                 <i class="fa-regular fa-floppy-disk"></i>
                 <span class="add__btn-text">Item</span>
               </button>
@@ -162,17 +187,17 @@
           </div>
           <div class="task">
             <div class="add">
-              <button class="add__btn add__btn-close">
+              <button class="add__btn add__btn-close" aria-label="Close add new task field">
                 <span class="add__btn-close-inner"
                   ><i class="fa-regular fa-rectangle-xmark"></i
                 ></span>
               </button>
-              <button class="add__btn add__btn-open">
+              <button class="add__btn add__btn-open" aria-label="Open add new task field">
                 <i class="fa-regular fa-square-plus"></i>
                 <span class="add__btn-text">Item</span>
               </button>
-              <button class="add__move-done"></button>
-              <button class="add__btn add__btn-save">
+              <button class="add__move-done" aria-label="Move task to another column"></button>
+              <button class="add__btn add__btn-save" aria-label="Confirm add new task">
                 <i class="fa-regular fa-floppy-disk"></i>
                 <span class="add__btn-text">Item</span>
               </button>
