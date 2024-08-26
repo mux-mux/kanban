@@ -2,6 +2,7 @@
   position: relative;
 }
 .move-to-archive {
+  display: inline;
   position: absolute;
   top: 8px;
   right: 15px;
@@ -19,6 +20,7 @@
   }
 }
 .archive {
+  display: block;
   width: auto;
   min-width: calc($min-width - $padding-lg/2);
   max-height: calc(100vh - 30px);
