@@ -2,6 +2,19 @@ import { updateDOM, localLoaded } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 import { todayDate } from '../set/deadline';
 
+import { createElementWithClass } from '../set/createItem';
+
+document.querySelectorAll('.task').forEach((container) => {
+  const fieldContainer = createElementWithClass('div', 'add__container');
+
+  const textareaElement = createElementWithClass('textarea', 'add__item');
+  textareaElement.classList.add('custom-scroll');
+  textareaElement.setAttribute('placeholder', 'Ctrl+Enter to New line\u{000A}Esc to Close');
+  fieldContainer.appendChild(textareaElement);
+
+  container.appendChild(fieldContainer);
+});
+
 const buttonsOpenTask = document.querySelectorAll('.add__btn-open');
 const buttonsSaveTask = document.querySelectorAll('.add__btn-save');
 const buttonsCloseTask = document.querySelectorAll('.add__btn-close');
