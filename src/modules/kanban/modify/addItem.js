@@ -4,7 +4,7 @@ import { todayDate } from '../set/deadline';
 
 import { createElementWithClass } from '../set/createItem';
 
-generateAddNewTaskFields();
+generateNewTaskFields();
 
 const buttonsOpenTask = document.querySelectorAll('.add__btn-open');
 const buttonsSaveTask = document.querySelectorAll('.add__btn-save');
@@ -15,8 +15,8 @@ const containersTextarea = document.querySelectorAll('.add__container');
 const textareas = document.querySelectorAll('.add__item');
 const taskLists = document.querySelectorAll('.tasks__list');
 
-function generateAddNewTaskFields() {
-  document.querySelectorAll('.task').forEach((container) => {
+function generateNewTaskFields() {
+  containersNewTask.forEach((container) => {
     const fieldContainer = createElementWithClass('div', 'add__container');
 
     const textareaElement = createElementWithClass('textarea', 'add__item');
