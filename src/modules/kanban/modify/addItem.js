@@ -4,16 +4,7 @@ import { todayDate } from '../set/deadline';
 
 import { createElementWithClass } from '../set/createItem';
 
-document.querySelectorAll('.task').forEach((container) => {
-  const fieldContainer = createElementWithClass('div', 'add__container');
-
-  const textareaElement = createElementWithClass('textarea', 'add__item');
-  textareaElement.classList.add('custom-scroll');
-  textareaElement.setAttribute('placeholder', 'Ctrl+Enter to New line\u{000A}Esc to Close');
-  fieldContainer.appendChild(textareaElement);
-
-  container.appendChild(fieldContainer);
-});
+generateAddNewTaskFields();
 
 const buttonsOpenTask = document.querySelectorAll('.add__btn-open');
 const buttonsSaveTask = document.querySelectorAll('.add__btn-save');
@@ -23,6 +14,19 @@ const containersAddButtons = document.querySelectorAll('.add');
 const containersTextarea = document.querySelectorAll('.add__container');
 const textareas = document.querySelectorAll('.add__item');
 const taskLists = document.querySelectorAll('.tasks__list');
+
+function generateAddNewTaskFields() {
+  document.querySelectorAll('.task').forEach((container) => {
+    const fieldContainer = createElementWithClass('div', 'add__container');
+
+    const textareaElement = createElementWithClass('textarea', 'add__item');
+    textareaElement.classList.add('custom-scroll');
+    textareaElement.setAttribute('placeholder', 'Ctrl+Enter to New line\u{000A}Esc to Close');
+    fieldContainer.appendChild(textareaElement);
+
+    container.appendChild(fieldContainer);
+  });
+}
 
 function handleKeypress(e, column) {
   if (e.ctrlKey && e.code === 'Enter') {
