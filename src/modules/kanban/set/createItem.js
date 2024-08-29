@@ -150,7 +150,7 @@ function hoverAppearIcon(currentElement) {
 
 function createElementWithClass(element, clazz) {
   const newElement = document.createElement(element);
-  newElement.classList.add(clazz);
+  Array.isArray(clazz) ? newElement.classList.add(...clazz) : newElement.classList.add(clazz);
   return newElement;
 }
 
