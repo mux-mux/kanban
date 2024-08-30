@@ -10,6 +10,10 @@ let interval = null;
 let isPause = false;
 
 function startPomodoro(duration, timer, columnNum, itemNum) {
+  if (!duration || !timer || columnNum === undefined || itemNum === undefined) {
+    throw new Error('startPomodoro function has no required parameter');
+  }
+
   const MM = document.getElementById('minutes');
   const SS = document.getElementById('seconds');
 
@@ -74,6 +78,10 @@ function toggleIconOpacity(e, state) {
 }
 
 function setPomodoro(columnNum, itemNum) {
+  if (columnNum === undefined || itemNum === undefined) {
+    throw new Error('setPomodoro function has no required parameter');
+  }
+
   const pomodoro = createElementWithClass('button', 'pomodoro__icon');
   const startPomodoroIcon = createElementWithClass('i', ['fa-regular', 'fa-circle-play']);
 
@@ -113,6 +121,10 @@ function setPomodoro(columnNum, itemNum) {
 }
 
 function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
+  if (!timer || !itemData || !state || !columnNum || !itemNum) {
+    throw new Error('pomodoroInit function has no required parameter');
+  }
+
   const MM = document.getElementById('minutes');
   const SS = document.getElementById('seconds');
 
@@ -169,6 +181,10 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   }
 
   function showHidePomodoro(firstItem, secondItem) {
+    if (!firstItem || !secondItem) {
+      throw new Error('showHidePomodoro function has no required parameter');
+    }
+
     firstItem.style.display = 'none';
     secondItem.style.display = 'flex';
   }
@@ -224,6 +240,10 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   SS.textContent = time[1];
 
   function playSound(soundSample) {
+    if (!soundSample) {
+      throw new Error('playSound function has no soundSample parameter');
+    }
+
     const audio = new Audio('./assets/sounds/' + soundSample);
     audio.play();
   }

@@ -14,6 +14,10 @@ let moveData = {};
 const isTouch = 'ontouchstart' in window || navigator.msMaxTouchPoints > 0;
 
 function createItem(columnElement, columnNum, item, itemNum) {
+  if (!columnElement || columnNum === undefined || !item || itemNum === undefined) {
+    throw new Error('startPomodoro function has no required parameter');
+  }
+
   const taskContainer = createElementWithClass('li', 'tasks__list-item');
   const taskManagment = createElementWithClass('div', 'tasks__set-container');
   const taskRemoveIcon = createElementWithClass('img', 'tasks__list-item-remove-img');
@@ -110,18 +114,30 @@ document.querySelectorAll('.add__move').forEach((taskMoveButton, index) => {
 });
 
 function appendSessionIcon(container, num) {
+  if (!container || num === undefined) {
+    throw new Error('appendSessionIcon function has no required parameter');
+  }
+
   const sessionElement = createElementWithClass('li', 'pomodoro__session');
   sessionElement.style.left = 12 * num + 'px';
   container.appendChild(sessionElement);
 }
 
 function setElementAttributes(element, text, isDraggable, num) {
+  if (!element || text === undefined || isDraggable === undefined || num === undefined) {
+    throw new Error('setElementAttributes function has no required parameter');
+  }
+
   element.textContent = text;
   element.draggable = isDraggable;
   element.setAttribute('data-in-list', num);
 }
 
 function changeIconOnBreak(data, icon) {
+  if (!data || !icon) {
+    throw new Error('changeIconOnBreak function has no required parameter');
+  }
+
   if (data.break === true) {
     changeIcon(icon, 'fa-regular', 'fa-circle-play', 'fa-solid', 'fa-mug-hot');
   }
@@ -131,6 +147,10 @@ function changeIconOnBreak(data, icon) {
   }
 
   function changeIcon(icon, rem1, rem2, add1, add2) {
+    if (!icon || !rem1 || !rem2 || !add1 || !add2) {
+      throw new Error('changeIcon function has no required parameter');
+    }
+
     icon.pomodoro.classList.remove(rem1, rem2);
     icon.pomodoro.classList.add(add1, add2);
   }
@@ -144,17 +164,27 @@ function hideIcon(e) {
 }
 
 function hoverAppearIcon(currentElement) {
+  if (!currentElement) {
+    throw new Error('hoverAppearIcon function has no required parameter');
+  }
   currentElement.addEventListener('mouseover', showIcon);
   currentElement.addEventListener('mouseout', hideIcon);
 }
 
 function createElementWithClass(element, clazz) {
+  if (!element || !clazz) {
+    throw new Error('createElementWithClass function has no required parameter');
+  }
+
   const newElement = document.createElement(element);
   Array.isArray(clazz) ? newElement.classList.add(...clazz) : newElement.classList.add(clazz);
   return newElement;
 }
 
 function editItemText(currentElement, columnNum, itemNum) {
+  if (!currentElement || columnNum === undefined || itemNum === undefined) {
+    throw new Error('editItemText function has no required parameter');
+  }
   if (!isTouch) {
     currentElement.addEventListener('dblclick', editCurrentItem);
   } else {

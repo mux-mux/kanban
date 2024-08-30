@@ -8,6 +8,10 @@ function todayDate() {
 }
 
 function setDeadline(columnNum, item, itemNum) {
+  if (columnNum === undefined || !item || itemNum === undefined) {
+    throw new Error('setDeadline function has no required parameter');
+  }
+
   const deadlinePick = createElementWithClass('input', 'deadline');
 
   const today = todayDate();
