@@ -67,7 +67,7 @@
 
       &-inner {
         background-color: $bg-color-close-button;
-        padding: $padding-sm $padding-md;
+        padding: calc($padding-sm + 2px) $padding-md;
         border-radius: $border-radius-sm;
       }
     }

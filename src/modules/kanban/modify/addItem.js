@@ -5,7 +5,7 @@ import { todayDate } from '../set/deadline';
 import { createElementWithClass } from '../set/createItem';
 
 const containersNewTask = document.querySelectorAll('.task');
-
+//call it here because of task fields are rendered by js that are used below
 renderNewTaskFields(containersNewTask);
 
 const buttonsOpenTask = document.querySelectorAll('.add__btn-open');
