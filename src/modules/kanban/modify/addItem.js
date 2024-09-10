@@ -4,8 +4,9 @@ import { todayDate } from '../set/deadline';
 
 import { createElementWithClass } from '../set/createItem';
 
+//call render functions here because of task fields & task buttons are rendered by js that selectors are used below
 const containersNewTask = document.querySelectorAll('.task');
-//call it here because of task fields are rendered by js that are used below
+renderNewTaskButtons(containersNewTask);
 renderNewTaskFields(containersNewTask);
 
 const buttonsOpenTask = document.querySelectorAll('.add__btn-open');
@@ -25,6 +26,54 @@ function renderNewTaskFields(columns) {
     fieldContainer.appendChild(textareaElement);
 
     column.appendChild(fieldContainer);
+  });
+}
+
+function renderNewTaskButtons(columns) {
+  columns.forEach((column, i) => {
+    const buttonsContainer = createElementWithClass('div', 'add');
+
+    const closeButton = createElementWithClass('button', ['add__btn', 'add__btn-close']);
+    const openButton = createElementWithClass('button', ['add__btn', 'add__btn-open']);
+    const moveButton =
+      i !== 2
+        ? createElementWithClass('button', 'add__move')
+        : createElementWithClass('button', 'add__move-done');
+    const saveButton = createElementWithClass('button', ['add__btn', 'add__btn-save']);
+
+    closeButton.setAttribute('aria-label', 'Close add new task field');
+    openButton.setAttribute('aria-label', 'Open add new task field');
+    moveButton.setAttribute('aria-label', 'Move task to another column');
+    saveButton.setAttribute('aria-label', 'Confirm add new task');
+
+    const closeIcon = createElementWithClass('i', [
+      'add__btn-close-inner',
+      'fa-regular',
+      'fa-rectangle-xmark',
+    ]);
+    const openIcon = createElementWithClass('i', ['fa-regular', 'fa-square-plus']);
+    const moveIcon = createElementWithClass('i', ['fa-solid', 'fa-arrows-up-down']);
+    const saveIcon = createElementWithClass('i', ['fa-regular', 'fa-floppy-disk']);
+
+    closeButton.appendChild(closeIcon);
+    openButton.appendChild(openIcon);
+    i !== 2 && moveButton.appendChild(moveIcon);
+    saveButton.appendChild(saveIcon);
+
+    for (let i = 0; i < 2; i++) {
+      const buttonText = createElementWithClass('span', 'add__btn-text');
+      buttonText.textContent = 'Item';
+
+      i === 0 && openButton.appendChild(buttonText);
+      i === 1 && saveButton.appendChild(buttonText);
+    }
+
+    buttonsContainer.appendChild(closeButton);
+    buttonsContainer.appendChild(openButton);
+    buttonsContainer.appendChild(moveButton);
+    buttonsContainer.appendChild(saveButton);
+
+    column.appendChild(buttonsContainer);
   });
 }
 
