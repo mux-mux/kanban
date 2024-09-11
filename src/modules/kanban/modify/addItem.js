@@ -5,7 +5,7 @@ import { todayDate } from '../set/deadline';
 import { createElementWithClass } from '../set/createItem';
 
 //call render functions here because of task fields & task buttons are rendered by js that selectors are used below
-const containersNewTask = document.querySelectorAll('.task');
+const containersNewTask = document.querySelectorAll('.tasks__new');
 renderNewTaskButtons(containersNewTask);
 renderNewTaskFields(containersNewTask);
 
