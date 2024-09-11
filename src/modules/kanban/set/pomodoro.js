@@ -121,7 +121,7 @@ function setPomodoro(columnNum, itemNum) {
 }
 
 function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
-  if (!timer || !itemData || !state || !columnNum || !itemNum) {
+  if (!timer || !itemData || !state || columnNum === undefined || itemNum === undefined) {
     throw new Error('pomodoroInit function has no required parameter');
   }
 
