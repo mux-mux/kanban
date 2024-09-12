@@ -18,10 +18,10 @@ function createItem(columnElement, columnNum, item, itemNum) {
     throw new Error('startPomodoro function has no required parameter');
   }
 
-  const taskContainer = createElementWithClass('li', 'tasks__list-item');
-  const taskManagment = createElementWithClass('div', 'tasks__set-container');
-  const taskRemoveIcon = createElementWithClass('img', 'tasks__list-item-remove-img');
-  const taskRemoveArea = createElementWithClass('button', 'tasks__list-item-remove');
+  const taskContainer = createElementWithClass('li', 'task__list-item');
+  const taskManagment = createElementWithClass('div', 'task__set-container');
+  const taskRemoveIcon = createElementWithClass('img', 'task__list-item-remove-img');
+  const taskRemoveArea = createElementWithClass('button', 'task__list-item-remove');
   const taskSessions = createElementWithClass('ul', 'pomodoro__sessions');
 
   pomodoroIcon = setPomodoro(columnNum, itemNum);
@@ -76,9 +76,9 @@ function createItem(columnElement, columnNum, item, itemNum) {
       'touchstart',
       (e) => {
         document
-          .querySelectorAll('.tasks__list-item')
+          .querySelectorAll('.task__list-item')
           .forEach((item) => item.classList.remove('touch__selected'));
-        if (e.target.classList.contains('tasks__list-item')) {
+        if (e.target.classList.contains('task__list-item')) {
           e.target.classList.add('touch__selected');
         }
         moveData.columnNum = columnNum;

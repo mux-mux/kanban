@@ -5,7 +5,7 @@ import { todayDate } from '../set/deadline';
 import { createElementWithClass } from '../set/createItem';
 
 //call render functions here because of task fields & task buttons are rendered by js that selectors are used below
-const containersNewTask = document.querySelectorAll('.tasks__new');
+const containersNewTask = document.querySelectorAll('.task__new');
 renderNewTaskButtons(containersNewTask);
 renderNewTaskFields(containersNewTask);
 
@@ -15,7 +15,7 @@ const buttonsCloseTask = document.querySelectorAll('.add__btn-close');
 const containersAddButtons = document.querySelectorAll('.add');
 const containersTextarea = document.querySelectorAll('.add__container');
 const textareas = document.querySelectorAll('.add__item');
-const taskLists = document.querySelectorAll('.tasks__list');
+const taskLists = document.querySelectorAll('.task__list');
 
 function renderNewTaskFields(columns) {
   columns.forEach((column) => {
