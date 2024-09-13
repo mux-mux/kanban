@@ -28,9 +28,11 @@
           <div class="archive">
             <div class="archive__buttons">
               <button
-                class="fa-solid fa-download archive__button archive__download"
+                class="archive__button archive__download"
                 aria-label="Download done task into json file"
-              ></button>
+              >
+                <i class="fa-solid fa-download"></i>
+              </button>
               <input
                 type="file"
                 id="selectedFile"
@@ -39,13 +41,17 @@
               />
               <button
                 onclick="document.getElementById('selectedFile').click();"
-                class="fa-solid fa-upload archive__button archive__upload"
+                class="archive__button archive__upload"
                 aria-label="Upload done task from json file"
-              ></button>
+              >
+                <i class="fa-solid fa-upload"></i>
+              </button>
               <button
-                class="fa-solid fa-xmark archive__button archive__close"
+                class="archive__button archive__close"
                 aria-label="Close done tasks history modal"
-              ></button>
+              >
+                <i class="fa-solid fa-xmark"></i>
+              </button>
             </div>
             <div class="archive__content custom-scroll">
               <table class="archive__table">
