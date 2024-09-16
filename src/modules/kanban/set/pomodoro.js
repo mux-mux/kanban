@@ -10,8 +10,8 @@ let interval = null;
 let isPause = false;
 
 function startPomodoro(duration, timer, columnNum, itemNum) {
-  if (!duration || !timer || columnNum === undefined || itemNum === undefined) {
-    throw new Error('startPomodoro function has no required parameter');
+  if (!duration || !timer || columnNum == undefined || itemNum == undefined) {
+    throw new Error('startPomodoro function has no required argument value');
   }
 
   const MM = document.getElementById('minutes');
@@ -78,8 +78,8 @@ function toggleIconOpacity(e, state) {
 }
 
 function setPomodoro(columnNum, itemNum) {
-  if (columnNum === undefined || itemNum === undefined) {
-    throw new Error('setPomodoro function has no required parameter');
+  if (columnNum == undefined || itemNum == undefined) {
+    throw new Error('setPomodoro function has no required argument value');
   }
 
   const pomodoro = createElementWithClass('button', 'pomodoro__icon');
@@ -121,8 +121,8 @@ function setPomodoro(columnNum, itemNum) {
 }
 
 function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
-  if (!timer || !itemData || !state || columnNum === undefined || itemNum === undefined) {
-    throw new Error('pomodoroInit function has no required parameter');
+  if (!timer || !itemData || !state || columnNum == undefined || itemNum == undefined) {
+    throw new Error('pomodoroInit function has no required argument value');
   }
 
   const MM = document.getElementById('minutes');
@@ -182,7 +182,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
 
   function showHidePomodoro(firstItem, secondItem) {
     if (!firstItem || !secondItem) {
-      throw new Error('showHidePomodoro function has no required parameter');
+      throw new Error('showHidePomodoro function has no required argument value');
     }
 
     firstItem.style.display = 'none';
