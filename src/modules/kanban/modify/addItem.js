@@ -43,7 +43,9 @@ function renderNewTaskButtons(columns) {
 
     closeButton.setAttribute('aria-label', 'Close add new task field');
     openButton.setAttribute('aria-label', 'Open add new task field');
-    moveButton.setAttribute('aria-label', 'Move task to another column');
+    i !== 2
+      ? moveButton.setAttribute('aria-label', 'Move task to another column')
+      : moveButton.setAttribute('tabindex', '-1');
     saveButton.setAttribute('aria-label', 'Confirm add new task');
 
     const closeIcon = createElementWithClass('i', [
