@@ -189,27 +189,27 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     secondItem.style.display = 'flex';
   }
 
-  function pausePomodoro() {
+  function pausePomodoro(e) {
     pause.style.display = 'none';
     play.style.display = 'inline-block';
     isPause = true;
     icon.classList.remove('fa-fade');
     play.focus();
 
-    playSound('pause.ogg');
+    e && playSound('pause.ogg');
   }
 
-  function playPomodoro() {
+  function playPomodoro(e) {
     play.style.display = 'none';
     pause.style.display = 'inline-block';
     isPause = false;
     icon.classList.add('fa-fade');
     pause.focus();
 
-    playSound('play.ogg');
+    e && playSound('play.ogg');
   }
 
-  function resetPomodoro() {
+  function resetPomodoro(e) {
     removeControlListiners();
     pomodoroInit(timer, itemData, 'remove', columnNum, itemNum);
 
@@ -218,15 +218,15 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
       coffee.style.display = 'none';
     }
 
-    playSound('reset.ogg');
+    e && playSound('reset.ogg');
   }
 
-  function donePomodoro() {
+  function donePomodoro(e) {
     removeControlListiners();
     relocateItem(columnNum, itemNum, 2, localLoaded[columnNames[2]].items.length);
     focusTrap.deactivate();
 
-    playSound('done.ogg');
+    e && playSound('done.ogg');
   }
 
   function addControlListiners() {
