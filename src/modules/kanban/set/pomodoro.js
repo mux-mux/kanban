@@ -241,7 +241,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
 
   function playSound(soundSample) {
     if (!soundSample) {
-      throw new Error('playSound function has no soundSample parameter');
+      throw new Error('playSound function has no correct soundSample argument');
     }
 
     const audio = new Audio('./assets/sounds/' + soundSample);
