@@ -77,9 +77,9 @@ function toggleIconOpacity(e, state) {
   e.target.offsetParent.style.setProperty('--opacity', state);
 }
 
-function setPomodoro(columnNum, itemNum) {
+function createPomodoroStartIcon(columnNum, itemNum) {
   if (columnNum == undefined || itemNum == undefined) {
-    throw new Error('setPomodoro function has no required argument value');
+    throw new Error('createPomodoroStartIcon function has no required argument value');
   }
 
   const pomodoro = createElementWithClass('button', 'pomodoro__icon');
@@ -90,11 +90,11 @@ function setPomodoro(columnNum, itemNum) {
 
   pomodoro.appendChild(startPomodoroIcon);
 
-  pomodoro.addEventListener('click', lunchPomodoro);
+  pomodoro.addEventListener('click', startPomodoroByIcon);
   pomodoro.addEventListener('focus', (e) => toggleIconOpacity(e, 1));
   pomodoro.addEventListener('blur', (e) => toggleIconOpacity(e, 0));
 
-  function lunchPomodoro() {
+  function startPomodoroByIcon() {
     removeControlListiners();
     isPause = false;
     const pomodoroText = document.querySelector('.pomodoro__text');
@@ -117,7 +117,7 @@ function setPomodoro(columnNum, itemNum) {
     updateDOM();
   }
 
-  return { pomodoro, lunchPomodoro };
+  return { pomodoro, startPomodoroByIcon };
 }
 
 function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
@@ -147,7 +147,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     clickOutsideDeactivates: () => true,
   });
 
-  icon.removeEventListener('click', timer.lunchPomodoro);
+  icon.removeEventListener('click', timer.startPomodoroByIcon);
 
   let time = itemData.time === '' ? ['25', '00'] : itemData.time.split(':');
 
@@ -257,7 +257,7 @@ function removeControlListiners() {
 }
 
 export {
-  setPomodoro,
+  createPomodoroStartIcon,
   startPomodoro,
   pomodoroInit,
   removeControlListiners,

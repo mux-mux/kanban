@@ -2,7 +2,7 @@ import { editItem } from '../modify/editItem';
 import { deleteItem } from '../modify/deleteItem';
 import { setDeadline } from './deadline';
 import { drag } from '../modify/dragDropItem';
-import { setPomodoro, toggleIconOpacity } from './pomodoro';
+import { createPomodoroStartIcon, toggleIconOpacity } from './pomodoro';
 import { localLoaded } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 import { relocateItem } from '../modify/relocateItem';
@@ -24,7 +24,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
   const taskRemoveArea = createElementWithClass('button', 'task__list-item-remove');
   const taskSessions = createElementWithClass('ul', 'pomodoro__sessions');
 
-  pomodoroIcon = setPomodoro(columnNum, itemNum);
+  pomodoroIcon = createPomodoroStartIcon(columnNum, itemNum);
   const deadlinePick = setDeadline(columnNum, item, itemNum);
 
   const itemData = localLoaded[columnNames[columnNum]].items[itemNum];
