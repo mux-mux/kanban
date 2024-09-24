@@ -113,6 +113,7 @@ function createPomodoroStartIcon(columnNum, itemNum) {
     }
 
     localLoaded[columnNames[columnNum]].items[itemNum].pomodoro = true;
+    playSound('play.ogg');
 
     updateDOM();
   }
@@ -238,15 +239,15 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
 
   MM.textContent = time[0];
   SS.textContent = time[1];
+}
 
-  function playSound(soundSample) {
-    if (!soundSample) {
-      throw new Error('playSound function has no correct soundSample argument');
-    }
-
-    const audio = new Audio('./assets/sounds/' + soundSample);
-    audio.play();
+function playSound(soundSample) {
+  if (!soundSample) {
+    throw new Error('playSound function has no correct soundSample argument');
   }
+
+  const audio = new Audio('./assets/sounds/' + soundSample);
+  audio.play();
 }
 
 function removeControlListiners() {
