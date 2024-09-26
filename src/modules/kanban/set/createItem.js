@@ -1,7 +1,7 @@
 import { editItem } from '../modify/editItem';
 import { deleteItem } from '../modify/deleteItem';
 import { setDeadline } from './deadline';
-import { drag } from '../modify/dragDropItem';
+import { dragItem } from '../modify/dragDropItem';
 import { createPomodoroStartIcon, toggleItemIconOpacity } from './pomodoro';
 import { localLoaded } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
@@ -67,7 +67,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
   columnElement.appendChild(taskContainer);
 
   if (!isTouch) {
-    taskContainer.addEventListener('dragstart', (e) => drag(e, columnNum));
+    taskContainer.addEventListener('dragstart', (e) => dragItem(e, columnNum));
     hoverAppearIcon(taskContainer);
   } else {
     taskLists.forEach((item) => item.style.setProperty('--opacity', '1'));

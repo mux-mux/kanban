@@ -5,7 +5,7 @@ import { removeControlListiners } from '../set/pomodoro';
 let draggedItem = null,
   currentColumn = null;
 
-function drag(e, columnNum) {
+function dragItem(e, columnNum) {
   draggedItem = e.currentTarget;
   const itemNum = draggedItem.attributes['data-in-list'].value;
 
@@ -17,7 +17,7 @@ function drag(e, columnNum) {
   draggedItem.style.setProperty('--opacity', '0');
 }
 
-function dragOver(e, column) {
+function dragOverItem(e, column) {
   currentColumn = column;
   e.preventDefault();
 
@@ -45,7 +45,7 @@ function dragOver(e, column) {
   taskLists[column].classList.add('over');
 }
 
-function drop(e, newColNum) {
+function dropItem(e, newColNum) {
   removeControlListiners();
 
   e.preventDefault();
@@ -65,8 +65,8 @@ function drop(e, newColNum) {
 }
 
 taskLists.forEach((list, i) => {
-  list.addEventListener('drop', (e) => drop(e, i));
-  list.addEventListener('dragover', (e) => dragOver(e, i));
+  list.addEventListener('drop', (e) => dropItem(e, i));
+  list.addEventListener('dragover', (e) => dragOverItem(e, i));
 });
 
-export { drag, drop };
+export { dragItem, dropItem };
