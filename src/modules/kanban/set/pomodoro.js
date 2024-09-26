@@ -73,7 +73,7 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
   }
 }
 
-function toggleIconOpacity(e, state) {
+function toggleItemIconOpacity(e, state) {
   e.target.offsetParent.style.setProperty('--opacity', state);
 }
 
@@ -91,8 +91,8 @@ function createPomodoroStartIcon(columnNum, itemNum) {
   pomodoro.appendChild(startPomodoroIcon);
 
   pomodoro.addEventListener('click', startPomodoroByIcon);
-  pomodoro.addEventListener('focus', (e) => toggleIconOpacity(e, 1));
-  pomodoro.addEventListener('blur', (e) => toggleIconOpacity(e, 0));
+  pomodoro.addEventListener('focus', (e) => toggleItemIconOpacity(e, 1));
+  pomodoro.addEventListener('blur', (e) => toggleItemIconOpacity(e, 0));
 
   function startPomodoroByIcon() {
     removeControlListiners();
@@ -262,6 +262,6 @@ export {
   startPomodoro,
   pomodoroInit,
   removeControlListiners,
-  toggleIconOpacity,
+  toggleItemIconOpacity,
   interval,
 };

@@ -2,7 +2,7 @@ import { editItem } from '../modify/editItem';
 import { deleteItem } from '../modify/deleteItem';
 import { setDeadline } from './deadline';
 import { drag } from '../modify/dragDropItem';
-import { createPomodoroStartIcon, toggleIconOpacity } from './pomodoro';
+import { createPomodoroStartIcon, toggleItemIconOpacity } from './pomodoro';
 import { localLoaded } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 import { relocateItem } from '../modify/relocateItem';
@@ -48,8 +48,8 @@ function createItem(columnElement, columnNum, item, itemNum) {
     deleteItem(columnNum, itemNum);
     moveData = {};
   });
-  taskRemoveArea.addEventListener('focus', (e) => toggleIconOpacity(e, 1));
-  taskRemoveArea.addEventListener('blur', (e) => toggleIconOpacity(e, 0));
+  taskRemoveArea.addEventListener('focus', (e) => toggleItemIconOpacity(e, 1));
+  taskRemoveArea.addEventListener('blur', (e) => toggleItemIconOpacity(e, 0));
 
   setElementAttributes(taskContainer, item.name, true, itemNum);
 
