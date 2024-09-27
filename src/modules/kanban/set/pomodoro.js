@@ -213,6 +213,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   function resetPomodoro(e) {
     removeControlListiners();
     pomodoroInit(timer, itemData, 'remove', columnNum, itemNum);
+    focusTrap.deactivate();
 
     if (itemData.break === true) {
       itemData.break = false;
