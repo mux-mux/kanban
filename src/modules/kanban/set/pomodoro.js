@@ -95,7 +95,7 @@ function createPomodoroStartIcon(columnNum, itemNum) {
   pomodoro.addEventListener('blur', (e) => toggleItemIconOpacity(e, 0));
 
   function startPomodoroByIcon() {
-    removeControlListiners();
+    removePomodoroTimerListiners();
     isPause = false;
     const pomodoroText = document.querySelector('.pomodoro__text');
 
@@ -158,7 +158,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     showHidePomodoro(kanbanHeading, pomodoroContainer);
     startPomodoro(+time[0] + +time[1] / 60, timer, columnNum, itemNum);
 
-    addControlListiners();
+    addPomodoroTimerListiners();
 
     icon.style.cssText = 'opacity: 1; color: #eccb34';
     pomodoroControls.style.display = 'flex';
@@ -211,7 +211,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   }
 
   function resetPomodoro(e) {
-    removeControlListiners();
+    removePomodoroTimerListiners();
     pomodoroInit(timer, itemData, 'remove', columnNum, itemNum);
     focusTrap.deactivate();
 
@@ -224,14 +224,14 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   }
 
   function donePomodoro(e) {
-    removeControlListiners();
+    removePomodoroTimerListiners();
     relocateItem(columnNum, itemNum, 2, localLoaded[columnNames[2]].items.length);
     focusTrap.deactivate();
 
     e && playSound('done.ogg');
   }
 
-  function addControlListiners() {
+  function addPomodoroTimerListiners() {
     done.addEventListener('click', donePomodoro);
     reset.addEventListener('click', resetPomodoro);
     pause.addEventListener('click', pausePomodoro);
@@ -251,7 +251,7 @@ function playSound(soundSample) {
   audio.play();
 }
 
-function removeControlListiners() {
+function removePomodoroTimerListiners() {
   const pomodoroContainer = document.getElementById('pomodoro');
   const pomodoroContainerClone = pomodoroContainer.cloneNode(true);
 
@@ -262,7 +262,7 @@ export {
   createPomodoroStartIcon,
   startPomodoro,
   pomodoroInit,
-  removeControlListiners,
+  removePomodoroTimerListiners,
   toggleItemIconOpacity,
   interval,
 };

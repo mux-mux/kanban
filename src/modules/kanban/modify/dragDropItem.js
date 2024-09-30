@@ -1,6 +1,6 @@
 import { taskLists } from './addItem';
 import { relocateItem } from '../modify/relocateItem';
-import { removeControlListiners } from '../set/pomodoro';
+import { removePomodoroTimerListiners } from '../set/pomodoro';
 
 let draggedItem = null,
   currentColumn = null;
@@ -46,7 +46,7 @@ function dragOverItem(e, column) {
 }
 
 function dropItem(e, newColNum) {
-  removeControlListiners();
+  removePomodoroTimerListiners();
 
   e.preventDefault();
 
