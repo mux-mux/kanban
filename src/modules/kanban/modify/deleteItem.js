@@ -1,7 +1,7 @@
 import { localLoaded } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 import { updateDOM } from '../update/updateDOM';
-import { interval } from '../set/pomodoro';
+import { pomodoroIntervalTick } from '../set/pomodoro';
 import { undoItem } from './undoItem';
 import { removePomodoroTimerListiners } from '../set/pomodoro';
 
@@ -13,7 +13,7 @@ function deleteItem(columnNum, itemNum) {
   const selectedList = localLoaded[columnNames[columnNum]];
   const currRemoved = selectedList.items.splice(itemNum, 1);
   overallRemoved.push(`${JSON.stringify(currRemoved)}, ${columnNum}`);
-  clearInterval(interval);
+  clearInterval(pomodoroIntervalTick);
 
   updateDOM();
 }

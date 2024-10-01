@@ -6,7 +6,7 @@ import { columnNames } from '../data/columns';
 import { setLocalItems } from '../update/localStorage';
 import { relocateItem } from '../modify/relocateItem';
 
-let interval = null;
+let pomodoroIntervalTick = null;
 let isPause = false;
 
 function startPomodoro(duration, timer, columnNum, itemNum) {
@@ -34,7 +34,7 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
     seconds = seconds < 10 ? `0${seconds}` : seconds;
 
     if (tick <= 0) {
-      clearInterval(interval);
+      clearInterval(pomodoroIntervalTick);
       if (!itemData.break) {
         itemData.sessions++;
       }
@@ -65,11 +65,11 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
 
   pomodoroLogic();
 
-  if (interval) {
-    clearInterval(interval);
-    interval = setInterval(pomodoroLogic, 1000);
+  if (pomodoroIntervalTick) {
+    clearInterval(pomodoroIntervalTick);
+    pomodoroIntervalTick = setInterval(pomodoroLogic, 1000);
   } else {
-    interval = setInterval(pomodoroLogic, 1000);
+    pomodoroIntervalTick = setInterval(pomodoroLogic, 1000);
   }
 }
 
@@ -166,7 +166,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     focusTrap.activate();
   } else {
     showHidePomodoro(pomodoroContainer, kanbanHeading);
-    clearInterval(interval);
+    clearInterval(pomodoroIntervalTick);
     isPause = false;
     itemData.pomodoro = false;
     itemData.time = '';
@@ -264,5 +264,5 @@ export {
   pomodoroInit,
   removePomodoroTimerListiners,
   toggleItemIconOpacity,
-  interval,
+  pomodoroIntervalTick,
 };
