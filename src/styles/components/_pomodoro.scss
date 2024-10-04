@@ -33,7 +33,7 @@
     word-break: break-word;
 
     @include respond(mobile) {
-      display: none;
+      font-size: $font-size-md;
     }
   }
   &__timer {
