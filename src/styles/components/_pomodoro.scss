@@ -8,6 +8,14 @@
   color: var(--text-color, #222);
   min-height: calc($height-md * 2);
   line-height: calc($height-md * 2);
+
+  @include respond(mobile) {
+    min-height: calc($height-md * 3);
+    flex-direction: column;
+    align-items: center;
+    gap: $gap-sm;
+  }
+
   &__inner {
     display: flex;
     gap: $gap-md;
