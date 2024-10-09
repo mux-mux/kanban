@@ -79,7 +79,7 @@ function renderNewTaskButtons(columns) {
   });
 }
 
-function handleKeypress(e, column) {
+function handleNewTaskKeypress(e, column) {
   if (e.ctrlKey && e.code === 'Enter') {
     if (textareas[column].value.length !== 0) {
       textareas[column].value = textareas[column].value + '\n';
@@ -175,7 +175,7 @@ buttonsCloseTask.forEach((closeBtn, index) => {
 });
 
 containersTextarea.forEach((taskField, index) => {
-  taskField.addEventListener('keydown', (e) => handleKeypress(e, index));
+  taskField.addEventListener('keydown', (e) => handleNewTaskKeypress(e, index));
 });
 
 export { taskLists };
