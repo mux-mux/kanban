@@ -1,3 +1,7 @@
+$sizeMinusShift: $theme-slider-size - $theme-slider-shift;
+$sizePlusShift: $theme-slider-size + $theme-slider-shift;
+$shiftMinusSize: $theme-slider-shift - $theme-slider-size;
+
 .theme-switch-wrapper {
   @include header_sides;
   justify-content: flex-end;
@@ -31,7 +35,7 @@
   position: relative;
   display: inline-block;
   width: calc($theme-slider-size * 2);
-  height: calc($theme-slider-size + $theme-slider-shift);
+  height: calc($sizePlusShift);
 
   @include respond(mobile) {
     height: calc($theme-slider-size * 1.5);
@@ -54,8 +58,8 @@
 .slider:before {
   position: absolute;
   content: '';
-  height: calc($theme-slider-size - $theme-slider-shift);
-  width: calc($theme-slider-size - $theme-slider-shift);
+  height: calc($sizeMinusShift);
+  width: calc($sizeMinusShift);
   left: $theme-slider-shift;
   bottom: $theme-slider-shift;
   background-color: white;
@@ -63,8 +67,8 @@
   transition: 0.4s;
 
   @include respond(mobile) {
-    height: calc(($theme-slider-size - $theme-slider-shift) / 2);
-    width: calc(($theme-slider-size - $theme-slider-shift) / 2);
+    height: calc(($sizeMinusShift) / 2);
+    width: calc(($sizeMinusShift) / 2);
   }
 }
 
@@ -77,14 +81,14 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(calc($theme-slider-size - $theme-slider-shift));
-  -ms-transform: translateX(calc($theme-slider-size - $theme-slider-shift));
-  transform: translateX(calc($theme-slider-size - $theme-slider-shift));
+  -webkit-transform: translateX(calc($sizeMinusShift));
+  -ms-transform: translateX(calc($sizeMinusShift));
+  transform: translateX(calc($sizeMinusShift));
 
   @include respond(mobile) {
-    -webkit-transform: translate(0, calc($theme-slider-shift - $theme-slider-size));
-    -ms-transform: translate(0, calc($theme-slider-shift - $theme-slider-size));
-    transform: translate(0, calc($theme-slider-shift - $theme-slider-size));
+    -webkit-transform: translate(0, calc($shiftMinusSize));
+    -ms-transform: translate(0, calc($shiftMinusSize));
+    transform: translate(0, calc($shiftMinusSize));
   }
 
   @include respond(mobile) {
@@ -93,7 +97,7 @@ input:checked + .slider:before {
 }
 
 .slider.round {
-  border-radius: calc($theme-slider-size + $theme-slider-shift);
+  border-radius: calc($sizePlusShift);
 }
 
 .slider.round:before {
