@@ -7,6 +7,11 @@
   padding-top: $padding-lg;
   padding-bottom: $padding-lg;
 
+  @include respond(mobile) {
+    padding-top: $padding-md;
+    padding-bottom: $padding-md;
+  }
+
   &__tools {
     @include header_sides;
     gap: $gap-md;
@@ -17,7 +22,7 @@
   }
 
   @include respond(mobile) {
-    flex-direction: column-reverse;
+    flex-direction: column;
     justify-content: center;
   }
 }
