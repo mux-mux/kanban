@@ -5,7 +5,7 @@ import { updateDOM, localLoaded, archiveLoaded } from '../update/updateDOM';
 import { archive } from '../data/archive';
 
 function archiveItem() {
-  const buttonToggleArchive = document.querySelector('.tools-archive');
+  const buttonToggleArchive = document.querySelector('.tool-archive');
   const buttonMoveToArchive = document.querySelector('.move-to-archive');
   const containerArchive = document.querySelector('.archive');
   const buttonCloseArchive = document.querySelector('.archive__close');

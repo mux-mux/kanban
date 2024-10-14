@@ -2,7 +2,7 @@ import { columnNames } from '../data/columns';
 import { updateDOM, localLoaded } from '../update/updateDOM';
 import { overallRemoved } from './deleteItem';
 
-const buttonUndoDelete = document.querySelector('.tools-history');
+const buttonUndoDelete = document.querySelector('.tool-history');
 
 function undoItem(items, removed) {
   const getBackItem = removed.pop();
