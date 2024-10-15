@@ -89,7 +89,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
   }
 }
 
-document.querySelectorAll('.add__move').forEach((taskMoveButton, index) => {
+document.querySelectorAll('.btn-move').forEach((taskMoveButton, index) => {
   if (isTouch) {
     taskMoveButton.style.display = 'block';
   }

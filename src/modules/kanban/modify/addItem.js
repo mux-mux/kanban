@@ -9,10 +9,10 @@ const containersNewTask = document.querySelectorAll('.task__new');
 renderNewTaskButtons(containersNewTask);
 renderNewTaskFields(containersNewTask);
 
-const buttonsOpenTask = document.querySelectorAll('.add__btn-open');
-const buttonsSaveTask = document.querySelectorAll('.add__btn-save');
-const buttonsCloseTask = document.querySelectorAll('.add__btn-close');
-const containersAddButtons = document.querySelectorAll('.add');
+const buttonsOpenTask = document.querySelectorAll('.btn-open');
+const buttonsSaveTask = document.querySelectorAll('.btn-save');
+const buttonsCloseTask = document.querySelectorAll('.btn-close');
+const containersAddButtons = document.querySelectorAll('.btns');
 const containersTextarea = document.querySelectorAll('.add__container');
 const textareas = document.querySelectorAll('.add__item');
 const taskLists = document.querySelectorAll('.task__list');
@@ -31,15 +31,15 @@ function renderNewTaskFields(columns) {
 
 function renderNewTaskButtons(columns) {
   columns.forEach((column, i) => {
-    const buttonsContainer = createElementWithClass('div', 'add');
+    const buttonsContainer = createElementWithClass('div', 'btns');
 
-    const closeButton = createElementWithClass('button', ['add__btn', 'add__btn-close']);
-    const openButton = createElementWithClass('button', ['add__btn', 'add__btn-open']);
+    const closeButton = createElementWithClass('button', ['btn', 'btn-close']);
+    const openButton = createElementWithClass('button', ['btn', 'btn-open']);
     const moveButton =
       i !== 2
-        ? createElementWithClass('button', 'add__move')
-        : createElementWithClass('button', 'add__move-done');
-    const saveButton = createElementWithClass('button', ['add__btn', 'add__btn-save']);
+        ? createElementWithClass('button', 'btn-move')
+        : createElementWithClass('button', 'btn-move-done');
+    const saveButton = createElementWithClass('button', ['btn', 'btn-save']);
 
     closeButton.setAttribute('aria-label', 'Close add new task field');
     openButton.setAttribute('aria-label', 'Open add new task field');
@@ -49,7 +49,7 @@ function renderNewTaskButtons(columns) {
     saveButton.setAttribute('aria-label', 'Confirm add new task');
 
     const closeIcon = createElementWithClass('i', [
-      'add__btn-close-inner',
+      'btn-close-inner',
       'fa-regular',
       'fa-rectangle-xmark',
     ]);
@@ -63,7 +63,7 @@ function renderNewTaskButtons(columns) {
     saveButton.appendChild(saveIcon);
 
     for (let i = 0; i < 2; i++) {
-      const buttonText = createElementWithClass('span', 'add__btn-text');
+      const buttonText = createElementWithClass('span', 'btn-text');
       buttonText.textContent = 'Item';
 
       i === 0 && openButton.appendChild(buttonText);

@@ -1,11 +1,27 @@
-.add {
+.btns {
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: $font-size-xl;
   gap: $gap-lg;
+}
 
-  &__move {
+.btn {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  margin: $margin-md $margin-lg;
+  padding: $padding-sm $padding-md;
+  border-radius: $border-radius-sm;
+  font-size: $font-size-xl;
+  cursor: pointer;
+  min-width: calc($width-xl - 15px);
+
+  @include respond(mobile) {
+    margin: $margin-md;
+  }
+
+  &-move {
     display: none;
     padding: $padding-md;
     border-radius: $border-radius-sm;
@@ -16,64 +32,48 @@
     }
   }
 
-  &__btn {
-    display: flex;
-    align-items: center;
-    width: fit-content;
-    margin: $margin-md $margin-lg;
-    padding: $padding-sm $padding-md;
-    border-radius: $border-radius-sm;
-    font-size: $font-size-xl;
-    cursor: pointer;
-    min-width: calc($width-xl - 15px);
+  &-add {
+    color: var(--text-color, #222);
 
-    @include respond(mobile) {
-      margin: $margin-md;
-    }
-
-    &-add {
-      color: var(--text-color, #222);
-
-      &:hover {
-        transition: background-color 0.3s ease-in;
-        background-color: rgba(255, 255, 255, 0.9);
-        color: black;
-      }
-    }
-
-    &:active {
-      transform: scale(0.97);
-    }
-
-    &-open {
-      color: var(--text-color);
-    }
-
-    &-save {
+    &:hover {
+      transition: background-color 0.3s ease-in;
+      background-color: rgba(255, 255, 255, 0.9);
       color: black;
-      visibility: hidden;
-      background-color: #50c878;
-
-      &:hover {
-        transition: background-color 0.3s ease-in;
-        background-color: rgba(119, 221, 119, 0.9);
-      }
     }
+  }
 
-    &-close {
-      display: none;
-      justify-content: right;
-      padding: 0;
+  &:active {
+    transform: scale(0.97);
+  }
 
-      &-inner {
-        background-color: $bg-color-close-button;
-        padding: calc($padding-sm + 2px) $padding-md;
-        border-radius: $border-radius-sm;
-      }
+  &-open {
+    color: var(--text-color);
+  }
+
+  &-save {
+    color: black;
+    visibility: hidden;
+    background-color: #50c878;
+
+    &:hover {
+      transition: background-color 0.3s ease-in;
+      background-color: rgba(119, 221, 119, 0.9);
     }
+  }
 
-    &-text {
-      padding: 0 $padding-sm;
+  &-close {
+    display: none;
+    justify-content: right;
+    padding: 0;
+
+    &-inner {
+      background-color: $bg-color-close-button;
+      padding: calc($padding-sm + 2px) $padding-md;
+      border-radius: $border-radius-sm;
     }
+  }
+
+  &-text {
+    padding: 0 $padding-sm;
   }
 }
