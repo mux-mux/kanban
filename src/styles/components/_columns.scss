@@ -28,28 +28,30 @@
   }
 }
 
-.add {
-  &__container {
-    margin: $margin-md;
-    padding: $padding-sm $padding-md;
-    border-radius: $border-radius-md;
-    background-color: rgba(255, 255, 255, 0.1);
-    min-height: $height-xl;
-    display: none;
-  }
+.fields {
+  margin: $margin-md;
+  padding: $padding-sm $padding-md;
+  border-radius: $border-radius-md;
+  background-color: rgba(255, 255, 255, 0.1);
+  min-height: $height-xl;
+  display: none;
+}
 
-  &__item {
+.field {
+  width: 100%;
+  min-height: $height-xl;
+  height: auto;
+  margin: $margin-sm auto;
+
+  &-add {
     background-color: initial;
     border: none;
-    width: 100%;
-    min-height: $height-xl;
-    height: auto;
     border-radius: $border-radius-md;
-    margin: $margin-sm auto;
     resize: none;
     color: var(--text-color, #222);
     font-size: $font-size-xl;
     text-align: left;
+
     &:focus {
       outline: none;
     }

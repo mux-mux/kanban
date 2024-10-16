@@ -13,15 +13,19 @@ const buttonsOpenTask = document.querySelectorAll('.btn-open');
 const buttonsSaveTask = document.querySelectorAll('.btn-save');
 const buttonsCloseTask = document.querySelectorAll('.btn-close');
 const containersAddButtons = document.querySelectorAll('.btns');
-const containersTextarea = document.querySelectorAll('.add__container');
-const textareas = document.querySelectorAll('.add__item');
+const containersTextarea = document.querySelectorAll('.fields');
+const textareas = document.querySelectorAll('.field-add');
 const taskLists = document.querySelectorAll('.task__list');
 
 function renderNewTaskFields(columns) {
   columns.forEach((column) => {
-    const fieldContainer = createElementWithClass('div', 'add__container');
+    const fieldContainer = createElementWithClass('div', 'fields');
 
-    const textareaElement = createElementWithClass('textarea', ['add__item', 'custom-scroll']);
+    const textareaElement = createElementWithClass('textarea', [
+      'field',
+      'field-add',
+      'custom-scroll',
+    ]);
     textareaElement.setAttribute('placeholder', 'Ctrl+Enter to New line\nEsc to Close');
     fieldContainer.appendChild(textareaElement);
 
