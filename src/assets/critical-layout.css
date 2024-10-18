@@ -39,7 +39,7 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 20px;
 }
-.task__column {
+.column {
   position: relative;
   background-color: rgba(0, 0, 0, 0.1);
   border-radius: 10px;
