@@ -1,0 +1,38 @@
+.fields {
+  margin: $margin-md;
+  padding: $padding-sm $padding-md;
+  min-height: $height-xl;
+
+  &-new-task {
+    border-radius: $border-radius-md;
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.field {
+  width: 100%;
+  min-height: $height-xl;
+  height: auto;
+  margin: $margin-sm auto;
+
+  &-add {
+    background-color: initial;
+    border: none;
+    border-radius: $border-radius-md;
+    resize: none;
+    color: var(--text-color, #222);
+    font-size: $font-size-xl;
+    text-align: left;
+
+    &:focus {
+      outline: none;
+    }
+    &::placeholder {
+      opacity: 0.3;
+    }
+
+    @include respond(mobile) {
+      font-size: $font-size-lg;
+    }
+  }
+}
