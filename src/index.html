@@ -29,6 +29,29 @@
             <i class="fa-solid fa-list"></i>
           </button>
           <div class="categories">
+            <div class="categories__inputs">
+              <div class="categories__main-group">
+                <label for="main-category" class="categories__main-label">Add Main category</label>
+                <input type="text" id="main-category" class="categories__main-category" />
+              </div>
+              <div class="categories__sub-group">
+                <label for="sub-category" class="categories__sub-label">Add Sub category</label>
+                <input type="text" id="sub-category" class="categories__sub-category" />
+                <select name="select-main-category" id="select-main-category">
+                  <option value="default" selected>---Select main category---</option>
+                  <option value="sport">Sport</option>
+                </select>
+              </div>
+            </div>
+            <h3 class="heading-tertiary">Categories:</h3>
+            <ul class="categories__main-list">
+              <li class="categories__main-list-item">
+                Sport
+                <ul class="categories__sub-list">
+                  <li class="categories__sub-list-item">Tennis</li>
+                </ul>
+              </li>
+            </ul>
             <div class="categories__buttons">
               <button
                 class="categories__button categories__close"
