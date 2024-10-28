@@ -4,7 +4,7 @@ import { todayDate } from '../set/deadline';
 
 import { createElementWithClass } from '../set/createItem';
 
-//call render functions here because of task fields & task buttons are rendered by js that selectors are used below
+//call render functions here because of task textareas & task buttons are rendered by js that selectors are used below
 const containersNewTask = document.querySelectorAll('.task__new');
 renderNewTaskButtons(containersNewTask);
 renderNewTaskFields(containersNewTask);
@@ -14,7 +14,7 @@ const buttonsSaveTask = document.querySelectorAll('.btn-save');
 const buttonsCloseTask = document.querySelectorAll('.btn-close');
 const containersAddButtons = document.querySelectorAll('.btns');
 const containersTextarea = document.querySelectorAll('.inputs-new-task');
-const textareas = document.querySelectorAll('.field-add');
+const textareas = document.querySelectorAll('.textarea-add');
 const taskLists = document.querySelectorAll('.task__list');
 
 function renderNewTaskFields(columns) {
@@ -22,8 +22,8 @@ function renderNewTaskFields(columns) {
     const fieldContainer = createElementWithClass('div', ['inputs', 'inputs-new-task']);
 
     const textareaElement = createElementWithClass('textarea', [
-      'field',
-      'field-add',
+      'textarea',
+      'textarea-add',
       'custom-scroll',
     ]);
     textareaElement.setAttribute('placeholder', 'Ctrl+Enter to New line\nEsc to Close');
@@ -45,8 +45,8 @@ function renderNewTaskButtons(columns) {
         : createElementWithClass('button', 'btn-move-done');
     const saveButton = createElementWithClass('button', ['btn', 'btn-save']);
 
-    closeButton.setAttribute('aria-label', 'Close add new task field');
-    openButton.setAttribute('aria-label', 'Open add new task field');
+    closeButton.setAttribute('aria-label', 'Close add new task textarea');
+    openButton.setAttribute('aria-label', 'Open add new task textarea');
     i !== 2
       ? moveButton.setAttribute('aria-label', 'Move task to another column')
       : moveButton.setAttribute('tabindex', '-1');
