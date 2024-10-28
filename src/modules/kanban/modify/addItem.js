@@ -13,13 +13,13 @@ const buttonsOpenTask = document.querySelectorAll('.btn-open');
 const buttonsSaveTask = document.querySelectorAll('.btn-save');
 const buttonsCloseTask = document.querySelectorAll('.btn-close');
 const containersAddButtons = document.querySelectorAll('.btns');
-const containersTextarea = document.querySelectorAll('.fields-new-task');
+const containersTextarea = document.querySelectorAll('.inputs-new-task');
 const textareas = document.querySelectorAll('.field-add');
 const taskLists = document.querySelectorAll('.task__list');
 
 function renderNewTaskFields(columns) {
   columns.forEach((column) => {
-    const fieldContainer = createElementWithClass('div', ['fields', 'fields-new-task']);
+    const fieldContainer = createElementWithClass('div', ['inputs', 'inputs-new-task']);
 
     const textareaElement = createElementWithClass('textarea', [
       'field',
