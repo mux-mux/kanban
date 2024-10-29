@@ -52,8 +52,8 @@
     background-color: $bg-color-close-button;
   }
 
-  &__main-group,
-  &__sub-group {
+  &__group-container,
+  &__categories-container {
     @include flex_column;
   }
 }

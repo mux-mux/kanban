@@ -30,25 +30,25 @@
           </button>
           <div class="categories">
             <div class="inputs inputs-categories">
-              <div class="categories__main-group">
-                <label for="main-category" class="categories__main-label">Add Main category</label>
-                <input type="text" id="main-category" class="categories__main-category" />
+              <div class="categories__group-inputs">
+                <label for="input-group" class="categories__group-label">Add Group</label>
+                <input type="text" id="input-group" class="input input-group" />
               </div>
-              <div class="categories__sub-group">
-                <label for="sub-category" class="categories__sub-label">Add Sub category</label>
-                <input type="text" id="sub-category" class="categories__sub-category" />
-                <select name="select-main-category" id="select-main-category">
-                  <option value="default" selected>---Select main category---</option>
+              <div class="categories__category-inputs">
+                <label for="input-category" class="categories__category-label">Add Category</label>
+                <input type="text" id="input-category" class="input input-category" />
+                <select name="select-category" id="select-category">
+                  <option value="default" selected>---Select group---</option>
                   <option value="sport">Sport</option>
                 </select>
               </div>
             </div>
             <h3 class="heading-tertiary">Categories:</h3>
-            <ul class="categories__main-list">
-              <li class="categories__main-list-item">
+            <ul class="categories__group-list">
+              <li class="categories__group-list-item">
                 Sport
-                <ul class="categories__sub-list">
-                  <li class="categories__sub-list-item">Tennis</li>
+                <ul class="categories__categories-list">
+                  <li class="categories__categories-list-item">Tennis</li>
                 </ul>
               </li>
             </ul>
