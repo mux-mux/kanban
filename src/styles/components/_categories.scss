@@ -1,7 +1,6 @@
 .categories {
   display: block;
   width: auto;
-  min-width: calc($min-width - $padding-lg/2);
   max-height: calc(100vh - 30px);
   position: absolute;
   top: -1000px;
@@ -51,5 +50,10 @@
     right: 0;
     border-radius: 0 $border-radius-sm;
     background-color: $bg-color-close-button;
+  }
+
+  &__main-group,
+  &__sub-group {
+    @include flex_column;
   }
 }

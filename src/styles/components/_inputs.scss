@@ -1,11 +1,15 @@
 .inputs {
   margin: $margin-md;
   padding: $padding-sm $padding-md;
-  min-height: $height-xl;
 
   &-new-task {
+    min-height: $height-xl;
     border-radius: $border-radius-md;
     background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  &-categories {
+    @include flex_column;
   }
 }
 
