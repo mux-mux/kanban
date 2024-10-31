@@ -51,7 +51,8 @@ body {
 .inputs,
 .archive,
 .move-to-archive,
-.pomodoro {
+.pomodoro,
+.categories {
   display: none;
 }
 .todo__title {
