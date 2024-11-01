@@ -40,3 +40,13 @@
     }
   }
 }
+
+.label {
+  margin-bottom: $margin-sm;
+}
+
+.input {
+  &-category {
+    margin-bottom: $margin-md;
+  }
+}

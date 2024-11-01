@@ -56,6 +56,10 @@
     @include flex_column;
   }
 
+  &__group-inputs {
+    margin-bottom: $margin-md;
+  }
+
   &__group-list-item {
     margin: $margin-sm $margin-md;
     padding: 0 $padding-md;
