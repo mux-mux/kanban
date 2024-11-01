@@ -38,8 +38,8 @@ $shiftMinusSize: $theme-slider-shift - $theme-slider-size;
   height: calc($sizePlusShift);
 
   @include respond(mobile) {
-    height: calc($theme-slider-size * 1.5);
-    width: calc($theme-slider-size / 1.5);
+    height: calc($theme-slider-size * 1.6);
+    width: calc($theme-slider-size / 1.4);
   }
 }
 
