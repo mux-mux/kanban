@@ -41,8 +41,8 @@ function dragOverItem(e, column) {
     taskLists[currentColumn].appendChild(draggedItem);
   }
 
-  taskLists.forEach((column) => column.classList.remove('over'));
-  taskLists[column].classList.add('over');
+  taskLists.forEach((column) => column.classList.remove('drag-over'));
+  taskLists[column].classList.add('drag-over');
 }
 
 function dropItem(e, newColNum) {
@@ -53,7 +53,7 @@ function dropItem(e, newColNum) {
   draggedItem = null;
 
   taskLists.forEach((list) => {
-    list.classList.remove('over');
+    list.classList.remove('drag-over');
   });
 
   const columnNum = e.dataTransfer.getData('columnNum');
