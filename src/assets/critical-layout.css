@@ -57,13 +57,13 @@ body {
 }
 
 .todo__title {
-  background-color: #f05852;
+  background-color: var(--bg-color-column-todo);
 }
 .inprogress__title {
-  background-color: #55b7ea;
+  background-color: var(--bg-color-column-inprogress);
 }
 .done__title {
-  background-color: #85c555;
+  background-color: var(--bg-color-column-done);
 }
 .theme-switch-wrapper {
   min-height: 34px;

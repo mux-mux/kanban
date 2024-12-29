@@ -7,15 +7,15 @@
   min-height: $height-xxl;
 
   &-todo__title {
-    background-color: $bg-color-column-todo;
+    background-color: var(--bg-color-column-todo);
   }
 
   &-inprogress__title {
-    background-color: $bg-color-column-inprogress;
+    background-color: var(--bg-color-column-inprogress);
   }
 
   &-done__title {
-    background-color: $bg-color-column-done;
+    background-color: var(--bg-color-column-done);
   }
 }
 
