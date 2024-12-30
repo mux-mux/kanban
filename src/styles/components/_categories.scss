@@ -43,6 +43,7 @@
     color: var(--text-color, #222);
     padding: $padding-sm $padding-md;
     cursor: pointer;
+    outline-offset: $outline-offset;
   }
 
   &__close {

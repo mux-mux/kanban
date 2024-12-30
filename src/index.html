@@ -37,7 +37,7 @@
               <div class="categories__category-inputs">
                 <label for="input-category" class="label label-category">Add Category</label>
                 <input type="text" id="input-category" class="input input-category" />
-                <select name="select-category" id="select-category">
+                <select name="select-category" id="select-category" class="select">
                   <option value="default" selected>---Select group---</option>
                   <option value="sport">Sport</option>
                 </select>
@@ -160,9 +160,9 @@
         </li>
         <li class="column column-done">
           <h2 class="heading-secondary column__title done__title p2">Done</h2>
-          <span class="move-to-archive">
+          <button class="move-to-archive">
             Move to <i class="fa-solid fa-calendar-check move-to-archive-icon"></i>
-          </span>
+          </button>
           <div class="done__content custom-scroll">
             <ul class="task__list" id="done-list"></ul>
           </div>

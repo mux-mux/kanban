@@ -10,6 +10,8 @@
   box-shadow: 0 0 1px #333;
   padding: 0 $padding-sm;
   transition: box-shadow 0.5s;
+  outline-offset: $outline-offset;
+
   &:hover {
     cursor: pointer;
     box-shadow: 0 0 10px #999;
@@ -71,6 +73,7 @@
     color: var(--text-color, #222);
     padding: $padding-sm $padding-md;
     cursor: pointer;
+    outline-offset: $outline-offset;
   }
 
   &__close {
