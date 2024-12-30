@@ -5,7 +5,6 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23757f9a' fill-opacity='0.2' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
   box-sizing: border-box;
   text-align: center;
-  font-family: Rubik, sans-serif;
   color: var(--text_color, #222);
   overflow-y: scroll;
 }
@@ -56,15 +55,6 @@ body {
   display: none;
 }
 
-.todo__title {
-  background-color: var(--bg-color-column-todo);
-}
-.inprogress__title {
-  background-color: var(--bg-color-column-inprogress);
-}
-.done__title {
-  background-color: var(--bg-color-column-done);
-}
 .theme-switch-wrapper {
   min-height: 34px;
 }

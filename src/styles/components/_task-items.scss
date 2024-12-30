@@ -58,6 +58,7 @@
         opacity: var(--opacity, visible);
         background-color: rgba(255, 0, 0, 0.4);
         border-radius: 0 $border-radius-md $border-radius-md 0;
+        outline-offset: calc($outline-offset / 2);
 
         &-img {
           font-size: $font-size-sm;

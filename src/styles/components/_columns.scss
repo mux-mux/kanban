@@ -5,18 +5,18 @@
   overflow-x: hidden;
   box-shadow: 1px 1px 2px var(--column-shadow, #999);
   min-height: $height-xxl;
+}
 
-  &-todo__title {
-    background-color: var(--bg-color-column-todo);
-  }
+.todo__title {
+  background-color: $bg-color-column-todo;
+}
 
-  &-inprogress__title {
-    background-color: var(--bg-color-column-inprogress);
-  }
+.inprogress__title {
+  background-color: $bg-color-column-inprogress;
+}
 
-  &-done__title {
-    background-color: var(--bg-color-column-done);
-  }
+.done__title {
+  background-color: $bg-color-column-done;
 }
 
 .custom-scroll {

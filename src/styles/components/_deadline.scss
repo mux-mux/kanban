@@ -3,11 +3,11 @@
   background: none;
   border: none;
   color: #777;
-  outline: none;
   white-space: initial;
   font-size: $font-size-md;
   max-width: 100px;
   letter-spacing: -1px;
+  outline-offset: $outline-offset;
 
   @include respond(laptop) {
     font-size: $font-size-sm;

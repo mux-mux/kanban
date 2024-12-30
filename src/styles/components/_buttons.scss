@@ -16,6 +16,7 @@
   font-size: $font-size-xl;
   cursor: pointer;
   min-width: calc($width-xl - 15px);
+  outline-offset: $outline-offset;
 
   @include respond(mobile) {
     margin: $margin-md;
@@ -27,6 +28,8 @@
     border-radius: $border-radius-sm;
     background-color: rgba(0, 0, 0, 0.1);
     color: var(--text-color, #222);
+    outline-offset: $outline-offset;
+
     &-done {
       width: $width-md;
     }

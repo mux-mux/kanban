@@ -1,9 +1,7 @@
-body {
-  --opacity: 0.35;
-  --bg-color-column-todo: rgba(255, 0, 0, var(--opacity));
-  --bg-color-column-inprogress: rgba(0, 132, 255, var(--opacity));
-  --bg-color-column-done: rgba(0, 225, 0, var(--opacity));
-}
+$opacity: 0.35;
+$bg-color-column-todo: rgba(255, 0, 0, $opacity);
+$bg-color-column-inprogress: rgba(0, 132, 255, $opacity);
+$bg-color-column-done: rgba(0, 225, 0, $opacity);
 
 $bg-color-close-button: rgba(255, 0, 0, 0.4);
 $bg-color-drag-over: rgba(50, 50, 50, 0.1);
@@ -44,6 +42,8 @@ $height-md: 30px;
 $height-lg: 40px;
 $height-xl: 100px;
 $height-xxl: 130px;
+
+$outline-offset: 4px;
 
 $theme-slider-size: 30px;
 $theme-slider-shift: 4px;

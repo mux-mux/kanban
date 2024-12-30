@@ -24,6 +24,7 @@ $shiftMinusSize: $theme-slider-shift - $theme-slider-size;
 .theme-checkbox {
   width: inherit;
   height: inherit;
+  outline-offset: $outline-offset;
 
   &:focus {
     appearance: normal;
@@ -98,6 +99,7 @@ input:checked + .slider:before {
 
 .slider.round {
   border-radius: calc($sizePlusShift);
+  box-shadow: 1px 1px 2px var(--column-shadow, #999);
 }
 
 .slider.round:before {
