@@ -145,7 +145,6 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     onActivate: () => pause.focus(),
     onDeactivate: () => pause.blur(),
     allowOutsideClick: () => true,
-    clickOutsideDeactivates: () => true,
   });
 
   icon.removeEventListener('click', timer.startPomodoroByIcon);

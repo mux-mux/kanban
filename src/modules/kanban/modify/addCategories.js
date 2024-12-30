@@ -16,7 +16,6 @@ function addCategories() {
       containerCategories.classList.remove('categories__visible');
     },
     allowOutsideClick: () => true,
-    clickOutsideDeactivates: () => true,
   });
 
   function toggleCategoriesVisibility() {

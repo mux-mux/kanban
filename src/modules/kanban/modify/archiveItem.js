@@ -27,7 +27,6 @@ function archiveItem() {
       containerArchive.classList.remove('archive__visible');
     },
     allowOutsideClick: () => true,
-    clickOutsideDeactivates: () => true,
   });
 
   function toggleArchiveVisibility() {
