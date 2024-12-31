@@ -14,9 +14,12 @@
   padding: $padding-sm $padding-md;
   border-radius: $border-radius-sm;
   font-size: $font-size-xl;
-  cursor: pointer;
-  min-width: calc($width-xl - 15px);
   outline-offset: $outline-offset;
+  cursor: pointer;
+
+  &:active {
+    transform: scale(0.97);
+  }
 
   @include respond(mobile) {
     margin: $margin-md;
@@ -24,11 +27,9 @@
 
   &-move {
     display: none;
-    padding: $padding-md;
-    border-radius: $border-radius-sm;
+    padding: $padding-sm calc($padding-md + 5px);
     background-color: rgba(0, 0, 0, 0.1);
     color: var(--text-color, #222);
-    outline-offset: $outline-offset;
 
     &-done {
       width: $width-md;
@@ -45,17 +46,9 @@
     }
   }
 
-  &:active {
-    transform: scale(0.97);
-  }
-
-  &-open {
-    color: var(--text-color);
-  }
-
   &-save {
+    display: none;
     color: black;
-    visibility: hidden;
     background-color: #50c878;
 
     &:hover {
@@ -64,16 +57,14 @@
     }
   }
 
-  &-close {
-    display: none;
-    justify-content: right;
-    padding: 0;
+  &-open {
+    color: var(--text-color);
+  }
 
-    &-inner {
-      background-color: $bg-color-close-button;
-      padding: calc($padding-sm + 2px) $padding-md;
-      border-radius: $border-radius-sm;
-    }
+  &-close {
+    visibility: hidden;
+    background-color: $bg-color-close-button;
+    padding: calc($padding-sm + 2px) $padding-md;
   }
 
   &-text {

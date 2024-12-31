@@ -41,7 +41,7 @@ function renderNewTaskButtons(columns) {
     const openButton = createElementWithClass('button', ['btn', 'btn-open']);
     const moveButton =
       i !== 2
-        ? createElementWithClass('button', 'btn-move')
+        ? createElementWithClass('button', ['btn', 'btn-move'])
         : createElementWithClass('button', 'btn-move-done');
     const saveButton = createElementWithClass('button', ['btn', 'btn-save']);
 
@@ -68,16 +68,16 @@ function renderNewTaskButtons(columns) {
 
     for (let i = 0; i < 2; i++) {
       const buttonText = createElementWithClass('span', 'btn-text');
+
       buttonText.textContent = 'Item';
 
       i === 0 && openButton.appendChild(buttonText);
       i === 1 && saveButton.appendChild(buttonText);
     }
 
-    buttonsContainer.appendChild(closeButton);
-    buttonsContainer.appendChild(openButton);
-    buttonsContainer.appendChild(moveButton);
-    buttonsContainer.appendChild(saveButton);
+    [openButton, saveButton, moveButton, closeButton].forEach((btn) => {
+      buttonsContainer.appendChild(btn);
+    });
 
     column.appendChild(buttonsContainer);
   });
@@ -110,37 +110,25 @@ function hideNewTaskTextarea(e) {
 }
 
 function toggleNewTaskTextarea(column, state) {
-  containersTextarea.forEach((container, index) => {
-    if (container.style.display !== 'none') {
-      container.style.display = 'none';
-      buttonsOpenTask[index].style.display = 'flex';
-      buttonsSaveTask[index].style.visibility = 'hidden';
-      buttonsCloseTask[index].style.display = 'none';
-      containersAddButtons[index].style.flexDirection = 'initial';
-    }
-  });
+  const buttonOpenStyle = state === 'open' ? 'none' : 'flex';
+  const buttonSaveStyle = state === 'open' ? 'flex' : 'none';
+  const buttonCloseStyle = state === 'open' ? 'visible' : 'hidden';
+  const containerStyle = state === 'open' ? 'block' : 'none';
 
-  const buttonOpenDisplay = state === 'open' ? 'none' : 'flex';
-  const buttonSaveVisibility = state === 'open' ? 'visible' : 'hidden';
-  const buttonCloseDisplay = state === 'open' ? 'flex' : 'none';
-  const containerDisplay = state === 'open' ? 'block' : 'none';
-
-  buttonsOpenTask[column].style.display = buttonOpenDisplay;
-  buttonsSaveTask[column].style.visibility = buttonSaveVisibility;
-  buttonsCloseTask[column].style.display = buttonCloseDisplay;
-  containersTextarea[column].style.display = containerDisplay;
+  buttonsOpenTask[column].style.display = buttonOpenStyle;
+  buttonsSaveTask[column].style.display = buttonSaveStyle;
+  buttonsCloseTask[column].style.visibility = buttonCloseStyle;
+  containersTextarea[column].style.display = containerStyle;
 
   if (state === 'save' || state === 'close') {
     state === 'save' && addNewTask(column);
     textareas[column].value = '';
     textareas[column].blur();
     document.removeEventListener('click', hideNewTaskTextarea);
-    containersAddButtons[column].style.flexDirection = 'initial';
   } else if (state === 'open') {
     textareas[column].focus();
     containersTextarea[column].scrollIntoView({ block: 'end' });
     document.addEventListener('click', hideNewTaskTextarea);
-    containersAddButtons[column].style.flexDirection = 'row-reverse';
   }
 }
 
