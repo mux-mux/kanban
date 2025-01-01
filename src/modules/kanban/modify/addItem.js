@@ -1,3 +1,5 @@
+import { createFocusTrap } from 'focus-trap';
+
 import { updateDOM, localLoaded } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 import { todayDate } from '../set/deadline';
@@ -12,7 +14,6 @@ renderNewTaskFields(containersNewTask);
 const buttonsOpenTask = document.querySelectorAll('.btn-open');
 const buttonsSaveTask = document.querySelectorAll('.btn-save');
 const buttonsCloseTask = document.querySelectorAll('.btn-close');
-const containersAddButtons = document.querySelectorAll('.btns');
 const containersTextarea = document.querySelectorAll('.inputs-new-task');
 const textareas = document.querySelectorAll('.textarea-add');
 const taskLists = document.querySelectorAll('.task__list');
@@ -91,8 +92,6 @@ function handleNewTaskKeypress(e, column) {
   } else if (e.code === 'Enter') {
     e.preventDefault();
     addNewTask(column);
-  } else if (e.code === 'Escape') {
-    toggleNewTaskTextarea(column, 'close');
   }
 }
 
@@ -109,7 +108,11 @@ function hideNewTaskTextarea(e) {
   }
 }
 
+let focusTrap = null;
+
 function toggleNewTaskTextarea(column, state) {
+  focusTrap && focusTrap.deactivate();
+
   const buttonOpenStyle = state === 'open' ? 'none' : 'flex';
   const buttonSaveStyle = state === 'open' ? 'flex' : 'none';
   const buttonCloseStyle = state === 'open' ? 'visible' : 'hidden';
@@ -120,15 +123,26 @@ function toggleNewTaskTextarea(column, state) {
   buttonsCloseTask[column].style.visibility = buttonCloseStyle;
   containersTextarea[column].style.display = containerStyle;
 
+  focusTrap = createFocusTrap(containersNewTask[column], {
+    onActivate: () => textareas[column].focus(),
+    onDeactivate: () => {
+      textareas[column].blur();
+      toggleNewTaskTextarea(column, 'close');
+    },
+    onPause: () => focusTrap.deactivate(),
+    allowOutsideClick: () => true,
+    clickOutsideDeactivates: () => true,
+  });
+
   if (state === 'save' || state === 'close') {
     state === 'save' && addNewTask(column);
     textareas[column].value = '';
-    textareas[column].blur();
     document.removeEventListener('click', hideNewTaskTextarea);
+    focusTrap.deactivate();
   } else if (state === 'open') {
-    textareas[column].focus();
     containersTextarea[column].scrollIntoView({ block: 'end' });
     document.addEventListener('click', hideNewTaskTextarea);
+    focusTrap.activate();
   }
 }
 
