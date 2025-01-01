@@ -6,7 +6,7 @@ import { todayDate } from '../set/deadline';
 
 import { createElementWithClass } from '../set/createItem';
 
-//call render functions here because of task textareas & task buttons are rendered by js that selectors are used below
+//Dynamically render new task fields and buttons
 const containersNewTask = document.querySelectorAll('.task__new');
 renderNewTaskButtons(containersNewTask);
 renderNewTaskFields(containersNewTask);
@@ -17,6 +17,7 @@ const buttonsCloseTask = document.querySelectorAll('.btn-close');
 const containersTextarea = document.querySelectorAll('.inputs-new-task');
 const textareas = document.querySelectorAll('.textarea-add');
 const taskLists = document.querySelectorAll('.task__list');
+let focusTrap = null;
 
 function renderNewTaskFields(columns) {
   columns.forEach((column) => {
@@ -107,8 +108,6 @@ function hideNewTaskTextarea(e) {
     document.removeEventListener('click', hideNewTaskTextarea);
   }
 }
-
-let focusTrap = null;
 
 function toggleNewTaskTextarea(column, state) {
   focusTrap && focusTrap.deactivate();

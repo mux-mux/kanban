@@ -1,4 +1,5 @@
 .btns {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -26,13 +27,16 @@
   }
 
   &-move {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     display: none;
     padding: $padding-sm calc($padding-md + 5px);
     background-color: rgba(0, 0, 0, 0.1);
     color: var(--text-color, #222);
 
     &-done {
-      width: $width-md;
+      display: none;
     }
   }
 
