@@ -52,8 +52,6 @@ $shiftMinusSize: $theme-slider-shift - $theme-slider-size;
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
 }
 
 .slider:before {
@@ -64,8 +62,7 @@ $shiftMinusSize: $theme-slider-shift - $theme-slider-size;
   left: $theme-slider-shift;
   bottom: $theme-slider-shift;
   background-color: white;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
+  transition: transform 0.4s;
 
   @include respond(mobile) {
     height: calc(($sizeMinusShift) / 2);
