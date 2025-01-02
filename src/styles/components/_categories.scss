@@ -51,25 +51,4 @@
     border-radius: 0 $border-radius-sm;
     background-color: $bg-color-close-button;
   }
-
-  &__group-inputs,
-  &__category-inputs {
-    @include flex_column;
-  }
-
-  &__group-inputs {
-    margin-bottom: $margin-md;
-  }
-
-  &__group-list-item {
-    margin: $margin-sm $margin-md;
-    padding: 0 $padding-md;
-    text-align: left;
-
-    li {
-      margin-left: $margin-lg;
-      font-size: $font-size-md;
-      list-style-type: disc;
-    }
-  }
 }

@@ -1,10 +1,24 @@
+import { updateDOM, categoriesLoaded } from '../update/updateDOM';
 import { createFocusTrap } from 'focus-trap';
-import { createElementWithClass } from '../set/createItem';
+import { categories } from '../data/categories';
+
+function renderCategories(categoriesList) {
+  const categoriesContainer = document.getElementById('categoriesContainer');
+
+  categoriesContainer.innerHTML = '';
+  categoriesList.forEach((category) => {
+    const itemElement = document.createElement('li');
+    itemElement.textContent = category;
+    categoriesContainer.appendChild(itemElement);
+  });
+}
 
 function addCategories() {
   const buttonToggleCategoreis = document.querySelector('.tool-categories');
   const containerCategories = document.querySelector('.categories');
   const buttonCloseCategories = document.querySelector('.categories__close');
+  const categoryForm = document.getElementById('categoryForm');
+  const categoryNameInput = document.getElementById('categoryName');
 
   buttonToggleCategoreis.addEventListener('click', toggleCategoriesVisibility);
   buttonCloseCategories.addEventListener('click', toggleCategoriesVisibility);
@@ -28,6 +42,23 @@ function addCategories() {
       focusTrap.deactivate();
     }
   }
+
+  categoryForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const newCategoryName = categoryNameInput.value.trim();
+    if (newCategoryName && !categories.items.includes(newCategoryName)) {
+      categoriesLoaded.push(newCategoryName);
+      categories.items = categories.items.concat(newCategoryName);
+
+      categoryNameInput.value = '';
+
+      updateDOM();
+      renderCategories(categoriesLoaded);
+    } else {
+      alert('Category name already exists!');
+    }
+  });
 }
 
-export { addCategories };
+export { addCategories, renderCategories };

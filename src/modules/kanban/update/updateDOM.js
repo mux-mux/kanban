@@ -1,6 +1,15 @@
-import { getLocalItems, setLocalItems, getLocalArchive, setLocalArchive } from './localStorage';
+import {
+  getLocalItems,
+  setLocalItems,
+  getLocalArchive,
+  setLocalArchive,
+  getLocalCategories,
+  setLocalCategories,
+} from './localStorage';
+
 import { columnNames } from '../data/columns';
 import { renderArchive } from '../modify/archiveItem';
+import { renderCategories } from '../modify/addCategories';
 import { createItem } from '../set/createItem';
 
 const todoElement = document.getElementById('todo-list'),
@@ -11,12 +20,15 @@ const todoElement = document.getElementById('todo-list'),
 let updatedOnLoad = false;
 let localLoaded = [];
 let archiveLoaded = [];
+let categoriesLoaded = [];
 
 function updateDOM() {
   if (!updatedOnLoad) {
     localLoaded = getLocalItems(columnNames);
     archiveLoaded = getLocalArchive();
+    categoriesLoaded = getLocalCategories();
     renderArchive(archiveLoaded);
+    renderCategories(categoriesLoaded);
   }
 
   elementsList.forEach((element) => (element.textContent = ''));
@@ -30,6 +42,7 @@ function updateDOM() {
   updatedOnLoad = true;
   setLocalItems(columnNames);
   setLocalArchive();
+  setLocalCategories();
 }
 
-export { updateDOM, localLoaded, archiveLoaded, updatedOnLoad };
+export { updateDOM, localLoaded, archiveLoaded, categoriesLoaded, updatedOnLoad };

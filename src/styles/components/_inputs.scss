@@ -36,6 +36,7 @@
     outline-offset: calc($outline-offset * 2);
 
     &::placeholder {
+      color: var(--text-color, #222);
       opacity: 0.3;
     }
 

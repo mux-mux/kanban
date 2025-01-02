@@ -7,6 +7,7 @@
   top: 8px;
   right: 15px;
   font-size: $font-size-lg;
+  color: var(--text-color, #222);
   box-shadow: 0 0 1px #333;
   padding: 0 $padding-sm;
   transition: box-shadow 0.5s;

@@ -28,30 +28,18 @@
           <button class="tool tool-categories" aria-label="Show/add new category">
             <i class="fa-solid fa-list"></i>
           </button>
+        </div>
+        <div class="modals">
           <div class="categories">
-            <div class="inputs inputs-categories">
-              <div class="categories__group-inputs">
-                <label for="input-group" class="label label-group">Add Group</label>
-                <input type="text" id="input-group" class="input input-group" />
-              </div>
-              <div class="categories__category-inputs">
-                <label for="input-category" class="label label-category">Add Category</label>
-                <input type="text" id="input-category" class="input input-category" />
-                <select name="select-category" id="select-category" class="select">
-                  <option value="default" selected>---Select group---</option>
-                  <option value="sport">Sport</option>
-                </select>
-              </div>
-            </div>
-            <h3 class="heading-tertiary">Categories:</h3>
-            <ul class="categories__group-list">
-              <li class="categories__group-list-item">
-                Sport
-                <ul class="categories__category-list">
-                  <li class="categories__category-list-item">Tennis</li>
-                </ul>
-              </li>
-            </ul>
+            <h2 class="heading-secondary">Categories</h2>
+            <form id="categoryForm">
+              <input type="text" id="categoryName" placeholder="Enter category name" required />
+              <button type="submit" class="btn" aria-label="Add new category to categories list">
+                Add Category
+              </button>
+            </form>
+
+            <ul class="categories__container" id="categoriesContainer"></ul>
             <div class="categories__buttons">
               <button
                 class="categories__button categories__close"
@@ -61,6 +49,7 @@
               </button>
             </div>
           </div>
+
           <div class="archive">
             <div class="archive__buttons">
               <button
