@@ -3,7 +3,7 @@
   width: auto;
   max-height: calc(100vh - 30px);
   position: absolute;
-  top: -1000px;
+  top: -100%;
   left: 175px;
   z-index: 1000;
   background-color: var(--background-archive, #f6f6f6);
@@ -15,6 +15,11 @@
   visibility: hidden;
   opacity: 0;
   overflow: auto;
+  @include no_reduced_motion {
+    transition:
+      top 0.5s,
+      opacity 0.5s;
+  }
 
   @include respond(tablet) {
     width: 100%;
@@ -53,8 +58,6 @@
   }
 
   &__button {
-    width: fit-content;
-    font-size: $font-size-md;
     color: var(--text-color, #222);
     padding: $padding-sm $padding-md;
     cursor: pointer;
@@ -86,15 +89,11 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-    outline: none;
+    outline-offset: $outline-offset;
+
     transition:
       border-color 0.3s,
       box-shadow 0.3s;
-
-    &:focus {
-      border-color: #007bff;
-      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-    }
 
     &:hover {
       border-color: #999;

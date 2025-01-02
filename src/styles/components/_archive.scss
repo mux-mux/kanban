@@ -28,7 +28,7 @@
   min-width: calc($min-width - $padding-lg/2);
   max-height: calc(100vh - 30px);
   position: absolute;
-  top: -1000px;
+  top: -100%;
   left: 110px;
   z-index: 1000;
   background-color: var(--background-archive, #f6f6f6);
@@ -41,6 +41,11 @@
   visibility: hidden;
   opacity: 0;
   overflow: auto;
+  @include no_reduced_motion {
+    transition:
+      top 0.5s,
+      opacity 0.5s;
+  }
 
   @include respond(tablet) {
     width: 100%;
