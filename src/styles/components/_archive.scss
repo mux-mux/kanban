@@ -29,7 +29,7 @@
   max-height: calc(100vh - 30px);
   position: absolute;
   top: -100%;
-  left: 110px;
+  left: 120px;
   z-index: 1000;
   background-color: var(--background-archive, #f6f6f6);
   padding-top: $padding-lg;
@@ -41,6 +41,17 @@
   visibility: hidden;
   opacity: 0;
   overflow: auto;
+
+  &__visible {
+    top: 30px;
+    visibility: visible;
+    opacity: 1;
+
+    @include respond(tablet) {
+      top: 0;
+    }
+  }
+
   @include no_reduced_motion {
     transition:
       top 0.5s,
@@ -129,15 +140,5 @@
 
   &__item > td:first-of-type {
     text-align: left;
-  }
-
-  &__visible {
-    top: 30px;
-    visibility: visible;
-    opacity: 1;
-
-    @include respond(tablet) {
-      top: 80px;
-    }
   }
 }

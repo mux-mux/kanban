@@ -77,3 +77,20 @@ textarea {
     padding: calc($padding-lg/4);
   }
 }
+
+.modals {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+
+  &__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    isolation: isolate;
+    z-index: 100;
+    opacity: 1;
+  }
+}

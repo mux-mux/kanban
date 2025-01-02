@@ -11,6 +11,7 @@ function archiveItem() {
   const buttonCloseArchive = document.querySelector('.archive__close');
   const buttonDownloadArchive = document.querySelector('.archive__download');
   const buttonUploadArchive = document.querySelector('#selectedFile');
+  const modalsContainer = document.getElementById('modals');
 
   buttonToggleArchive.addEventListener('click', toggleArchiveVisibility);
   buttonCloseArchive.addEventListener('click', toggleArchiveVisibility);
@@ -25,8 +26,10 @@ function archiveItem() {
     onDeactivate: () => {
       buttonCloseArchive.blur();
       containerArchive.classList.remove('archive__visible');
+      modalsContainer.classList.remove('modals__overlay');
     },
     allowOutsideClick: () => true,
+    clickOutsideDeactivates: () => true,
   });
 
   function toggleArchiveVisibility() {
@@ -34,6 +37,7 @@ function archiveItem() {
 
     if (!isOpened) {
       containerArchive.classList.add('archive__visible');
+      modalsContainer.classList.add('modals__overlay');
       focusTrap.activate();
     } else {
       focusTrap.deactivate();

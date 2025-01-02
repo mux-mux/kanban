@@ -35,7 +35,7 @@
     opacity: 1;
 
     @include respond(tablet) {
-      top: 80px;
+      top: 0;
     }
   }
 
@@ -49,7 +49,6 @@
     background-color: #eae8ed;
     opacity: 0.95;
     text-align: left;
-    max-width: 300px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

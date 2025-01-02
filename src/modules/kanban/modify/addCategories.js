@@ -20,6 +20,7 @@ function addCategories() {
   const buttonCloseCategories = document.querySelector('.categories__button-close');
   const categoryForm = document.getElementById('categoryForm');
   const categoryNameInput = document.getElementById('categoryName');
+  const modalsContainer = document.getElementById('modals');
 
   buttonToggleCategoreis.addEventListener('click', toggleCategoriesVisibility);
   buttonCloseCategories.addEventListener('click', toggleCategoriesVisibility);
@@ -29,8 +30,10 @@ function addCategories() {
     onDeactivate: () => {
       buttonCloseCategories.blur();
       containerCategories.classList.remove('categories__visible');
+      modalsContainer.classList.remove('modals__overlay');
     },
     allowOutsideClick: () => true,
+    clickOutsideDeactivates: () => true,
   });
 
   function toggleCategoriesVisibility() {
@@ -38,6 +41,7 @@ function addCategories() {
 
     if (!isOpened) {
       containerCategories.classList.add('categories__visible');
+      modalsContainer.classList.add('modals__overlay');
       focusTrap.activate();
     } else {
       focusTrap.deactivate();
