@@ -31,19 +31,29 @@
         </div>
         <div class="modals">
           <div class="categories">
-            <h2 class="heading-secondary">Categories</h2>
-            <form id="categoryForm">
-              <input type="text" id="categoryName" placeholder="Enter category name" required />
-              <button type="submit" class="btn" aria-label="Add new category to categories list">
+            <form action="" id="categoryForm" class="categories__form">
+              <input
+                type="text"
+                id="categoryName"
+                class="categories__input"
+                placeholder="Enter category name"
+                required
+              />
+              <button
+                type="submit"
+                class="btn categories__button-add"
+                aria-label="Add new category to categories list"
+              >
                 Add Category
               </button>
             </form>
 
+            <h2 class="heading-secondary">Categories</h2>
             <ul class="categories__container" id="categoriesContainer"></ul>
             <div class="categories__buttons">
               <button
-                class="categories__button categories__close"
-                aria-label="Close add/show categories modal"
+                class="categories__button categories__button-close"
+                aria-label="Close categories modal"
               >
                 <i class="fa-solid fa-xmark"></i>
               </button>

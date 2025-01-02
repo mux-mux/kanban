@@ -1,5 +1,6 @@
 import { updateDOM, categoriesLoaded } from '../update/updateDOM';
 import { createFocusTrap } from 'focus-trap';
+import { createElementWithClass } from '../set/createItem';
 import { categories } from '../data/categories';
 
 function renderCategories(categoriesList) {
@@ -7,7 +8,7 @@ function renderCategories(categoriesList) {
 
   categoriesContainer.innerHTML = '';
   categoriesList.forEach((category) => {
-    const itemElement = document.createElement('li');
+    const itemElement = createElementWithClass('li', 'categories__item');
     itemElement.textContent = category;
     categoriesContainer.appendChild(itemElement);
   });
@@ -16,7 +17,7 @@ function renderCategories(categoriesList) {
 function addCategories() {
   const buttonToggleCategoreis = document.querySelector('.tool-categories');
   const containerCategories = document.querySelector('.categories');
-  const buttonCloseCategories = document.querySelector('.categories__close');
+  const buttonCloseCategories = document.querySelector('.categories__button-close');
   const categoryForm = document.getElementById('categoryForm');
   const categoryNameInput = document.getElementById('categoryName');
 

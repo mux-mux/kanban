@@ -7,8 +7,7 @@
   left: 175px;
   z-index: 1000;
   background-color: var(--background-archive, #f6f6f6);
-  padding-top: $padding-lg;
-  padding-bottom: $padding-md;
+  padding: $padding-md;
   border-radius: $border-radius-sm;
   box-shadow: 1px 1px 5px 1px var(--column-shadow, #999);
   font-size: $font-size-lg;
@@ -35,20 +34,70 @@
     }
   }
 
+  &__form {
+    margin-top: $margin-xl;
+    margin-bottom: $margin-lg;
+  }
+
+  &__item {
+    margin-top: $margin-sm;
+    background-color: #eae8ed;
+    opacity: 0.95;
+    text-align: left;
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+
   &__button {
     width: fit-content;
-    position: absolute;
-    top: 0;
     font-size: $font-size-md;
     color: var(--text-color, #222);
     padding: $padding-sm $padding-md;
     cursor: pointer;
     outline-offset: $outline-offset;
+
+    &-add {
+      @include margin_auto;
+      border-radius: 5px;
+      background-color: rgba(0, 150, 0, 0.4);
+
+      &:hover {
+        background-color: rgba(0, 150, 0, 0.5);
+      }
+    }
+
+    &-close {
+      position: absolute;
+      top: 0;
+      right: 0;
+      border-radius: 0 $border-radius-sm;
+      background-color: $bg-color-close-button;
+    }
   }
 
-  &__close {
-    right: 0;
-    border-radius: 0 $border-radius-sm;
-    background-color: $bg-color-close-button;
+  &__input {
+    width: 100%;
+    padding: $padding-md;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    outline: none;
+    transition:
+      border-color 0.3s,
+      box-shadow 0.3s;
+
+    &:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    &:hover {
+      border-color: #999;
+    }
   }
 }
