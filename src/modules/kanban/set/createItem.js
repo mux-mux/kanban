@@ -49,8 +49,8 @@ function createItem(columnElement, columnNum, item, itemNum) {
     deleteItem(columnNum, itemNum);
     moveData = {};
   });
-  taskRemoveArea.addEventListener('focus', (e) => toggleItemIconOpacity(e, 1));
-  taskRemoveArea.addEventListener('blur', (e) => toggleItemIconOpacity(e, 0));
+  !isTouch && taskRemoveArea.addEventListener('focus', (e) => toggleItemIconOpacity(e, 1));
+  !isTouch && taskRemoveArea.addEventListener('blur', (e) => toggleItemIconOpacity(e, 0));
 
   setElementAttributes(taskContainer, item.name, true, itemNum);
 
@@ -260,4 +260,4 @@ function onEnterBlur(ev) {
   });
 }
 
-export { createItem, createElementWithClass, setProperties, pomodoroIcon };
+export { createItem, createElementWithClass, setProperties, pomodoroIcon, isTouch };

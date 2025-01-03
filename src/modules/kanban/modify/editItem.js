@@ -3,7 +3,7 @@ import { updateDOM, localLoaded } from '../update/updateDOM';
 import { taskLists } from './addItem';
 import { deleteItem } from './deleteItem';
 import { toggleItemIconOpacity } from '../set/pomodoro';
-import { createElementWithClass } from '../set/createItem';
+import { createElementWithClass, isTouch } from '../set/createItem';
 
 function editItem(columnNum, itemNum) {
   const selectedList = columnNames[columnNum];
@@ -31,8 +31,8 @@ function createEditIcon(columnNum, itemNum) {
   editButton.appendChild(editIcon);
 
   editButton.addEventListener('click', () => editItem(columnNum, itemNum));
-  editButton.addEventListener('focus', (e) => toggleItemIconOpacity(e, 1));
-  editButton.addEventListener('blur', (e) => toggleItemIconOpacity(e, 0));
+  !isTouch && editButton.addEventListener('focus', (e) => toggleItemIconOpacity(e, 1));
+  !isTouch && editButton.addEventListener('blur', (e) => toggleItemIconOpacity(e, 0));
 
   return editButton;
 }

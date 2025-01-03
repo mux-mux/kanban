@@ -1,6 +1,6 @@
 import { createFocusTrap } from 'focus-trap';
 
-import { createElementWithClass } from './createItem';
+import { createElementWithClass, isTouch } from './createItem';
 import { localLoaded, updateDOM, updatedOnLoad } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 import { setLocalItems } from '../update/localStorage';
@@ -91,8 +91,8 @@ function createPomodoroStartIcon(columnNum, itemNum) {
   pomodoro.appendChild(startPomodoroIcon);
 
   pomodoro.addEventListener('click', startPomodoroByIcon);
-  pomodoro.addEventListener('focus', (e) => toggleItemIconOpacity(e, 1));
-  pomodoro.addEventListener('blur', (e) => toggleItemIconOpacity(e, 0));
+  !isTouch && pomodoro.addEventListener('focus', (e) => toggleItemIconOpacity(e, 1));
+  !isTouch && pomodoro.addEventListener('blur', (e) => toggleItemIconOpacity(e, 0));
 
   function startPomodoroByIcon() {
     removePomodoroTimerListiners();
