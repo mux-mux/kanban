@@ -1,3 +1,20 @@
+.pomodoro__icon {
+  font-size: 18px;
+}
+.edit__icon,
+.pomodoro__icon {
+  padding: 0 $padding-sm;
+  line-height: 1;
+  transition: color 0.5s;
+  color: var(--text-color);
+  opacity: var(--opacity, 1);
+  pointer-events: var(--pointer-events, auto);
+  outline-offset: $outline-offset;
+
+  &:hover {
+    color: #ebcc34;
+  }
+}
 .pomodoro {
   display: none;
   flex-wrap: wrap;
@@ -20,19 +37,7 @@
     display: flex;
     gap: $gap-md;
   }
-  &__icon {
-    padding: 0 $padding-sm;
-    font-size: 18px;
-    line-height: 1;
-    transition: color 0.5s;
-    color: var(--text-color);
-    opacity: var(--opacity, visible);
-    outline-offset: $outline-offset;
 
-    &:hover {
-      color: #ebcc34;
-    }
-  }
   &__text {
     max-width: 250px;
     font-size: $font-size-xl;

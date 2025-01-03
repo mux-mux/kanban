@@ -171,7 +171,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     itemData.time = '';
     time = ['25', '00'];
 
-    icon.style.cssText = 'opacity: var(--opacity);';
+    icon.style.cssText = 'opacity: var(--opacity); pointer-events: var(--pointer-events);';
     icon.classList.remove('fa-fade');
     pomodoroControls.style.display = 'none';
     text.textContent = '';

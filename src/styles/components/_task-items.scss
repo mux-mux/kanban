@@ -12,6 +12,7 @@
   &__list {
     min-height: $height-lg;
     padding: $padding-md;
+    --pointer-events: none;
     --opacity: 0;
 
     @include respond(mobile) {
@@ -55,7 +56,8 @@
         display: flex;
         align-items: center;
         height: 100%;
-        opacity: var(--opacity, visible);
+        opacity: var(--opacity, 1);
+        pointer-events: var(--pointer-events, auto);
         background-color: rgba(255, 0, 0, 0.4);
         border-radius: 0 $border-radius-md $border-radius-md 0;
         outline-offset: calc($outline-offset / 2);

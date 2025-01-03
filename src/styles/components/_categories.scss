@@ -1,41 +1,40 @@
 .categories {
+  left: 140px;
+}
+.categories,
+.archive {
   display: block;
   width: auto;
   max-height: calc(100vh - 30px);
   position: absolute;
   top: -100%;
-  left: 175px;
-  z-index: 1000;
+  z-index: 100;
+  isolation: isolate;
   background-color: var(--background-archive, #f6f6f6);
   padding: $padding-md;
   border-radius: $border-radius-sm;
-  box-shadow: 1px 1px 5px 1px var(--column-shadow, #999);
   font-size: $font-size-lg;
   text-align: center;
-  visibility: hidden;
-  opacity: 0;
   overflow: auto;
-  @include no_reduced_motion {
-    transition:
-      top 0.5s,
-      opacity 0.5s;
-  }
 
-  @include respond(tablet) {
-    width: 100%;
-    left: 0;
-  }
   @include respond(mobile) {
     padding-bottom: $padding-md;
+    left: 5px;
   }
 
   &__visible {
-    top: 30px;
-    visibility: visible;
-    opacity: 1;
+    top: 25px;
+    @include no_reduced_motion {
+      transition: top 0.5s;
+    }
 
-    @include respond(tablet) {
-      top: 0;
+    @include respond(mobile) {
+      width: auto;
+      $spacing: 5px;
+
+      top: $spacing;
+      left: $spacing;
+      right: $spacing;
     }
   }
 

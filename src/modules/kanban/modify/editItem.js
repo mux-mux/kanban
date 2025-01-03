@@ -2,6 +2,8 @@ import { columnNames } from '../data/columns';
 import { updateDOM, localLoaded } from '../update/updateDOM';
 import { taskLists } from './addItem';
 import { deleteItem } from './deleteItem';
+import { toggleItemIconOpacity } from '../set/pomodoro';
+import { createElementWithClass } from '../set/createItem';
 
 function editItem(columnNum, itemNum) {
   const selectedList = columnNames[columnNum];
@@ -15,4 +17,24 @@ function editItem(columnNum, itemNum) {
   updateDOM();
 }
 
-export { editItem };
+function createEditIcon(columnNum, itemNum) {
+  if (columnNum == undefined || itemNum == undefined) {
+    throw new Error('createEditIcon function has no required argument value');
+  }
+
+  const editButton = createElementWithClass('button', 'edit__icon');
+  const editIcon = createElementWithClass('i', ['fa-solid', 'fa-pencil']);
+
+  const taskText = localLoaded[columnNames[columnNum]].items[itemNum].name;
+  editButton.setAttribute('aria-label', `Edit ${taskText} task`);
+
+  editButton.appendChild(editIcon);
+
+  editButton.addEventListener('click', () => editItem(columnNum, itemNum));
+  editButton.addEventListener('focus', (e) => toggleItemIconOpacity(e, 1));
+  editButton.addEventListener('blur', (e) => toggleItemIconOpacity(e, 0));
+
+  return editButton;
+}
+
+export { editItem, createEditIcon };

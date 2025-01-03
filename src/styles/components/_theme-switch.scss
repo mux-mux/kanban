@@ -13,8 +13,8 @@ $shiftMinusSize: $theme-slider-shift - $theme-slider-size;
   @include respond(mobile) {
     font-size: $font-size-md;
     position: absolute;
-    left: 0;
-    top: 0;
+    left: 5px;
+    top: 10px;
     display: flex;
     flex-direction: column-reverse;
     gap: calc($gap-sm / 2);
@@ -35,7 +35,7 @@ $shiftMinusSize: $theme-slider-shift - $theme-slider-size;
 .switch {
   position: relative;
   display: inline-block;
-  width: calc($theme-slider-size * 2);
+  width: calc($theme-slider-size * 2.2);
   height: calc($sizePlusShift);
 
   @include respond(mobile) {
@@ -62,7 +62,9 @@ $shiftMinusSize: $theme-slider-shift - $theme-slider-size;
   left: $theme-slider-shift;
   bottom: $theme-slider-shift;
   background-color: white;
-  transition: transform 0.4s;
+  @include no_reduced_motion {
+    transition: transform 0.4s;
+  }
 
   @include respond(mobile) {
     height: calc(($sizeMinusShift) / 2);
@@ -79,9 +81,9 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(calc($sizeMinusShift));
-  -ms-transform: translateX(calc($sizeMinusShift));
-  transform: translateX(calc($sizeMinusShift));
+  -webkit-transform: translateX(calc($sizePlusShift));
+  -ms-transform: translateX(calc($sizePlusShift));
+  transform: translateX(calc($sizePlusShift));
 
   @include respond(mobile) {
     -webkit-transform: translate(0, calc($shiftMinusSize));

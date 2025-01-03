@@ -1,6 +1,7 @@
 import { taskLists } from './addItem';
 import { relocateItem } from '../modify/relocateItem';
 import { removePomodoroTimerListiners } from '../set/pomodoro';
+import { setProperties } from '../set/createItem';
 
 let draggedItem = null,
   currentColumn = null;
@@ -14,7 +15,7 @@ function dragItem(e, columnNum) {
   e.dataTransfer.setData('columnNum', columnNum);
   e.dataTransfer.setData('itemNum', itemNum);
 
-  draggedItem.style.setProperty('--opacity', '0');
+  setProperties(draggedItem, { '--opacity': '0', '--pointer-events': 'none' });
 }
 
 function dragOverItem(e, column) {

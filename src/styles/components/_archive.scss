@@ -22,49 +22,14 @@
     top: 9px;
   }
 }
+
 .archive {
-  display: block;
-  width: auto;
-  min-width: calc($min-width - $padding-lg/2);
-  max-height: calc(100vh - 30px);
-  position: absolute;
-  top: -100%;
-  left: 120px;
-  z-index: 1000;
-  background-color: var(--background-archive, #f6f6f6);
-  padding-top: $padding-lg;
-  padding-bottom: $padding-md;
-  border-radius: $border-radius-sm;
-  box-shadow: 1px 1px 5px 1px var(--column-shadow, #999);
-  font-size: $font-size-lg;
-  text-align: center;
-  visibility: hidden;
-  opacity: 0;
-  overflow: auto;
-
-  &__visible {
-    top: 30px;
-    visibility: visible;
-    opacity: 1;
-
-    @include respond(tablet) {
-      top: 0;
-    }
-  }
-
-  @include no_reduced_motion {
-    transition:
-      top 0.5s,
-      opacity 0.5s;
-  }
-
-  @include respond(tablet) {
-    width: 100%;
-    left: 0;
-  }
+  left: 80px;
+  /*common styles are in the categories.scss*/
   @include respond(mobile) {
-    font-size: $font-size-sm;
-    padding-bottom: $padding-md;
+    font-size: $font-size-sm !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
 
   &__table {
@@ -77,9 +42,9 @@
   }
 
   &__content {
-    padding-left: $padding-md;
-    padding-right: $padding-md;
-    margin-top: $margin-md;
+    padding-left: $padding-sm;
+    padding-right: $padding-sm;
+    margin-top: $margin-lg;
   }
 
   &__button {
@@ -134,7 +99,7 @@
   @include respond(mobile) {
     &__head > th,
     &__item > td {
-      padding: 2px $padding-sm;
+      padding: 2px 4px;
     }
   }
 

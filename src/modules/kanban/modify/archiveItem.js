@@ -11,7 +11,7 @@ function archiveItem() {
   const buttonCloseArchive = document.querySelector('.archive__close');
   const buttonDownloadArchive = document.querySelector('.archive__download');
   const buttonUploadArchive = document.querySelector('#selectedFile');
-  const modalsContainer = document.getElementById('modals');
+  const overlay = document.querySelector('.overlay');
 
   buttonToggleArchive.addEventListener('click', toggleArchiveVisibility);
   buttonCloseArchive.addEventListener('click', toggleArchiveVisibility);
@@ -26,7 +26,7 @@ function archiveItem() {
     onDeactivate: () => {
       buttonCloseArchive.blur();
       containerArchive.classList.remove('archive__visible');
-      modalsContainer.classList.remove('modals__overlay');
+      overlay.classList.remove('overlay__visible');
     },
     allowOutsideClick: () => true,
     clickOutsideDeactivates: () => true,
@@ -37,7 +37,7 @@ function archiveItem() {
 
     if (!isOpened) {
       containerArchive.classList.add('archive__visible');
-      modalsContainer.classList.add('modals__overlay');
+      overlay.classList.add('overlay__visible');
       focusTrap.activate();
     } else {
       focusTrap.deactivate();
@@ -112,21 +112,22 @@ function renderArchive(archiveItems) {
     archiveElements.forEach((item) => item.remove());
 
   archiveItems.forEach((item) => {
-    if (item.deadline.includes('day') === false) {
-      let prependText;
-      const newDeadline = +item.deadline.replaceAll('-', '') - +item.add.replaceAll('-', '');
-      if (newDeadline > 1) {
-        prependText = ' days';
-      } else if (newDeadline === 1) {
-        prependText = ' day';
-      }
-      item.deadline = newDeadline === 0 ? 'today' : newDeadline + ' ' + prependText;
-    }
+    // if (item.deadline.includes('day') === false) {
+    //   let prependText;
+    //   const newDeadline = +item.deadline.replaceAll('-', '') - +item.add.replaceAll('-', '');
+    //   if (newDeadline > 1) {
+    //     prependText = ' days';
+    //   } else if (newDeadline === 1) {
+    //     prependText = ' day';
+    //   }
+    //   item.deadline = newDeadline === 0 ? 'today' : newDeadline + ' ' + prependText;
+    // }
 
     const archiveRow = createElementWithClass('tr', 'archive__item');
     delete item.break;
     delete item.pomodoro;
     delete item.time;
+    delete item.deadline;
     for (let key in item) {
       const archiveCell = document.createElement('td');
       archiveCell.textContent = item[key];

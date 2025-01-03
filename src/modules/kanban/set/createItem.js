@@ -1,4 +1,4 @@
-import { editItem } from '../modify/editItem';
+import { editItem, createEditIcon } from '../modify/editItem';
 import { deleteItem } from '../modify/deleteItem';
 import { setDeadline } from './deadline';
 import { dragItem } from '../modify/dragDropItem';
@@ -25,6 +25,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
   const taskSessions = createElementWithClass('ul', 'pomodoro__sessions');
 
   pomodoroIcon = createPomodoroStartIcon(columnNum, itemNum);
+  const editIcon = createEditIcon(columnNum, itemNum);
   const deadlinePick = setDeadline(columnNum, item, itemNum);
 
   const itemData = localLoaded[columnNames[columnNum]].items[itemNum];
@@ -57,6 +58,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
 
   if (columnNum !== 2) {
     taskManagment.appendChild(pomodoroIcon.pomodoro);
+    taskManagment.appendChild(editIcon);
   }
 
   taskRemoveArea.appendChild(taskRemoveIcon);
@@ -70,7 +72,9 @@ function createItem(columnElement, columnNum, item, itemNum) {
     taskContainer.addEventListener('dragstart', (e) => dragItem(e, columnNum));
     hoverAppearIcon(taskContainer);
   } else {
-    taskLists.forEach((item) => item.style.setProperty('--opacity', '1'));
+    taskLists.forEach((item) => {
+      setProperties(item, { '--opacity': '1', '--pointer-events': 'auto' });
+    });
 
     taskContainer.addEventListener(
       'touchstart',
@@ -157,10 +161,10 @@ function changeIconOnBreak(data, icon) {
 }
 
 function showIcon(e) {
-  e.currentTarget.style.setProperty('--opacity', '1');
+  setProperties(e.currentTarget, { '--opacity': '1', '--pointer-events': 'auto' });
 }
 function hideIcon(e) {
-  e.currentTarget.style.setProperty('--opacity', '0');
+  setProperties(e.currentTarget, { '--opacity': '0', '--pointer-events': 'none' });
 }
 
 function hoverAppearIcon(currentElement) {
@@ -169,6 +173,16 @@ function hoverAppearIcon(currentElement) {
   }
   currentElement.addEventListener('mouseover', showIcon);
   currentElement.addEventListener('mouseout', hideIcon);
+}
+
+function setProperties(el, props) {
+  if (!el || !props) {
+    throw new Error('setProperties function has no required argument value');
+  }
+
+  for (let key in props) {
+    el.style.setProperty(key, props[key]);
+  }
 }
 
 function createElementWithClass(element, clazz) {
@@ -246,4 +260,4 @@ function onEnterBlur(ev) {
   });
 }
 
-export { createItem, createElementWithClass, pomodoroIcon };
+export { createItem, createElementWithClass, setProperties, pomodoroIcon };
