@@ -12,19 +12,19 @@ import { renderArchive } from '../modify/archiveItem';
 import { renderCategories } from '../modify/addCategories';
 import { createItem } from '../set/createItem';
 
-const todoElement = document.getElementById('todo-list'),
-  inprogressElement = document.getElementById('inprogress-list'),
-  doneElement = document.getElementById('done-list'),
-  elementsList = [todoElement, inprogressElement, doneElement];
-
 let updatedOnLoad = false;
-let localLoaded = [];
+let itemsLoaded = [];
 let archiveLoaded = [];
 let categoriesLoaded = [];
 
 function updateDOM() {
+  const todoElement = document.getElementById('todo-list'),
+    inprogressElement = document.getElementById('inprogress-list'),
+    doneElement = document.getElementById('done-list'),
+    elementsList = [todoElement, inprogressElement, doneElement];
+
   if (!updatedOnLoad) {
-    localLoaded = getLocalItems(columnNames);
+    itemsLoaded = getLocalItems(columnNames);
     archiveLoaded = getLocalArchive();
     categoriesLoaded = getLocalCategories();
     renderArchive(archiveLoaded);
@@ -34,7 +34,7 @@ function updateDOM() {
   elementsList.forEach((element) => (element.textContent = ''));
 
   columnNames.forEach((column, columnNum) => {
-    localLoaded[column].items.forEach((item, itemNum) => {
+    itemsLoaded[column].items.forEach((item, itemNum) => {
       createItem(elementsList[columnNum], columnNum, item, itemNum);
     });
   });
@@ -45,4 +45,4 @@ function updateDOM() {
   setLocalCategories();
 }
 
-export { updateDOM, localLoaded, archiveLoaded, categoriesLoaded, updatedOnLoad };
+export { updateDOM, itemsLoaded, archiveLoaded, categoriesLoaded, updatedOnLoad };

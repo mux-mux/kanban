@@ -1,7 +1,7 @@
 import { createFocusTrap } from 'focus-trap';
 
 import { createElementWithClass, isTouchDevice, toggleItemIconOpacity } from '../helpers/helpers';
-import { localLoaded, updateDOM, updatedOnLoad } from '../update/updateDOM';
+import { itemsLoaded, updateDOM, updatedOnLoad } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 import { setLocalItems } from '../update/localStorage';
 import { relocateItem } from '../modify/relocateItem';
@@ -18,7 +18,7 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
   const SS = document.getElementById('seconds');
 
   const pomodoroBreak = document.querySelector('.pomodoro__break');
-  const itemData = localLoaded[columnNames[columnNum]].items[itemNum];
+  const itemData = itemsLoaded[columnNames[columnNum]].items[itemNum];
 
   let tick = duration * 60;
 
@@ -81,7 +81,7 @@ function createPomodoroStartIcon(columnNum, itemNum) {
   const pomodoro = createElementWithClass('button', 'pomodoro__icon');
   const startPomodoroIcon = createElementWithClass('i', ['fa-regular', 'fa-circle-play']);
 
-  const taskText = localLoaded[columnNames[columnNum]].items[itemNum].name;
+  const taskText = itemsLoaded[columnNames[columnNum]].items[itemNum].name;
   pomodoro.setAttribute('aria-label', `Start pomodoro timer for ${taskText} task`);
 
   pomodoro.appendChild(startPomodoroIcon);
@@ -99,8 +99,8 @@ function createPomodoroStartIcon(columnNum, itemNum) {
 
     pomodoroText.textContent = pomodoro.parentElement.innerText;
 
-    for (const columnKey in localLoaded) {
-      const column = localLoaded[columnKey];
+    for (const columnKey in itemsLoaded) {
+      const column = itemsLoaded[columnKey];
 
       for (const item of column.items) {
         item.pomodoro = false;
@@ -108,7 +108,7 @@ function createPomodoroStartIcon(columnNum, itemNum) {
       }
     }
 
-    localLoaded[columnNames[columnNum]].items[itemNum].pomodoro = true;
+    itemsLoaded[columnNames[columnNum]].items[itemNum].pomodoro = true;
     playSound('play.ogg');
 
     updateDOM();
@@ -220,7 +220,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
 
   function donePomodoro(e) {
     removePomodoroTimerListiners();
-    relocateItem(columnNum, itemNum, 2, localLoaded[columnNames[2]].items.length);
+    relocateItem(columnNum, itemNum, 2, itemsLoaded[columnNames[2]].items.length);
     focusTrap.deactivate();
 
     e && playSound('done.ogg');

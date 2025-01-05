@@ -1,6 +1,6 @@
 import { createElementWithClass, isTouchDevice, toggleItemIconOpacity } from '../helpers/helpers';
 import { columnNames } from '../data/columns';
-import { updateDOM, localLoaded } from '../update/updateDOM';
+import { updateDOM, itemsLoaded } from '../update/updateDOM';
 import { taskLists } from './addItem';
 import { deleteItem } from './deleteItem';
 import { removePomodoroTimerListiners } from '../set/pomodoro';
@@ -12,7 +12,7 @@ function editItem(columnNum, itemNum) {
   if (selectedItem[itemNum].textContent === '') {
     deleteItem(columnNum, itemNum);
   } else {
-    localLoaded[selectedList].items[itemNum].name = selectedItem[itemNum].textContent;
+    itemsLoaded[selectedList].items[itemNum].name = selectedItem[itemNum].textContent;
   }
   updateDOM();
 }
@@ -25,7 +25,7 @@ function createEditIcon(columnNum, itemNum) {
   const editButton = createElementWithClass('button', 'edit__icon');
   const editIcon = createElementWithClass('i', ['fa-solid', 'fa-pencil']);
 
-  const taskText = localLoaded[columnNames[columnNum]].items[itemNum].name;
+  const taskText = itemsLoaded[columnNames[columnNum]].items[itemNum].name;
   editButton.setAttribute('aria-label', `Edit ${taskText} task`);
 
   editButton.appendChild(editIcon);
@@ -38,6 +38,7 @@ function createEditIcon(columnNum, itemNum) {
 
 function editItemText(e, columnNum, itemNum) {
   const taskListItem = e.target.closest('.task__list-item');
+  const selectElement = taskListItem.querySelector('.categories__select');
 
   if (columnNum == undefined || itemNum == undefined) {
     throw new Error('editItemText function has no required argument value');
@@ -51,6 +52,7 @@ function editItemText(e, columnNum, itemNum) {
 
   function editCurrentItem(element) {
     removePomodoroTimerListiners();
+    selectElement.innerHTML = '';
     element.textContent = element.innerText;
     element.setAttribute('contentEditable', true);
     element.setAttribute('draggable', false);

@@ -1,6 +1,6 @@
 import { createFocusTrap } from 'focus-trap';
 import { createElementWithClass } from '../helpers/helpers';
-import { updateDOM, localLoaded, archiveLoaded } from '../update/updateDOM';
+import { updateDOM, itemsLoaded, archiveLoaded } from '../update/updateDOM';
 import { archive } from '../data/archive';
 
 function archiveItem() {
@@ -18,7 +18,7 @@ function archiveItem() {
   buttonDownloadArchive.addEventListener('click', downloadArchive);
   buttonUploadArchive.addEventListener('change', uploadArchive);
   buttonMoveToArchive.addEventListener('click', () =>
-    moveToArchive(localLoaded.done.items, 'done')
+    moveToArchive(itemsLoaded.done.items, 'done')
   );
 
   const focusTrap = createFocusTrap(containerArchive, {
@@ -97,7 +97,7 @@ function moveToArchive(doneTasks, action) {
   const archiveItems = doneTasks;
   archiveLoaded.push(...archiveItems);
   archive.items = archive.items.concat(archiveItems);
-  action === 'done' ? (localLoaded.done.items = []) : null;
+  action === 'done' ? (itemsLoaded.done.items = []) : null;
 
   updateDOM();
   renderArchive(archiveItems);

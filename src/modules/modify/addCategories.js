@@ -1,7 +1,8 @@
 import { createFocusTrap } from 'focus-trap';
 import { createElementWithClass } from '../helpers/helpers';
-import { updateDOM, categoriesLoaded } from '../update/updateDOM';
+import { updateDOM, categoriesLoaded, itemsLoaded } from '../update/updateDOM';
 import { categories } from '../data/categories';
+import { columnNames } from '../data/columns';
 
 function renderCategories(categoriesList) {
   const categoriesContainer = document.getElementById('categoriesContainer');
@@ -23,7 +24,7 @@ function addCategories() {
   const overlay = document.querySelector('.overlay');
 
   [buttonToggleCategoreis, buttonCloseCategories].forEach((button) =>
-    button.addEventListener('click', toggleCategoriesVisibility)
+    button.addEventListener('click', toggleCategoriesModal)
   );
 
   const focusTrap = createFocusTrap(containerCategories, {
@@ -37,7 +38,7 @@ function addCategories() {
     clickOutsideDeactivates: () => true,
   });
 
-  function toggleCategoriesVisibility() {
+  function toggleCategoriesModal() {
     const isOpened = containerCategories.classList.contains('categories__visible');
 
     if (!isOpened) {
@@ -67,4 +68,29 @@ function addCategories() {
   });
 }
 
-export { addCategories, renderCategories };
+function renderCategoriesSelector(columnNum, itemNum) {
+  const categorySelector = createElementWithClass('select', 'categories__select');
+  const selectedList = columnNames[columnNum];
+
+  categorySelector.innerHTML = '<option value="" disabled selected>Select a category</option>';
+
+  categoriesLoaded.forEach((category) => {
+    const option = document.createElement('option');
+    option.value = category;
+    option.textContent = category;
+    option.selected = itemsLoaded[selectedList].items[itemNum].category === category;
+    categorySelector.appendChild(option);
+  });
+
+  categorySelector.addEventListener('change', (e) => {
+    const selected = e.target.value;
+
+    itemsLoaded[selectedList].items[itemNum].category = selected;
+
+    updateDOM();
+  });
+
+  return categorySelector;
+}
+
+export { addCategories, renderCategories, renderCategoriesSelector };

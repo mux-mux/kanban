@@ -1,5 +1,5 @@
 import { createElementWithClass, toggleItemIconOpacity, isTouchDevice } from '../helpers/helpers';
-import { localLoaded, updateDOM } from '../update/updateDOM';
+import { itemsLoaded, updateDOM } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 import { pomodoroInit, pomodoroIntervalTick, removePomodoroTimerListiners } from '../set/pomodoro';
 
@@ -8,7 +8,7 @@ const overallRemoved = [];
 function deleteItem(columnNum, itemNum) {
   removePomodoroTimerListiners();
 
-  const selectedList = localLoaded[columnNames[columnNum]];
+  const selectedList = itemsLoaded[columnNames[columnNum]];
   const currRemoved = selectedList.items.splice(itemNum, 1);
   overallRemoved.push(`${JSON.stringify(currRemoved)}, ${columnNum}`);
   clearInterval(pomodoroIntervalTick);
@@ -24,7 +24,7 @@ function createDeleteIcon(pomodoroIcon, itemData, action, moveData, columnNum, i
   const taskDeleteButton = createElementWithClass('button', 'delete__icon');
   const taskDeleteIcon = createElementWithClass('i', ['fa-solid', 'fa-x']);
 
-  const taskText = localLoaded[columnNames[columnNum]].items[itemNum].name;
+  const taskText = itemsLoaded[columnNames[columnNum]].items[itemNum].name;
   taskDeleteButton.setAttribute('aria-label', `Edit ${taskText} task`);
 
   taskDeleteButton.addEventListener('click', () => {

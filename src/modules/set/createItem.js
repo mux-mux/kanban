@@ -4,10 +4,11 @@ import { createDeleteIcon } from '../modify/deleteItem';
 import { setDeadline } from './deadline';
 import { dragItem } from '../modify/dragDropItem';
 import { createPomodoroStartIcon, pomodoroInit } from './pomodoro';
-import { localLoaded } from '../update/updateDOM';
+import { itemsLoaded } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 import { relocateItem } from '../modify/relocateItem';
 import { taskLists } from '../modify/addItem';
+import { renderCategoriesSelector } from '../modify/addCategories';
 
 let pomodoroIcon = null;
 let moveData = {};
@@ -21,7 +22,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
   const taskManagment = createElementWithClass('div', 'task__set-container');
   const taskSessions = createElementWithClass('ul', 'pomodoro__sessions');
 
-  const itemData = localLoaded[columnNames[columnNum]].items[itemNum];
+  const itemData = itemsLoaded[columnNames[columnNum]].items[itemNum];
   pomodoroIcon = createPomodoroStartIcon(columnNum, itemNum);
   const taskEditIcon = createEditIcon(columnNum, itemNum);
   const taskDeleteIcon = createDeleteIcon(
@@ -45,14 +46,15 @@ function createItem(columnElement, columnNum, item, itemNum) {
   changeIconOnBreak(itemData, pomodoroIcon);
 
   setElementAttributes(taskContainer, item.name, true, itemNum);
+  const categoriesSelector = renderCategoriesSelector(columnNum, itemNum);
+
+  taskContainer.addEventListener('click', (e) => editItemText(e, columnNum, itemNum));
 
   if (columnNum !== 2) {
     taskManagment.appendChild(pomodoroIcon.pomodoro);
     taskManagment.appendChild(taskEditIcon);
   }
-
-  taskContainer.addEventListener('click', (e) => editItemText(e, columnNum, itemNum));
-
+  taskManagment.appendChild(categoriesSelector);
   taskManagment.appendChild(deadlinePick);
   taskManagment.appendChild(taskDeleteIcon);
   taskContainer.appendChild(taskSessions);
@@ -93,7 +95,7 @@ document.querySelectorAll('.btn-move').forEach((taskMoveButton, index) => {
     () => {
       const newColumnNum = moveData.columnNum != index ? index : index + 1;
       moveData.newColumnNum = newColumnNum;
-      moveData.newItemnNum = localLoaded[columnNames[newColumnNum]].items.length;
+      moveData.newItemnNum = itemsLoaded[columnNames[newColumnNum]].items.length;
       if (moveData.columnNum !== undefined) {
         relocateItem(
           moveData.columnNum,

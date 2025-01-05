@@ -1,5 +1,5 @@
 import { columns } from '../data/columns';
-import { localLoaded, archiveLoaded, categoriesLoaded } from './updateDOM';
+import { itemsLoaded, archiveLoaded, categoriesLoaded } from './updateDOM';
 import { archive } from '../data/archive';
 import { categories } from '../data/categories';
 
@@ -36,7 +36,7 @@ function getLocalCategories() {
 
 function setLocalItems(columnNames) {
   columnNames.forEach((column) => {
-    const firstLoad = localLoaded.length < 1 ? columns : localLoaded;
+    const firstLoad = itemsLoaded.length < 1 ? columns : itemsLoaded;
     localStorage.setItem(`${column}Items`, JSON.stringify(firstLoad[column].items));
   });
   return columns;

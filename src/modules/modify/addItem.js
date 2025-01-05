@@ -1,6 +1,6 @@
 import { createFocusTrap } from 'focus-trap';
 import { createElementWithClass } from '../helpers/helpers';
-import { updateDOM, localLoaded } from '../update/updateDOM';
+import { updateDOM, itemsLoaded } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 import { todayDate } from '../set/deadline';
 
@@ -150,7 +150,7 @@ function addNewTask(column) {
   const itemText = textareas[column].value;
   const selectedList = columnNames[column];
   itemText.trim().length > 0
-    ? localLoaded[selectedList].items.push({
+    ? itemsLoaded[selectedList].items.push({
         name: itemText,
         add: todayDate(),
         deadline: todayDate(),

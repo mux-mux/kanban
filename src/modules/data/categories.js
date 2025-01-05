@@ -1,3 +1,3 @@
-const categories = { items: ['sport', 'work', 'home', 'other'] };
+const categories = { items: ['sport', 'work', 'relax', 'other'] };
 
 export { categories };

@@ -9,6 +9,7 @@ const columns = {
         sessions: 0,
         time: '',
         break: false,
+        category: 'relax',
       },
       {
         name: 'Check emails',
@@ -18,6 +19,7 @@ const columns = {
         sessions: 0,
         time: '',
         break: false,
+        category: 'work',
       },
     ],
   },
@@ -31,6 +33,7 @@ const columns = {
         sessions: 0,
         time: '',
         break: false,
+        category: 'work',
       },
       {
         name: 'Listen to the music',
@@ -40,6 +43,7 @@ const columns = {
         sessions: 0,
         time: '',
         break: false,
+        category: 'relax',
       },
     ],
   },

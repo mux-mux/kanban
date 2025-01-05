@@ -1,5 +1,5 @@
 import { createElementWithClass } from '../helpers/helpers';
-import { localLoaded, updateDOM } from '../update/updateDOM';
+import { itemsLoaded, updateDOM } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 
 function todayDate() {
@@ -15,7 +15,7 @@ function setDeadline(columnNum, item, itemNum) {
   const deadlinePick = createElementWithClass('input', 'deadline');
 
   const today = todayDate();
-  let currDeadline = localLoaded[columnNames[columnNum]].items[itemNum].deadline;
+  let currDeadline = itemsLoaded[columnNames[columnNum]].items[itemNum].deadline;
 
   today > currDeadline && columnNum !== 2
     ? (deadlinePick.style.color = '#d02020')
@@ -25,7 +25,7 @@ function setDeadline(columnNum, item, itemNum) {
   deadlinePick.value = item.deadline;
 
   deadlinePick.addEventListener('change', (e) => {
-    localLoaded[columnNames[columnNum]].items[itemNum].deadline = e.currentTarget.value;
+    itemsLoaded[columnNames[columnNum]].items[itemNum].deadline = e.currentTarget.value;
     updateDOM();
   });
 
