@@ -7,7 +7,7 @@
   &__set-container {
     display: flex;
     align-items: center;
-    gap: $gap-sm;
+    gap: $gap-xsm;
   }
   &__list {
     min-height: $height-lg;
@@ -45,26 +45,6 @@
         outline: none;
         background-color: white;
         color: black;
-      }
-
-      &-remove {
-        position: absolute;
-        right: 0;
-        display: flex;
-        align-items: center;
-        height: 100%;
-        opacity: var(--opacity, 1);
-        pointer-events: var(--pointer-events, auto);
-        background-color: rgba(255, 0, 0, 0.4);
-        border-radius: 0 $border-radius-md $border-radius-md 0;
-        outline-offset: calc($outline-offset / 2);
-
-        &-img {
-          font-size: $font-size-sm;
-          text-align: center;
-          line-height: 3;
-          width: 18px;
-        }
       }
     }
   }

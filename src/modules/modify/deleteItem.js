@@ -1,8 +1,7 @@
-import { localLoaded } from '../update/updateDOM';
+import { createElementWithClass, toggleItemIconOpacity, isTouchDevice } from '../helpers/helpers';
+import { localLoaded, updateDOM } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
-import { updateDOM } from '../update/updateDOM';
-import { pomodoroIntervalTick } from '../set/pomodoro';
-import { removePomodoroTimerListiners } from '../set/pomodoro';
+import { pomodoroInit, pomodoroIntervalTick, removePomodoroTimerListiners } from '../set/pomodoro';
 
 const overallRemoved = [];
 
@@ -17,4 +16,30 @@ function deleteItem(columnNum, itemNum) {
   updateDOM();
 }
 
-export { deleteItem, overallRemoved };
+function createDeleteIcon(pomodoroIcon, itemData, action, moveData, columnNum, itemNum) {
+  if (columnNum == undefined || itemNum == undefined) {
+    throw new Error('createEditIcon function has no required argument value');
+  }
+
+  const taskDeleteButton = createElementWithClass('button', 'delete__icon');
+  const taskDeleteIcon = createElementWithClass('i', ['fa-solid', 'fa-x']);
+
+  const taskText = localLoaded[columnNames[columnNum]].items[itemNum].name;
+  taskDeleteButton.setAttribute('aria-label', `Edit ${taskText} task`);
+
+  taskDeleteButton.addEventListener('click', () => {
+    pomodoroInit(pomodoroIcon, itemData, action, columnNum, itemNum);
+    deleteItem(columnNum, itemNum);
+    moveData = {};
+  });
+
+  taskDeleteButton.appendChild(taskDeleteIcon);
+
+  !isTouchDevice() &&
+    taskDeleteButton.addEventListener('focus', (e) => toggleItemIconOpacity(e, 1));
+  !isTouchDevice() && taskDeleteButton.addEventListener('blur', (e) => toggleItemIconOpacity(e, 0));
+
+  return taskDeleteButton;
+}
+
+export { deleteItem, createDeleteIcon, overallRemoved };
