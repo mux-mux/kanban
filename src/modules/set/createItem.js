@@ -1,17 +1,21 @@
-import { editItem, createEditIcon } from '../modify/editItem';
+import {
+  setProperties,
+  createElementWithClass,
+  isTouchDevice,
+  toggleItemIconOpacity,
+} from '../helpers/helpers';
+import { editItemText, createEditIcon } from '../modify/editItem';
 import { deleteItem } from '../modify/deleteItem';
 import { setDeadline } from './deadline';
 import { dragItem } from '../modify/dragDropItem';
-import { createPomodoroStartIcon, toggleItemIconOpacity } from './pomodoro';
+import { createPomodoroStartIcon, pomodoroInit } from './pomodoro';
 import { localLoaded } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 import { relocateItem } from '../modify/relocateItem';
 import { taskLists } from '../modify/addItem';
-import { pomodoroInit, removePomodoroTimerListiners } from '../set/pomodoro';
 
 let pomodoroIcon = null;
 let moveData = {};
-const isTouch = 'ontouchstart' in window || navigator.msMaxTouchPoints > 0;
 
 function createItem(columnElement, columnNum, item, itemNum) {
   if (!columnElement || columnNum == undefined || !item || itemNum == undefined) {
@@ -49,8 +53,8 @@ function createItem(columnElement, columnNum, item, itemNum) {
     deleteItem(columnNum, itemNum);
     moveData = {};
   });
-  !isTouch && taskRemoveArea.addEventListener('focus', (e) => toggleItemIconOpacity(e, 1));
-  !isTouch && taskRemoveArea.addEventListener('blur', (e) => toggleItemIconOpacity(e, 0));
+  !isTouchDevice() && taskRemoveArea.addEventListener('focus', (e) => toggleItemIconOpacity(e, 1));
+  !isTouchDevice() && taskRemoveArea.addEventListener('blur', (e) => toggleItemIconOpacity(e, 0));
 
   setElementAttributes(taskContainer, item.name, true, itemNum);
 
@@ -68,7 +72,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
   taskContainer.appendChild(taskManagment);
   columnElement.appendChild(taskContainer);
 
-  if (!isTouch) {
+  if (!isTouchDevice()) {
     taskContainer.addEventListener('dragstart', (e) => dragItem(e, columnNum));
     hoverAppearIcon(taskContainer);
   } else {
@@ -94,7 +98,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
 }
 
 document.querySelectorAll('.btn-move').forEach((taskMoveButton, index) => {
-  if (isTouch) {
+  if (isTouchDevice()) {
     taskMoveButton.style.display = 'block';
   }
   taskMoveButton.addEventListener(
@@ -175,89 +179,4 @@ function hoverAppearIcon(currentElement) {
   currentElement.addEventListener('mouseout', hideIcon);
 }
 
-function setProperties(el, props) {
-  if (!el || !props) {
-    throw new Error('setProperties function has no required argument value');
-  }
-
-  for (let key in props) {
-    el.style.setProperty(key, props[key]);
-  }
-}
-
-function createElementWithClass(element, clazz) {
-  if (!element || !clazz) {
-    throw new Error('createElementWithClass function has no required argument value');
-  }
-
-  const newElement = document.createElement(element);
-  Array.isArray(clazz) ? newElement.classList.add(...clazz) : newElement.classList.add(clazz);
-  return newElement;
-}
-
-function editItemText(currentElement, columnNum, itemNum) {
-  if (!currentElement || columnNum == undefined || itemNum == undefined) {
-    throw new Error('editItemText function has no required argument value');
-  }
-  if (!isTouch) {
-    currentElement.addEventListener('dblclick', editCurrentItem);
-  } else {
-    currentElement.addEventListener('touchend', detectDoubleTap());
-  }
-
-  function editCurrentItem(e) {
-    removePomodoroTimerListiners();
-    e.currentTarget.textContent = e.currentTarget.innerText;
-    e.currentTarget.setAttribute('contentEditable', true);
-    e.currentTarget.setAttribute('draggable', false);
-    e.currentTarget.focus();
-
-    focusCarretEnd(e);
-
-    currentElement.addEventListener('blur', (e) => {
-      e.currentTarget.setAttribute('contentEditable', false);
-      e.currentTarget.setAttribute('draggable', true);
-      editItem(columnNum, itemNum);
-    });
-  }
-
-  function detectDoubleTap() {
-    let lastTap = 0;
-    let timeout;
-
-    return function detectDoubleTapTimer(event) {
-      const curTime = new Date().getTime();
-      const tapLen = curTime - lastTap;
-      if (tapLen < 500 && tapLen > 0) {
-        editCurrentItem(event);
-        event.preventDefault();
-      } else {
-        timeout = setTimeout(() => {
-          clearTimeout(timeout);
-        }, 500);
-      }
-      lastTap = curTime;
-    };
-  }
-}
-
-function focusCarretEnd(ev) {
-  const range = document.createRange();
-  range.selectNodeContents(ev.currentTarget);
-  range.collapse(false);
-  const selection = window.getSelection();
-  selection.removeAllRanges();
-  selection.addRange(range);
-  onEnterBlur(ev);
-}
-
-function onEnterBlur(ev) {
-  ev.currentTarget.addEventListener('keypress', function (event) {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      ev.target.blur();
-    }
-  });
-}
-
-export { createItem, createElementWithClass, setProperties, pomodoroIcon, isTouch };
+export { createItem, isTouchDevice, pomodoroIcon };

@@ -1,6 +1,6 @@
 import { createFocusTrap } from 'focus-trap';
 
-import { createElementWithClass, isTouch } from './createItem';
+import { createElementWithClass, isTouchDevice, toggleItemIconOpacity } from '../helpers/helpers';
 import { localLoaded, updateDOM, updatedOnLoad } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 import { setLocalItems } from '../update/localStorage';
@@ -73,10 +73,6 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
   }
 }
 
-function toggleItemIconOpacity(e, state) {
-  e.target.offsetParent.style.setProperty('--opacity', state);
-}
-
 function createPomodoroStartIcon(columnNum, itemNum) {
   if (columnNum == undefined || itemNum == undefined) {
     throw new Error('createPomodoroStartIcon function has no required argument value');
@@ -91,8 +87,8 @@ function createPomodoroStartIcon(columnNum, itemNum) {
   pomodoro.appendChild(startPomodoroIcon);
 
   pomodoro.addEventListener('click', startPomodoroByIcon);
-  !isTouch && pomodoro.addEventListener('focus', (e) => toggleItemIconOpacity(e, 1));
-  !isTouch && pomodoro.addEventListener('blur', (e) => toggleItemIconOpacity(e, 0));
+  !isTouchDevice() && pomodoro.addEventListener('focus', (e) => toggleItemIconOpacity(e, 1));
+  !isTouchDevice() && pomodoro.addEventListener('blur', (e) => toggleItemIconOpacity(e, 0));
 
   function startPomodoroByIcon() {
     removePomodoroTimerListiners();

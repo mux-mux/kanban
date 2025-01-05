@@ -1,6 +1,5 @@
 import { createFocusTrap } from 'focus-trap';
-
-import { createElementWithClass } from '../set/createItem';
+import { createElementWithClass } from '../helpers/helpers';
 import { updateDOM, localLoaded, archiveLoaded } from '../update/updateDOM';
 import { archive } from '../data/archive';
 
@@ -13,8 +12,9 @@ function archiveItem() {
   const buttonUploadArchive = document.querySelector('#selectedFile');
   const overlay = document.querySelector('.overlay');
 
-  buttonToggleArchive.addEventListener('click', toggleArchiveVisibility);
-  buttonCloseArchive.addEventListener('click', toggleArchiveVisibility);
+  [buttonToggleArchive, buttonCloseArchive].forEach((button) =>
+    button.addEventListener('click', toggleArchiveVisibility)
+  );
   buttonDownloadArchive.addEventListener('click', downloadArchive);
   buttonUploadArchive.addEventListener('change', uploadArchive);
   buttonMoveToArchive.addEventListener('click', () =>
@@ -112,28 +112,15 @@ function renderArchive(archiveItems) {
     archiveElements.forEach((item) => item.remove());
 
   archiveItems.forEach((item) => {
-    // if (item.deadline.includes('day') === false) {
-    //   let prependText;
-    //   const newDeadline = +item.deadline.replaceAll('-', '') - +item.add.replaceAll('-', '');
-    //   if (newDeadline > 1) {
-    //     prependText = ' days';
-    //   } else if (newDeadline === 1) {
-    //     prependText = ' day';
-    //   }
-    //   item.deadline = newDeadline === 0 ? 'today' : newDeadline + ' ' + prependText;
-    // }
-
     const archiveRow = createElementWithClass('tr', 'archive__item');
-    delete item.break;
-    delete item.pomodoro;
-    delete item.time;
-    delete item.deadline;
-    for (let key in item) {
-      const archiveCell = document.createElement('td');
-      archiveCell.textContent = item[key];
-      archiveRow.appendChild(archiveCell);
+    for (const [key, value] of Object.entries(item)) {
+      if (key === 'name' || key === 'add' || key === 'sessions' || key === 'done') {
+        const archiveCell = document.createElement('td');
+        archiveCell.textContent = value;
+        archiveRow.appendChild(archiveCell);
+        archiveTable.appendChild(archiveRow);
+      }
     }
-    archiveTable.appendChild(archiveRow);
   });
 }
 

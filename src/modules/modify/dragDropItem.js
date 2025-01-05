@@ -1,7 +1,7 @@
+import { setProperties } from '../helpers/helpers';
 import { taskLists } from './addItem';
-import { relocateItem } from '../modify/relocateItem';
+import { relocateItem } from './relocateItem';
 import { removePomodoroTimerListiners } from '../set/pomodoro';
-import { setProperties } from '../set/createItem';
 
 let draggedItem = null,
   currentColumn = null;

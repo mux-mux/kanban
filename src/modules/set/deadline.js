@@ -1,4 +1,4 @@
-import { createElementWithClass } from './createItem';
+import { createElementWithClass } from '../helpers/helpers';
 import { localLoaded, updateDOM } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 

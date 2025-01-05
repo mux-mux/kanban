@@ -2,8 +2,6 @@ import { columnNames } from '../data/columns';
 import { updateDOM, localLoaded } from '../update/updateDOM';
 import { overallRemoved } from './deleteItem';
 
-const buttonUndoDelete = document.querySelector('.tool-history');
-
 function undoItem(items, removed) {
   const getBackItem = removed.pop();
 
@@ -17,18 +15,22 @@ function undoItem(items, removed) {
   updateDOM();
 }
 
-document.addEventListener('keydown', (event) => {
-  if (event.ctrlKey && event.key === 'z') {
+function setUndoListeners() {
+  const buttonUndoDelete = document.querySelector('.tool-history');
+
+  document.addEventListener('keydown', (event) => {
+    if (event.ctrlKey && event.key === 'z') {
+      if (overallRemoved.length !== 0) {
+        undoItem(columnNames, overallRemoved);
+      }
+    }
+  });
+
+  buttonUndoDelete.addEventListener('click', () => {
     if (overallRemoved.length !== 0) {
       undoItem(columnNames, overallRemoved);
     }
-  }
-});
+  });
+}
 
-buttonUndoDelete.addEventListener('click', () => {
-  if (overallRemoved.length !== 0) {
-    undoItem(columnNames, overallRemoved);
-  }
-});
-
-export { undoItem };
+export { setUndoListeners };

@@ -2,7 +2,6 @@ import { localLoaded } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 import { updateDOM } from '../update/updateDOM';
 import { pomodoroIntervalTick } from '../set/pomodoro';
-import { undoItem } from './undoItem';
 import { removePomodoroTimerListiners } from '../set/pomodoro';
 
 const overallRemoved = [];

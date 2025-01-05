@@ -1,6 +1,6 @@
-import { updateDOM, categoriesLoaded } from '../update/updateDOM';
 import { createFocusTrap } from 'focus-trap';
-import { createElementWithClass } from '../set/createItem';
+import { createElementWithClass } from '../helpers/helpers';
+import { updateDOM, categoriesLoaded } from '../update/updateDOM';
 import { categories } from '../data/categories';
 
 function renderCategories(categoriesList) {
@@ -22,8 +22,9 @@ function addCategories() {
   const categoryNameInput = document.getElementById('categoryName');
   const overlay = document.querySelector('.overlay');
 
-  buttonToggleCategoreis.addEventListener('click', toggleCategoriesVisibility);
-  buttonCloseCategories.addEventListener('click', toggleCategoriesVisibility);
+  [buttonToggleCategoreis, buttonCloseCategories].forEach((button) =>
+    button.addEventListener('click', toggleCategoriesVisibility)
+  );
 
   const focusTrap = createFocusTrap(containerCategories, {
     onActivate: () => buttonCloseCategories.focus(),

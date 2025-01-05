@@ -1,10 +1,8 @@
 import { createFocusTrap } from 'focus-trap';
-
+import { createElementWithClass } from '../helpers/helpers';
 import { updateDOM, localLoaded } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 import { todayDate } from '../set/deadline';
-
-import { createElementWithClass } from '../set/createItem';
 
 //Dynamically render new task fields and buttons
 const containersNewTask = document.querySelectorAll('.task__new');
