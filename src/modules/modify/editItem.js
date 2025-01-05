@@ -30,73 +30,56 @@ function createEditIcon(columnNum, itemNum) {
 
   editButton.appendChild(editIcon);
 
-  editButton.addEventListener('click', () => editItem(columnNum, itemNum));
   !isTouchDevice() && editButton.addEventListener('focus', (e) => toggleItemIconOpacity(e, 1));
   !isTouchDevice() && editButton.addEventListener('blur', (e) => toggleItemIconOpacity(e, 0));
 
   return editButton;
 }
 
-function editItemText(currentElement, columnNum, itemNum) {
-  if (!currentElement || columnNum == undefined || itemNum == undefined) {
+function editItemText(e, columnNum, itemNum) {
+  const taskListItem = e.target.closest('.task__list-item');
+
+  if (columnNum == undefined || itemNum == undefined) {
     throw new Error('editItemText function has no required argument value');
   }
-  if (!isTouchDevice()) {
-    currentElement.addEventListener('dblclick', editCurrentItem);
-  } else {
-    currentElement.addEventListener('touchend', detectDoubleTap());
+
+  if (e.target.classList.contains('edit__icon') || e.target.classList.contains('fa-pencil')) {
+    if (taskListItem) {
+      editCurrentItem(taskListItem);
+    }
   }
 
-  function editCurrentItem(e) {
+  function editCurrentItem(element) {
     removePomodoroTimerListiners();
-    e.currentTarget.textContent = e.currentTarget.innerText;
-    e.currentTarget.setAttribute('contentEditable', true);
-    e.currentTarget.setAttribute('draggable', false);
-    e.currentTarget.focus();
+    element.textContent = element.innerText;
+    element.setAttribute('contentEditable', true);
+    element.setAttribute('draggable', false);
+    element.focus();
 
-    focusCarretEnd(e);
+    focusCarretEnd(element);
 
-    currentElement.addEventListener('blur', (e) => {
-      e.currentTarget.setAttribute('contentEditable', false);
-      e.currentTarget.setAttribute('draggable', true);
+    element.addEventListener('blur', (event) => {
+      event.currentTarget.setAttribute('contentEditable', false);
+      event.currentTarget.setAttribute('draggable', true);
       editItem(columnNum, itemNum);
     });
   }
 
-  function detectDoubleTap() {
-    let lastTap = 0;
-    let timeout;
-
-    return function detectDoubleTapTimer(event) {
-      const curTime = new Date().getTime();
-      const tapLen = curTime - lastTap;
-      if (tapLen < 500 && tapLen > 0) {
-        editCurrentItem(event);
-        event.preventDefault();
-      } else {
-        timeout = setTimeout(() => {
-          clearTimeout(timeout);
-        }, 500);
-      }
-      lastTap = curTime;
-    };
-  }
-
-  function focusCarretEnd(ev) {
+  function focusCarretEnd(element) {
     const range = document.createRange();
-    range.selectNodeContents(ev.currentTarget);
+    range.selectNodeContents(element);
     range.collapse(false);
     const selection = window.getSelection();
     selection.removeAllRanges();
     selection.addRange(range);
-    onEnterBlur(ev);
+    onEnterBlur(element);
   }
 
-  function onEnterBlur(ev) {
-    ev.currentTarget.addEventListener('keypress', function (event) {
+  function onEnterBlur(element) {
+    element.addEventListener('keypress', function (event) {
       if (event.key === 'Enter') {
         event.preventDefault();
-        ev.target.blur();
+        element.blur();
       }
     });
   }

@@ -58,12 +58,12 @@ function createItem(columnElement, columnNum, item, itemNum) {
 
   setElementAttributes(taskContainer, item.name, true, itemNum);
 
-  editItemText(taskContainer, columnNum, itemNum);
-
   if (columnNum !== 2) {
     taskManagment.appendChild(pomodoroIcon.pomodoro);
     taskManagment.appendChild(editIcon);
   }
+
+  taskContainer.addEventListener('click', (e) => editItemText(e, columnNum, itemNum));
 
   taskRemoveArea.appendChild(taskRemoveIcon);
   taskManagment.appendChild(deadlinePick);
