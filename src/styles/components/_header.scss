@@ -37,10 +37,11 @@
   transition: background 0.5s;
   box-shadow: 1px 1px 2px var(--column-shadow, #999);
   outline-offset: $outline-offset;
-
-  &:hover {
-    background: rgba(111, 111, 111, 0.3);
-    cursor: pointer;
+  @mixin pointer-device {
+    &:hover {
+      background: rgba(111, 111, 111, 0.3);
+      cursor: pointer;
+    }
   }
 
   @include respond(mobile) {

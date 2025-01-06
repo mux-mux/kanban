@@ -43,3 +43,9 @@
     @content;
   }
 }
+
+@mixin pointer-device {
+  @media (hover: hover) and (pointer: fine) {
+    @content;
+  }
+}

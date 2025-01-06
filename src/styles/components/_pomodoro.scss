@@ -10,10 +10,11 @@
   opacity: var(--opacity, 1);
   pointer-events: var(--pointer-events, auto);
   outline-offset: $outline-offset;
-
-  &:hover {
-    color: #ebcc34;
-    transition: color 0.3s ease-in-out;
+  @include pointer-device {
+    &:hover {
+      color: #ebcc34;
+      transition: color 0.3s ease-in-out;
+    }
   }
 }
 .pomodoro {
@@ -71,9 +72,11 @@
     transition: color 0.5s;
     color: var(--text-color);
     width: $width-lg;
-    &:hover {
-      color: #999;
-      cursor: pointer;
+    @mixin pointer-device {
+      &:hover {
+        color: #999;
+        cursor: pointer;
+      }
     }
   }
   &__sessions {

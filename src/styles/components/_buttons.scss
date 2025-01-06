@@ -43,10 +43,11 @@
 
   &-add {
     color: var(--text-color, #222);
-
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.9);
-      color: black;
+    @mixin pointer-device {
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.9);
+        color: black;
+      }
     }
   }
 
@@ -54,17 +55,19 @@
     display: none;
     color: black;
     background-color: #50c878;
-
-    &:hover {
-      background-color: rgba(119, 221, 119, 0.9);
+    @mixin pointer-device {
+      &:hover {
+        background-color: rgba(119, 221, 119, 0.9);
+      }
     }
   }
 
   &-open {
     color: var(--text-color);
-
-    &:hover {
-      background-color: rgba(100, 100, 100, 0.1);
+    @mixin pointer-device {
+      &:hover {
+        background-color: rgba(100, 100, 100, 0.1);
+      }
     }
   }
 
@@ -72,9 +75,10 @@
     visibility: hidden;
     background-color: $bg-color-close-button;
     padding: calc($padding-sm + 2px) $padding-md;
-
-    &:hover {
-      background-color: rgba(255, 100, 100, 0.6);
+    @mixin pointer-device {
+      &:hover {
+        background-color: rgba(255, 100, 100, 0.6);
+      }
     }
   }
 

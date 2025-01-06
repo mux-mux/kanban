@@ -12,10 +12,11 @@
   padding: 0 $padding-sm;
   transition: box-shadow 0.5s;
   outline-offset: $outline-offset;
-
-  &:hover {
-    cursor: pointer;
-    box-shadow: 0 0 10px #999;
+  @mixin pointer-device {
+    &:hover {
+      cursor: pointer;
+      box-shadow: 0 0 10px #999;
+    }
   }
   @include respond(mobile) {
     font-size: $font-size-md;

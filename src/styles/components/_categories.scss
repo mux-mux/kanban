@@ -41,9 +41,10 @@
       @include margin_auto;
       border-radius: 5px;
       background-color: rgba(0, 150, 0, 0.4);
-
-      &:hover {
-        background-color: rgba(0, 150, 0, 0.5);
+      @mixin pointer-device {
+        &:hover {
+          background-color: rgba(0, 150, 0, 0.5);
+        }
       }
     }
 
@@ -64,13 +65,13 @@
     border-radius: 4px;
     font-size: 16px;
     outline-offset: $outline-offset;
-
     transition:
       border-color 0.3s,
       box-shadow 0.3s;
-
-    &:hover {
-      border-color: #999;
+    @mixin pointer-device {
+      &:hover {
+        border-color: #999;
+      }
     }
   }
 }
