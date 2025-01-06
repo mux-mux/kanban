@@ -10,7 +10,7 @@ function editItem(columnNum, itemNum) {
   const selectedItem = taskLists[columnNum].children;
 
   if (selectedItem[itemNum].textContent === '') {
-    deleteItem(columnNum, itemNum);
+    deleteItem('task', columnNum, itemNum);
   } else {
     itemsLoaded[selectedList].items[itemNum].name = selectedItem[itemNum].textContent;
   }

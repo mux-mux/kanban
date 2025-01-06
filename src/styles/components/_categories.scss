@@ -19,6 +19,7 @@
   }
 
   &__item {
+    position: relative;
     margin-top: $margin-sm;
     background-color: #eae8ed;
     opacity: 0.95;

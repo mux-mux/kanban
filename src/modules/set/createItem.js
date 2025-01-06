@@ -1,6 +1,6 @@
 import { setProperties, createElementWithClass, isTouchDevice } from '../helpers/helpers';
 import { editItemText, createEditIcon } from '../modify/editItem';
-import { createDeleteIcon } from '../modify/deleteItem';
+import { createDeleteIcon, deleteItem } from '../modify/deleteItem';
 import { setDeadline } from './deadline';
 import { dragItem } from '../modify/dragDropItem';
 import { createPomodoroStartIcon, pomodoroInit } from './pomodoro';
@@ -25,14 +25,14 @@ function createItem(columnElement, columnNum, item, itemNum) {
   const itemData = itemsLoaded[columnNames[columnNum]].items[itemNum];
   pomodoroIcon = createPomodoroStartIcon(columnNum, itemNum);
   const taskEditIcon = createEditIcon(columnNum, itemNum);
-  const taskDeleteIcon = createDeleteIcon(
-    pomodoroIcon,
-    itemData,
-    'remove',
-    moveData,
-    columnNum,
-    itemNum
-  );
+  const taskDeleteIcon = createDeleteIcon('task', columnNum, itemNum);
+
+  taskDeleteIcon.addEventListener('click', () => {
+    pomodoroInit(pomodoroIcon, itemData, 'remove', columnNum, itemNum);
+    deleteItem('task', columnNum, itemNum);
+    moveData = {};
+  });
+
   const deadlinePick = setDeadline(columnNum, item, itemNum);
 
   for (let i = 0; i < itemData.sessions; i++) {
@@ -168,4 +168,4 @@ function hoverAppearIcon(currentElement) {
   currentElement.addEventListener('mouseout', hideIcon);
 }
 
-export { createItem, isTouchDevice, pomodoroIcon };
+export { createItem, isTouchDevice, hoverAppearIcon, pomodoroIcon };

@@ -1,16 +1,30 @@
 import { createFocusTrap } from 'focus-trap';
-import { createElementWithClass } from '../helpers/helpers';
+import { createElementWithClass, setProperties, isTouchDevice } from '../helpers/helpers';
 import { updateDOM, categoriesLoaded, itemsLoaded } from '../update/updateDOM';
 import { categories } from '../data/categories';
 import { columnNames } from '../data/columns';
+import { createDeleteIcon, deleteItem } from './deleteItem';
+import { hoverAppearIcon } from '../set/createItem';
 
 function renderCategories(categoriesList) {
   const categoriesContainer = document.getElementById('categoriesContainer');
 
   categoriesContainer.innerHTML = '';
-  categoriesList.forEach((category) => {
+  categoriesList.forEach((category, index) => {
     const itemElement = createElementWithClass('li', 'categories__item');
     itemElement.textContent = category;
+    const taskDeleteIcon = createDeleteIcon('category', index);
+
+    taskDeleteIcon.addEventListener('click', () => {
+      deleteItem('category', index);
+    });
+
+    if (!isTouchDevice()) {
+      hoverAppearIcon(itemElement);
+      setProperties(itemElement, { '--opacity': '0', '--pointer-events': 'none' });
+    }
+
+    itemElement.appendChild(taskDeleteIcon);
     categoriesContainer.appendChild(itemElement);
   });
 }

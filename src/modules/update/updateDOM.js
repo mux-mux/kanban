@@ -28,8 +28,9 @@ function updateDOM() {
     archiveLoaded = getLocalArchive();
     categoriesLoaded = getLocalCategories();
     renderArchive(archiveLoaded);
-    renderCategories(categoriesLoaded);
   }
+
+  renderCategories(categoriesLoaded);
 
   elementsList.forEach((element) => (element.textContent = ''));
 
