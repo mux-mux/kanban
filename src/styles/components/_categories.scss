@@ -1,6 +1,43 @@
 .categories {
   left: 140px;
 
+  display: block;
+  width: auto;
+  max-height: calc(100vh - 30px);
+  position: absolute;
+  top: 0;
+  transform: translateY(-100%);
+  z-index: 100;
+  isolation: isolate;
+  background-color: var(--background-archive, #f6f6f6);
+  padding: $padding-md;
+  border-radius: $border-radius-sm;
+  font-size: $font-size-lg;
+  text-align: center;
+  overflow: auto;
+
+  @include respond(mobile) {
+    padding-bottom: $padding-md;
+    left: 5px;
+  }
+
+  &__visible {
+    top: 25px;
+    transform: translateY(0);
+    @include no_reduced_motion {
+      transition: transform 0.4s ease-out;
+    }
+
+    @include respond(mobile) {
+      width: auto;
+      $spacing: 5px;
+
+      top: $spacing;
+      left: $spacing;
+      right: $spacing;
+    }
+  }
+
   &__select {
     max-width: 110px;
     overflow: hidden;
@@ -19,6 +56,8 @@
   }
 
   &__item {
+    display: flex;
+    justify-content: space-between;
     position: relative;
     margin-top: $margin-sm;
     background-color: #eae8ed;
@@ -27,8 +66,13 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    padding: 5px 10px;
+    padding: $padding-sm $padding-xl $padding-sm $padding-md;
     border-radius: 5px;
+
+    &:focus {
+      background-color: white;
+      color: black;
+    }
   }
 
   &__button {
@@ -72,46 +116,6 @@
       &:hover {
         border-color: #999;
       }
-    }
-  }
-}
-
-.categories,
-.archive {
-  display: block;
-  width: auto;
-  max-height: calc(100vh - 30px);
-  position: absolute;
-  top: 0;
-  transform: translateY(-100%);
-  z-index: 100;
-  isolation: isolate;
-  background-color: var(--background-archive, #f6f6f6);
-  padding: $padding-md;
-  border-radius: $border-radius-sm;
-  font-size: $font-size-lg;
-  text-align: center;
-  overflow: auto;
-
-  @include respond(mobile) {
-    padding-bottom: $padding-md;
-    left: 5px;
-  }
-
-  &__visible {
-    top: 25px;
-    transform: translateY(0);
-    @include no_reduced_motion {
-      transition: transform 0.4s ease-out;
-    }
-
-    @include respond(mobile) {
-      width: auto;
-      $spacing: 5px;
-
-      top: $spacing;
-      left: $spacing;
-      right: $spacing;
     }
   }
 }

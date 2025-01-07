@@ -24,7 +24,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
 
   const itemData = itemsLoaded[columnNames[columnNum]].items[itemNum];
   pomodoroIcon = createPomodoroStartIcon(columnNum, itemNum);
-  const taskEditIcon = createEditIcon(columnNum, itemNum);
+  const taskEditIcon = createEditIcon('task', columnNum, itemNum);
   const taskDeleteIcon = createDeleteIcon('task', columnNum, itemNum);
 
   taskDeleteIcon.addEventListener('click', () => {
@@ -48,7 +48,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
   setElementAttributes(taskContainer, item.name, true, itemNum);
   const categoriesSelector = renderCategoriesSelector(columnNum, itemNum);
 
-  taskContainer.addEventListener('click', (e) => editItemText(e, columnNum, itemNum));
+  taskContainer.addEventListener('click', (e) => editItemText(e, 'task', columnNum, itemNum));
 
   if (columnNum !== 2) {
     taskManagment.appendChild(pomodoroIcon.pomodoro);

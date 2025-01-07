@@ -1,23 +1,29 @@
 import { createElementWithClass, isTouchDevice, toggleItemIconOpacity } from '../helpers/helpers';
 import { columnNames } from '../data/columns';
-import { updateDOM, itemsLoaded } from '../update/updateDOM';
+import { updateDOM, itemsLoaded, categoriesLoaded } from '../update/updateDOM';
 import { taskLists } from './addItem';
 import { deleteItem } from './deleteItem';
 import { removePomodoroTimerListiners } from '../set/pomodoro';
 
-function editItem(columnNum, itemNum) {
-  const selectedList = columnNames[columnNum];
-  const selectedItem = taskLists[columnNum].children;
+function editItem(type = 'task', columnNum = 0, itemNum = 0) {
+  if (type === 'task') {
+    const selectedList = columnNames[columnNum];
+    const selectedItem = taskLists[columnNum].children;
 
-  if (selectedItem[itemNum].textContent === '') {
-    deleteItem('task', columnNum, itemNum);
-  } else {
-    itemsLoaded[selectedList].items[itemNum].name = selectedItem[itemNum].textContent;
+    if (selectedItem[itemNum].textContent === '') {
+      deleteItem('task', columnNum, itemNum);
+    } else {
+      itemsLoaded[selectedList].items[itemNum].name = selectedItem[itemNum].textContent;
+    }
+  } else if (type === 'category') {
+    const categoryEditedText =
+      document.querySelectorAll('.categories__item')[columnNum].textContent;
+    categoriesLoaded[columnNum] = categoryEditedText;
   }
   updateDOM();
 }
 
-function createEditIcon(columnNum, itemNum) {
+function createEditIcon(type = 'task', columnNum = 0, itemNum = 0) {
   if (columnNum == undefined || itemNum == undefined) {
     throw new Error('createEditIcon function has no required argument value');
   }
@@ -25,8 +31,13 @@ function createEditIcon(columnNum, itemNum) {
   const editButton = createElementWithClass('button', 'edit__icon');
   const editIcon = createElementWithClass('i', ['fa-solid', 'fa-pencil']);
 
-  const taskText = itemsLoaded[columnNames[columnNum]].items[itemNum].name;
-  editButton.setAttribute('aria-label', `Edit ${taskText} task`);
+  if (type === 'task') {
+    const taskText = itemsLoaded[columnNames[columnNum]].items[itemNum].name;
+    editButton.setAttribute('aria-label', `Edit ${taskText} task name`);
+  } else if (type === 'category') {
+    const categoryText = categoriesLoaded[columnNum];
+    editButton.setAttribute('aria-label', `Edit ${categoryText} category name`);
+  }
 
   editButton.appendChild(editIcon);
 
@@ -36,9 +47,10 @@ function createEditIcon(columnNum, itemNum) {
   return editButton;
 }
 
-function editItemText(e, columnNum, itemNum) {
-  const taskListItem = e.target.closest('.task__list-item');
-  const selectElement = taskListItem.querySelector('.categories__select');
+function editItemText(e, type = 'task', columnNum = 0, itemNum = 0) {
+  const taskListItem =
+    type === 'task' ? e.target.closest('.task__list-item') : e.target.closest('.categories__item');
+  const selectElement = type === 'task' && taskListItem.querySelector('.categories__select');
 
   if (columnNum == undefined || itemNum == undefined) {
     throw new Error('editItemText function has no required argument value');
@@ -51,19 +63,25 @@ function editItemText(e, columnNum, itemNum) {
   }
 
   function editCurrentItem(element) {
-    removePomodoroTimerListiners();
-    selectElement.innerHTML = '';
+    if (type === 'task') {
+      removePomodoroTimerListiners();
+      selectElement.innerHTML = '';
+      element.setAttribute('draggable', false);
+    }
     element.textContent = element.innerText;
     element.setAttribute('contentEditable', true);
-    element.setAttribute('draggable', false);
     element.focus();
 
     focusCarretEnd(element);
 
     element.addEventListener('blur', (event) => {
-      event.currentTarget.setAttribute('contentEditable', false);
-      event.currentTarget.setAttribute('draggable', true);
-      editItem(columnNum, itemNum);
+      if (type === 'task') {
+        event.currentTarget.setAttribute('draggable', true);
+        editItem('task', columnNum, itemNum);
+      } else if (type === 'category') {
+        event.currentTarget.setAttribute('contentEditable', false);
+        editItem('category', columnNum);
+      }
     });
   }
 

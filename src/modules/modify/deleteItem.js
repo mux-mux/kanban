@@ -5,7 +5,7 @@ import { pomodoroIntervalTick, removePomodoroTimerListiners } from '../set/pomod
 
 const overallRemoved = [];
 
-function deleteItem(type, columnNum = 0, itemNum = 0) {
+function deleteItem(type = 'task', columnNum = 0, itemNum = 0) {
   if (type === 'task') {
     removePomodoroTimerListiners();
 

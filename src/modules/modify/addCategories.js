@@ -5,6 +5,7 @@ import { categories } from '../data/categories';
 import { columnNames } from '../data/columns';
 import { createDeleteIcon, deleteItem } from './deleteItem';
 import { hoverAppearIcon } from '../set/createItem';
+import { createEditIcon, editItemText } from './editItem';
 
 function renderCategories(categoriesList) {
   const categoriesContainer = document.getElementById('categoriesContainer');
@@ -13,18 +14,22 @@ function renderCategories(categoriesList) {
   categoriesList.forEach((category, index) => {
     const itemElement = createElementWithClass('li', 'categories__item');
     itemElement.textContent = category;
-    const taskDeleteIcon = createDeleteIcon('category', index);
+    const categoryEditIcon = createEditIcon('category', index);
+    const categoryDeleteIcon = createDeleteIcon('category', index);
 
-    taskDeleteIcon.addEventListener('click', () => {
+    categoryDeleteIcon.addEventListener('click', () => {
       deleteItem('category', index);
     });
+
+    itemElement.addEventListener('click', (e) => editItemText(e, 'category', index));
 
     if (!isTouchDevice()) {
       hoverAppearIcon(itemElement);
       setProperties(itemElement, { '--opacity': '0', '--pointer-events': 'none' });
     }
 
-    itemElement.appendChild(taskDeleteIcon);
+    itemElement.appendChild(categoryEditIcon);
+    itemElement.appendChild(categoryDeleteIcon);
     categoriesContainer.appendChild(itemElement);
   });
 }
