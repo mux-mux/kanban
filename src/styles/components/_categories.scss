@@ -75,32 +75,6 @@
     }
   }
 
-  &__button {
-    color: var(--text-color, #222);
-    padding: $padding-sm $padding-md;
-    cursor: pointer;
-    outline-offset: $outline-offset;
-
-    &-add {
-      @include margin_auto;
-      border-radius: 5px;
-      background-color: rgba(0, 150, 0, 0.4);
-      @mixin pointer-device {
-        &:hover {
-          background-color: rgba(0, 150, 0, 0.5);
-        }
-      }
-    }
-
-    &-close {
-      position: absolute;
-      top: 0;
-      right: 0;
-      border-radius: 0 $border-radius-sm;
-      background-color: $bg-color-close-button;
-    }
-  }
-
   &__input {
     width: 100%;
     padding: $padding-md;

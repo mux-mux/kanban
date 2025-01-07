@@ -37,7 +37,7 @@ function renderCategories(categoriesList) {
 function addCategories() {
   const buttonToggleCategoreis = document.querySelector('.tool-categories');
   const containerCategories = document.querySelector('.categories');
-  const buttonCloseCategories = document.querySelector('.categories__button-close');
+  const buttonCloseCategories = document.querySelector('.btn-close-category');
   const categoryForm = document.getElementById('categoryForm');
   const categoryNameInput = document.getElementById('categoryName');
   const overlay = document.querySelector('.overlay');

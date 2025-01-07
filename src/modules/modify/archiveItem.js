@@ -7,8 +7,8 @@ function archiveItem() {
   const buttonToggleArchive = document.querySelector('.tool-archive');
   const buttonMoveToArchive = document.querySelector('.move-to-archive');
   const containerArchive = document.querySelector('.archive');
-  const buttonCloseArchive = document.querySelector('.archive__close');
-  const buttonDownloadArchive = document.querySelector('.archive__download');
+  const buttonCloseArchive = document.querySelector('.btn-close-archive');
+  const buttonDownloadArchive = document.querySelector('.btn-add-archive');
   const buttonUploadArchive = document.querySelector('#selectedFile');
   const overlay = document.querySelector('.overlay');
 

@@ -105,7 +105,7 @@
             />
             <button
               type="submit"
-              class="btn categories__button categories__button-add"
+              class="btn btn-add btn-add-category"
               aria-label="Add new category to categories list"
             >
               Add Category
@@ -115,10 +115,7 @@
           <h2 class="heading-secondary">Categories</h2>
           <ul class="categories__container" id="categoriesContainer"></ul>
           <div class="categories__buttons">
-            <button
-              class="categories__button categories__button-close"
-              aria-label="Close categories modal"
-            >
+            <button class="btn btn-close btn-close-category" aria-label="Close categories modal">
               <i class="fa-solid fa-xmark"></i>
             </button>
           </div>
@@ -127,7 +124,7 @@
         <div class="archive custom-scroll">
           <div class="archive__buttons">
             <button
-              class="archive__button archive__download"
+              class="btn btn-info btn-add-archive"
               aria-label="Download done task as json file"
             >
               <i class="fa-solid fa-download"></i>
@@ -135,13 +132,13 @@
             <input type="file" id="selectedFile" accept="application/json" style="display: none" />
             <button
               onclick="document.getElementById('selectedFile').click();"
-              class="archive__button archive__upload"
+              class="btn btn-add btn-info-archive"
               aria-label="Upload done task from json file"
             >
               <i class="fa-solid fa-upload"></i>
             </button>
             <button
-              class="archive__button archive__close"
+              class="btn btn-close btn-close-archive"
               aria-label="Close done tasks history modal"
             >
               <i class="fa-solid fa-xmark"></i>

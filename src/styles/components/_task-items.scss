@@ -11,7 +11,8 @@
   }
   &__list {
     min-height: $height-lg;
-    padding: $padding-md;
+    padding: 0 $padding-md;
+    margin-top: $margin-lg;
     --pointer-events: none;
     --opacity: 0;
 
@@ -35,6 +36,10 @@
       background-color: rgba(0, 0, 0, 0.1);
       border-radius: $border-radius-md;
       cursor: pointer;
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
 
       @include respond(mobile) {
         font-size: $font-size-lg;

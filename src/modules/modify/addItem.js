@@ -9,9 +9,9 @@ const containersNewTask = document.querySelectorAll('.task__new');
 renderNewTaskButtons(containersNewTask);
 renderNewTaskFields(containersNewTask);
 
-const buttonsOpenTask = document.querySelectorAll('.btn-open');
-const buttonsSaveTask = document.querySelectorAll('.btn-save');
-const buttonsCloseTask = document.querySelectorAll('.btn-close');
+const buttonsOpenTask = document.querySelectorAll('.btn-open-task');
+const buttonsAddTask = document.querySelectorAll('.btn-add-task');
+const buttonsCloseTask = document.querySelectorAll('.btn-close-task');
 const containersTextarea = document.querySelectorAll('.inputs-new-task');
 const textareas = document.querySelectorAll('.textarea-add');
 const taskLists = document.querySelectorAll('.task__list');
@@ -37,20 +37,20 @@ function renderNewTaskButtons(columns) {
   columns.forEach((column, i) => {
     const buttonsContainer = createElementWithClass('div', 'btns');
 
-    const closeButton = createElementWithClass('button', ['btn', 'btn-close']);
-    const openButton = createElementWithClass('button', ['btn', 'btn-open']);
+    const closeButton = createElementWithClass('button', ['btn', 'btn-close', 'btn-close-task']);
+    const openButton = createElementWithClass('button', ['btn', 'btn-open', 'btn-open-task']);
     const moveButton =
       i !== 2
         ? createElementWithClass('button', ['btn', 'btn-move'])
         : createElementWithClass('button', 'btn-move-done');
-    const saveButton = createElementWithClass('button', ['btn', 'btn-save']);
+    const addButton = createElementWithClass('button', ['btn', 'btn-add', 'btn-add-task']);
 
     closeButton.setAttribute('aria-label', 'Close add new task textarea');
     openButton.setAttribute('aria-label', 'Open add new task textarea');
     i !== 2
       ? moveButton.setAttribute('aria-label', 'Move task to another column')
       : moveButton.setAttribute('tabindex', '-1');
-    saveButton.setAttribute('aria-label', 'Confirm add new task');
+    addButton.setAttribute('aria-label', 'Confirm add new task');
 
     const closeIcon = createElementWithClass('i', [
       'btn-close-inner',
@@ -59,12 +59,12 @@ function renderNewTaskButtons(columns) {
     ]);
     const openIcon = createElementWithClass('i', ['fa-regular', 'fa-square-plus']);
     const moveIcon = createElementWithClass('i', ['fa-solid', 'fa-arrows-up-down']);
-    const saveIcon = createElementWithClass('i', ['fa-regular', 'fa-floppy-disk']);
+    const addIcon = createElementWithClass('i', ['fa-regular', 'fa-floppy-disk']);
 
     closeButton.appendChild(closeIcon);
     openButton.appendChild(openIcon);
     i !== 2 && moveButton.appendChild(moveIcon);
-    saveButton.appendChild(saveIcon);
+    addButton.appendChild(addIcon);
 
     for (let i = 0; i < 2; i++) {
       const buttonText = createElementWithClass('span', 'btn-text');
@@ -72,10 +72,10 @@ function renderNewTaskButtons(columns) {
       buttonText.textContent = 'Item';
 
       i === 0 && openButton.appendChild(buttonText);
-      i === 1 && saveButton.appendChild(buttonText);
+      i === 1 && addButton.appendChild(buttonText);
     }
 
-    [openButton, saveButton, moveButton, closeButton].forEach((btn) => {
+    [openButton, addButton, moveButton, closeButton].forEach((btn) => {
       buttonsContainer.appendChild(btn);
     });
 
@@ -111,12 +111,12 @@ function toggleNewTaskTextarea(column, state) {
   focusTrap && focusTrap.deactivate();
 
   const buttonOpenStyle = state === 'open' ? 'none' : 'flex';
-  const buttonSaveStyle = state === 'open' ? 'flex' : 'none';
+  const buttonAddStyle = state === 'open' ? 'flex' : 'none';
   const buttonCloseStyle = state === 'open' ? 'visible' : 'hidden';
   const containerStyle = state === 'open' ? 'block' : 'none';
 
   buttonsOpenTask[column].style.display = buttonOpenStyle;
-  buttonsSaveTask[column].style.display = buttonSaveStyle;
+  buttonsAddTask[column].style.display = buttonAddStyle;
   buttonsCloseTask[column].style.visibility = buttonCloseStyle;
   containersTextarea[column].style.display = containerStyle;
 
@@ -131,8 +131,8 @@ function toggleNewTaskTextarea(column, state) {
     clickOutsideDeactivates: () => true,
   });
 
-  if (state === 'save' || state === 'close') {
-    state === 'save' && addNewTask(column);
+  if (state === 'add' || state === 'close') {
+    state === 'add' && addNewTask(column);
     textareas[column].value = '';
     document.removeEventListener('click', hideNewTaskTextarea);
     focusTrap.deactivate();
@@ -169,8 +169,8 @@ buttonsOpenTask.forEach((openBtn, index) => {
   openBtn.addEventListener('click', () => toggleNewTaskTextarea(index, 'open'));
 });
 
-buttonsSaveTask.forEach((saveBtn, index) => {
-  saveBtn.addEventListener('click', () => toggleNewTaskTextarea(index, 'save'));
+buttonsAddTask.forEach((addBtn, index) => {
+  addBtn.addEventListener('click', () => toggleNewTaskTextarea(index, 'add'));
 });
 
 buttonsCloseTask.forEach((closeBtn, index) => {

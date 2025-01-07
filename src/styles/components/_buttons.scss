@@ -5,26 +5,25 @@
   align-items: center;
   font-size: $font-size-xl;
   gap: $gap-lg;
+  margin: $margin-lg;
+
+  @include respond(mobile) {
+    margin: $margin-lg $margin-md;
+  }
 }
 
 .btn {
   display: flex;
   align-items: center;
   width: fit-content;
-  margin: $margin-md $margin-lg;
   padding: $padding-sm $padding-md;
   border-radius: $border-radius-sm;
   font-size: $font-size-xl;
   outline-offset: $outline-offset;
   transition: background-color 0.3s ease-in;
   cursor: pointer;
-
   &:active {
     transform: scale(0.97);
-  }
-
-  @include respond(mobile) {
-    margin: $margin-md;
   }
 
   &-move {
@@ -35,36 +34,38 @@
     padding: $padding-sm calc($padding-md + 5px);
     background-color: rgba(0, 0, 0, 0.1);
     color: var(--text-color, #222);
-
     &-done {
       display: none;
     }
   }
 
   &-add {
-    color: var(--text-color, #222);
-    @mixin pointer-device {
-      &:hover {
-        background-color: rgba(255, 255, 255, 0.9);
-        color: black;
-      }
-    }
-  }
-
-  &-save {
-    display: none;
     color: black;
     background-color: #50c878;
-    @mixin pointer-device {
+    @include pointer-device {
       &:hover {
         background-color: rgba(119, 221, 119, 0.9);
       }
+    }
+    &-task {
+      display: none;
+    }
+    &-category {
+      @include margin_auto;
+      margin-top: $margin-lg;
+    }
+    &-archive {
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-radius: $border-radius-sm 0;
     }
   }
 
   &-open {
     color: var(--text-color);
-    @mixin pointer-device {
+
+    @include pointer-device {
       &:hover {
         background-color: rgba(100, 100, 100, 0.1);
       }
@@ -72,13 +73,37 @@
   }
 
   &-close {
-    visibility: hidden;
-    background-color: $bg-color-close-button;
-    padding: calc($padding-sm + 2px) $padding-md;
-    @mixin pointer-device {
+    background-color: rgba(255, 0, 0, 0.5);
+    @include pointer-device {
       &:hover {
         background-color: rgba(255, 100, 100, 0.6);
       }
+    }
+    &-task {
+      visibility: hidden;
+      padding: calc($padding-sm + 2px) $padding-md;
+    }
+    &-category,
+    &-archive {
+      position: absolute;
+      top: 0;
+      right: 0;
+      border-radius: 0 $border-radius-sm;
+    }
+  }
+
+  &-info {
+    background-color: rgba(77, 77, 255, 0.6);
+    @include pointer-device {
+      &:hover {
+        background-color: rgba(77, 77, 255, 0.9);
+      }
+    }
+    &-archive {
+      position: absolute;
+      top: 0;
+      left: 50px;
+      border-radius: $border-radius-sm 0;
     }
   }
 
