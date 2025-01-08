@@ -1,11 +1,12 @@
 import { createFocusTrap } from 'focus-trap';
 import { createElementWithClass, setProperties, isTouchDevice } from '../helpers/helpers';
-import { updateDOM, categoriesLoaded, itemsLoaded } from '../update/updateDOM';
+import { updateDOM, itemsLoaded } from '../update/updateDOM';
 import { categories } from '../data/categories';
 import { columnNames } from '../data/columns';
 import { createDeleteIcon, deleteItem } from './deleteItem';
 import { hoverAppearIcon } from '../set/createItem';
 import { createEditIcon, editItemText } from './editItem';
+import { setLocalCategories, getLocalCategories } from '../update/localStorage';
 
 function renderCategories(categoriesList) {
   const categoriesContainer = document.getElementById('categoriesContainer');
@@ -72,15 +73,14 @@ function addCategories() {
   categoryForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
+    const categoriesLoaded = getLocalCategories();
     const newCategoryName = categoryNameInput.value.trim();
+
     if (newCategoryName && !categoriesLoaded.includes(newCategoryName)) {
       categoriesLoaded.push(newCategoryName);
-      categories.items = categories.items.concat(newCategoryName);
-
+      setLocalCategories(categoriesLoaded);
       categoryNameInput.value = '';
-
       updateDOM();
-      renderCategories(categoriesLoaded);
     } else {
       alert('Category name already exists!');
     }
@@ -90,6 +90,7 @@ function addCategories() {
 function renderCategoriesSelector(columnNum, itemNum) {
   const categorySelector = createElementWithClass('select', 'categories__select');
   const selectedList = columnNames[columnNum];
+  const categoriesLoaded = getLocalCategories();
 
   categorySelector.innerHTML = '<option value="" disabled selected>Select a category</option>';
 

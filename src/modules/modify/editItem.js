@@ -1,9 +1,10 @@
 import { createElementWithClass, isTouchDevice, toggleItemIconOpacity } from '../helpers/helpers';
 import { columnNames } from '../data/columns';
-import { updateDOM, itemsLoaded, categoriesLoaded } from '../update/updateDOM';
+import { updateDOM, itemsLoaded } from '../update/updateDOM';
 import { taskLists } from './addItem';
 import { deleteItem } from './deleteItem';
 import { removePomodoroTimerListiners } from '../set/pomodoro';
+import { setLocalCategories, getLocalCategories } from '../update/localStorage';
 
 function editItem(type = 'task', columnNum = 0, itemNum = 0) {
   if (type === 'task') {
@@ -16,9 +17,11 @@ function editItem(type = 'task', columnNum = 0, itemNum = 0) {
       itemsLoaded[selectedList].items[itemNum].name = selectedItem[itemNum].textContent;
     }
   } else if (type === 'category') {
+    const categoriesLoaded = getLocalCategories();
     const categoryEditedText =
       document.querySelectorAll('.categories__item')[columnNum].textContent;
     categoriesLoaded[columnNum] = categoryEditedText;
+    setLocalCategories(categoriesLoaded);
   }
   updateDOM();
 }
@@ -35,6 +38,7 @@ function createEditIcon(type = 'task', columnNum = 0, itemNum = 0) {
     const taskText = itemsLoaded[columnNames[columnNum]].items[itemNum].name;
     editButton.setAttribute('aria-label', `Edit ${taskText} task name`);
   } else if (type === 'category') {
+    const categoriesLoaded = getLocalCategories();
     const categoryText = categoriesLoaded[columnNum];
     editButton.setAttribute('aria-label', `Edit ${categoryText} category name`);
   }

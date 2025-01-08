@@ -1,5 +1,5 @@
 import { columns } from '../data/columns';
-import { itemsLoaded, archiveLoaded, categoriesLoaded } from './updateDOM';
+import { itemsLoaded, archiveLoaded } from './updateDOM';
 import { archive } from '../data/archive';
 import { categories } from '../data/categories';
 
@@ -25,15 +25,6 @@ function getLocalArchive() {
   }
 }
 
-function getLocalCategories() {
-  if (localStorage.getItem('categoriesItems')) {
-    const localCategories = JSON.parse(localStorage.categoriesItems);
-    return localCategories;
-  } else {
-    return setLocalCategories();
-  }
-}
-
 function setLocalItems(columnNames) {
   columnNames.forEach((column) => {
     const firstLoad = itemsLoaded.length < 1 ? columns : itemsLoaded;
@@ -48,10 +39,11 @@ function setLocalArchive() {
   return archiveItems;
 }
 
-function setLocalCategories() {
-  const categoriesItems = categoriesLoaded.length < 1 ? categories.items : categoriesLoaded;
+function getLocalCategories() {
+  return JSON.parse(localStorage.categoriesItems);
+}
+function setLocalCategories(categoriesItems = categories.items) {
   localStorage.setItem('categoriesItems', JSON.stringify(categoriesItems));
-  return categoriesItems;
 }
 
 function getLocalInitialLoad() {

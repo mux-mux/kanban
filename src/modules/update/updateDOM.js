@@ -7,15 +7,13 @@ import { renderTasks } from '../set/createItem';
 
 let itemsLoaded = [];
 let archiveLoaded = [];
-let categoriesLoaded = [];
 
 function updateDOM() {
   itemsLoaded = getLocalItems(columnNames);
   archiveLoaded = getLocalArchive();
-  categoriesLoaded = getLocalCategories();
   renderTasks(itemsLoaded);
   renderArchive(archiveLoaded);
-  renderCategories(categoriesLoaded);
+  renderCategories(getLocalCategories());
 }
 
-export { updateDOM, itemsLoaded, archiveLoaded, categoriesLoaded };
+export { updateDOM, itemsLoaded, archiveLoaded };
