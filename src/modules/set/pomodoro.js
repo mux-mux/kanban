@@ -8,6 +8,7 @@ import { relocateItem } from '../modify/relocateItem';
 
 let pomodoroIntervalTick = null;
 let isPause = false;
+let focusTrap = null;
 
 function startPomodoro(duration, timer, columnNum, itemNum) {
   if (!duration || !timer || columnNum == undefined || itemNum == undefined) {
@@ -137,7 +138,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   const pomodoroContainer = document.querySelector('.pomodoro');
   const pomodoroControls = document.querySelector('.pomodoro__controls');
 
-  const focusTrap = createFocusTrap(pomodoroControls, {
+  focusTrap = createFocusTrap(pomodoroControls, {
     onActivate: () => pause.focus(),
     onDeactivate: () => pause.blur(),
     allowOutsideClick: () => true,
@@ -148,6 +149,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   let time = itemData.time === '' ? ['25', '00'] : itemData.time.split(':');
 
   if (state === 'init') {
+    focusTrap && focusTrap.deactivate();
     !updatedOnLoad || isPause ? pausePomodoro() : playPomodoro();
 
     showHidePomodoro(kanbanHeading, pomodoroContainer);
