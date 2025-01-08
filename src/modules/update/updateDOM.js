@@ -6,14 +6,12 @@ import { renderCategories } from '../modify/addCategories';
 import { renderTasks } from '../set/createItem';
 
 let itemsLoaded = [];
-let archiveLoaded = [];
 
 function updateDOM() {
   itemsLoaded = getLocalItems(columnNames);
-  archiveLoaded = getLocalArchive();
   renderTasks(itemsLoaded);
-  renderArchive(archiveLoaded);
+  renderArchive(getLocalArchive());
   renderCategories(getLocalCategories());
 }
 
-export { updateDOM, itemsLoaded, archiveLoaded };
+export { updateDOM, itemsLoaded };

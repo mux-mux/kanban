@@ -1,7 +1,7 @@
 import { createFocusTrap } from 'focus-trap';
 import { createElementWithClass } from '../helpers/helpers';
-import { updateDOM, itemsLoaded, archiveLoaded } from '../update/updateDOM';
-import { archive } from '../data/archive';
+import { updateDOM, itemsLoaded } from '../update/updateDOM';
+import { getLocalArchive, setLocalArchive } from '../update/localStorage';
 
 function archiveItem() {
   const buttonToggleArchive = document.querySelector('.tool-archive');
@@ -45,6 +45,7 @@ function archiveItem() {
   }
 
   function downloadArchive() {
+    const archiveLoaded = getLocalArchive();
     if (archiveLoaded.length === 0) {
       return;
     }
@@ -85,22 +86,20 @@ function archiveItem() {
     const isConfirm = confirm('Do you want to clear all archive tasks?');
     if (!isConfirm) return;
 
-    archiveLoaded.length = 0;
-    archive.items = [];
+    setLocalArchive([]);
 
     updateDOM();
-    renderArchive(archiveLoaded);
   }
 }
 
 function moveToArchive(doneTasks, action) {
+  const archiveLoaded = getLocalArchive();
   const archiveItems = doneTasks;
   archiveLoaded.push(...archiveItems);
-  archive.items = archive.items.concat(archiveItems);
-  action === 'done' ? (itemsLoaded.done.items = []) : null;
+  setLocalArchive(archiveLoaded);
+  action === 'done' ? setLocalArchive([]) : null;
 
   updateDOM();
-  renderArchive(archiveItems);
 }
 
 function renderArchive(archiveItems) {
