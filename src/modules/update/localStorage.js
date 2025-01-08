@@ -54,6 +54,13 @@ function setLocalCategories() {
   return categoriesItems;
 }
 
+function getLocalInitialLoad() {
+  return JSON.parse(localStorage.initialLoad);
+}
+function setLocalInitialLoad() {
+  localStorage.setItem('initialLoad', JSON.stringify(false));
+}
+
 export {
   getLocalItems,
   setLocalItems,
@@ -61,4 +68,6 @@ export {
   setLocalArchive,
   getLocalCategories,
   setLocalCategories,
+  getLocalInitialLoad,
+  setLocalInitialLoad,
 };

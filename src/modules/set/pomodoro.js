@@ -1,7 +1,7 @@
 import { createFocusTrap } from 'focus-trap';
 
 import { createElementWithClass, isTouchDevice, toggleItemIconOpacity } from '../helpers/helpers';
-import { itemsLoaded, updateDOM, updatedOnLoad } from '../update/updateDOM';
+import { itemsLoaded, updateDOM } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 import { setLocalItems } from '../update/localStorage';
 import { relocateItem } from '../modify/relocateItem';
@@ -150,7 +150,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
 
   if (state === 'init') {
     focusTrap && focusTrap.deactivate();
-    !updatedOnLoad || isPause ? pausePomodoro() : playPomodoro();
+    isPause ? pausePomodoro() : playPomodoro();
 
     showHidePomodoro(kanbanHeading, pomodoroContainer);
     startPomodoro(+time[0] + +time[1] / 60, timer, columnNum, itemNum);

@@ -86,6 +86,21 @@ function createItem(columnElement, columnNum, item, itemNum) {
   }
 }
 
+function renderTasks(itemsLoaded) {
+  const todoElement = document.getElementById('todo-list'),
+    inprogressElement = document.getElementById('inprogress-list'),
+    doneElement = document.getElementById('done-list'),
+    elementsList = [todoElement, inprogressElement, doneElement];
+
+  elementsList.forEach((element) => (element.textContent = ''));
+
+  columnNames.forEach((column, columnNum) => {
+    itemsLoaded[column].items.forEach((item, itemNum) => {
+      createItem(elementsList[columnNum], columnNum, item, itemNum);
+    });
+  });
+}
+
 document.querySelectorAll('.btn-move').forEach((taskMoveButton, index) => {
   if (isTouchDevice()) {
     taskMoveButton.style.display = 'block';
@@ -168,4 +183,4 @@ function hoverAppearIcon(currentElement) {
   currentElement.addEventListener('mouseout', hideIcon);
 }
 
-export { createItem, isTouchDevice, hoverAppearIcon, pomodoroIcon };
+export { createItem, isTouchDevice, hoverAppearIcon, renderTasks, pomodoroIcon };
