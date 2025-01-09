@@ -5,9 +5,11 @@ import { archiveItem } from './modules/modify/archiveItem';
 import { addCategories } from './modules/modify/addCategories';
 import { setUndoListeners } from './modules/modify/undoItem';
 import initialLoad from './modules/update/initialLoad';
+import { setPomodoroIsPausedOnReload } from './modules/set/pomodoro';
 
 initialLoad();
 switchTheme();
 archiveItem();
 addCategories();
 setUndoListeners();
+setPomodoroIsPausedOnReload();

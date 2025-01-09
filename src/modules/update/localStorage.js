@@ -36,6 +36,12 @@ function getLocalIsInitialLoad() {
 function setLocalIsInitialLoad() {
   localStorage.setItem('isInitialLoad', JSON.stringify(false));
 }
+function getLocalIsPaused() {
+  return JSON.parse(localStorage.isPaused);
+}
+function setLocalIsPaused(isPaused) {
+  localStorage.setItem('isPaused', JSON.stringify(isPaused));
+}
 
 export {
   getLocalItems,
@@ -46,4 +52,6 @@ export {
   setLocalCategories,
   getLocalIsInitialLoad,
   setLocalIsInitialLoad,
+  getLocalIsPaused,
+  setLocalIsPaused,
 };

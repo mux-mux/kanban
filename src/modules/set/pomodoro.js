@@ -3,11 +3,15 @@ import { createFocusTrap } from 'focus-trap';
 import { createElementWithClass, isTouchDevice, toggleItemIconOpacity } from '../helpers/helpers';
 import updateDOM from '../update/updateDOM';
 import { columnNames } from '../data/columns';
-import { setLocalItems, getLocalItems } from '../update/localStorage';
+import {
+  setLocalItems,
+  getLocalItems,
+  setLocalIsPaused,
+  getLocalIsPaused,
+} from '../update/localStorage';
 import { relocateItem } from '../modify/relocateItem';
 
 let pomodoroIntervalTick = null;
-let isPause = false;
 let focusTrap = null;
 
 function startPomodoro(duration, timer, columnNum, itemNum) {
@@ -54,13 +58,13 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
         updateDOM();
       }
     }
-    if (!isPause) {
+    if (getLocalIsPaused() === false) {
       timer.pomodoro.classList.add('fa-fade');
       tick--;
       MM.textContent = minutes;
       SS.textContent = seconds;
     }
-    if (itemData.pomodoro === true && !isPause) {
+    if (itemData.pomodoro === true && getLocalIsPaused() === false) {
       itemData.time = `${minutes}:${seconds}`;
       setLocalItems(itemsLoaded);
     }
@@ -96,7 +100,7 @@ function createPomodoroStartIcon(columnNum, itemNum) {
 
   function startPomodoroByIcon() {
     removePomodoroTimerListiners();
-    isPause = false;
+    setLocalIsPaused(false);
     const pomodoroText = document.querySelector('.pomodoro__text');
 
     document.querySelector('.pomodoro__controls').style.display = 'flex';
@@ -155,7 +159,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
 
   if (state === 'init') {
     focusTrap && focusTrap.deactivate();
-    isPause ? pausePomodoro() : playPomodoro();
+    getLocalIsPaused() ? pausePomodoro() : playPomodoro();
 
     showHidePomodoro(kanbanHeading, pomodoroContainer);
     startPomodoro(+time[0] + +time[1] / 60, timer, columnNum, itemNum);
@@ -169,7 +173,6 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   } else {
     showHidePomodoro(pomodoroContainer, kanbanHeading);
     clearInterval(pomodoroIntervalTick);
-    isPause = false;
     itemData.pomodoro = false;
     itemData.time = '';
     time = ['25', '00'];
@@ -182,6 +185,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     focusTrap.deactivate();
     itemsLoaded[columnNames[columnNum]].items[itemNum] = itemData;
     setLocalItems(itemsLoaded);
+    setLocalIsPaused(false);
     updateDOM();
   }
 
@@ -197,7 +201,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   function pausePomodoro(e) {
     pause.style.display = 'none';
     play.style.display = 'inline-block';
-    isPause = true;
+    setLocalIsPaused(true);
     icon.classList.remove('fa-fade');
     play.focus();
 
@@ -207,7 +211,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   function playPomodoro(e) {
     play.style.display = 'none';
     pause.style.display = 'inline-block';
-    isPause = false;
+    setLocalIsPaused(false);
     icon.classList.add('fa-fade');
     pause.focus();
 
@@ -258,6 +262,10 @@ function playSound(soundSample) {
   audio.play();
 }
 
+function setPomodoroIsPausedOnReload() {
+  window.addEventListener('beforeunload', () => setLocalIsPaused(true));
+}
+
 function removePomodoroTimerListiners() {
   const pomodoroContainer = document.getElementById('pomodoro');
   const pomodoroContainerClone = pomodoroContainer.cloneNode(true);
@@ -271,5 +279,6 @@ export {
   pomodoroInit,
   removePomodoroTimerListiners,
   toggleItemIconOpacity,
+  setPomodoroIsPausedOnReload,
   pomodoroIntervalTick,
 };
