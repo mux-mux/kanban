@@ -1,7 +1,6 @@
 import { createElementWithClass, isTouchDevice, toggleItemIconOpacity } from '../helpers/helpers';
 import { columnNames } from '../data/columns';
 import updateDOM from '../update/updateDOM';
-import { taskLists } from './addItem';
 import { deleteItem } from './deleteItem';
 import { removePomodoroTimerListiners } from '../set/pomodoro';
 import {
@@ -13,9 +12,10 @@ import {
 
 function editItem(type = 'task', columnNum = 0, itemNum = 0) {
   if (type === 'task') {
+    const taskLists = document.querySelectorAll('.task__list');
+    const itemsLoaded = getLocalItems();
     const selectedList = columnNames[columnNum];
     const selectedItem = taskLists[columnNum].children;
-    const itemsLoaded = getLocalItems();
 
     if (selectedItem[itemNum].textContent === '') {
       deleteItem('task', columnNum, itemNum);

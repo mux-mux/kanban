@@ -1,5 +1,4 @@
 import { setProperties } from '../helpers/helpers';
-import { taskLists } from './addItem';
 import { relocateItem } from './relocateItem';
 import { removePomodoroTimerListiners } from '../set/pomodoro';
 
@@ -19,6 +18,7 @@ function dragItem(e, columnNum) {
 }
 
 function dragOverItem(e, column) {
+  const taskLists = document.querySelectorAll('.task__list');
   currentColumn = column;
   e.preventDefault();
 
@@ -47,6 +47,7 @@ function dragOverItem(e, column) {
 }
 
 function dropItem(e, newColNum) {
+  const taskLists = document.querySelectorAll('.task__list');
   removePomodoroTimerListiners();
 
   e.preventDefault();
@@ -65,9 +66,13 @@ function dropItem(e, newColNum) {
   relocateItem(columnNum, itemNum, newColNum, newItemNum);
 }
 
-taskLists.forEach((list, i) => {
-  list.addEventListener('drop', (e) => dropItem(e, i));
-  list.addEventListener('dragover', (e) => dragOverItem(e, i));
-});
+function setDragAndDropListeners() {
+  const taskLists = document.querySelectorAll('.task__list');
 
-export { dragItem, dropItem };
+  taskLists.forEach((list, i) => {
+    list.addEventListener('drop', (e) => dropItem(e, i));
+    list.addEventListener('dragover', (e) => dragOverItem(e, i));
+  });
+}
+
+export { dragItem, dropItem, setDragAndDropListeners };

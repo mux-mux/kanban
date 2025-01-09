@@ -6,7 +6,6 @@ import { dragItem } from '../modify/dragDropItem';
 import { createPomodoroStartIcon, pomodoroInit } from './pomodoro';
 import { columnNames } from '../data/columns';
 import { relocateItem } from '../modify/relocateItem';
-import { taskLists } from '../modify/addItem';
 import { renderCategoriesSelector } from '../modify/addCategories';
 import { getLocalItems } from '../update/localStorage';
 
@@ -18,6 +17,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
     throw new Error('startPomodoro function has no required argument value');
   }
 
+  const taskLists = document.querySelectorAll('.task__list');
   const taskContainer = createElementWithClass('li', 'task__list-item');
   const taskManagment = createElementWithClass('div', 'task__set-container');
   const taskSessions = createElementWithClass('ul', 'pomodoro__sessions');
