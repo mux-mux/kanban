@@ -4,11 +4,11 @@ import { createDeleteIcon, deleteItem } from '../modify/deleteItem';
 import { setDeadline } from './deadline';
 import { dragItem } from '../modify/dragDropItem';
 import { createPomodoroStartIcon, pomodoroInit } from './pomodoro';
-import { itemsLoaded } from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 import { relocateItem } from '../modify/relocateItem';
 import { taskLists } from '../modify/addItem';
 import { renderCategoriesSelector } from '../modify/addCategories';
+import { getLocalItems } from '../update/localStorage';
 
 let pomodoroIcon = null;
 let moveData = {};
@@ -21,6 +21,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
   const taskContainer = createElementWithClass('li', 'task__list-item');
   const taskManagment = createElementWithClass('div', 'task__set-container');
   const taskSessions = createElementWithClass('ul', 'pomodoro__sessions');
+  const itemsLoaded = getLocalItems();
 
   const itemData = itemsLoaded[columnNames[columnNum]].items[itemNum];
   pomodoroIcon = createPomodoroStartIcon(columnNum, itemNum);
@@ -86,7 +87,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
   }
 }
 
-function renderTasks(itemsLoaded) {
+function renderItems(itemsLoaded) {
   const todoElement = document.getElementById('todo-list'),
     inprogressElement = document.getElementById('inprogress-list'),
     doneElement = document.getElementById('done-list'),
@@ -109,6 +110,7 @@ document.querySelectorAll('.btn-move').forEach((taskMoveButton, index) => {
     'touchstart',
     () => {
       const newColumnNum = moveData.columnNum != index ? index : index + 1;
+      const itemsLoaded = getLocalItems();
       moveData.newColumnNum = newColumnNum;
       moveData.newItemnNum = itemsLoaded[columnNames[newColumnNum]].items.length;
       if (moveData.columnNum !== undefined) {
@@ -183,4 +185,4 @@ function hoverAppearIcon(currentElement) {
   currentElement.addEventListener('mouseout', hideIcon);
 }
 
-export { createItem, isTouchDevice, hoverAppearIcon, renderTasks, pomodoroIcon };
+export { createItem, isTouchDevice, hoverAppearIcon, renderItems, pomodoroIcon };

@@ -1,17 +1,13 @@
 import { getLocalItems, getLocalArchive, getLocalCategories } from './localStorage';
 
-import { columnNames } from '../data/columns';
 import { renderArchive } from '../modify/archiveItem';
 import { renderCategories } from '../modify/addCategories';
-import { renderTasks } from '../set/createItem';
-
-let itemsLoaded = [];
+import { renderItems } from '../set/createItem';
 
 function updateDOM() {
-  itemsLoaded = getLocalItems(columnNames);
-  renderTasks(itemsLoaded);
+  renderItems(getLocalItems());
   renderArchive(getLocalArchive());
   renderCategories(getLocalCategories());
 }
 
-export { updateDOM, itemsLoaded };
+export default updateDOM;

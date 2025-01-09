@@ -1,12 +1,16 @@
 import { createFocusTrap } from 'focus-trap';
 import { createElementWithClass, setProperties, isTouchDevice } from '../helpers/helpers';
-import { updateDOM, itemsLoaded } from '../update/updateDOM';
-import { categories } from '../data/categories';
+import updateDOM from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 import { createDeleteIcon, deleteItem } from './deleteItem';
 import { hoverAppearIcon } from '../set/createItem';
 import { createEditIcon, editItemText } from './editItem';
-import { setLocalCategories, getLocalCategories } from '../update/localStorage';
+import {
+  setLocalCategories,
+  getLocalCategories,
+  getLocalItems,
+  setLocalItems,
+} from '../update/localStorage';
 
 function renderCategories(categoriesList) {
   const categoriesContainer = document.getElementById('categoriesContainer');
@@ -88,9 +92,10 @@ function addCategories() {
 }
 
 function renderCategoriesSelector(columnNum, itemNum) {
+  const itemsLoaded = getLocalItems();
+  const categoriesLoaded = getLocalCategories();
   const categorySelector = createElementWithClass('select', 'categories__select');
   const selectedList = columnNames[columnNum];
-  const categoriesLoaded = getLocalCategories();
 
   categorySelector.innerHTML = '<option value="" disabled selected>Select a category</option>';
 
@@ -106,6 +111,7 @@ function renderCategoriesSelector(columnNum, itemNum) {
     const selected = e.target.value;
 
     itemsLoaded[selectedList].items[itemNum].category = selected;
+    setLocalItems(itemsLoaded);
 
     updateDOM();
   });

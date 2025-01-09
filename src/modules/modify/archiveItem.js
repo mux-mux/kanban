@@ -1,7 +1,13 @@
 import { createFocusTrap } from 'focus-trap';
 import { createElementWithClass } from '../helpers/helpers';
-import { updateDOM, itemsLoaded } from '../update/updateDOM';
-import { getLocalArchive, setLocalArchive } from '../update/localStorage';
+import updateDOM from '../update/updateDOM';
+import { columnNames } from '../data/columns';
+import {
+  getLocalArchive,
+  setLocalArchive,
+  getLocalItems,
+  setLocalItems,
+} from '../update/localStorage';
 
 function archiveItem() {
   const buttonToggleArchive = document.querySelector('.tool-archive');
@@ -11,6 +17,7 @@ function archiveItem() {
   const buttonDownloadArchive = document.querySelector('.btn-add-archive');
   const buttonUploadArchive = document.querySelector('#selectedFile');
   const overlay = document.querySelector('.overlay');
+  const itemsLoaded = getLocalItems();
 
   [buttonToggleArchive, buttonCloseArchive].forEach((button) =>
     button.addEventListener('click', toggleArchiveVisibility)
@@ -93,11 +100,14 @@ function archiveItem() {
 }
 
 function moveToArchive(doneTasks, action) {
+  const itemsLoaded = getLocalItems();
   const archiveLoaded = getLocalArchive();
   const archiveItems = doneTasks;
   archiveLoaded.push(...archiveItems);
+  itemsLoaded[columnNames[2]].items = [];
+
   setLocalArchive(archiveLoaded);
-  action === 'done' ? setLocalArchive([]) : null;
+  action === 'done' ? setLocalItems(itemsLoaded) : null;
 
   updateDOM();
 }

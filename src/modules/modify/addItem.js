@@ -1,8 +1,9 @@
 import { createFocusTrap } from 'focus-trap';
 import { createElementWithClass } from '../helpers/helpers';
-import { updateDOM, itemsLoaded } from '../update/updateDOM';
+import updateDOM from '../update/updateDOM';
 import { columnNames } from '../data/columns';
 import { todayDate } from '../set/deadline';
+import { getLocalItems, setLocalItems } from '../update/localStorage';
 
 //Dynamically render new task fields and buttons
 const containersNewTask = document.querySelectorAll('.task__new');
@@ -144,6 +145,8 @@ function toggleNewTaskTextarea(column, state) {
 }
 
 function addNewTask(column) {
+  const itemsLoaded = getLocalItems();
+
   if (textareas[column].value === '') {
     return;
   }
@@ -162,6 +165,7 @@ function addNewTask(column) {
       })
     : null;
   textareas[column].value = '';
+  setLocalItems(itemsLoaded);
   updateDOM();
 }
 

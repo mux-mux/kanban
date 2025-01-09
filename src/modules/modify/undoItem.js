@@ -1,8 +1,11 @@
 import { columnNames } from '../data/columns';
-import { updateDOM, itemsLoaded } from '../update/updateDOM';
+import updateDOM from '../update/updateDOM';
 import { overallRemoved } from './deleteItem';
+import { getLocalItems, setLocalItems } from '../update/localStorage';
 
 function undoItem(items, removed) {
+  const itemsLoaded = getLocalItems();
+
   const getBackItem = removed.pop();
 
   let [item, column] = getBackItem.split(', ');
@@ -11,6 +14,7 @@ function undoItem(items, removed) {
   const parsedItem = JSON.parse(item)[0];
 
   itemsLoaded[selectedList].items.push(parsedItem);
+  setLocalItems(itemsLoaded);
 
   updateDOM();
 }

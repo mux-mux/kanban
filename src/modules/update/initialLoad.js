@@ -2,20 +2,18 @@ import {
   setLocalItems,
   setLocalArchive,
   setLocalCategories,
-  setLocalInitialLoad,
+  setLocalIsInitialLoad,
 } from './localStorage';
-import { updateDOM } from './updateDOM';
-
-import { columnNames } from '../data/columns';
+import updateDOM from './updateDOM';
 
 function initialLoad() {
-  const initialLoad = localStorage.getItem('initialLoad') === null;
+  const initialLoad = localStorage.getItem('isInitialLoad') === null;
 
   if (initialLoad) {
-    setLocalItems(columnNames);
+    setLocalItems();
     setLocalArchive();
     setLocalCategories();
-    setLocalInitialLoad();
+    setLocalIsInitialLoad();
     updateDOM();
   } else {
     updateDOM();
