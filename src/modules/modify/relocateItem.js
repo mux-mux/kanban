@@ -8,12 +8,13 @@ import { getLocalItems, setLocalItems } from '../update/localStorage';
 function relocateItem(columnNum, itemNum, newColNum, newItemNum) {
   const itemsLoaded = getLocalItems();
 
-  const selectedList = itemsLoaded[columnNames[columnNum]].items;
-  const currRemoved = selectedList.splice(itemNum, 1);
-  const itemData = itemsLoaded[columnNames[newColNum]].items[newItemNum];
+  const currentColumnItems = itemsLoaded[columnNames[columnNum]].items;
+  const newColumnItems = itemsLoaded[columnNames[newColNum]].items;
+  const currentItemRemoved = currentColumnItems.splice(itemNum, 1);
+  //Move task into a new position
+  newColumnItems.splice(newItemNum, 0, ...currentItemRemoved);
 
-  itemsLoaded[columnNames[columnNum]].items.splice(itemNum, 1);
-  itemsLoaded[columnNames[newColNum]].items.splice(newItemNum, 0, currRemoved[0]);
+  const itemData = newColumnItems[newItemNum];
 
   if (newColNum == 2) {
     itemData.done = todayDate();

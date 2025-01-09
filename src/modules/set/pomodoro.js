@@ -42,7 +42,6 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
       }
 
       itemData.break = !itemData.break;
-      itemsLoaded[columnNames[columnNum]].items[itemNum] = itemData;
       setLocalItems(itemsLoaded);
 
       if (itemData.break) {
@@ -63,7 +62,6 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
     }
     if (itemData.pomodoro === true && !isPause) {
       itemData.time = `${minutes}:${seconds}`;
-      itemsLoaded[columnNames[columnNum]].items[itemNum] = itemData;
       setLocalItems(itemsLoaded);
     }
   }
@@ -158,7 +156,6 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   if (state === 'init') {
     focusTrap && focusTrap.deactivate();
     isPause ? pausePomodoro() : playPomodoro();
-    //  updatedOnLoad || isPause ? pausePomodoro() : playPomodoro();  updatedOnLoad is removed
 
     showHidePomodoro(kanbanHeading, pomodoroContainer);
     startPomodoro(+time[0] + +time[1] / 60, timer, columnNum, itemNum);
