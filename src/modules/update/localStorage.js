@@ -1,6 +1,4 @@
-import { columns, columnNames } from '../data/columns';
-import { archive } from '../data/archive';
-import { categories } from '../data/categories';
+import { columnNames } from '../data/columns';
 
 function getLocalItems() {
   const localItems = {};
@@ -10,7 +8,7 @@ function getLocalItems() {
   });
   return localItems;
 }
-function setLocalItems(columnItems = columns) {
+function setLocalItems(columnItems) {
   columnNames.forEach((column) => {
     localStorage.setItem(`${column}Items`, JSON.stringify(columnItems[column].items));
   });
@@ -19,14 +17,14 @@ function setLocalItems(columnItems = columns) {
 function getLocalArchive() {
   return JSON.parse(localStorage.archiveItems);
 }
-function setLocalArchive(archiveItems = archive.items) {
+function setLocalArchive(archiveItems) {
   localStorage.setItem('archiveItems', JSON.stringify(archiveItems));
 }
 
 function getLocalCategories() {
   return JSON.parse(localStorage.categoriesItems);
 }
-function setLocalCategories(categoriesItems = categories.items) {
+function setLocalCategories(categoriesItems) {
   localStorage.setItem('categoriesItems', JSON.stringify(categoriesItems));
 }
 
