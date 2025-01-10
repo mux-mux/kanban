@@ -130,6 +130,8 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     throw new Error('pomodoroInit function has no required argument value');
   }
 
+  focusTrap && focusTrap.deactivate();
+
   const MM = document.getElementById('minutes');
   const SS = document.getElementById('seconds');
 
@@ -157,7 +159,6 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   let time = itemData.time === '' ? ['25', '00'] : itemData.time.split(':');
 
   if (state === 'init') {
-    focusTrap && focusTrap.deactivate();
     getLocalIsPaused() ? pausePomodoro() : playPomodoro();
 
     showHidePomodoro(kanbanHeading, pomodoroContainer);
