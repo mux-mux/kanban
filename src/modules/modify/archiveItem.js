@@ -16,16 +16,16 @@ function archiveItem() {
   const buttonDownloadArchive = document.querySelector('.btn-add-archive');
   const buttonUploadArchive = document.querySelector('#selectedFile');
   const overlay = document.querySelector('.overlay');
-  const itemsLoaded = getLocalItems();
 
   [buttonToggleArchive, buttonCloseArchive].forEach((button) =>
     button.addEventListener('click', toggleArchiveVisibility)
   );
   buttonDownloadArchive.addEventListener('click', downloadArchive);
   buttonUploadArchive.addEventListener('change', uploadArchive);
-  buttonMoveToArchive.addEventListener('click', () =>
-    moveToArchive(itemsLoaded.done.items, 'done')
-  );
+  buttonMoveToArchive.addEventListener('click', () => {
+    const itemsLoaded = getLocalItems();
+    moveToArchive(itemsLoaded.done.items, 'done');
+  });
 
   const focusTrap = createFocusTrap(containerArchive, {
     onActivate: () => buttonCloseArchive.focus(),

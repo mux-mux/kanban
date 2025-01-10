@@ -20,9 +20,9 @@ function undoItem(items, removed) {
 
 function setUndoListeners() {
   const buttonUndoDelete = document.querySelector('.tool-history');
-  const columnNames = getLocalColumnNames();
 
   document.addEventListener('keydown', (event) => {
+    const columnNames = getLocalColumnNames();
     if (event.ctrlKey && event.key === 'z') {
       if (overallRemoved.length !== 0) {
         undoItem(columnNames, overallRemoved);
@@ -31,6 +31,7 @@ function setUndoListeners() {
   });
 
   buttonUndoDelete.addEventListener('click', () => {
+    const columnNames = getLocalColumnNames();
     if (overallRemoved.length !== 0) {
       undoItem(columnNames, overallRemoved);
     }

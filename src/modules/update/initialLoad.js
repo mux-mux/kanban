@@ -7,13 +7,6 @@ import {
 } from './localStorage';
 
 import getItems from '../services/ItemsService';
-import { archiveItem } from '../modify/archiveItem';
-import { setUndoListeners } from '../modify/undoItem';
-import { switchTheme } from '../theme/themeSwitch';
-import { addCategories } from '../modify/addCategories';
-import renderButtonsAndFields from '../modify/addItem';
-import { setPomodoroIsPausedOnReload } from '../set/pomodoro';
-import { setDragAndDropListeners } from '../modify/dragDropItem';
 
 import updateDOM from './updateDOM';
 
@@ -28,15 +21,6 @@ function initialLoad() {
         setLocalArchive(archive);
         setLocalCategories(categories);
         setLocalIsInitialLoad();
-
-        archiveItem();
-        setUndoListeners();
-        renderButtonsAndFields();
-        switchTheme();
-        addCategories();
-        setDragAndDropListeners();
-        setPomodoroIsPausedOnReload();
-
         updateDOM();
       }
     );
