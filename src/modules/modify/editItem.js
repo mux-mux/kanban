@@ -32,8 +32,8 @@ function editItem(type = 'task', columnNum = 0, itemNum = 0) {
   updateDOM();
 }
 
-function createEditIcon(type = 'task', columnNum = 0, itemNum = 0) {
-  if (columnNum == undefined || itemNum == undefined) {
+function createEditIcon(type, columnNum, itemNum = 0) {
+  if (!type || columnNum == undefined) {
     throw new Error('createEditIcon function has no required argument value');
   }
 
@@ -58,12 +58,12 @@ function createEditIcon(type = 'task', columnNum = 0, itemNum = 0) {
   return editButton;
 }
 
-function editItemText(e, type = 'task', columnNum = 0, itemNum = 0) {
+function editItemText(e, type, columnNum, itemNum = 0) {
   const taskListItem =
     type === 'task' ? e.target.closest('.task__list-item') : e.target.closest('.categories__item');
   const selectElement = type === 'task' && taskListItem.querySelector('.categories__select');
 
-  if (columnNum == undefined || itemNum == undefined) {
+  if (!type || columnNum == undefined) {
     throw new Error('editItemText function has no required argument value');
   }
 

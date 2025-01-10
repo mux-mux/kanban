@@ -29,8 +29,8 @@ function deleteItem(type = 'task', columnNum = 0, itemNum = 0) {
   updateDOM();
 }
 
-function createDeleteIcon(type = 'task', columnNum = 0, itemNum = 0) {
-  if (columnNum == undefined || itemNum == undefined) {
+function createDeleteIcon(type, columnNum, itemNum = 0) {
+  if (!type || columnNum == undefined) {
     throw new Error('createEditIcon function has no required argument value');
   }
 
