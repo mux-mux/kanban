@@ -1,7 +1,6 @@
 import { createFocusTrap } from 'focus-trap';
 import { createElementWithClass, setProperties, isTouchDevice } from '../helpers/helpers';
 import updateDOM from '../update/updateDOM';
-import { columnNames } from '../data/columns';
 import { createDeleteIcon, deleteItem } from './deleteItem';
 import { hoverAppearIcon } from '../set/createItem';
 import { createEditIcon, editItemText } from './editItem';
@@ -95,7 +94,7 @@ function renderCategoriesSelector(columnNum, itemNum) {
   const itemsLoaded = getLocalItems();
   const categoriesLoaded = getLocalCategories();
   const categorySelector = createElementWithClass('select', 'categories__select');
-  const selectedList = columnNames[columnNum];
+  const selectedList = Object.keys(itemsLoaded)[columnNum];
 
   categorySelector.innerHTML = '<option value="" disabled selected>Select a category</option>';
 

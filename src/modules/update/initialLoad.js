@@ -3,6 +3,7 @@ import {
   setLocalArchive,
   setLocalCategories,
   setLocalIsInitialLoad,
+  setLocalColumnNames,
 } from './localStorage';
 import updateDOM from './updateDOM';
 import getItems from '../services/ItemsService';
@@ -18,6 +19,7 @@ function initialLoad() {
         setLocalArchive(archive);
         setLocalCategories(categories);
         setLocalIsInitialLoad();
+        setLocalColumnNames(columns);
         archiveItem();
         updateDOM();
       }

@@ -1,6 +1,5 @@
 import { createElementWithClass, toggleItemIconOpacity, isTouchDevice } from '../helpers/helpers';
 import updateDOM from '../update/updateDOM';
-import { columnNames } from '../data/columns';
 import { pomodoroIntervalTick, removePomodoroTimerListiners } from '../set/pomodoro';
 import {
   setLocalCategories,
@@ -16,7 +15,7 @@ function deleteItem(type = 'task', columnNum = 0, itemNum = 0) {
     const itemsLoaded = getLocalItems();
     removePomodoroTimerListiners();
 
-    const selectedList = itemsLoaded[columnNames[columnNum]];
+    const selectedList = itemsLoaded[Object.keys(itemsLoaded)[columnNum]];
     const currRemoved = selectedList.items.splice(itemNum, 1);
     overallRemoved.push(`${JSON.stringify(currRemoved)}, ${columnNum}`);
     setLocalItems(itemsLoaded);
@@ -40,7 +39,7 @@ function createDeleteIcon(type = 'task', columnNum = 0, itemNum = 0) {
 
   if (type === 'task') {
     const itemsLoaded = getLocalItems();
-    const taskText = itemsLoaded[columnNames[columnNum]].items[itemNum].name;
+    const taskText = itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum].name;
     taskDeleteButton.setAttribute('aria-label', `Delete ${taskText} task`);
   } else if (type === 'category') {
     const categoriesLoaded = getLocalCategories();

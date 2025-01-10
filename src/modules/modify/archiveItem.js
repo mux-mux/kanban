@@ -1,7 +1,6 @@
 import { createFocusTrap } from 'focus-trap';
 import { createElementWithClass } from '../helpers/helpers';
 import updateDOM from '../update/updateDOM';
-import { columnNames } from '../data/columns';
 import {
   getLocalArchive,
   setLocalArchive,
@@ -102,9 +101,10 @@ function archiveItem() {
 function moveToArchive(doneTasks, action) {
   const itemsLoaded = getLocalItems();
   const archiveLoaded = getLocalArchive();
+  const columnDoneNum = Object.keys(itemsLoaded).length - 1;
   const archiveItems = doneTasks;
   archiveLoaded.push(...archiveItems);
-  itemsLoaded[columnNames[2]].items = [];
+  itemsLoaded[Object.keys(itemsLoaded)[columnDoneNum]].items = [];
 
   setLocalArchive(archiveLoaded);
   action === 'done' ? setLocalItems(itemsLoaded) : null;

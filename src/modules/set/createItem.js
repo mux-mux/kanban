@@ -4,7 +4,7 @@ import { createDeleteIcon, deleteItem } from '../modify/deleteItem';
 import { setDeadline } from './deadline';
 import { dragItem } from '../modify/dragDropItem';
 import { createPomodoroStartIcon, pomodoroInit } from './pomodoro';
-import { columnNames } from '../data/columns';
+
 import { relocateItem } from '../modify/relocateItem';
 import { renderCategoriesSelector } from '../modify/addCategories';
 import { getLocalItems } from '../update/localStorage';
@@ -23,7 +23,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
   const taskSessions = createElementWithClass('ul', 'pomodoro__sessions');
   const itemsLoaded = getLocalItems();
 
-  const itemData = itemsLoaded[columnNames[columnNum]].items[itemNum];
+  const itemData = itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum];
   pomodoroIcon = createPomodoroStartIcon(columnNum, itemNum);
   const taskEditIcon = createEditIcon('task', columnNum, itemNum);
   const taskDeleteIcon = createDeleteIcon('task', columnNum, itemNum);
@@ -95,7 +95,7 @@ function renderItems(itemsLoaded) {
 
   elementsList.forEach((element) => (element.textContent = ''));
 
-  columnNames.forEach((column, columnNum) => {
+  Object.keys(itemsLoaded).forEach((column, columnNum) => {
     itemsLoaded[column].items.forEach((item, itemNum) => {
       createItem(elementsList[columnNum], columnNum, item, itemNum);
     });
@@ -112,7 +112,7 @@ document.querySelectorAll('.btn-move').forEach((taskMoveButton, index) => {
       const newColumnNum = moveData.columnNum != index ? index : index + 1;
       const itemsLoaded = getLocalItems();
       moveData.newColumnNum = newColumnNum;
-      moveData.newItemnNum = itemsLoaded[columnNames[newColumnNum]].items.length;
+      moveData.newItemnNum = itemsLoaded[Object.keys(itemsLoaded)[newColumnNum]].items.length;
       if (moveData.columnNum !== undefined) {
         relocateItem(
           moveData.columnNum,

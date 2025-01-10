@@ -2,7 +2,6 @@ import { createFocusTrap } from 'focus-trap';
 
 import { createElementWithClass, isTouchDevice, toggleItemIconOpacity } from '../helpers/helpers';
 import updateDOM from '../update/updateDOM';
-import { columnNames } from '../data/columns';
 import {
   setLocalItems,
   getLocalItems,
@@ -24,7 +23,7 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
 
   const pomodoroBreak = document.querySelector('.pomodoro__break');
   const itemsLoaded = getLocalItems();
-  const itemData = itemsLoaded[columnNames[columnNum]].items[itemNum];
+  const itemData = itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum];
 
   let tick = duration * 60;
 
@@ -89,7 +88,7 @@ function createPomodoroStartIcon(columnNum, itemNum) {
   const startPomodoroIcon = createElementWithClass('i', ['fa-regular', 'fa-circle-play']);
   const itemsLoaded = getLocalItems();
 
-  const taskText = itemsLoaded[columnNames[columnNum]].items[itemNum].name;
+  const taskText = itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum].name;
   pomodoro.setAttribute('aria-label', `Start pomodoro timer for ${taskText} task`);
 
   pomodoro.appendChild(startPomodoroIcon);
@@ -116,7 +115,7 @@ function createPomodoroStartIcon(columnNum, itemNum) {
       }
     }
 
-    itemsLoaded[columnNames[columnNum]].items[itemNum].pomodoro = true;
+    itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum].pomodoro = true;
     playSound('play.ogg');
 
     setLocalItems(itemsLoaded);
@@ -183,7 +182,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     text.textContent = '';
 
     focusTrap.deactivate();
-    itemsLoaded[columnNames[columnNum]].items[itemNum] = itemData;
+    itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum] = itemData;
     setLocalItems(itemsLoaded);
     setLocalIsPaused(false);
     updateDOM();
@@ -226,7 +225,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     if (itemData.break === true) {
       itemData.break = false;
       coffee.style.display = 'none';
-      itemsLoaded[columnNames[columnNum]].items[itemNum] = itemData;
+      itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum] = itemData;
       setLocalItems(itemsLoaded);
     }
 
@@ -235,9 +234,15 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
 
   function donePomodoro(e) {
     const itemsLoaded = getLocalItems();
+    const columnDoneNum = Object.keys(itemsLoaded).length - 1;
 
     removePomodoroTimerListiners();
-    relocateItem(columnNum, itemNum, 2, itemsLoaded[columnNames[2]].items.length);
+    relocateItem(
+      columnNum,
+      itemNum,
+      2,
+      itemsLoaded[Object.keys(itemsLoaded)[columnDoneNum]].items.length
+    );
 
     e && playSound('done.ogg');
   }

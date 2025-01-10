@@ -1,5 +1,4 @@
 import { createElementWithClass, isTouchDevice, toggleItemIconOpacity } from '../helpers/helpers';
-import { columnNames } from '../data/columns';
 import updateDOM from '../update/updateDOM';
 import { deleteItem } from './deleteItem';
 import { removePomodoroTimerListiners } from '../set/pomodoro';
@@ -14,7 +13,7 @@ function editItem(type = 'task', columnNum = 0, itemNum = 0) {
   if (type === 'task') {
     const taskLists = document.querySelectorAll('.task__list');
     const itemsLoaded = getLocalItems();
-    const selectedList = columnNames[columnNum];
+    const selectedList = Object.keys(itemsLoaded)[columnNum];
     const selectedItem = taskLists[columnNum].children;
 
     if (selectedItem[itemNum].textContent === '') {
@@ -43,7 +42,7 @@ function createEditIcon(type = 'task', columnNum = 0, itemNum = 0) {
 
   if (type === 'task') {
     const itemsLoaded = getLocalItems();
-    const taskText = itemsLoaded[columnNames[columnNum]].items[itemNum].name;
+    const taskText = itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum].name;
     editButton.setAttribute('aria-label', `Edit ${taskText} task name`);
   } else if (type === 'category') {
     const categoriesLoaded = getLocalCategories();

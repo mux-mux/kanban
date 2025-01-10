@@ -1,7 +1,6 @@
 import { createFocusTrap } from 'focus-trap';
 import { createElementWithClass } from '../helpers/helpers';
 import updateDOM from '../update/updateDOM';
-import { columnNames } from '../data/columns';
 import { todayDate } from '../set/deadline';
 import { getLocalItems, setLocalItems } from '../update/localStorage';
 
@@ -9,9 +8,9 @@ let focusTrap = null;
 
 function renderButtonsAndFields() {
   const containersNewTask = document.querySelectorAll('.task__new');
-  const textareas = document.querySelectorAll('.textarea-add');
   renderNewTaskButtons(containersNewTask);
   renderNewTaskFields(containersNewTask);
+  const textareas = document.querySelectorAll('.textarea-add');
 
   function renderNewTaskFields(columns) {
     columns.forEach((column, i) => {
@@ -156,7 +155,7 @@ function renderButtonsAndFields() {
       return;
     }
     const itemText = textareas[column].value;
-    const selectedList = columnNames[column];
+    const selectedList = Object.keys(itemsLoaded)[column];
     itemText.trim().length > 0
       ? itemsLoaded[selectedList].items.push({
           name: itemText,

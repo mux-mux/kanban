@@ -1,15 +1,13 @@
-import { columnNames } from '../data/columns';
-
 function getLocalItems() {
   const localItems = {};
-  columnNames.forEach((column) => {
+  getLocalColumnNames().forEach((column) => {
     let localName = column + 'Items';
     localItems[column] = { items: JSON.parse(localStorage[localName]) };
   });
   return localItems;
 }
 function setLocalItems(columnItems) {
-  columnNames.forEach((column) => {
+  Object.keys(columnItems).forEach((column) => {
     localStorage.setItem(`${column}Items`, JSON.stringify(columnItems[column].items));
   });
 }
@@ -34,11 +32,19 @@ function getLocalIsInitialLoad() {
 function setLocalIsInitialLoad() {
   localStorage.setItem('isInitialLoad', JSON.stringify(false));
 }
+
 function getLocalIsPaused() {
   return JSON.parse(localStorage.isPaused);
 }
 function setLocalIsPaused(isPaused) {
   localStorage.setItem('isPaused', JSON.stringify(isPaused));
+}
+
+function getLocalColumnNames() {
+  return JSON.parse(localStorage.columnNames);
+}
+function setLocalColumnNames(columnNames) {
+  localStorage.setItem('columnNames', JSON.stringify(Object.keys(columnNames)));
 }
 
 export {
@@ -52,4 +58,5 @@ export {
   setLocalIsInitialLoad,
   getLocalIsPaused,
   setLocalIsPaused,
+  setLocalColumnNames,
 };

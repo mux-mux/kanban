@@ -1,4 +1,3 @@
-import { columnNames } from '../data/columns';
 import updateDOM from '../update/updateDOM';
 import { overallRemoved } from './deleteItem';
 import { getLocalItems, setLocalItems } from '../update/localStorage';
@@ -21,18 +20,19 @@ function undoItem(items, removed) {
 
 function setUndoListeners() {
   const buttonUndoDelete = document.querySelector('.tool-history');
+  const itemsLoaded = getLocalItems();
 
   document.addEventListener('keydown', (event) => {
     if (event.ctrlKey && event.key === 'z') {
       if (overallRemoved.length !== 0) {
-        undoItem(columnNames, overallRemoved);
+        undoItem(Object.keys(itemsLoaded), overallRemoved);
       }
     }
   });
 
   buttonUndoDelete.addEventListener('click', () => {
     if (overallRemoved.length !== 0) {
-      undoItem(columnNames, overallRemoved);
+      undoItem(Object.keys(itemsLoaded), overallRemoved);
     }
   });
 }

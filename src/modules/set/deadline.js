@@ -1,6 +1,5 @@
 import { createElementWithClass } from '../helpers/helpers';
 import updateDOM from '../update/updateDOM';
-import { columnNames } from '../data/columns';
 import { getLocalItems, setLocalItems } from '../update/localStorage';
 
 function todayDate() {
@@ -17,7 +16,7 @@ function setDeadline(columnNum, item, itemNum) {
   const itemsLoaded = getLocalItems();
 
   const today = todayDate();
-  let currDeadline = itemsLoaded[columnNames[columnNum]].items[itemNum].deadline;
+  let currDeadline = itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum].deadline;
 
   today > currDeadline && columnNum !== 2
     ? (deadlinePick.style.color = '#d02020')
@@ -27,7 +26,8 @@ function setDeadline(columnNum, item, itemNum) {
   deadlinePick.value = item.deadline;
 
   deadlinePick.addEventListener('change', (e) => {
-    itemsLoaded[columnNames[columnNum]].items[itemNum].deadline = e.currentTarget.value;
+    itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum].deadline =
+      e.currentTarget.value;
     setLocalItems(itemsLoaded);
     updateDOM();
   });
