@@ -8,16 +8,18 @@ import {
   setLocalItems,
 } from '../update/localStorage';
 
-const overallRemoved = [];
+import { setSessionRemovedItems, getSessionRemovedItems } from '../update/sessionStorage';
 
 function deleteItem(type = 'task', columnNum = 0, itemNum = 0) {
   if (type === 'task') {
     const itemsLoaded = getLocalItems();
+    const itemsRemoved = sessionStorage.getItem('removedItems') ? getSessionRemovedItems() : [];
     removePomodoroTimerListiners();
 
     const selectedList = itemsLoaded[Object.keys(itemsLoaded)[columnNum]];
     const currRemoved = selectedList.items.splice(itemNum, 1);
-    overallRemoved.push(`${JSON.stringify(currRemoved)}, ${columnNum}`);
+    itemsRemoved.push([...currRemoved, columnNum]);
+    setSessionRemovedItems(itemsRemoved);
     setLocalItems(itemsLoaded);
     clearInterval(pomodoroIntervalTick);
   } else if (type === 'category') {
@@ -56,4 +58,4 @@ function createDeleteIcon(type, columnNum, itemNum = 0) {
   return taskDeleteButton;
 }
 
-export { deleteItem, createDeleteIcon, overallRemoved };
+export { deleteItem, createDeleteIcon };

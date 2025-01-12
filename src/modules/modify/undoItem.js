@@ -1,18 +1,15 @@
 import updateDOM from '../update/updateDOM';
-import { overallRemoved } from './deleteItem';
 import { getLocalItems, setLocalItems, getLocalColumnNames } from '../update/localStorage';
+import { setSessionRemovedItems, getSessionRemovedItems } from '../update/sessionStorage';
 
-function undoItem(items, removed) {
+function undoItem(columnNames, removed) {
   const itemsLoaded = getLocalItems();
-
   const getBackItem = removed.pop();
+  const [item, column] = getBackItem;
+  const selectedList = columnNames[column];
 
-  let [item, column] = getBackItem.split(', ');
-
-  const selectedList = items[column];
-  const parsedItem = JSON.parse(item)[0];
-
-  itemsLoaded[selectedList].items.push(parsedItem);
+  itemsLoaded[selectedList].items.push(item);
+  setSessionRemovedItems(removed);
   setLocalItems(itemsLoaded);
 
   updateDOM();
@@ -21,21 +18,24 @@ function undoItem(items, removed) {
 function setUndoListeners() {
   const buttonUndoDelete = document.querySelector('.tool-history');
 
-  document.addEventListener('keydown', (event) => {
+  function handleUndoItem() {
+    const itemsRemoved = getSessionRemovedItems();
     const columnNames = getLocalColumnNames();
+
+    if (itemsRemoved.length !== 0) {
+      undoItem(columnNames, itemsRemoved);
+    }
+  }
+
+  document.addEventListener('keydown', (event) => {
     if (event.ctrlKey && event.key === 'z') {
-      if (overallRemoved.length !== 0) {
-        undoItem(columnNames, overallRemoved);
-      }
+      handleUndoItem();
     }
   });
 
   buttonUndoDelete.addEventListener('click', () => {
-    const columnNames = getLocalColumnNames();
-    if (overallRemoved.length !== 0) {
-      undoItem(columnNames, overallRemoved);
-    }
+    handleUndoItem();
   });
 }
 
-export { setUndoListeners };
+export default setUndoListeners;
