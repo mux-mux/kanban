@@ -1,3 +1,4 @@
+import checkFunctionParameters from '../errors/checkFunctionParameters';
 import { createElementWithClass, isTouchDevice, toggleItemIconOpacity } from '../helpers/helpers';
 import updateDOM from '../update/updateDOM';
 import { deleteItem } from './deleteItem';
@@ -33,9 +34,7 @@ function editItem(type = 'task', columnNum = 0, itemNum = 0) {
 }
 
 function createEditIcon(type, columnNum, itemNum = 0) {
-  if (!type || columnNum == undefined) {
-    throw new Error('createEditIcon function has no required argument value');
-  }
+  checkFunctionParameters(type, columnNum);
 
   const editButton = createElementWithClass('button', 'edit__icon');
   const editIcon = createElementWithClass('i', ['fa-solid', 'fa-pencil']);
@@ -59,13 +58,11 @@ function createEditIcon(type, columnNum, itemNum = 0) {
 }
 
 function editItemText(e, type, columnNum, itemNum = 0) {
+  checkFunctionParameters(type, columnNum);
+
   const taskListItem =
     type === 'task' ? e.target.closest('.task__list-item') : e.target.closest('.categories__item');
   const selectElement = type === 'task' && taskListItem.querySelector('.categories__select');
-
-  if (!type || columnNum == undefined) {
-    throw new Error('editItemText function has no required argument value');
-  }
 
   if (e.target.classList.contains('edit__icon') || e.target.classList.contains('fa-pencil')) {
     if (taskListItem) {

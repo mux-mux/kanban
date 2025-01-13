@@ -1,3 +1,4 @@
+import checkFunctionParameters from '../errors/checkFunctionParameters';
 import { setProperties, createElementWithClass, isTouchDevice } from '../helpers/helpers';
 import { editItemText, createEditIcon } from '../modify/editItem';
 import { createDeleteIcon, deleteItem } from '../modify/deleteItem';
@@ -13,9 +14,7 @@ let pomodoroIcon = null;
 let moveData = {};
 
 function createItem(columnElement, columnNum, item, itemNum) {
-  if (!columnElement || columnNum == undefined || !item || itemNum == undefined) {
-    throw new Error('startPomodoro function has no required argument value');
-  }
+  checkFunctionParameters(columnElement, columnNum, item, itemNum);
 
   const taskLists = document.querySelectorAll('.task__list');
   const taskContainer = createElementWithClass('li', 'task__list-item');
@@ -128,9 +127,7 @@ document.querySelectorAll('.btn-move').forEach((taskMoveButton, index) => {
 });
 
 function appendSessionIcon(container, num) {
-  if (!container || num == undefined) {
-    throw new Error('appendSessionIcon function has no required argument value');
-  }
+  checkFunctionParameters(container, num);
 
   const sessionElement = createElementWithClass('li', 'pomodoro__session');
   sessionElement.style.left = 12 * num + 'px';
@@ -138,9 +135,7 @@ function appendSessionIcon(container, num) {
 }
 
 function setElementAttributes(element, text, isDraggable, num) {
-  if (!element || text == undefined || isDraggable == undefined || num == undefined) {
-    throw new Error('setElementAttributes function has no required argument value');
-  }
+  checkFunctionParameters(element, text, isDraggable, num);
 
   element.textContent = text;
   element.draggable = isDraggable;
@@ -148,9 +143,7 @@ function setElementAttributes(element, text, isDraggable, num) {
 }
 
 function changeIconOnBreak(data, icon) {
-  if (!data || !icon) {
-    throw new Error('changeIconOnBreak function has no required argument value');
-  }
+  checkFunctionParameters(data, icon);
 
   if (data.break === true) {
     changeIcon(icon, 'fa-regular', 'fa-circle-play', 'fa-solid', 'fa-mug-hot');
@@ -161,9 +154,7 @@ function changeIconOnBreak(data, icon) {
   }
 
   function changeIcon(icon, rem1, rem2, add1, add2) {
-    if (!icon || !rem1 || !rem2 || !add1 || !add2) {
-      throw new Error('changeIcon function has no required argument value');
-    }
+    checkFunctionParameters(icon, rem1, rem2, add1, add2);
 
     icon.pomodoro.classList.remove(rem1, rem2);
     icon.pomodoro.classList.add(add1, add2);
@@ -178,9 +169,8 @@ function hideIcon(e) {
 }
 
 function hoverAppearIcon(currentElement) {
-  if (!currentElement) {
-    throw new Error('hoverAppearIcon function has no required argument value');
-  }
+  checkFunctionParameters(currentElement);
+
   currentElement.addEventListener('mouseover', showIcon);
   currentElement.addEventListener('mouseout', hideIcon);
 }

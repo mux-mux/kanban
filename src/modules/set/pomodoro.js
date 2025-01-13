@@ -1,5 +1,5 @@
 import { createFocusTrap } from 'focus-trap';
-
+import checkFunctionParameters from '../errors/checkFunctionParameters';
 import { createElementWithClass, isTouchDevice, toggleItemIconOpacity } from '../helpers/helpers';
 import updateDOM from '../update/updateDOM';
 import {
@@ -14,9 +14,7 @@ let pomodoroIntervalTick = null;
 let focusTrap = null;
 
 function startPomodoro(duration, timer, columnNum, itemNum) {
-  if (!duration || !timer || columnNum == undefined || itemNum == undefined) {
-    throw new Error('startPomodoro function has no required argument value');
-  }
+  checkFunctionParameters(duration, timer, columnNum, itemNum);
 
   const MM = document.getElementById('minutes');
   const SS = document.getElementById('seconds');
@@ -80,9 +78,7 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
 }
 
 function createPomodoroStartIcon(columnNum, itemNum) {
-  if (columnNum == undefined || itemNum == undefined) {
-    throw new Error('createPomodoroStartIcon function has no required argument value');
-  }
+  checkFunctionParameters(columnNum, itemNum);
 
   const pomodoro = createElementWithClass('button', 'pomodoro__icon');
   const startPomodoroIcon = createElementWithClass('i', ['fa-regular', 'fa-circle-play']);
@@ -126,9 +122,7 @@ function createPomodoroStartIcon(columnNum, itemNum) {
 }
 
 function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
-  if (!timer || !itemData || !state || columnNum == undefined || itemNum == undefined) {
-    throw new Error('pomodoroInit function has no required argument value');
-  }
+  checkFunctionParameters(timer, itemData, state, columnNum, itemNum);
 
   focusTrap && focusTrap.deactivate();
 
@@ -190,9 +184,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   }
 
   function showHidePomodoro(firstItem, secondItem) {
-    if (!firstItem || !secondItem) {
-      throw new Error('showHidePomodoro function has no required argument value');
-    }
+    checkFunctionParameters(firstItem, secondItem);
 
     firstItem.style.display = 'none';
     secondItem.style.display = 'flex';
@@ -260,9 +252,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
 }
 
 function playSound(soundSample) {
-  if (!soundSample) {
-    throw new Error('playSound function has no correct soundSample argument');
-  }
+  checkFunctionParameters(soundSample);
 
   const audio = new Audio('./assets/sounds/' + soundSample);
   audio.play();

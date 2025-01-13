@@ -1,17 +1,15 @@
-function setProperties(el, props) {
-  if (!el || !props) {
-    throw new Error('setProperties function has no required argument value');
-  }
+import checkFunctionParameters from '../errors/checkFunctionParameters';
+
+function setProperties(element, props) {
+  checkFunctionParameters(element, props);
 
   for (const [key, value] of Object.entries(props)) {
-    el.style.setProperty(key, value);
+    element.style.setProperty(key, value);
   }
 }
 
 function createElementWithClass(element, clazz) {
-  if (!element || !clazz) {
-    throw new Error('createElementWithClass function has no required argument value');
-  }
+  checkFunctionParameters(element, clazz);
 
   const newElement = document.createElement(element);
   Array.isArray(clazz) ? newElement.classList.add(...clazz) : newElement.classList.add(clazz);
@@ -23,6 +21,7 @@ function isTouchDevice() {
 }
 
 function toggleItemIconOpacity(e, state) {
+  checkFunctionParameters(state);
   e.target.offsetParent.style.setProperty('--opacity', state);
 }
 

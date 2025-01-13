@@ -1,3 +1,5 @@
+import checkFunctionParameters from '../errors/checkFunctionParameters';
+
 function getLocalItems() {
   const localItems = {};
   getLocalColumnNames().forEach((column) => {
@@ -7,9 +9,7 @@ function getLocalItems() {
   return localItems;
 }
 function setLocalItems(columnItems) {
-  if (!columnItems) {
-    throw new Error('setLocalItems function has no required argument value');
-  }
+  checkFunctionParameters(columnItems);
   Object.keys(columnItems).forEach((column) => {
     localStorage.setItem(`${column}Items`, JSON.stringify(columnItems[column].items));
   });
@@ -19,9 +19,7 @@ function getLocalArchive() {
   return JSON.parse(localStorage.archiveItems);
 }
 function setLocalArchive(archiveItems) {
-  if (!archiveItems) {
-    throw new Error('setLocalArchive function has no required argument value');
-  }
+  checkFunctionParameters(archiveItems);
   localStorage.setItem('archiveItems', JSON.stringify(archiveItems));
 }
 
@@ -29,9 +27,7 @@ function getLocalCategories() {
   return JSON.parse(localStorage.categoriesItems);
 }
 function setLocalCategories(categoriesItems) {
-  if (!categoriesItems) {
-    throw new Error('setLocalCategories function has no required argument value');
-  }
+  checkFunctionParameters(categoriesItems);
   localStorage.setItem('categoriesItems', JSON.stringify(categoriesItems));
 }
 
@@ -46,9 +42,7 @@ function getLocalIsPaused() {
   return JSON.parse(localStorage.isPaused);
 }
 function setLocalIsPaused(isPaused) {
-  if (isPaused === undefined) {
-    throw new Error('setLocalIsPaused function has no required argument value');
-  }
+  checkFunctionParameters(isPaused);
   localStorage.setItem('isPaused', JSON.stringify(isPaused));
 }
 
@@ -56,9 +50,7 @@ function getLocalColumnNames() {
   return JSON.parse(localStorage.columnNames);
 }
 function setLocalColumnNames(columnNames) {
-  if (!columnNames) {
-    throw new Error('setLocalColumnNames function has no required argument value');
-  }
+  checkFunctionParameters(columnNames);
   localStorage.setItem('columnNames', JSON.stringify(columnNames));
 }
 

@@ -1,3 +1,4 @@
+import checkFunctionParameters from '../errors/checkFunctionParameters';
 import { createElementWithClass, toggleItemIconOpacity, isTouchDevice } from '../helpers/helpers';
 import updateDOM from '../update/updateDOM';
 import { pomodoroIntervalTick, removePomodoroTimerListiners } from '../set/pomodoro';
@@ -13,18 +14,20 @@ import { setSessionRemovedItems, getSessionRemovedItems } from '../update/sessio
 function deleteItem(type = 'task', columnNum = 0, itemNum = 0) {
   if (type === 'task') {
     const itemsLoaded = getLocalItems();
-    const itemsRemoved = sessionStorage.getItem('removedItems') ? getSessionRemovedItems() : [];
+    const itemsRemoved = getSessionRemovedItems();
     removePomodoroTimerListiners();
 
     const selectedList = itemsLoaded[Object.keys(itemsLoaded)[columnNum]];
     const currRemoved = selectedList.items.splice(itemNum, 1);
     itemsRemoved.push([...currRemoved, columnNum]);
+
     setSessionRemovedItems(itemsRemoved);
     setLocalItems(itemsLoaded);
     clearInterval(pomodoroIntervalTick);
   } else if (type === 'category') {
     const categoriesLoaded = getLocalCategories();
     categoriesLoaded.splice(columnNum, 1);
+
     setLocalCategories(categoriesLoaded);
   }
 
@@ -32,9 +35,7 @@ function deleteItem(type = 'task', columnNum = 0, itemNum = 0) {
 }
 
 function createDeleteIcon(type, columnNum, itemNum = 0) {
-  if (!type || columnNum == undefined) {
-    throw new Error('createEditIcon function has no required argument value');
-  }
+  checkFunctionParameters(type, columnNum);
 
   const taskDeleteButton = createElementWithClass('button', 'delete__icon');
   const taskDeleteIcon = createElementWithClass('i', ['fa-solid', 'fa-x']);

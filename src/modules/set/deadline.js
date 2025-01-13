@@ -1,3 +1,4 @@
+import checkFunctionParameters from '../errors/checkFunctionParameters';
 import { createElementWithClass } from '../helpers/helpers';
 import updateDOM from '../update/updateDOM';
 import { getLocalItems, setLocalItems } from '../update/localStorage';
@@ -8,9 +9,7 @@ function todayDate() {
 }
 
 function setDeadline(columnNum, item, itemNum) {
-  if (columnNum == undefined || !item || itemNum == undefined) {
-    throw new Error('setDeadline function has no required argument value');
-  }
+  checkFunctionParameters(columnNum, item, itemNum);
 
   const deadlinePick = createElementWithClass('input', 'deadline');
   const itemsLoaded = getLocalItems();
