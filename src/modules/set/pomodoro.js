@@ -158,7 +158,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     showHidePomodoro(kanbanHeading, pomodoroContainer);
     startPomodoro(+time[0] + +time[1] / 60, timer, columnNum, itemNum);
 
-    addPomodoroTimerListiners();
+    itemData.break === false && addPomodoroTimerListiners();
 
     icon.style.cssText = 'opacity: 1; color: #eccb34';
     pomodoroControls.style.display = 'flex';
@@ -211,17 +211,16 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   }
 
   function resetPomodoro(e) {
-    removePomodoroTimerListiners();
-    pomodoroInit(timer, itemData, 'remove', columnNum, itemNum);
-    focusTrap.deactivate();
-
     if (itemData.break === true) {
       itemData.break = false;
-      coffee.style.display = 'none';
       itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum] = itemData;
+      coffee.style.display = 'none';
       setLocalItems(itemsLoaded);
     }
 
+    removePomodoroTimerListiners();
+    pomodoroInit(timer, itemData, 'remove', columnNum, itemNum);
+    focusTrap.deactivate();
     e && playSound('reset.ogg');
   }
 

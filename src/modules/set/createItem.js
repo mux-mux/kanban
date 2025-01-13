@@ -43,7 +43,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
     pomodoroInit(pomodoroIcon, itemData, 'init', columnNum, itemNum);
   }
 
-  changeIconOnBreak(itemData, pomodoroIcon);
+  changeIconOnBreak(itemData, pomodoroIcon.pomodoro.querySelector('i[class^="fa"]'));
 
   setElementAttributes(taskContainer, item.name, true, itemNum);
   const categoriesSelector = renderCategoriesSelector(columnNum, itemNum);
@@ -149,15 +149,15 @@ function changeIconOnBreak(data, icon) {
     changeIcon(icon, 'fa-regular', 'fa-circle-play', 'fa-solid', 'fa-mug-hot');
   }
 
-  if (data.break === false && icon.pomodoro.classList.contains('fa-mug-hot')) {
+  if (data.break === false && icon.classList.contains('fa-mug-hot')) {
     changeIcon(icon, 'fa-solid', 'fa-mug-hot', 'fa-regular', 'fa-circle-play');
   }
 
   function changeIcon(icon, rem1, rem2, add1, add2) {
     checkFunctionParameters(icon, rem1, rem2, add1, add2);
 
-    icon.pomodoro.classList.remove(rem1, rem2);
-    icon.pomodoro.classList.add(add1, add2);
+    icon.classList.remove(rem1, rem2);
+    icon.classList.add(add1, add2);
   }
 }
 
@@ -175,4 +175,4 @@ function hoverAppearIcon(currentElement) {
   currentElement.addEventListener('mouseout', hideIcon);
 }
 
-export { createItem, isTouchDevice, hoverAppearIcon, renderItems, pomodoroIcon };
+export { createItem, isTouchDevice, hoverAppearIcon, renderItems, changeIconOnBreak, pomodoroIcon };
