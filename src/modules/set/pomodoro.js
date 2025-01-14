@@ -141,6 +141,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   const pomodoroContainer = document.querySelector('.pomodoro');
   const pomodoroControls = document.querySelector('.pomodoro__controls');
   const itemsLoaded = getLocalItems();
+  const isPaused = getLocalIsPaused();
 
   focusTrap = createFocusTrap(pomodoroControls, {
     onActivate: () => pause.focus(),
@@ -158,7 +159,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     showHidePomodoro(kanbanHeading, pomodoroContainer);
     startPomodoro(+time[0] + +time[1] / 60, timer, columnNum, itemNum);
 
-    itemData.time === '' && addPomodoroTimerListiners();
+    (itemData.time === '' || isPaused) && addPomodoroTimerListiners();
 
     icon.style.cssText = 'opacity: 1; color: #eccb34';
     pomodoroControls.style.display = 'flex';
