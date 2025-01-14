@@ -1,14 +1,22 @@
 .task {
   display: grid;
   align-items: flex-start;
-  grid-template-columns: repeat(auto-fit, minmax(calc($min-width - $padding-lg/2), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax($min-width, 1fr));
   gap: $gap-md;
 
   &__set-container {
     display: flex;
     align-items: center;
-    gap: $gap-xsm;
+    gap: $gap-sm;
   }
+  &__icons {
+    display: flex;
+    gap: $gap-sm;
+  }
+  &__data {
+    padding: $padding-sm 0;
+  }
+
   &__list {
     min-height: $height-lg;
     padding: 0 $padding-md;
@@ -24,14 +32,13 @@
       position: relative;
       display: flex;
       justify-content: space-between;
-      align-items: center;
       font-size: $font-size-xl;
       text-align: left;
       word-break: break-word;
       white-space: pre-line;
       color: var(--text-color, #222);
       margin: $margin-md;
-      padding: $padding-sm $padding-xl $padding-sm $padding-lg;
+      padding-left: $padding-md;
       height: fit-content;
       background-color: rgba(0, 0, 0, 0.1);
       border-radius: $border-radius-md;
@@ -60,7 +67,7 @@
       content: '';
       position: absolute;
       left: 0;
-      width: $width-sm;
+      width: 5px;
       height: 100%;
       background-color: rgba(0, 255, 0, 0.4);
       border-radius: $border-radius-md 0 0 $border-radius-md;

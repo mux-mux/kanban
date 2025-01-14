@@ -19,6 +19,8 @@ function createItem(columnElement, columnNum, item, itemNum) {
   const taskLists = document.querySelectorAll('.task__list');
   const taskContainer = createElementWithClass('li', 'task__list-item');
   const taskManagment = createElementWithClass('div', 'task__set-container');
+  const taskData = createElementWithClass('div', 'task__data');
+  const taskIcons = createElementWithClass('div', 'task__icons');
   const taskSessions = createElementWithClass('ul', 'pomodoro__sessions');
   const itemsLoaded = getLocalItems();
 
@@ -45,20 +47,22 @@ function createItem(columnElement, columnNum, item, itemNum) {
 
   changeIconOnBreak(itemData, pomodoroIcon.pomodoro.querySelector('i[class^="fa"]'));
 
-  setElementAttributes(taskContainer, item.name, true, itemNum);
+  setElementAttributes(taskData, item.name, true, itemNum);
   const categoriesSelector = renderCategoriesSelector(columnNum, itemNum);
 
   taskContainer.addEventListener('click', (e) => editItemText(e, 'task', columnNum, itemNum));
 
   if (columnNum !== 2) {
-    taskManagment.appendChild(pomodoroIcon.pomodoro);
-    taskManagment.appendChild(taskEditIcon);
+    taskIcons.appendChild(pomodoroIcon.pomodoro);
+    taskIcons.appendChild(taskEditIcon);
   }
+  taskIcons.appendChild(taskDeleteIcon);
   taskManagment.appendChild(categoriesSelector);
   taskManagment.appendChild(deadlinePick);
-  taskManagment.appendChild(taskDeleteIcon);
-  taskContainer.appendChild(taskSessions);
-  taskContainer.appendChild(taskManagment);
+  taskManagment.appendChild(taskSessions);
+  taskData.appendChild(taskManagment);
+  taskContainer.appendChild(taskData);
+  taskContainer.appendChild(taskIcons);
   columnElement.appendChild(taskContainer);
 
   if (!isTouchDevice()) {

@@ -17,6 +17,7 @@ function renderCategories(categoriesList) {
   categoriesContainer.innerHTML = '';
   categoriesList.forEach((category, index) => {
     const itemElement = createElementWithClass('li', 'categories__item');
+    const categoriesIcons = createElementWithClass('div', 'categories__icons');
     itemElement.textContent = category;
     const categoryEditIcon = createEditIcon('category', index);
     const categoryDeleteIcon = createDeleteIcon('category', index);
@@ -32,8 +33,9 @@ function renderCategories(categoriesList) {
       setProperties(itemElement, { '--opacity': '0', '--pointer-events': 'none' });
     }
 
-    itemElement.appendChild(categoryEditIcon);
-    itemElement.appendChild(categoryDeleteIcon);
+    categoriesIcons.appendChild(categoryEditIcon);
+    categoriesIcons.appendChild(categoryDeleteIcon);
+    itemElement.appendChild(categoriesIcons);
     categoriesContainer.appendChild(itemElement);
   });
 }

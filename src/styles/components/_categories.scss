@@ -38,6 +38,11 @@
     }
   }
 
+  &__icons {
+    display: flex;
+    gap: $gap-md;
+  }
+
   &__select {
     max-width: 110px;
     overflow: hidden;
@@ -60,13 +65,14 @@
     justify-content: space-between;
     position: relative;
     margin-top: $margin-sm;
+    line-height: 1.8;
     background-color: #eae8ed;
     opacity: 0.95;
     text-align: left;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    padding: $padding-sm $padding-xl $padding-sm $padding-md;
+    padding-left: $padding-md;
     border-radius: 5px;
 
     &:focus {
