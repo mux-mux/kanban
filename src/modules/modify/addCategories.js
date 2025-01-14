@@ -107,10 +107,11 @@ function renderCategoriesSelector(columnNum, itemNum) {
   });
 
   categorySelector.addEventListener('change', (e) => {
-    const selected = e.target.value;
+    const itemsLoadedOnChange = getLocalItems();
+    const selectedCategory = e.target.value;
 
-    itemsLoaded[selectedList].items[itemNum].category = selected;
-    setLocalItems(itemsLoaded);
+    itemsLoadedOnChange[selectedList].items[itemNum].category = selectedCategory;
+    setLocalItems(itemsLoadedOnChange);
 
     updateDOM();
   });

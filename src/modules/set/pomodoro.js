@@ -158,7 +158,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     showHidePomodoro(kanbanHeading, pomodoroContainer);
     startPomodoro(+time[0] + +time[1] / 60, timer, columnNum, itemNum);
 
-    itemData.break === false && addPomodoroTimerListiners();
+    itemData.time === '' && addPomodoroTimerListiners();
 
     icon.style.cssText = 'opacity: 1; color: #eccb34';
     pomodoroControls.style.display = 'flex';
