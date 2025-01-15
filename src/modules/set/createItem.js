@@ -20,6 +20,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
   const taskContainer = createElementWithClass('li', 'task__list-item');
   const taskManagment = createElementWithClass('div', 'task__set-container');
   const taskData = createElementWithClass('div', 'task__data');
+  const taskText = createElementWithClass('div', 'task__text');
   const taskIcons = createElementWithClass('div', 'task__icons');
   const taskSessions = createElementWithClass('ul', 'pomodoro__sessions');
   const itemsLoaded = getLocalItems();
@@ -47,7 +48,6 @@ function createItem(columnElement, columnNum, item, itemNum) {
 
   changeIconOnBreak(itemData, pomodoroIcon.pomodoro.querySelector('i[class^="fa"]'));
 
-  setElementAttributes(taskData, item.name, true, itemNum);
   const categoriesSelector = renderCategoriesSelector(columnNum, itemNum);
 
   taskContainer.addEventListener('click', (e) => editItemText(e, 'task', columnNum, itemNum));
@@ -60,10 +60,13 @@ function createItem(columnElement, columnNum, item, itemNum) {
   taskManagment.appendChild(categoriesSelector);
   taskManagment.appendChild(deadlinePick);
   taskManagment.appendChild(taskSessions);
+  taskData.appendChild(taskText);
   taskData.appendChild(taskManagment);
   taskContainer.appendChild(taskData);
   taskContainer.appendChild(taskIcons);
   columnElement.appendChild(taskContainer);
+
+  setElementAttributes(taskContainer, item.name, true, itemNum);
 
   if (!isTouchDevice()) {
     taskContainer.addEventListener('dragstart', (e) => dragItem(e, columnNum));
@@ -143,7 +146,7 @@ function appendSessionIcon(container, num) {
 function setElementAttributes(element, text, isDraggable, num) {
   checkFunctionParameters(element, text, isDraggable, num);
 
-  element.textContent = text;
+  element.querySelector('.task__text').innerText = text;
   element.draggable = isDraggable;
   element.setAttribute('data-in-list', num);
 }
