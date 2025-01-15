@@ -31,7 +31,7 @@ function renderButtonsAndFields() {
 
   function renderNewTaskButtons(columns) {
     columns.forEach((column, i) => {
-      const buttonsContainer = createElementWithClass('div', 'btns');
+      const buttonsContainer = createElementWithClass('div', 'task__new-btns');
 
       const closeButton = createElementWithClass('button', ['btn', 'btn-close', 'btn-close-task']);
       const openButton = createElementWithClass('button', ['btn', 'btn-open', 'btn-open-task']);

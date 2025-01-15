@@ -1,0 +1,48 @@
+.modal {
+  $spacing: 5px;
+  position: absolute;
+  top: 0;
+  display: block;
+  width: auto;
+  max-height: calc(100vh - 30px);
+  transform: translateY(-100%);
+  z-index: 100;
+  isolation: isolate;
+  background-color: var(--background-archive, #f6f6f6);
+  padding: $padding-md;
+  border-radius: $border-radius-sm;
+  font-size: $font-size-lg;
+  text-align: center;
+  overflow: auto;
+
+  &__visible {
+    top: 25px;
+    transform: translateY(0);
+    @include no_reduced_motion {
+      transition: transform 0.4s ease-out;
+    }
+    @include respond(mobile) {
+      width: auto;
+      top: $spacing;
+      right: $spacing;
+    }
+  }
+
+  &-archive {
+    left: 80px;
+    @include respond(mobile) {
+      left: $spacing;
+      font-size: $font-size-sm;
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  &-categories {
+    left: 140px;
+    @include respond(mobile) {
+      left: $spacing;
+      padding-bottom: $padding-md;
+    }
+  }
+}

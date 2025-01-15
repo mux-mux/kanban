@@ -10,8 +10,8 @@ import {
 
 function archiveItem() {
   const buttonToggleArchive = document.querySelector('.tool-archive');
-  const buttonMoveToArchive = document.querySelector('.move-to-archive');
-  const containerArchive = document.querySelector('.archive');
+  const buttonMoveToArchive = document.querySelector('.archive-move-to');
+  const containerArchive = document.querySelector('.modal-archive');
   const buttonCloseArchive = document.querySelector('.btn-close-archive');
   const buttonDownloadArchive = document.querySelector('.btn-add-archive');
   const buttonUploadArchive = document.querySelector('#selectedFile');
@@ -31,7 +31,7 @@ function archiveItem() {
     onActivate: () => buttonCloseArchive.focus(),
     onDeactivate: () => {
       buttonCloseArchive.blur();
-      containerArchive.classList.remove('archive__visible');
+      containerArchive.classList.remove('modal__visible');
       overlay.classList.remove('overlay__visible');
     },
     allowOutsideClick: () => true,
@@ -39,10 +39,10 @@ function archiveItem() {
   });
 
   function toggleArchiveVisibility() {
-    const isOpened = containerArchive.classList.contains('archive__visible');
+    const isOpened = containerArchive.classList.contains('modal__visible');
 
     if (!isOpened) {
-      containerArchive.classList.add('archive__visible');
+      containerArchive.classList.add('modal__visible');
       overlay.classList.add('overlay__visible');
       focusTrap.activate();
     } else {

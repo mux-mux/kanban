@@ -1,17 +1,3 @@
-.btns {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: $font-size-xl;
-  gap: $gap-lg;
-  margin: $margin-lg;
-
-  @include respond(mobile) {
-    margin: $margin-lg $margin-md;
-  }
-}
-
 .btn {
   display: flex;
   align-items: center;

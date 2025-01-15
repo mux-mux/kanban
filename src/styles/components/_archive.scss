@@ -1,70 +1,4 @@
-.done__title {
-  position: relative;
-}
-.move-to-archive {
-  display: inline;
-  position: absolute;
-  top: 8px;
-  right: 15px;
-  font-size: $font-size-lg;
-  color: var(--text-color, #222);
-  box-shadow: 0 0 1px #333;
-  padding: 0 $padding-sm;
-  transition: box-shadow 0.5s;
-  outline-offset: $outline-offset;
-  @mixin pointer-device {
-    &:hover {
-      cursor: pointer;
-      box-shadow: 0 0 10px #999;
-    }
-  }
-  @include respond(mobile) {
-    font-size: $font-size-md;
-    top: 9px;
-  }
-}
-
 .archive {
-  left: 80px;
-
-  display: block;
-  width: auto;
-  max-height: calc(100vh - 30px);
-  position: absolute;
-  top: 0;
-  transform: translateY(-100%);
-  z-index: 100;
-  isolation: isolate;
-  background-color: var(--background-archive, #f6f6f6);
-  padding: $padding-md;
-  border-radius: $border-radius-sm;
-  font-size: $font-size-lg;
-  text-align: center;
-  overflow: auto;
-
-  @include respond(mobile) {
-    font-size: $font-size-sm;
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  &__visible {
-    top: 25px;
-    transform: translateY(0);
-    @include no_reduced_motion {
-      transition: transform 0.4s ease-out;
-    }
-
-    @include respond(mobile) {
-      width: auto;
-      $spacing: 5px;
-
-      top: $spacing;
-      left: $spacing;
-      right: $spacing;
-    }
-  }
-
   &__table {
     width: 100%;
   }
@@ -109,5 +43,28 @@
 
   &__item > td:first-of-type {
     text-align: left;
+  }
+
+  &-move-to {
+    display: inline;
+    position: absolute;
+    top: 8px;
+    right: 15px;
+    font-size: $font-size-lg;
+    color: var(--text-color, #222);
+    box-shadow: 0 0 1px #333;
+    padding: 0 $padding-sm;
+    transition: box-shadow 0.5s;
+    outline-offset: $outline-offset;
+    @mixin pointer-device {
+      &:hover {
+        cursor: pointer;
+        box-shadow: 0 0 10px #999;
+      }
+    }
+    @include respond(mobile) {
+      font-size: $font-size-md;
+      top: 9px;
+    }
   }
 }

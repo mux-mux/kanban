@@ -42,7 +42,7 @@ function renderCategories(categoriesList) {
 
 function addCategories() {
   const buttonToggleCategoreis = document.querySelector('.tool-categories');
-  const containerCategories = document.querySelector('.categories');
+  const containerCategories = document.querySelector('.modal-categories');
   const buttonCloseCategories = document.querySelector('.btn-close-category');
   const categoryForm = document.getElementById('categoryForm');
   const categoryNameInput = document.getElementById('categoryName');
@@ -56,7 +56,7 @@ function addCategories() {
     onActivate: () => buttonCloseCategories.focus(),
     onDeactivate: () => {
       buttonCloseCategories.blur();
-      containerCategories.classList.remove('categories__visible');
+      containerCategories.classList.remove('modal__visible');
       overlay.classList.remove('overlay__visible');
     },
     allowOutsideClick: () => true,
@@ -64,10 +64,10 @@ function addCategories() {
   });
 
   function toggleCategoriesModal() {
-    const isOpened = containerCategories.classList.contains('categories__visible');
+    const isOpened = containerCategories.classList.contains('modal__visible');
 
     if (!isOpened) {
-      containerCategories.classList.add('categories__visible');
+      containerCategories.classList.add('modal__visible');
       overlay.classList.add('overlay__visible');
       focusTrap.activate();
     } else {

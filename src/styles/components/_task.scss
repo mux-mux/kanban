@@ -3,7 +3,6 @@
   align-items: flex-start;
   grid-template-columns: repeat(auto-fit, minmax($min-width, 1fr));
   gap: $gap-md;
-
   &__set-container {
     display: flex;
     align-items: center;
@@ -16,7 +15,21 @@
   &__data {
     padding: $padding-sm 0;
   }
+  &__new {
+    &-btns {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: $font-size-xl;
+      gap: $gap-lg;
+      margin: $margin-lg;
 
+      @include respond(mobile) {
+        margin: $margin-lg $margin-md;
+      }
+    }
+  }
   &__list {
     min-height: $height-lg;
     padding: 0 $padding-md;
