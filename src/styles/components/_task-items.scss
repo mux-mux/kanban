@@ -45,10 +45,6 @@
       overflow: hidden;
       cursor: pointer;
 
-      &:last-of-type {
-        margin-bottom: 0;
-      }
-
       @include respond(mobile) {
         font-size: $font-size-lg;
         line-height: 1;

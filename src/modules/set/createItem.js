@@ -67,13 +67,17 @@ function createItem(columnElement, columnNum, item, itemNum) {
   columnElement.appendChild(taskContainer);
 
   setElementAttributes(taskContainer, item.name, true, itemNum);
+  setProperties(taskContainer, { height: taskContainer.clientHeight + 'px' });
 
   if (!isTouchDevice()) {
     taskContainer.addEventListener('dragstart', (e) => dragItem(e, columnNum));
     hoverAppearIcon(taskContainer);
   } else {
     taskLists.forEach((item) => {
-      setProperties(item, { '--opacity': '1', '--pointer-events': 'auto' });
+      setProperties(item, {
+        '--opacity': '1',
+        '--pointer-events': 'auto',
+      });
     });
 
     taskContainer.addEventListener(
@@ -171,7 +175,10 @@ function changeIconOnBreak(data, icon) {
 }
 
 function showIcon(e) {
-  setProperties(e.currentTarget, { '--opacity': '1', '--pointer-events': 'auto' });
+  setProperties(e.currentTarget, {
+    '--opacity': '1',
+    '--pointer-events': 'auto',
+  });
 }
 function hideIcon(e) {
   setProperties(e.currentTarget, { '--opacity': '0', '--pointer-events': 'none' });
