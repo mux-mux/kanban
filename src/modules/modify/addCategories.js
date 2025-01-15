@@ -101,7 +101,7 @@ function renderCategoriesSelector(columnNum, itemNum) {
   categorySelector.innerHTML = '<option value="" disabled selected>Select a category</option>';
 
   categoriesLoaded.forEach((category) => {
-    const option = document.createElement('option');
+    const option = createElementWithClass('option', 'categories__select-option');
     option.value = category;
     option.textContent = category;
     option.selected = itemsLoaded[selectedList].items[itemNum].category === category;
