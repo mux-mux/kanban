@@ -105,30 +105,32 @@ function renderItems(itemsLoaded) {
   });
 }
 
-document.querySelectorAll('.btn-move').forEach((taskMoveButton, index) => {
-  if (isTouchDevice()) {
-    taskMoveButton.style.display = 'block';
-  }
-  taskMoveButton.addEventListener(
-    'touchstart',
-    () => {
-      const newColumnNum = moveData.columnNum != index ? index : index + 1;
-      const itemsLoaded = getLocalItems();
-      moveData.newColumnNum = newColumnNum;
-      moveData.newItemnNum = itemsLoaded[Object.keys(itemsLoaded)[newColumnNum]].items.length;
-      if (moveData.columnNum !== undefined) {
-        relocateItem(
-          moveData.columnNum,
-          moveData.itemNum,
-          moveData.newColumnNum,
-          moveData.newItemnNum
-        );
-        moveData = {};
-      }
-    },
-    { passive: true }
-  );
-});
+function showMoveButton() {
+  document.querySelectorAll('.btn-move').forEach((taskMoveButton, index) => {
+    if (isTouchDevice()) {
+      taskMoveButton.style.display = 'block';
+    }
+    taskMoveButton.addEventListener(
+      'touchstart',
+      () => {
+        const newColumnNum = moveData.columnNum != index ? index : index + 1;
+        const itemsLoaded = getLocalItems();
+        moveData.newColumnNum = newColumnNum;
+        moveData.newItemnNum = itemsLoaded[Object.keys(itemsLoaded)[newColumnNum]].items.length;
+        if (moveData.columnNum !== undefined) {
+          relocateItem(
+            moveData.columnNum,
+            moveData.itemNum,
+            moveData.newColumnNum,
+            moveData.newItemnNum
+          );
+          moveData = {};
+        }
+      },
+      { passive: true }
+    );
+  });
+}
 
 function appendSessionIcon(container, num) {
   checkFunctionParameters(container, num);
@@ -179,4 +181,12 @@ function hoverAppearIcon(currentElement) {
   currentElement.addEventListener('mouseout', hideIcon);
 }
 
-export { createItem, isTouchDevice, hoverAppearIcon, renderItems, changeIconOnBreak, pomodoroIcon };
+export {
+  createItem,
+  isTouchDevice,
+  hoverAppearIcon,
+  renderItems,
+  changeIconOnBreak,
+  showMoveButton,
+  pomodoroIcon,
+};

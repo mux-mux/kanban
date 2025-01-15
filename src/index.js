@@ -8,6 +8,7 @@ import { addCategories } from './modules/modify/addCategories';
 import renderButtonsAndFields from './modules/modify/addItem';
 import { setPomodoroIsPausedOnReload } from './modules/set/pomodoro';
 import { setDragAndDropListeners } from './modules/modify/dragDropItem';
+import { showMoveButton } from './modules/set/createItem';
 
 initialLoad();
 renderButtonsAndFields();
@@ -17,3 +18,4 @@ setDragAndDropListeners();
 setPomodoroIsPausedOnReload();
 archiveItem();
 setUndoListeners();
+showMoveButton();
