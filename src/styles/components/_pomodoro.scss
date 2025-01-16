@@ -9,7 +9,6 @@
   color: var(--text-color);
   opacity: var(--opacity, 1);
   pointer-events: var(--pointer-events, auto);
-  outline-offset: $outline-offset;
   @include pointer-device {
     &:hover {
       color: #ebcc34;

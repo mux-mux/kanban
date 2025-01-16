@@ -18,7 +18,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
 
   const taskLists = document.querySelectorAll('.task__list');
   const taskContainer = createElementWithClass('li', 'task__list-item');
-  const taskManagment = createElementWithClass('div', 'task__set-container');
+  const taskManagment = createElementWithClass('div', 'task__set');
   const taskData = createElementWithClass('div', 'task__data');
   const taskText = createElementWithClass('div', 'task__text');
   const taskIcons = createElementWithClass('div', 'task__icons');

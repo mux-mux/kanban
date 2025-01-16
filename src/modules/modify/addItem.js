@@ -21,7 +21,7 @@ function renderButtonsAndFields() {
         'textarea-add',
         'custom-scroll',
       ]);
-      textareaElement.setAttribute('placeholder', 'Ctrl+Enter to New line\nEsc to Close');
+      textareaElement.setAttribute('placeholder', 'Ctrl+Enter to a New line\nEsc to Close');
       fieldContainer.appendChild(textareaElement);
 
       textareaElement.addEventListener('keydown', (e) => handleNewTaskKeypress(e, i));
