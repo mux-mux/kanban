@@ -174,4 +174,18 @@ function renderButtonsAndFields() {
   }
 }
 
-export default renderButtonsAndFields;
+function setAddNewTaskKeysListeners() {
+  let currentIndex = -1;
+  const openButtons = document.querySelectorAll('.btn-open-task');
+
+  document.addEventListener('keydown', (event) => {
+    if (event.ctrlKey && event.shiftKey && event.key === '+') {
+      event.preventDefault();
+
+      currentIndex = (currentIndex + 1) % openButtons.length;
+      openButtons[currentIndex].focus();
+    }
+  });
+}
+
+export { renderButtonsAndFields, setAddNewTaskKeysListeners };
