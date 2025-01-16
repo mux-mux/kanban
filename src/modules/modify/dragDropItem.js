@@ -7,7 +7,7 @@ let draggedItem = null,
 
 function dragItem(e, columnNum) {
   draggedItem = e.currentTarget;
-  const itemNum = draggedItem.attributes['data-in-list'].value;
+  const itemNum = draggedItem.attributes['data-in-row'].value;
 
   e.dataTransfer.clearData();
 

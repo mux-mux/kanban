@@ -8,7 +8,7 @@ import { createPomodoroStartIcon, pomodoroInit } from './pomodoro';
 
 import { relocateItem } from '../modify/relocateItem';
 import { renderCategoriesSelector } from '../modify/addCategories';
-import { getLocalItems } from '../update/localStorage';
+import { getLocalItems, getLocalColumnNames } from '../update/localStorage';
 
 let pomodoroIcon = null;
 let moveData = {};
@@ -52,6 +52,41 @@ function createItem(columnElement, columnNum, item, itemNum) {
 
   taskContainer.addEventListener('click', (e) => editItemText(e, 'task', columnNum, itemNum));
 
+  function moveTaskToANewPosition(e) {
+    const focusedTask = document.activeElement;
+    if (!focusedTask) return;
+    const itemsLoaded = getLocalItems();
+    const colLength = getLocalColumnNames().length - 1;
+    const keyCombo = e.ctrlKey && e.shiftKey;
+    const itemsInCol = itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items.length - 1;
+
+    if (keyCombo && e.key === 'ArrowRight') {
+      e.preventDefault();
+      relocateItem(columnNum, itemNum, columnNum === colLength ? 0 : columnNum + 1, 0);
+      focusedTask.focus();
+    } else if (keyCombo && e.key === 'ArrowLeft') {
+      e.preventDefault();
+      relocateItem(columnNum, itemNum, columnNum === 0 ? colLength : columnNum - 1, 0);
+      focusedTask.focus();
+    } else if (keyCombo && e.key === 'ArrowUp') {
+      e.preventDefault();
+      relocateItem(columnNum, itemNum, columnNum, itemNum === 0 ? itemsInCol : itemNum - 1);
+      focusedTask.focus();
+    } else if (keyCombo && e.key === 'ArrowDown') {
+      e.preventDefault();
+      relocateItem(columnNum, itemNum, columnNum, itemNum === itemsInCol ? 0 : itemNum + 1);
+      focusedTask.focus();
+    }
+  }
+
+  taskContainer.addEventListener('focusin', (e) => {
+    e.target.addEventListener('keydown', moveTaskToANewPosition);
+  });
+
+  taskContainer.addEventListener('focusout', (e) => {
+    e.target.removeEventListener('keydown', moveTaskToANewPosition);
+  });
+
   if (columnNum !== 2) {
     taskIcons.appendChild(pomodoroIcon.pomodoro);
     taskIcons.appendChild(taskEditIcon);
@@ -66,7 +101,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
   taskContainer.appendChild(taskIcons);
   columnElement.appendChild(taskContainer);
 
-  setElementAttributes(taskContainer, item.name, true, itemNum);
+  setElementAttributes(taskContainer, item.name, true, itemNum, columnNum);
   setProperties(taskContainer, { height: taskContainer.clientHeight + 'px' });
 
   if (!isTouchDevice()) {
@@ -90,7 +125,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
           e.target.classList.add('touch__selected');
         }
         moveData.columnNum = columnNum;
-        moveData.itemNum = +e.currentTarget.attributes['data-in-list'].value;
+        moveData.itemNum = +e.currentTarget.attributes['data-in-row'].value;
       },
       { passive: true }
     );
@@ -147,12 +182,13 @@ function appendSessionIcon(container, num) {
   container.appendChild(sessionElement);
 }
 
-function setElementAttributes(element, text, isDraggable, num) {
-  checkFunctionParameters(element, text, isDraggable, num);
+function setElementAttributes(element, text, isDraggable, taskNum, colNum) {
+  checkFunctionParameters(element, text, isDraggable, taskNum);
 
   element.querySelector('.task__text').innerText = text;
   element.draggable = isDraggable;
-  element.setAttribute('data-in-list', num);
+  element.setAttribute('data-in-row', taskNum);
+  element.setAttribute('data-in-col', colNum);
 }
 
 function changeIconOnBreak(data, icon) {
