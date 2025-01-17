@@ -1,0 +1,53 @@
+.shortcut {
+  &-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    align-items: center;
+    padding: $padding-sm;
+  }
+  &-description {
+    text-align: left;
+    font-size: $font-size-lg;
+    color: var(--text-color, #222);
+    border-left: 1px solid #ccc;
+    padding-left: $padding-sm;
+  }
+  &-keys {
+    display: flex;
+    gap: $gap-xsm;
+  }
+  &-key {
+    background-color: #e0e0e0;
+    color: #333;
+    font-size: $font-size-md;
+    font-weight: bold;
+    padding: 2px 4px;
+    border-radius: 6px;
+    border: 1px solid #bbb;
+    box-shadow:
+      0 2px 0 #aaa,
+      0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: inline-block;
+    transition: all 0.2s ease;
+    user-select: none;
+    min-width: 20px;
+    @include pointer-device {
+      &:hover {
+        background-color: #d6d6d6;
+        box-shadow:
+          0 1px 0 #999,
+          0 3px 4px rgba(0, 0, 0, 0.1);
+        transform: translateY(1px);
+        cursor: pointer;
+      }
+    }
+    &:active {
+      background-color: #ccc;
+      box-shadow:
+        0 1px 0 #999,
+        0 2px 3px rgba(0, 0, 0, 0.2);
+      transform: translateY(2px);
+    }
+  }
+}
