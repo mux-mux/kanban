@@ -70,7 +70,8 @@
       padding: calc($padding-sm + 2px) $padding-md;
     }
     &-category,
-    &-archive {
+    &-archive,
+    &-info {
       position: absolute;
       top: 0;
       right: 0;

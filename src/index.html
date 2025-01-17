@@ -18,14 +18,17 @@
     <div class="container">
       <header class="header">
         <div class="header__tools">
-          <button class="tool tool-history" aria-label="Undo task deletion">
+          <button class="tool tool-history" aria-label="Undo the task deletion">
             <i class="fa-solid fa-trash-can-arrow-up"></i>
           </button>
           <button class="tool tool-archive" aria-label="Show done tasks history modal">
             <i class="fa-solid fa-calendar-check"></i>
           </button>
-          <button class="tool tool-categories" aria-label="Show add new category modal">
+          <button class="tool tool-categories" aria-label="Show add a new category modal">
             <i class="fa-solid fa-list"></i>
+          </button>
+          <button class="tool tool-info" aria-label="Show an app usage info modal">
+            <i class="fa-solid fa-info"></i>
           </button>
         </div>
         <h1 class="heading-primary">Kanban</h1>
@@ -94,6 +97,16 @@
         </li>
       </ul>
       <div id="modals" class="modals">
+        <div class="modal modal-info custom-scroll">
+          <h2 class="heading-secondary">Info</h2>
+          <ul class="info__container" id="infoContainer"></ul>
+          <div class="info__buttons">
+            <button class="btn btn-close btn-close-info" aria-label="Close info modal">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+        </div>
+
         <div class="modal modal-categories custom-scroll">
           <form action="" id="categoryForm" class="categories__form">
             <input

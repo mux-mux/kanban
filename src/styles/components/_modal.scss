@@ -9,7 +9,7 @@
   z-index: 100;
   isolation: isolate;
   background-color: var(--background-archive, #f6f6f6);
-  padding: $padding-md;
+  padding: $padding-xxl $padding-md $padding-md;
   border-radius: $border-radius-sm;
   font-size: $font-size-lg;
   text-align: center;
@@ -40,6 +40,13 @@
 
   &-categories {
     left: 140px;
+    @include respond(mobile) {
+      left: $spacing;
+      padding-bottom: $padding-md;
+    }
+  }
+  &-info {
+    left: 210px;
     @include respond(mobile) {
       left: $spacing;
       padding-bottom: $padding-md;

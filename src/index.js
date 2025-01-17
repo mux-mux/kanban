@@ -9,6 +9,7 @@ import { renderButtonsAndFields, setAddNewTaskKeysListeners } from './modules/mo
 import { setPomodoroIsPausedOnReload } from './modules/set/pomodoro';
 import { setDragAndDropListeners } from './modules/modify/dragDropItem';
 import { showMoveButton } from './modules/set/createItem';
+import { setInfoModalListeners } from './modules/info/showInfo';
 
 initialLoad();
 renderButtonsAndFields();
@@ -20,3 +21,4 @@ archiveItem();
 setUndoListeners();
 setAddNewTaskKeysListeners();
 showMoveButton();
+setInfoModalListeners();
