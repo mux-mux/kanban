@@ -1,0 +1,33 @@
+.icon {
+  opacity: var(--opacity, 1);
+  pointer-events: var(--pointer-events, auto);
+
+  &-edit,
+  &-pomodoro {
+    padding: 0 $padding-md;
+    line-height: 1;
+    transition: color 0.5s;
+    color: var(--text-color);
+    @include pointer-device {
+      &:hover {
+        color: #ebcc34;
+        transition: color 0.3s ease-in-out;
+      }
+    }
+  }
+  &-edit {
+    font-size: 16px;
+  }
+  &-pomodoro {
+    font-size: 18px;
+  }
+  &-delete {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    padding-left: $padding-sm;
+    padding-right: $padding-sm;
+    background-color: rgba(255, 0, 0, 0.4);
+    border-radius: 0 10px 10px 0;
+  }
+}

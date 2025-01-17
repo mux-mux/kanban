@@ -1,23 +1,23 @@
-.heading-primary {
-  letter-spacing: 2px;
-  font-size: calc($font-size-xxl * 1.75);
-  min-height: calc($height-md * 2);
-  line-height: calc($height-md * 2);
-  color: var(--text-color, #222);
+.heading {
+  &-primary {
+    letter-spacing: 2px;
+    font-size: calc($font-size-xxl * 1.75);
+    min-height: calc($height-md * 2);
+    line-height: calc($height-md * 2);
+    color: var(--text-color, #222);
 
-  @include respond(mobile) {
-    min-height: calc($height-md * 3);
-    line-height: calc($height-md * 3);
+    @include respond(mobile) {
+      min-height: calc($height-md * 3);
+      line-height: calc($height-md * 3);
+    }
   }
-}
-
-.heading-secondary {
-  letter-spacing: 1px;
-  font-size: $font-size-xxl;
-  color: var(--text-color, #222);
-}
-
-.heading-tertiary {
-  letter-spacing: 1px;
-  font-size: $font-size-xl;
+  &-secondary {
+    letter-spacing: 1px;
+    font-size: $font-size-xxl;
+    color: var(--text-color, #222);
+  }
+  &-tertiary {
+    letter-spacing: 1px;
+    font-size: $font-size-xl;
+  }
 }

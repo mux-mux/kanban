@@ -36,7 +36,7 @@ function editItem(type = 'task', columnNum = 0, itemNum = 0) {
 function createEditIcon(type, columnNum, itemNum = 0) {
   checkFunctionParameters(type, columnNum);
 
-  const editButton = createElementWithClass('button', 'edit__icon');
+  const editButton = createElementWithClass('button', ['icon', 'icon-edit']);
   const editIcon = createElementWithClass('i', ['fa-solid', 'fa-pencil']);
 
   if (type === 'task') {
@@ -64,7 +64,7 @@ function editItemText(e, type, columnNum, itemNum = 0) {
     type === 'task' ? e.target.closest('.task__list-item') : e.target.closest('.categories__item');
   const selectElement = type === 'task' && taskListItem.querySelector('.categories__select');
 
-  if (e.target.classList.contains('edit__icon') || e.target.classList.contains('fa-pencil')) {
+  if (e.target.classList.contains('icon-edit') || e.target.classList.contains('fa-pencil')) {
     if (taskListItem) {
       editCurrentItem(taskListItem);
     }

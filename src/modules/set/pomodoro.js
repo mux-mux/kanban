@@ -80,7 +80,7 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
 function createPomodoroStartIcon(columnNum, itemNum) {
   checkFunctionParameters(columnNum, itemNum);
 
-  const pomodoro = createElementWithClass('button', 'pomodoro__icon');
+  const pomodoro = createElementWithClass('button', ['icon', 'icon-pomodoro']);
   const startPomodoroIcon = createElementWithClass('i', ['fa-regular', 'fa-circle-play']);
   const itemsLoaded = getLocalItems();
 

@@ -37,7 +37,7 @@ function deleteItem(type = 'task', columnNum = 0, itemNum = 0) {
 function createDeleteIcon(type, columnNum, itemNum = 0) {
   checkFunctionParameters(type, columnNum);
 
-  const taskDeleteButton = createElementWithClass('button', 'delete__icon');
+  const taskDeleteButton = createElementWithClass('button', ['icon', 'icon-delete']);
   const taskDeleteIcon = createElementWithClass('i', ['fa-solid', 'fa-x']);
 
   if (type === 'task') {
