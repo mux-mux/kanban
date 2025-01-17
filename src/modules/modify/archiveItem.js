@@ -1,6 +1,6 @@
-import { createFocusTrap } from 'focus-trap';
 import { createElementWithClass } from '../helpers/helpers';
 import updateDOM from '../update/updateDOM';
+import toggleModal from './toggleModal';
 import {
   getLocalArchive,
   setLocalArchive,
@@ -9,46 +9,21 @@ import {
 } from '../update/localStorage';
 
 function archiveItem() {
-  const buttonToggleArchive = document.querySelector('.tool-archive');
-  const buttonMoveToArchive = document.querySelector('.archive-move-to');
   const containerArchive = document.querySelector('.modal-archive');
   const buttonCloseArchive = document.querySelector('.btn-close-archive');
+  const buttonToggleArchive = document.querySelector('.tool-archive');
+  const buttonMoveToArchive = document.querySelector('.archive-move-to');
   const buttonDownloadArchive = document.querySelector('.btn-add-archive');
   const buttonUploadArchive = document.querySelector('#selectedFile');
-  const overlay = document.querySelector('.overlay');
 
-  [buttonToggleArchive, buttonCloseArchive].forEach((button) =>
-    button.addEventListener('click', toggleArchiveVisibility)
-  );
+  toggleModal(containerArchive, buttonCloseArchive, buttonToggleArchive);
+
   buttonDownloadArchive.addEventListener('click', downloadArchive);
   buttonUploadArchive.addEventListener('change', uploadArchive);
   buttonMoveToArchive.addEventListener('click', () => {
     const itemsLoaded = getLocalItems();
     moveToArchive(itemsLoaded.done.items, 'done');
   });
-
-  const focusTrap = createFocusTrap(containerArchive, {
-    onActivate: () => buttonCloseArchive.focus(),
-    onDeactivate: () => {
-      buttonCloseArchive.blur();
-      containerArchive.classList.remove('modal__visible');
-      overlay.classList.remove('overlay__visible');
-    },
-    allowOutsideClick: () => true,
-    clickOutsideDeactivates: () => true,
-  });
-
-  function toggleArchiveVisibility() {
-    const isOpened = containerArchive.classList.contains('modal__visible');
-
-    if (!isOpened) {
-      containerArchive.classList.add('modal__visible');
-      overlay.classList.add('overlay__visible');
-      focusTrap.activate();
-    } else {
-      focusTrap.deactivate();
-    }
-  }
 
   function downloadArchive() {
     const archiveLoaded = getLocalArchive();

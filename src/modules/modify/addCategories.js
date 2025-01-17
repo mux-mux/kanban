@@ -1,9 +1,9 @@
-import { createFocusTrap } from 'focus-trap';
 import { createElementWithClass, setProperties, isTouchDevice } from '../helpers/helpers';
 import updateDOM from '../update/updateDOM';
 import { createDeleteIcon, deleteItem } from './deleteItem';
 import { hoverAppearIcon } from '../set/createItem';
 import { createEditIcon, editItemText } from './editItem';
+import toggleModal from './toggleModal';
 import {
   setLocalCategories,
   getLocalCategories,
@@ -41,39 +41,13 @@ function renderCategories(categoriesList) {
 }
 
 function addCategories() {
-  const buttonToggleCategoreis = document.querySelector('.tool-categories');
   const containerCategories = document.querySelector('.modal-categories');
   const buttonCloseCategories = document.querySelector('.btn-close-category');
+  const buttonToggleCategoreis = document.querySelector('.tool-categories');
   const categoryForm = document.getElementById('categoryForm');
   const categoryNameInput = document.getElementById('categoryName');
-  const overlay = document.querySelector('.overlay');
 
-  [buttonToggleCategoreis, buttonCloseCategories].forEach((button) =>
-    button.addEventListener('click', toggleCategoriesModal)
-  );
-
-  const focusTrap = createFocusTrap(containerCategories, {
-    onActivate: () => buttonCloseCategories.focus(),
-    onDeactivate: () => {
-      buttonCloseCategories.blur();
-      containerCategories.classList.remove('modal__visible');
-      overlay.classList.remove('overlay__visible');
-    },
-    allowOutsideClick: () => true,
-    clickOutsideDeactivates: () => true,
-  });
-
-  function toggleCategoriesModal() {
-    const isOpened = containerCategories.classList.contains('modal__visible');
-
-    if (!isOpened) {
-      containerCategories.classList.add('modal__visible');
-      overlay.classList.add('overlay__visible');
-      focusTrap.activate();
-    } else {
-      focusTrap.deactivate();
-    }
-  }
+  toggleModal(containerCategories, buttonCloseCategories, buttonToggleCategoreis);
 
   categoryForm.addEventListener('submit', (e) => {
     e.preventDefault();
