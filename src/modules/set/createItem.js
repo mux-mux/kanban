@@ -50,8 +50,9 @@ function createItem(columnElement, columnNum, item, itemNum) {
   taskContainer.addEventListener('click', (e) => editItemText(e, 'task', columnNum, itemNum));
 
   function moveTaskToANewPosition(e) {
-    const focusedTask = document.activeElement;
-    if (!focusedTask) return;
+    const lastFocusedParentId = e.target.closest('.task__list-item').dataset.id;
+    const lastFocusedClass = e.target.className;
+    if (!lastFocusedParentId) return;
     const itemsLoaded = getLocalItems();
     const colLength = getLocalData('columnNames').length - 1;
     const keyCombo = e.ctrlKey && e.shiftKey;
@@ -60,20 +61,26 @@ function createItem(columnElement, columnNum, item, itemNum) {
     if (keyCombo && e.key === 'ArrowRight') {
       e.preventDefault();
       relocateItem(columnNum, itemNum, columnNum === colLength ? 0 : columnNum + 1, 0);
-      focusedTask.focus();
+      restoreFocus(lastFocusedParentId, lastFocusedClass);
     } else if (keyCombo && e.key === 'ArrowLeft') {
       e.preventDefault();
       relocateItem(columnNum, itemNum, columnNum === 0 ? colLength : columnNum - 1, 0);
-      focusedTask.focus();
+      restoreFocus(lastFocusedParentId, lastFocusedClass);
     } else if (keyCombo && e.key === 'ArrowUp') {
       e.preventDefault();
       relocateItem(columnNum, itemNum, columnNum, itemNum === 0 ? itemsInCol : itemNum - 1);
-      focusedTask.focus();
+      restoreFocus(lastFocusedParentId, lastFocusedClass);
     } else if (keyCombo && e.key === 'ArrowDown') {
       e.preventDefault();
       relocateItem(columnNum, itemNum, columnNum, itemNum === itemsInCol ? 0 : itemNum + 1);
-      focusedTask.focus();
+      restoreFocus(lastFocusedParentId, lastFocusedClass);
     }
+  }
+
+  function restoreFocus(lastFocusedParentId, lastFocusedClass) {
+    const currentFocusedItem = document.querySelector(`[data-id="${lastFocusedParentId}"]`);
+    const currentActiveElement = currentFocusedItem.getElementsByClassName(lastFocusedClass);
+    currentActiveElement[0].focus();
   }
 
   taskContainer.addEventListener('focusin', (e) => {
@@ -99,7 +106,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
   taskContainer.appendChild(taskProgressBar);
   columnElement.appendChild(taskContainer);
 
-  setElementAttributes(taskContainer, item.name, true, itemNum, columnNum);
+  setElementAttributes(taskContainer, item.id, item.name, true, itemNum, columnNum);
   setProperties(taskContainer, { height: taskContainer.clientHeight + 'px' });
 
   if (itemData.pomodoro === true) {
@@ -184,11 +191,12 @@ function appendSessionIcon(container, num) {
   container.appendChild(sessionElement);
 }
 
-function setElementAttributes(element, text, isDraggable, taskNum, colNum) {
+function setElementAttributes(element, id, text, isDraggable, taskNum, colNum) {
   checkFunctionParameters(element, text, isDraggable, taskNum);
 
   element.querySelector('.task__text').innerText = text;
   element.draggable = isDraggable;
+  element.setAttribute('data-id', id);
   element.setAttribute('data-in-row', taskNum);
   element.setAttribute('data-in-col', colNum);
 }

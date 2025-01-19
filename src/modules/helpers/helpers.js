@@ -25,4 +25,12 @@ function toggleItemIconOpacity(e, state) {
   e.target.offsetParent.style.setProperty('--opacity', state);
 }
 
-export { setProperties, createElementWithClass, isTouchDevice, toggleItemIconOpacity };
+function findMaxId(data) {
+  const allIds = Object.values(data)
+    .flatMap((column) => column.items)
+    .map((item) => item.id);
+
+  return Math.max(...allIds);
+}
+
+export { setProperties, createElementWithClass, isTouchDevice, toggleItemIconOpacity, findMaxId };

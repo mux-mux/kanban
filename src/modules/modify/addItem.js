@@ -2,7 +2,7 @@ import { createFocusTrap } from 'focus-trap';
 import { createElementWithClass } from '../helpers/helpers';
 import updateDOM from '../update/updateDOM';
 import { todayDate } from '../set/deadline';
-import { getLocalItems, setLocalItems } from '../update/localStorage';
+import { getLocalData, getLocalItems, setLocalData, setLocalItems } from '../update/localStorage';
 
 let focusTrap = null;
 
@@ -150,6 +150,7 @@ function renderButtonsAndFields() {
 
   function addNewTask(column) {
     const itemsLoaded = getLocalItems();
+    const nextId = getLocalData('currentId') + 1;
 
     if (textareas[column].value === '') {
       return;
@@ -158,6 +159,7 @@ function renderButtonsAndFields() {
     const selectedList = Object.keys(itemsLoaded)[column];
     itemText.trim().length > 0
       ? itemsLoaded[selectedList].items.push({
+          id: nextId,
           name: itemText,
           add: todayDate(),
           deadline: todayDate(),
@@ -170,6 +172,7 @@ function renderButtonsAndFields() {
       : null;
     textareas[column].value = '';
     setLocalItems(itemsLoaded);
+    setLocalData('currentId', nextId);
     updateDOM();
   }
 }

@@ -1,7 +1,6 @@
+import { findMaxId } from '../helpers/helpers';
 import { setLocalItems, setLocalData } from './localStorage';
-
 import getItems from '../services/ItemsService';
-
 import updateDOM from './updateDOM';
 
 function initialLoad() {
@@ -15,6 +14,7 @@ function initialLoad() {
         setLocalData('archiveItems', archive);
         setLocalData('categoriesItems', categories);
         setLocalData('isInitialLoad', false);
+        setLocalData('currentId', findMaxId(columns));
         updateDOM();
       }
     );
