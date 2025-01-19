@@ -26,6 +26,7 @@ function toggleItemIconOpacity(e, state) {
 }
 
 function findMaxId(data) {
+  checkFunctionParameters(data);
   const allIds = Object.values(data)
     .flatMap((column) => column.items)
     .map((item) => item.id);
@@ -33,4 +34,28 @@ function findMaxId(data) {
   return Math.max(...allIds);
 }
 
-export { setProperties, createElementWithClass, isTouchDevice, toggleItemIconOpacity, findMaxId };
+function restoreFocus(lastFocusedParentId, lastFocusedClass) {
+  checkFunctionParameters(lastFocusedParentId, lastFocusedClass);
+
+  const currentFocusedItem = document.querySelector(`[data-id="${lastFocusedParentId}"]`);
+  const currentActiveElement = currentFocusedItem.getElementsByClassName(lastFocusedClass);
+  if (!currentActiveElement.length) return;
+  currentActiveElement[0].focus();
+}
+
+function getFocusedElement(e) {
+  const lastFocusedParentId = e.target.closest('.task__list-item').dataset.id;
+  const lastFocusedClass = e.target.className;
+  if (!lastFocusedParentId) return;
+  return [lastFocusedParentId, lastFocusedClass];
+}
+
+export {
+  setProperties,
+  createElementWithClass,
+  isTouchDevice,
+  toggleItemIconOpacity,
+  restoreFocus,
+  getFocusedElement,
+  findMaxId,
+};

@@ -1,5 +1,11 @@
 import checkFunctionParameters from '../errors/checkFunctionParameters';
-import { setProperties, createElementWithClass, isTouchDevice } from '../helpers/helpers';
+import {
+  setProperties,
+  createElementWithClass,
+  isTouchDevice,
+  restoreFocus,
+  getFocusedElement,
+} from '../helpers/helpers';
 import { editItemText, createEditIcon } from '../modify/editItem';
 import { createDeleteIcon, deleteItem } from '../modify/deleteItem';
 import { setDeadline } from './deadline';
@@ -50,9 +56,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
   taskContainer.addEventListener('click', (e) => editItemText(e, 'task', columnNum, itemNum));
 
   function moveTaskToANewPosition(e) {
-    const lastFocusedParentId = e.target.closest('.task__list-item').dataset.id;
-    const lastFocusedClass = e.target.className;
-    if (!lastFocusedParentId) return;
+    const [lastFocusedParentId, lastFocusedClass] = getFocusedElement(e);
     const itemsLoaded = getLocalItems();
     const colLength = getLocalData('columnNames').length - 1;
     const keyCombo = e.ctrlKey && e.shiftKey;
@@ -75,12 +79,6 @@ function createItem(columnElement, columnNum, item, itemNum) {
       relocateItem(columnNum, itemNum, columnNum, itemNum === itemsInCol ? 0 : itemNum + 1);
       restoreFocus(lastFocusedParentId, lastFocusedClass);
     }
-  }
-
-  function restoreFocus(lastFocusedParentId, lastFocusedClass) {
-    const currentFocusedItem = document.querySelector(`[data-id="${lastFocusedParentId}"]`);
-    const currentActiveElement = currentFocusedItem.getElementsByClassName(lastFocusedClass);
-    currentActiveElement[0].focus();
   }
 
   taskContainer.addEventListener('focusin', (e) => {

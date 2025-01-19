@@ -1,4 +1,10 @@
-import { createElementWithClass, setProperties, isTouchDevice } from '../helpers/helpers';
+import {
+  createElementWithClass,
+  setProperties,
+  isTouchDevice,
+  restoreFocus,
+  getFocusedElement,
+} from '../helpers/helpers';
 import updateDOM from '../update/updateDOM';
 import { createDeleteIcon, deleteItem } from './deleteItem';
 import { hoverAppearIcon } from '../set/createItem';
@@ -80,11 +86,13 @@ function renderCategoriesSelector(columnNum, itemNum) {
   categorySelector.addEventListener('change', (e) => {
     const itemsLoadedOnChange = getLocalItems();
     const selectedCategory = e.target.value;
+    const [lastFocusedParentId, lastFocusedClass] = getFocusedElement(e);
 
     itemsLoadedOnChange[selectedList].items[itemNum].category = selectedCategory;
     setLocalItems(itemsLoadedOnChange);
 
     updateDOM();
+    restoreFocus(lastFocusedParentId, lastFocusedClass);
   });
 
   return categorySelector;

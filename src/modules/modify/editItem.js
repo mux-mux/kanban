@@ -1,5 +1,11 @@
 import checkFunctionParameters from '../errors/checkFunctionParameters';
-import { createElementWithClass, isTouchDevice, toggleItemIconOpacity } from '../helpers/helpers';
+import {
+  createElementWithClass,
+  isTouchDevice,
+  toggleItemIconOpacity,
+  restoreFocus,
+  getFocusedElement,
+} from '../helpers/helpers';
 import updateDOM from '../update/updateDOM';
 import { deleteItem } from './deleteItem';
 import { removePomodoroTimerListiners } from '../set/pomodoro';
@@ -55,6 +61,8 @@ function createEditIcon(type, columnNum, itemNum = 0) {
 function editItemText(e, type, columnNum, itemNum = 0) {
   checkFunctionParameters(type, columnNum);
 
+  const [lastFocusedParentId, lastFocusedClass] = getFocusedElement(e);
+
   const taskListItem =
     type === 'task' ? e.target.closest('.task__list-item') : e.target.closest('.categories__item');
   const selectElement = type === 'task' && taskListItem.querySelector('.categories__select');
@@ -81,6 +89,7 @@ function editItemText(e, type, columnNum, itemNum = 0) {
       if (type === 'task') {
         event.currentTarget.setAttribute('draggable', true);
         editItem('task', columnNum, itemNum);
+        restoreFocus(lastFocusedParentId, lastFocusedClass);
       } else if (type === 'category') {
         event.currentTarget.setAttribute('contentEditable', false);
         editItem('category', columnNum);
