@@ -1,5 +1,5 @@
 import updateDOM from '../update/updateDOM';
-import { getLocalItems, setLocalItems, getLocalColumnNames } from '../update/localStorage';
+import { getLocalItems, setLocalItems, getLocalData } from '../update/localStorage';
 import { setSessionRemovedItems, getSessionRemovedItems } from '../update/sessionStorage';
 
 function undoItem(columnNames, removed) {
@@ -20,7 +20,7 @@ function setUndoListeners() {
 
   function handleUndoItem() {
     const itemsRemoved = getSessionRemovedItems();
-    const columnNames = getLocalColumnNames();
+    const columnNames = getLocalData('columnNames');
 
     if (itemsRemoved.length !== 0) {
       undoItem(columnNames, itemsRemoved);

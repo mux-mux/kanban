@@ -2,12 +2,7 @@ import { createFocusTrap } from 'focus-trap';
 import checkFunctionParameters from '../errors/checkFunctionParameters';
 import { createElementWithClass, isTouchDevice, toggleItemIconOpacity } from '../helpers/helpers';
 import updateDOM from '../update/updateDOM';
-import {
-  setLocalItems,
-  getLocalItems,
-  setLocalIsPaused,
-  getLocalIsPaused,
-} from '../update/localStorage';
+import { setLocalItems, getLocalItems, setLocalData, getLocalData } from '../update/localStorage';
 import { relocateItem } from '../modify/relocateItem';
 
 let pomodoroIntervalTick = null;
@@ -30,6 +25,7 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
   }
 
   function pomodoroLogic() {
+    const isPaused = getLocalData('isPaused');
     let minutes = Math.floor(tick / 60);
     let seconds = tick % 60;
 
@@ -55,13 +51,13 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
         updateDOM();
       }
     }
-    if (getLocalIsPaused() === false) {
+    if (isPaused === false) {
       timer.pomodoro.classList.add('fa-fade');
       tick--;
       MM.textContent = minutes;
       SS.textContent = seconds;
     }
-    if (itemData.pomodoro === true && getLocalIsPaused() === false) {
+    if (itemData.pomodoro === true && isPaused === false) {
       itemData.time = `${minutes}:${seconds}`;
       setLocalItems(itemsLoaded);
     }
@@ -95,7 +91,7 @@ function createPomodoroStartIcon(columnNum, itemNum) {
 
   function startPomodoroByIcon() {
     removePomodoroTimerListiners();
-    setLocalIsPaused(false);
+    setLocalData('isPaused', false);
     const pomodoroText = document.querySelector('.pomodoro__text');
 
     document.querySelector('.pomodoro__controls').style.display = 'flex';
@@ -141,7 +137,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   const pomodoroContainer = document.querySelector('.pomodoro');
   const pomodoroControls = document.querySelector('.pomodoro__controls');
   const itemsLoaded = getLocalItems();
-  const isPaused = getLocalIsPaused();
+  const isPaused = getLocalData('isPaused');
 
   focusTrap = createFocusTrap(pomodoroControls, {
     onActivate: () => pause.focus(),
@@ -154,7 +150,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   let time = itemData.time === '' ? ['25', '00'] : itemData.time.split(':');
 
   if (state === 'init') {
-    getLocalIsPaused() ? pausePomodoro() : playPomodoro();
+    isPaused ? pausePomodoro() : playPomodoro();
 
     showHidePomodoro(kanbanHeading, pomodoroContainer);
     startPomodoro(+time[0] + +time[1] / 60, timer, columnNum, itemNum);
@@ -180,7 +176,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     focusTrap.deactivate();
     itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum] = itemData;
     setLocalItems(itemsLoaded);
-    setLocalIsPaused(false);
+    setLocalData('isPaused', false);
     updateDOM();
   }
 
@@ -194,7 +190,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   function pausePomodoro(e) {
     pause.style.display = 'none';
     play.style.display = 'inline-block';
-    setLocalIsPaused(true);
+    setLocalData('isPaused', true);
     icon.classList.remove('fa-fade');
     play.focus();
 
@@ -204,7 +200,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   function playPomodoro(e) {
     play.style.display = 'none';
     pause.style.display = 'inline-block';
-    setLocalIsPaused(false);
+    setLocalData('isPaused', false);
     icon.classList.add('fa-fade');
     pause.focus();
 
@@ -259,7 +255,7 @@ function playSound(soundSample) {
 }
 
 function setPomodoroIsPausedOnReload() {
-  window.addEventListener('beforeunload', () => setLocalIsPaused(true));
+  window.addEventListener('beforeunload', () => setLocalData('isPaused', true));
 }
 
 function removePomodoroTimerListiners() {

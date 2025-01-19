@@ -8,7 +8,7 @@ import { createPomodoroStartIcon, pomodoroInit } from './pomodoro';
 
 import { relocateItem } from '../modify/relocateItem';
 import { renderCategoriesSelector } from '../modify/addCategories';
-import { getLocalItems, getLocalColumnNames } from '../update/localStorage';
+import { getLocalItems, getLocalData } from '../update/localStorage';
 
 let pomodoroIcon = null;
 let moveData = {};
@@ -56,7 +56,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
     const focusedTask = document.activeElement;
     if (!focusedTask) return;
     const itemsLoaded = getLocalItems();
-    const colLength = getLocalColumnNames().length - 1;
+    const colLength = getLocalData('columnNames').length - 1;
     const keyCombo = e.ctrlKey && e.shiftKey;
     const itemsInCol = itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items.length - 1;
 

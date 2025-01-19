@@ -1,4 +1,4 @@
-import toggleModal from '../modify/toggleModal';
+import toggleModal from './toggleModal';
 
 function setInfoModalListeners() {
   const containerInfo = document.querySelector('.modal-info');

@@ -1,12 +1,7 @@
 import { createElementWithClass } from '../helpers/helpers';
 import updateDOM from '../update/updateDOM';
-import toggleModal from './toggleModal';
-import {
-  getLocalArchive,
-  setLocalArchive,
-  getLocalItems,
-  setLocalItems,
-} from '../update/localStorage';
+import toggleModal from '../info/toggleModal';
+import { getLocalData, setLocalData, getLocalItems, setLocalItems } from '../update/localStorage';
 
 function archiveItem() {
   const containerArchive = document.querySelector('.modal-archive');
@@ -26,7 +21,7 @@ function archiveItem() {
   });
 
   function downloadArchive() {
-    const archiveLoaded = getLocalArchive();
+    const archiveLoaded = getLocalData('archiveItems');
     if (archiveLoaded.length === 0) {
       return;
     }
@@ -67,7 +62,7 @@ function archiveItem() {
     const isConfirm = confirm('Do you want to clear all archive tasks?');
     if (!isConfirm) return;
 
-    setLocalArchive([]);
+    setLocalData('archiveItems', []);
 
     updateDOM();
   }
@@ -75,13 +70,13 @@ function archiveItem() {
 
 function moveToArchive(doneTasks, action) {
   const itemsLoaded = getLocalItems();
-  const archiveLoaded = getLocalArchive();
+  const archiveLoaded = getLocalData('archiveItems');
   const columnDoneNum = Object.keys(itemsLoaded).length - 1;
   const archiveItems = doneTasks;
   archiveLoaded.push(...archiveItems);
   itemsLoaded[Object.keys(itemsLoaded)[columnDoneNum]].items = [];
 
-  setLocalArchive(archiveLoaded);
+  setLocalData('archiveItems', archiveLoaded);
   action === 'done' ? setLocalItems(itemsLoaded) : null;
 
   updateDOM();

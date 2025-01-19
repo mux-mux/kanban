@@ -3,12 +3,7 @@ import { createElementWithClass, isTouchDevice, toggleItemIconOpacity } from '..
 import updateDOM from '../update/updateDOM';
 import { deleteItem } from './deleteItem';
 import { removePomodoroTimerListiners } from '../set/pomodoro';
-import {
-  setLocalCategories,
-  getLocalCategories,
-  getLocalItems,
-  setLocalItems,
-} from '../update/localStorage';
+import { setLocalData, getLocalData, getLocalItems, setLocalItems } from '../update/localStorage';
 
 function editItem(type = 'task', columnNum = 0, itemNum = 0) {
   if (type === 'task') {
@@ -24,11 +19,11 @@ function editItem(type = 'task', columnNum = 0, itemNum = 0) {
       setLocalItems(itemsLoaded);
     }
   } else if (type === 'category') {
-    const categoriesLoaded = getLocalCategories();
+    const categoriesLoaded = getLocalData('categoriesItems');
     const categoryEditedText =
       document.querySelectorAll('.categories__item')[columnNum].textContent;
     categoriesLoaded[columnNum] = categoryEditedText;
-    setLocalCategories(categoriesLoaded);
+    setLocalData('categoriesItems', categoriesLoaded);
   }
   updateDOM();
 }
@@ -44,7 +39,7 @@ function createEditIcon(type, columnNum, itemNum = 0) {
     const taskText = itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum].name;
     editButton.setAttribute('aria-label', `Edit ${taskText} task name`);
   } else if (type === 'category') {
-    const categoriesLoaded = getLocalCategories();
+    const categoriesLoaded = getLocalData('categoriesItems');
     const categoryText = categoriesLoaded[columnNum];
     editButton.setAttribute('aria-label', `Edit ${categoryText} category name`);
   }

@@ -1,10 +1,4 @@
-import {
-  setLocalItems,
-  setLocalArchive,
-  setLocalCategories,
-  setLocalIsInitialLoad,
-  setLocalColumnNames,
-} from './localStorage';
+import { setLocalItems, setLocalData } from './localStorage';
 
 import getItems from '../services/ItemsService';
 
@@ -16,11 +10,11 @@ function initialLoad() {
   if (initialLoad) {
     getItems('https://api.jsonbin.io/v3/b/67802f76e41b4d34e472bedb').then(
       ({ archive, categories, columns }) => {
-        setLocalColumnNames(Object.keys(columns));
+        setLocalData('columnNames', Object.keys(columns));
         setLocalItems(columns);
-        setLocalArchive(archive);
-        setLocalCategories(categories);
-        setLocalIsInitialLoad();
+        setLocalData('archiveItems', archive);
+        setLocalData('categoriesItems', categories);
+        setLocalData('isInitialLoad', false);
         updateDOM();
       }
     );

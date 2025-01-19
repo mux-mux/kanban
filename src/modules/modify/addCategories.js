@@ -3,13 +3,8 @@ import updateDOM from '../update/updateDOM';
 import { createDeleteIcon, deleteItem } from './deleteItem';
 import { hoverAppearIcon } from '../set/createItem';
 import { createEditIcon, editItemText } from './editItem';
-import toggleModal from './toggleModal';
-import {
-  setLocalCategories,
-  getLocalCategories,
-  getLocalItems,
-  setLocalItems,
-} from '../update/localStorage';
+import toggleModal from '../info/toggleModal';
+import { setLocalData, getLocalData, getLocalItems, setLocalItems } from '../update/localStorage';
 
 function renderCategories(categoriesList) {
   const categoriesContainer = document.getElementById('categoriesContainer');
@@ -52,12 +47,12 @@ function addCategories() {
   categoryForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const categoriesLoaded = getLocalCategories();
+    const categoriesLoaded = getLocalData('categoriesItems');
     const newCategoryName = categoryNameInput.value.trim();
 
     if (newCategoryName && !categoriesLoaded.includes(newCategoryName)) {
       categoriesLoaded.push(newCategoryName);
-      setLocalCategories(categoriesLoaded);
+      setLocalData('categoriesItems', categoriesLoaded);
       categoryNameInput.value = '';
       updateDOM();
     } else {
@@ -68,7 +63,7 @@ function addCategories() {
 
 function renderCategoriesSelector(columnNum, itemNum) {
   const itemsLoaded = getLocalItems();
-  const categoriesLoaded = getLocalCategories();
+  const categoriesLoaded = getLocalData('categoriesItems');
   const categorySelector = createElementWithClass('select', 'categories__select');
   const selectedList = Object.keys(itemsLoaded)[columnNum];
 
