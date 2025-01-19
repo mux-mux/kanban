@@ -19,6 +19,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
   const taskLists = document.querySelectorAll('.task__list');
   const taskContainer = createElementWithClass('li', 'task__list-item');
   const taskManagment = createElementWithClass('div', 'task__set');
+  const taskProgressBar = createElementWithClass('div', 'task__progressbar');
   const taskData = createElementWithClass('div', 'task__data');
   const taskText = createElementWithClass('div', 'task__text');
   const taskIcons = createElementWithClass('div', 'task__icons');
@@ -40,10 +41,6 @@ function createItem(columnElement, columnNum, item, itemNum) {
 
   for (let i = 0; i < itemData.sessions; i++) {
     appendSessionIcon(taskSessions, i);
-  }
-
-  if (itemData.pomodoro === true) {
-    pomodoroInit(pomodoroIcon, itemData, 'init', columnNum, itemNum);
   }
 
   changeIconOnBreak(itemData, pomodoroIcon.pomodoro.querySelector('i[class^="fa"]'));
@@ -99,10 +96,15 @@ function createItem(columnElement, columnNum, item, itemNum) {
   taskData.appendChild(taskManagment);
   taskContainer.appendChild(taskData);
   taskContainer.appendChild(taskIcons);
+  taskContainer.appendChild(taskProgressBar);
   columnElement.appendChild(taskContainer);
 
   setElementAttributes(taskContainer, item.name, true, itemNum, columnNum);
   setProperties(taskContainer, { height: taskContainer.clientHeight + 'px' });
+
+  if (itemData.pomodoro === true) {
+    pomodoroInit(pomodoroIcon, itemData, 'init', columnNum, itemNum);
+  }
 
   if (!isTouchDevice()) {
     taskContainer.addEventListener('dragstart', (e) => dragItem(e, columnNum));

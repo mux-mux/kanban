@@ -10,7 +10,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     color: var(--text-color, #222);
-    font-size: 10px;
+    font-size: $font-size-sm;
     border: transparent;
     border-radius: 5px;
     background-color: transparent;
@@ -51,7 +51,7 @@
     box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 16px;
+    font-size: $font-size-xlg;
     outline-offset: $outline-offset;
     transition:
       border-color 0.3s,

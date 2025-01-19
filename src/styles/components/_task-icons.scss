@@ -1,6 +1,7 @@
 .icon {
   opacity: var(--opacity, 1);
   pointer-events: var(--pointer-events, auto);
+  outline-offset: -1px;
 
   &-edit,
   &-pomodoro {
@@ -16,15 +17,15 @@
     }
   }
   &-edit {
-    font-size: 16px;
+    font-size: $font-size-xlg;
   }
   &-pomodoro {
-    font-size: 18px;
+    font-size: $font-size-xl;
   }
   &-delete {
     display: flex;
     align-items: center;
-    font-size: 1rem;
+    font-size: $font-size-sm;
     padding-left: $padding-sm;
     padding-right: $padding-sm;
     background-color: rgba(255, 0, 0, 0.4);

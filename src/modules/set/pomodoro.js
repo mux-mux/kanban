@@ -17,6 +17,8 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
   const pomodoroBreak = document.querySelector('.pomodoro__break');
   const itemsLoaded = getLocalItems();
   const itemData = itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum];
+  const itemInCol = document.querySelectorAll(`[data-in-col="${columnNum}"]`)[itemNum];
+  const progressBar = itemInCol.querySelector('.task__progressbar');
 
   let tick = duration * 60;
 
@@ -61,6 +63,9 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
       itemData.time = `${minutes}:${seconds}`;
       setLocalItems(itemsLoaded);
     }
+
+    const progressPercent = Math.min(100 - (tick / (25 * 60)) * 100, 100);
+    progressBar.style.width = `${progressPercent}%`;
   }
 
   pomodoroLogic();
