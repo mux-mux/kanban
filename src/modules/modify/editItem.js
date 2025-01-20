@@ -75,6 +75,7 @@ function editItemText(e, type, columnNum, itemNum = 0) {
 
   function editCurrentItem(element) {
     if (type === 'task') {
+      setLocalData('isEdit', true);
       removePomodoroTimerListiners();
       selectElement.innerHTML = '';
       element.setAttribute('draggable', false);

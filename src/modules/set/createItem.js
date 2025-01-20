@@ -105,6 +105,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
   columnElement.appendChild(taskContainer);
 
   setElementAttributes(taskContainer, item.id, item.name, true, itemNum, columnNum);
+  setProperties(taskContainer, { height: taskContainer.clientHeight + 'px' });
 
   if (itemData.pomodoro === true) {
     pomodoroInit(pomodoroIcon, itemData, 'init', columnNum, itemNum);
@@ -136,8 +137,6 @@ function createItem(columnElement, columnNum, item, itemNum) {
       { passive: true }
     );
   }
-
-  setProperties(taskContainer, { height: taskContainer.clientHeight + 'px' });
 }
 
 function renderItems(itemsLoaded) {
