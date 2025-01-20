@@ -12,7 +12,12 @@
     display: flex;
     gap: $gap-sm;
   }
+  &__text {
+    line-height: 1.1;
+  }
   &__data {
+    display: flex;
+    flex-direction: column;
     padding: $padding-sm 0;
   }
   &__new {
