@@ -1,6 +1,11 @@
 import { createFocusTrap } from 'focus-trap';
 import checkFunctionParameters from '../errors/checkFunctionParameters';
-import { createElementWithClass, isTouchDevice, toggleItemIconOpacity } from '../helpers/helpers';
+import {
+  createElementWithClass,
+  isTouchDevice,
+  toggleItemIconOpacity,
+  restoreFocus,
+} from '../helpers/helpers';
 import updateDOM from '../update/updateDOM';
 import { setLocalItems, getLocalItems, setLocalData, getLocalData } from '../update/localStorage';
 import { relocateItem } from '../modify/relocateItem';
@@ -163,6 +168,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     (itemData.time === '' || isPaused) && addPomodoroTimerListiners();
 
     icon.style.cssText = 'opacity: 1; color: #eccb34';
+    icon.setAttribute('data-pomodoro', true);
     pomodoroControls.style.display = 'flex';
     text.textContent = itemData.name;
     focusTrap.activate();
@@ -213,6 +219,9 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   }
 
   function resetPomodoro(e) {
+    const lastFocusedIcon = document.querySelector('[data-pomodoro="true"]');
+    const lastFocusedParentId = lastFocusedIcon.closest('.task__list-item').dataset.id;
+
     if (itemData.break === true) {
       itemData.break = false;
       itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum] = itemData;
@@ -224,6 +233,8 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     pomodoroInit(timer, itemData, 'remove', columnNum, itemNum);
     focusTrap.deactivate();
     e && playSound('reset.ogg');
+
+    restoreFocus(lastFocusedParentId, 'icon-pomodoro');
   }
 
   function donePomodoro(e) {

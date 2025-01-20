@@ -1,6 +1,5 @@
 import checkFunctionParameters from '../errors/checkFunctionParameters';
 import { createElementWithClass } from '../helpers/helpers';
-import updateDOM from '../update/updateDOM';
 import { getLocalItems, setLocalItems } from '../update/localStorage';
 
 function todayDate() {
@@ -17,19 +16,24 @@ function setDeadline(columnNum, item, itemNum) {
   const today = todayDate();
   let currDeadline = itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum].deadline;
 
-  today > currDeadline && columnNum !== 2
-    ? (deadlinePick.style.color = '#d02020')
-    : (deadlinePick.style.color = '#777');
+  checkTheDayBeforeToday(currDeadline, deadlinePick);
   deadlinePick.setAttribute('type', 'date');
   deadlinePick.setAttribute('min', today);
   deadlinePick.value = item.deadline;
 
   deadlinePick.addEventListener('change', (e) => {
-    itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum].deadline =
-      e.currentTarget.value;
+    const nextDate = e.currentTarget.value;
+    checkTheDayBeforeToday(nextDate, deadlinePick);
+    itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum].deadline = nextDate;
+
     setLocalItems(itemsLoaded);
-    updateDOM();
   });
+
+  function checkTheDayBeforeToday(nextDate, deadlinePick) {
+    today > nextDate && columnNum !== 2
+      ? (deadlinePick.style.color = '#d02020')
+      : (deadlinePick.style.color = '#777');
+  }
 
   if (columnNum === 2) {
     deadlinePick.setAttribute('disabled', 'disabled');
