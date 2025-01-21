@@ -128,8 +128,8 @@ function createItem(columnElement, columnNum, item, itemNum) {
         document
           .querySelectorAll('.task__list-item')
           .forEach((item) => item.classList.remove('touch__selected'));
-        if (e.target.classList.contains('task__list-item')) {
-          e.target.classList.add('touch__selected');
+        if (e.target.classList.contains('task__text')) {
+          e.target.closest('.task__list-item').classList.add('touch__selected');
         }
         moveData.columnNum = columnNum;
         moveData.itemNum = +e.currentTarget.attributes['data-in-row'].value;
