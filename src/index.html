@@ -14,8 +14,17 @@
       rel="stylesheet"
     />
   </head>
+  <style>
+    #app {
+      visibility: hidden;
+      opacity: 0;
+    }
+  </style>
   <body>
-    <div class="container">
+    <div id="app-loader">
+      <div class="spinner"></div>
+    </div>
+    <div id="app" class="container">
       <header class="header">
         <div class="header__tools">
           <button class="tool tool-history" aria-label="Undo the task deletion">
@@ -230,8 +239,8 @@
           </div>
         </div>
       </div>
+      <div class="overlay"></div>
     </div>
-    <div class="overlay"></div>
     <script src="./bundle.js"></script>
     <script type="text/javascript">
       window.FontAwesomeConfig = { autoReplaceSvg: false };

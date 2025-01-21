@@ -1,5 +1,6 @@
 import { findMaxId } from '../helpers/helpers';
 import { setLocalItems, setLocalData } from './localStorage';
+import removeSpinner from '../spinner/removeSpinner';
 import getItems from '../services/ItemsService';
 import updateDOM from './updateDOM';
 
@@ -16,10 +17,12 @@ function initialLoad() {
         setLocalData('isInitialLoad', false);
         setLocalData('currentId', findMaxId(columns));
         updateDOM();
+        removeSpinner();
       }
     );
   } else {
     updateDOM();
+    removeSpinner();
   }
 }
 
