@@ -127,10 +127,7 @@ function renderButtonsAndFields() {
 
     focusTrap = createFocusTrap(containersNewTask[column], {
       onActivate: () => textareas[column].focus(),
-      onDeactivate: () => {
-        textareas[column].blur();
-        toggleNewTaskTextarea(column, 'close');
-      },
+      onDeactivate: () => textareas[column].blur(),
       onPause: () => focusTrap.deactivate(),
       allowOutsideClick: () => true,
       clickOutsideDeactivates: () => true,
