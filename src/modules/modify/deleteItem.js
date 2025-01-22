@@ -1,12 +1,19 @@
 import checkFunctionParameters from '../errors/checkFunctionParameters';
 import { createElementWithClass, toggleItemIconOpacity, isTouchDevice } from '../helpers/helpers';
 import updateDOM from '../update/updateDOM';
-import { pomodoroIntervalTick, removePomodoroTimerListiners } from '../set/pomodoro';
-import { setLocalData, getLocalData, getLocalItems, setLocalItems } from '../update/localStorage';
+import { removePomodoroTimerListiners } from '../set/pomodoro';
+import {
+  setLocalData,
+  getLocalData,
+  removeLocalData,
+  getLocalItems,
+  setLocalItems,
+} from '../update/localStorage';
 
 import { setSessionRemovedItems, getSessionRemovedItems } from '../update/sessionStorage';
 
 function deleteItem(type = 'task', columnNum = 0, itemNum = 0) {
+  const pomodoroIntervalTick = getLocalData('pomodoroInterval');
   if (type === 'task') {
     const itemsLoaded = getLocalItems();
     const itemsRemoved = getSessionRemovedItems();
@@ -19,6 +26,7 @@ function deleteItem(type = 'task', columnNum = 0, itemNum = 0) {
     setSessionRemovedItems(itemsRemoved);
     setLocalItems(itemsLoaded);
     clearInterval(pomodoroIntervalTick);
+    removeLocalData('pomodoroInterval');
   } else if (type === 'category') {
     const categoriesLoaded = getLocalData('categoriesItems');
     categoriesLoaded.splice(columnNum, 1);

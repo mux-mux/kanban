@@ -17,11 +17,15 @@ function setLocalItems(columnItems) {
 
 function getLocalData(localData) {
   checkFunctionParameters(localData);
-  return JSON.parse(localStorage[localData]);
+  return localStorage.getItem(localData) && JSON.parse(localStorage[localData]);
 }
 function setLocalData(name, localData) {
   checkFunctionParameters(localData);
   localStorage.setItem(name, JSON.stringify(localData));
 }
 
-export { getLocalItems, setLocalItems, getLocalData, setLocalData };
+function removeLocalData(localData) {
+  checkFunctionParameters(localData);
+  localStorage.getItem(localData) && localStorage.removeItem(localData);
+}
+export { getLocalItems, setLocalItems, getLocalData, setLocalData, removeLocalData };

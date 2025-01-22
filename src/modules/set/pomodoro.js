@@ -7,10 +7,15 @@ import {
   restoreFocus,
 } from '../helpers/helpers';
 import updateDOM from '../update/updateDOM';
-import { setLocalItems, getLocalItems, setLocalData, getLocalData } from '../update/localStorage';
+import {
+  setLocalItems,
+  getLocalItems,
+  setLocalData,
+  getLocalData,
+  removeLocalData,
+} from '../update/localStorage';
 import { relocateItem } from '../modify/relocateItem';
 
-let pomodoroIntervalTick = null;
 let focusTrap = null;
 
 function startPomodoro(duration, timer, columnNum, itemNum) {
@@ -21,6 +26,7 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
 
   const pomodoroBreak = document.querySelector('.pomodoro__break');
   const itemsLoaded = getLocalItems();
+  let pomodoroIntervalTick = getLocalData('pomodoroInterval');
   const itemData = itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum];
   const itemInCol = document.querySelectorAll(`[data-in-col="${columnNum}"]`)[itemNum];
   const progressBar = itemInCol.querySelector('.task__progressbar');
@@ -41,6 +47,7 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
 
     if (tick <= 0) {
       clearInterval(pomodoroIntervalTick);
+      removeLocalData('pomodoroInterval');
       if (!itemData.break) {
         itemData.sessions++;
       }
@@ -77,10 +84,10 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
 
   if (pomodoroIntervalTick) {
     clearInterval(pomodoroIntervalTick);
-    pomodoroIntervalTick = setInterval(pomodoroLogic, 1000);
-  } else {
-    pomodoroIntervalTick = setInterval(pomodoroLogic, 1000);
+    removeLocalData('pomodoroInterval');
   }
+  pomodoroIntervalTick = setInterval(pomodoroLogic, 1000);
+  setLocalData('pomodoroInterval', pomodoroIntervalTick);
 }
 
 function createPomodoroStartIcon(columnNum, itemNum) {
@@ -147,6 +154,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   const pomodoroContainer = document.querySelector('.pomodoro');
   const pomodoroControls = document.querySelector('.pomodoro__controls');
   const itemsLoaded = getLocalItems();
+  const pomodoroIntervalTick = getLocalData('pomodoroInterval');
   const isPaused = localStorage.getItem('isPaused') && getLocalData('isPaused');
   const isEdit = localStorage.getItem('isEdit') && getLocalData('isEdit');
 
@@ -166,8 +174,6 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     showHidePomodoro(kanbanHeading, pomodoroContainer);
     startPomodoro(+time[0] + +time[1] / 60, timer, columnNum, itemNum);
 
-    console.log({ itemData, isPaused, isEdit });
-
     (itemData.time === '' || isPaused || isEdit) && addPomodoroTimerListiners();
 
     icon.style.cssText = 'opacity: 1; color: #eccb34';
@@ -175,10 +181,11 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     pomodoroControls.style.display = 'flex';
     text.textContent = itemData.name;
     focusTrap.activate();
-    localStorage.getItem('isEdit') && localStorage.removeItem('isEdit');
+    removeLocalData('isEdit');
   } else {
     showHidePomodoro(pomodoroContainer, kanbanHeading);
     clearInterval(pomodoroIntervalTick);
+    removeLocalData('pomodoroInterval');
     itemData.pomodoro = false;
     itemData.time = '';
     time = ['25', '00'];
@@ -295,5 +302,4 @@ export {
   removePomodoroTimerListiners,
   toggleItemIconOpacity,
   setPomodoroIsPausedOnReload,
-  pomodoroIntervalTick,
 };
