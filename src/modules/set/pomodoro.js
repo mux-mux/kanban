@@ -166,6 +166,8 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     showHidePomodoro(kanbanHeading, pomodoroContainer);
     startPomodoro(+time[0] + +time[1] / 60, timer, columnNum, itemNum);
 
+    console.log({ itemData, isPaused, isEdit });
+
     (itemData.time === '' || isPaused || isEdit) && addPomodoroTimerListiners();
 
     icon.style.cssText = 'opacity: 1; color: #eccb34';
@@ -272,8 +274,11 @@ function playSound(soundSample) {
   audio.play();
 }
 
-function setPomodoroIsPausedOnReload() {
-  window.addEventListener('beforeunload', () => setLocalData('isPaused', true));
+function setPomodoroIsPausedOnReload(data) {
+  const pomodoroStates = Object.values(data)
+    .flatMap((column) => column.items)
+    .map((item) => item.pomodoro);
+  pomodoroStates.includes(true) && setLocalData('isPaused', true);
 }
 
 function removePomodoroTimerListiners() {

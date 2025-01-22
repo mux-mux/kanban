@@ -2,6 +2,8 @@ import { findMaxId } from '../helpers/helpers';
 import { setLocalItems, setLocalData } from './localStorage';
 import removeSpinner from '../spinner/removeSpinner';
 import getItems from '../services/ItemsService';
+import { setPomodoroIsPausedOnReload } from '../set/pomodoro';
+import { getLocalItems } from '../update/localStorage';
 import updateDOM from './updateDOM';
 
 function initialLoad() {
@@ -21,6 +23,7 @@ function initialLoad() {
       }
     );
   } else {
+    setPomodoroIsPausedOnReload(getLocalItems());
     updateDOM();
     removeSpinner();
   }
