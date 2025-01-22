@@ -9,6 +9,7 @@ import { renderButtonsAndFields, setAddNewTaskKeysListeners } from './modules/mo
 import { setDragAndDropListeners } from './modules/modify/dragDropItem';
 import { showMoveButton } from './modules/set/createItem';
 import { setInfoModalListeners } from './modules/info/showInfo';
+import { isTabNavigation } from './modules/helpers/helpers';
 
 initialLoad();
 renderButtonsAndFields();
@@ -20,3 +21,4 @@ setUndoListeners();
 setAddNewTaskKeysListeners();
 showMoveButton();
 setInfoModalListeners();
+isTabNavigation();

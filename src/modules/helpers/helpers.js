@@ -1,4 +1,5 @@
 import checkFunctionParameters from '../errors/checkFunctionParameters';
+import { getLocalData, setLocalData } from '../update/localStorage';
 
 function setProperties(element, props) {
   checkFunctionParameters(element, props);
@@ -36,6 +37,8 @@ function findMaxId(data) {
 
 function restoreFocus(lastFocusedParentId, lastFocusedClass) {
   checkFunctionParameters(lastFocusedParentId, lastFocusedClass);
+  const isTabPressed = getLocalData('isTabPressed');
+  if (!isTabPressed) return;
 
   const currentFocusedItem = document.querySelector(`[data-id="${lastFocusedParentId}"]`);
   const currentActiveElement = currentFocusedItem.getElementsByClassName(lastFocusedClass);
@@ -50,6 +53,18 @@ function getFocusedElement(e) {
   return [lastFocusedParentId, lastFocusedClass];
 }
 
+function isTabNavigation() {
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Tab') {
+      setLocalData('isTabPressed', true);
+    }
+  });
+
+  document.addEventListener('mousedown', () => {
+    setLocalData('isTabPressed', false);
+  });
+}
+
 export {
   setProperties,
   createElementWithClass,
@@ -58,4 +73,5 @@ export {
   restoreFocus,
   getFocusedElement,
   findMaxId,
+  isTabNavigation,
 };

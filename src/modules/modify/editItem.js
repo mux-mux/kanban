@@ -9,7 +9,13 @@ import {
 import updateDOM from '../update/updateDOM';
 import { deleteItem } from './deleteItem';
 import { removePomodoroTimerListiners } from '../set/pomodoro';
-import { setLocalData, getLocalData, getLocalItems, setLocalItems } from '../update/localStorage';
+import {
+  setLocalData,
+  getLocalData,
+  getLocalItems,
+  setLocalItems,
+  removeLocalData,
+} from '../update/localStorage';
 
 function editItem(type = 'task', columnNum = 0, itemNum = 0) {
   if (type === 'task') {
@@ -90,6 +96,7 @@ function editItemText(e, type, columnNum, itemNum = 0) {
       if (type === 'task') {
         event.currentTarget.setAttribute('draggable', true);
         editItem('task', columnNum, itemNum);
+        removeLocalData('isEdit');
         restoreFocus(lastFocusedParentId, lastFocusedClass);
       } else if (type === 'category') {
         event.currentTarget.setAttribute('contentEditable', false);
