@@ -14,10 +14,9 @@ import { createPomodoroStartIcon, pomodoroInit } from './pomodoro';
 
 import { relocateItem } from '../modify/relocateItem';
 import { renderCategoriesSelector } from '../modify/addCategories';
-import { getLocalItems, getLocalData } from '../update/localStorage';
+import { getLocalItems, getLocalData, setLocalData } from '../update/localStorage';
 
 let pomodoroIcon = null;
-let moveData = {};
 
 function createItem(columnElement, columnNum, item, itemNum) {
   checkFunctionParameters(columnElement, columnNum, item, itemNum);
@@ -40,7 +39,7 @@ function createItem(columnElement, columnNum, item, itemNum) {
   taskDeleteIcon.addEventListener('click', () => {
     pomodoroInit(pomodoroIcon, itemData, 'remove', columnNum, itemNum);
     deleteItem('task', columnNum, itemNum);
-    moveData = {};
+    setLocalData('moveData', {});
   });
 
   const deadlinePick = setDeadline(columnNum, item, itemNum);
@@ -125,14 +124,19 @@ function createItem(columnElement, columnNum, item, itemNum) {
     taskContainer.addEventListener(
       'touchstart',
       (e) => {
+        const moveData = getLocalData('moveData');
         document
           .querySelectorAll('.task__list-item')
           .forEach((item) => item.classList.remove('touch__selected'));
-        if (e.target.classList.contains('task__text')) {
+        if (
+          e.target.classList.contains('task__text') ||
+          e.target.classList.contains('task__list-item')
+        ) {
           e.target.closest('.task__list-item').classList.add('touch__selected');
         }
         moveData.columnNum = columnNum;
         moveData.itemNum = +e.currentTarget.attributes['data-in-row'].value;
+        setLocalData('moveData', moveData);
       },
       { passive: true }
     );
@@ -162,8 +166,9 @@ function showMoveButton() {
     taskMoveButton.addEventListener(
       'touchstart',
       () => {
-        const newColumnNum = moveData.columnNum != index ? index : index + 1;
+        const moveData = getLocalData('moveData');
         const itemsLoaded = getLocalItems();
+        const newColumnNum = moveData.columnNum != index ? index : index + 1;
         moveData.newColumnNum = newColumnNum;
         moveData.newItemnNum = itemsLoaded[Object.keys(itemsLoaded)[newColumnNum]].items.length;
         if (moveData.columnNum !== undefined) {
@@ -173,7 +178,7 @@ function showMoveButton() {
             moveData.newColumnNum,
             moveData.newItemnNum
           );
-          moveData = {};
+          setLocalData('moveData', {});
         }
       },
       { passive: true }

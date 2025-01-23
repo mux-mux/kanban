@@ -15,12 +15,9 @@ function relocateItem(columnNum, itemNum, newColNum, newItemNum) {
 
   const itemData = newColumnItems[newItemNum];
 
-  if (newColNum == 2) {
-    itemData.done = todayDate();
-    pomodoroInit(pomodoroIcon, itemData, 'remove', columnNum, itemNum);
-  } else {
-    itemData.done = '';
-  }
+  newColNum == 2 ? (itemData.done = todayDate()) : (itemData.done = '');
+
+  pomodoroInit(pomodoroIcon, itemData, 'remove', columnNum, itemNum);
   setLocalItems(itemsLoaded);
   updateDOM();
 }

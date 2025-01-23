@@ -18,6 +18,7 @@ function initialLoad() {
         setLocalData('categoriesItems', categories);
         setLocalData('isInitialLoad', false);
         setLocalData('currentId', findMaxId(columns));
+        setLocalData('moveData', {});
         updateDOM();
         removeSpinner();
       }
