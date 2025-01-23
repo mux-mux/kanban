@@ -17,7 +17,9 @@ import {
   removeLocalData,
 } from '../update/localStorage';
 
-function editItem(type = 'task', columnNum = 0, itemNum = 0) {
+function editItem(type, columnNum, itemNum = 0) {
+  checkFunctionParameters(type, columnNum);
+
   if (type === 'task') {
     const taskLists = document.querySelectorAll('.task__list');
     const itemsLoaded = getLocalItems();
@@ -82,6 +84,7 @@ function editItemText(e, type, columnNum, itemNum = 0) {
   function editCurrentItem(element) {
     if (type === 'task') {
       setLocalData('isEdit', true);
+      setLocalData('isPaused', true);
       removePomodoroTimerListiners();
       selectElement.innerHTML = '';
       element.setAttribute('draggable', false);

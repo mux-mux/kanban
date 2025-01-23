@@ -58,12 +58,11 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
       if (itemData.break) {
         pomodoroBreak.style.display = 'block';
         startPomodoro(5, timer, columnNum, itemNum);
-        updateDOM();
       } else {
         pomodoroBreak.style.display = 'none';
         startPomodoro(25, timer, columnNum, itemNum);
-        updateDOM();
       }
+      updateDOM();
     }
     if (isPaused === false) {
       timer.pomodoro.classList.add('fa-fade');
