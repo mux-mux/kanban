@@ -130,7 +130,8 @@ function createItem(columnElement, columnNum, item, itemNum) {
           .forEach((item) => item.classList.remove('touch__selected'));
         if (
           e.target.classList.contains('task__text') ||
-          e.target.classList.contains('task__list-item')
+          e.target.classList.contains('task__list-item') ||
+          e.target.classList.contains('task__data')
         ) {
           e.target.closest('.task__list-item').classList.add('touch__selected');
         }

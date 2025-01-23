@@ -65,7 +65,7 @@
       white-space: pre-line;
       color: var(--text-color, #222);
       margin: $margin-md;
-      padding-left: $padding-md;
+      padding-left: calc($padding-md + $padding-sm);
       height: fit-content;
       background-color: rgba(0, 0, 0, 0.1);
       border-radius: $border-radius-md;
@@ -91,7 +91,7 @@
       content: '';
       position: absolute;
       left: 0;
-      width: 5px;
+      width: $width-sm;
       height: 100%;
       background-color: rgba(0, 255, 0, 0.4);
       border-radius: $border-radius-md 0 0 $border-radius-md;
