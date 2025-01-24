@@ -120,28 +120,41 @@ function createItem(columnElement, columnNum, item, itemNum) {
         '--pointer-events': 'auto',
       });
     });
+  }
+}
 
-    taskContainer.addEventListener(
-      'touchstart',
-      (e) => {
-        const moveData = getLocalData('moveData');
+function setSelectOnTouchListener() {
+  document.addEventListener(
+    'touchstart',
+    (e) => {
+      e.stopPropagation();
+      const moveData = getLocalData('moveData');
+      const taskItem = e.target.closest('.task__list-item');
+      const classes = e.target.classList;
+
+      function removeSelectedClass() {
         document
           .querySelectorAll('.task__list-item')
           .forEach((item) => item.classList.remove('touch__selected'));
-        if (
-          e.target.classList.contains('task__text') ||
-          e.target.classList.contains('task__list-item') ||
-          e.target.classList.contains('task__data')
-        ) {
-          e.target.closest('.task__list-item').classList.add('touch__selected');
-        }
-        moveData.columnNum = columnNum;
-        moveData.itemNum = +e.currentTarget.attributes['data-in-row'].value;
+      }
+
+      removeSelectedClass();
+      if (
+        classes.contains('task__text') ||
+        classes.contains('task__list-item') ||
+        classes.contains('task__data')
+      ) {
+        taskItem.classList.add('touch__selected');
+        moveData.columnNum = taskItem.attributes['data-in-col'].value;
+        moveData.itemNum = taskItem.attributes['data-in-row'].value;
         setLocalData('moveData', moveData);
-      },
-      { passive: true }
-    );
-  }
+      } else {
+        removeSelectedClass();
+        setLocalData('moveData', {});
+      }
+    },
+    { passive: true }
+  );
 }
 
 function renderItems(itemsLoaded) {
@@ -248,5 +261,6 @@ export {
   renderItems,
   changeIconOnBreak,
   showMoveButton,
+  setSelectOnTouchListener,
   pomodoroIcon,
 };
