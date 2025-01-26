@@ -1,4 +1,5 @@
 .categories {
+  $tap-increment: 4px;
   &__icons {
     display: flex;
     gap: $gap-md;
@@ -14,6 +15,10 @@
     border: transparent;
     border-radius: 5px;
     background-color: transparent;
+    padding-top: $tap-increment;
+    padding-bottom: $tap-increment;
+    margin-top: -$tap-increment;
+    margin-bottom: -$tap-increment;
 
     &-option {
       color: #222;
