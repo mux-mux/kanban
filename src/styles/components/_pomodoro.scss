@@ -41,6 +41,7 @@
     padding: 0 $padding-md;
     background: var(--background-timer, #f0f8ff);
     border-radius: $border-radius-sm;
+    pointer-events: none;
   }
   &__controls {
     display: none;
