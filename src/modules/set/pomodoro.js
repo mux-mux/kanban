@@ -55,8 +55,9 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
     removeLocalData('pomodoroInterval');
     itemData.sessions += itemData.break ? 0 : 1;
     itemData.break = !itemData.break;
+    itemData.break ? playSound('session-done.ogg') : playSound('play.ogg');
     pomodoroBreak.style.display = itemData.break ? 'block' : 'none';
-    itemData.time = itemData.break ? '00:30' : '01:00';
+    itemData.time = itemData.break ? '05:00' : '25:00';
     setLocalItems(itemsLoaded);
     updateDOM();
   }
@@ -165,7 +166,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
 
   icon.removeEventListener('click', timer.startPomodoroByIcon);
 
-  let time = itemData.time === '' ? ['01', '00'] : itemData.time.split(':');
+  let time = itemData.time === '' ? ['25', '00'] : itemData.time.split(':');
 
   if (state === 'init') {
     isPaused ? pausePomodoro() : playPomodoro();
