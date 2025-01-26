@@ -69,8 +69,7 @@ function createEditIcon(type, columnNum, itemNum = 0) {
 function editItemText(e, type, columnNum, itemNum = 0) {
   checkFunctionParameters(type, columnNum);
 
-  const [lastFocusedParentId, lastFocusedClass] = getFocusedElement(e);
-
+  let lastFocusedParentId, lastFocusedClass;
   const taskListItem =
     type === 'task' ? e.target.closest('.task__list-item') : e.target.closest('.categories__item');
   const selectElement = type === 'task' && taskListItem.querySelector('.categories__select');
@@ -83,6 +82,7 @@ function editItemText(e, type, columnNum, itemNum = 0) {
 
   function editCurrentItem(element) {
     if (type === 'task') {
+      [lastFocusedParentId, lastFocusedClass] = getFocusedElement(e);
       setLocalData('isEdit', true);
       setLocalData('isPaused', true);
       removePomodoroTimerListiners();
