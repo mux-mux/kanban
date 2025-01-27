@@ -65,6 +65,12 @@ function isTabNavigation() {
   });
 }
 
+function removeClassFromElements(className, classNameToRemove) {
+  document
+    .querySelectorAll(`.${className}`)
+    .forEach((item) => item.classList.remove(classNameToRemove));
+}
+
 export {
   setProperties,
   createElementWithClass,
@@ -74,4 +80,5 @@ export {
   getFocusedElement,
   findMaxId,
   isTabNavigation,
+  removeClassFromElements,
 };
