@@ -2,44 +2,42 @@ import checkFunctionParameters from '../errors/checkFunctionParameters';
 import { createElementWithClass } from '../helpers/helpers';
 import { getLocalItems, setLocalItems } from '../update/localStorage';
 
-function todayDate() {
-  const todayDate = new Date().toISOString().split('T')[0];
-  return todayDate;
+function getTodayDate() {
+  return new Date().toISOString().split('T')[0];
+}
+
+function updateDeadlineStyle(nextDate, deadlineInput, notDoneColumn) {
+  const today = getTodayDate();
+  deadlineInput.style.color = today > nextDate && notDoneColumn ? '#d02020' : '#777';
 }
 
 function setDeadline(columnNum, item, itemNum) {
   checkFunctionParameters(columnNum, item, itemNum);
 
-  const deadlinePick = createElementWithClass('input', 'deadline');
+  const deadlineInput = createElementWithClass('input', 'deadline');
   const itemsLoaded = getLocalItems();
+  const today = getTodayDate();
+  let currentItem = itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum];
+  const notDoneColumn = columnNum !== 2;
 
-  const today = todayDate();
-  let currDeadline = itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum].deadline;
+  deadlineInput.type = 'date';
+  deadlineInput.min = today;
+  deadlineInput.value = currentItem.deadline || today;
+  updateDeadlineStyle(currentItem.deadline, deadlineInput, notDoneColumn);
 
-  checkTheDayBeforeToday(currDeadline, deadlinePick);
-  deadlinePick.setAttribute('type', 'date');
-  deadlinePick.setAttribute('min', today);
-  deadlinePick.value = item.deadline;
+  if (!notDoneColumn) {
+    deadlineInput.disabled = true;
+  } else {
+    deadlineInput.addEventListener('change', (e) => {
+      const newDeadline = e.currentTarget.value;
+      updateDeadlineStyle(newDeadline, deadlineInput, notDoneColumn);
 
-  deadlinePick.addEventListener('change', (e) => {
-    const nextDate = e.currentTarget.value;
-    checkTheDayBeforeToday(nextDate, deadlinePick);
-    itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum].deadline = nextDate;
-
-    setLocalItems(itemsLoaded);
-  });
-
-  function checkTheDayBeforeToday(nextDate, deadlinePick) {
-    today > nextDate && columnNum !== 2
-      ? (deadlinePick.style.color = '#d02020')
-      : (deadlinePick.style.color = '#777');
+      currentItem.deadline = newDeadline;
+      setLocalItems(itemsLoaded);
+    });
   }
 
-  if (columnNum === 2) {
-    deadlinePick.setAttribute('disabled', 'disabled');
-  }
-
-  return deadlinePick;
+  return deadlineInput;
 }
 
-export { todayDate, setDeadline };
+export { getTodayDate, setDeadline };

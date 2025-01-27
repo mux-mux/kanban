@@ -1,6 +1,6 @@
 import updateDOM from '../update/updateDOM';
 import { pomodoroIcon } from '../set/createItem';
-import { todayDate } from '../set/deadline';
+import { getTodayDate } from '../set/deadline';
 import { pomodoroInit } from '../set/pomodoro';
 import { getLocalItems, setLocalItems } from '../update/localStorage';
 
@@ -15,7 +15,7 @@ function relocateItem(columnNum, itemNum, newColNum, newItemNum) {
 
   const itemData = newColumnItems[newItemNum];
 
-  newColNum == 2 ? (itemData.done = todayDate()) : (itemData.done = '');
+  newColNum == 2 ? (itemData.done = getTodayDate()) : (itemData.done = '');
 
   pomodoroInit(pomodoroIcon, itemData, 'remove', columnNum, itemNum);
   setLocalItems(itemsLoaded);

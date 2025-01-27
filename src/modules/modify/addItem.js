@@ -1,7 +1,7 @@
 import { createFocusTrap } from 'focus-trap';
 import { createElementWithClass } from '../helpers/helpers';
 import updateDOM from '../update/updateDOM';
-import { todayDate } from '../set/deadline';
+import { getTodayDate } from '../set/deadline';
 import { getLocalData, getLocalItems, setLocalData, setLocalItems } from '../update/localStorage';
 
 let focusTrap = null;
@@ -158,13 +158,13 @@ function renderButtonsAndFields() {
       ? itemsLoaded[selectedList].items.push({
           id: nextId,
           name: itemText,
-          add: todayDate(),
-          deadline: todayDate(),
+          add: getTodayDate(),
+          deadline: getTodayDate(),
           pomodoro: false,
           sessions: 0,
           time: '',
           break: false,
-          done: column === 2 ? todayDate() : '',
+          done: column === 2 ? getTodayDate() : '',
         })
       : null;
     textareas[column].value = '';
