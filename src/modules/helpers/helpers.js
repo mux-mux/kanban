@@ -4,16 +4,16 @@ import { getLocalData, setLocalData } from '../update/localStorage';
 function setProperties(element, props) {
   checkFunctionParameters(element, props);
 
-  for (const [key, value] of Object.entries(props)) {
-    element.style.setProperty(key, value);
-  }
+  Object.entries(props).forEach(([key, value]) => element.style.setProperty(key, value));
 }
 
-function createElementWithClass(element, clazz) {
-  checkFunctionParameters(element, clazz);
+function createElementWithClass(element, className) {
+  checkFunctionParameters(element, className);
 
   const newElement = document.createElement(element);
-  Array.isArray(clazz) ? newElement.classList.add(...clazz) : newElement.classList.add(clazz);
+  Array.isArray(className)
+    ? newElement.classList.add(...className)
+    : newElement.classList.add(className);
   return newElement;
 }
 
@@ -37,33 +37,31 @@ function findMaxId(data) {
 
 function restoreFocus(lastFocusedParentId, lastFocusedClass, type = 'task') {
   checkFunctionParameters(lastFocusedParentId, lastFocusedClass);
-  const isTabPressed = getLocalData('isTabPressed');
-  if (!isTabPressed) return;
+  if (!getLocalData('isTabPressed')) return;
 
-  let currentFocusedItem;
-  if (type === 'task') {
-    currentFocusedItem = document.querySelector(
-      `.task__list-item[data-id="${lastFocusedParentId}"]`
-    );
-  } else if (type === 'category') {
-    currentFocusedItem = document.querySelector(
-      `.categories__item[data-id="${lastFocusedParentId}"]`
-    );
-  }
-  const currentActiveElement = currentFocusedItem.getElementsByClassName(lastFocusedClass);
-  if (!currentActiveElement.length) return;
-  currentActiveElement[0].focus();
+  const selectorMap = {
+    task: `.task__list-item[data-id="${lastFocusedParentId}"]`,
+    category: `.categories__item[data-id="${lastFocusedParentId}"]`,
+  };
+
+  const parentElement = document.querySelector(selectorMap[type]);
+  if (!parentElement) return;
+
+  const activeElement = parentElement.getElementsByClassName(lastFocusedClass);
+  activeElement[0].focus();
 }
 
 function getFocusedElement(e, type = 'task') {
-  let lastFocusedParentId;
-  if (type === 'task') {
-    lastFocusedParentId = e.target.closest('.task__list-item').dataset.id;
-  } else if (type === 'category') {
-    lastFocusedParentId = e.target.closest('.categories__item').dataset.id;
-  }
+  const selectorMap = {
+    task: '.task__list-item',
+    category: '.categories__item',
+  };
+
+  const parentElement = e.target.closest(selectorMap[type]);
+  if (!parentElement) return;
+
+  const lastFocusedParentId = parentElement.dataset.id;
   const lastFocusedClass = e.target.className;
-  if (!lastFocusedParentId) return;
   return [lastFocusedParentId, lastFocusedClass];
 }
 
