@@ -1,11 +1,13 @@
 import toggleModal from './toggleModal';
+import checkFunctionParameters from '../errors/checkFunctionParameters';
 
 function setInfoModalListeners() {
-  const containerInfo = document.querySelector('.modal-info');
-  const buttonCloseInfo = document.querySelector('.btn-close-info');
-  const buttonToggleInfo = document.querySelector('.tool-info');
+  const container = document.querySelector('.modal-info');
+  const buttonClose = document.querySelector('.btn-close-info');
+  const buttonToggle = document.querySelector('.tool-info');
+  checkFunctionParameters(container, buttonClose, buttonToggle);
 
-  toggleModal(containerInfo, buttonCloseInfo, buttonToggleInfo);
+  toggleModal(container, buttonClose, buttonToggle);
 }
 
 export { setInfoModalListeners };

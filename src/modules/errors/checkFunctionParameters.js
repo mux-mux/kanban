@@ -12,7 +12,9 @@ function getCallerFunctionName() {
     const stack = new Error().stack;
     const stackLines = stack.split('\n');
     if (stackLines.length >= 3) {
-      return stackLines[5];
+      const callerLine = stackLines[3];
+      const match = callerLine.match(/at (\S+)/);
+      return match ? match[1] : null;
     }
   } catch (err) {
     return null;

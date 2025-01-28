@@ -1,16 +1,14 @@
 import { createFocusTrap } from 'focus-trap';
+import checkFunctionParameters from '../errors/checkFunctionParameters';
 
-function toggleModal(container, closeButton, toggleButton) {
+function toggleModal(container, buttonClose, buttonToggle) {
+  checkFunctionParameters(container, buttonClose, buttonToggle);
   const overlay = document.querySelector('.overlay');
 
-  [toggleButton, closeButton].forEach((button) =>
-    button.addEventListener('click', toggleModalVisibility)
-  );
-
   const focusTrap = createFocusTrap(container, {
-    onActivate: () => closeButton.focus(),
+    onActivate: () => buttonClose.focus(),
     onDeactivate: () => {
-      closeButton.blur();
+      buttonClose.blur();
       container.classList.remove('modal__visible');
       overlay.classList.remove('overlay__visible');
     },
@@ -18,16 +16,21 @@ function toggleModal(container, closeButton, toggleButton) {
     clickOutsideDeactivates: () => true,
   });
 
+  [buttonToggle, buttonClose].forEach((button) =>
+    button.addEventListener('click', toggleModalVisibility)
+  );
+
   function toggleModalVisibility() {
     const isOpened = container.classList.contains('modal__visible');
+    setModalVisibility(!isOpened);
 
-    if (!isOpened) {
-      container.classList.add('modal__visible');
-      overlay.classList.add('overlay__visible');
-      focusTrap.activate();
-    } else {
-      focusTrap.deactivate();
-    }
+    !isOpened ? focusTrap.activate() : focusTrap.deactivate();
+  }
+
+  function setModalVisibility(isVisible) {
+    checkFunctionParameters(isVisible);
+    container.classList.toggle('modal__visible', isVisible);
+    overlay.classList.toggle('overlay__visible', isVisible);
   }
 }
 
