@@ -46,11 +46,11 @@ function createDeleteIcon(type, columnNum, itemNum = 0) {
   if (type === 'task') {
     const itemsLoaded = getLocalItems();
     const taskText = itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum].name;
-    taskDeleteButton.setAttribute('aria-label', `Delete ${taskText} task`);
+    taskDeleteButton.ariaLabel = `Delete the ${taskText} task`;
   } else if (type === 'category') {
     const categoriesLoaded = getLocalData('categoriesItems');
     const categoryText = categoriesLoaded[columnNum];
-    taskDeleteButton.setAttribute('aria-label', `Delete ${categoryText} category`);
+    taskDeleteButton.ariaLabel = `Delete the ${categoryText} category`;
   }
 
   taskDeleteButton.appendChild(taskDeleteIcon);

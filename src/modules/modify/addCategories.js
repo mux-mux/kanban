@@ -71,10 +71,12 @@ function addCategories() {
 function renderCategoriesSelector(columnNum, itemNum) {
   const itemsLoaded = getLocalItems();
   const categoriesLoaded = getLocalData('categoriesItems');
-  const categorySelector = createElementWithClass('select', 'categories__select');
+  let currentItem = itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum];
   const selectedList = Object.keys(itemsLoaded)[columnNum];
 
+  const categorySelector = createElementWithClass('select', 'categories__select');
   categorySelector.innerHTML = '<option value="" disabled selected>Select a category</option>';
+  categorySelector.ariaLabel = `Change the category for the ${currentItem.name} task`;
 
   categoriesLoaded.forEach((category) => {
     const option = createElementWithClass('option', 'categories__select-option');

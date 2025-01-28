@@ -12,6 +12,9 @@
     font-size: $font-size-sm;
     max-width: 85px;
   }
+  &-failed {
+    color: var(--deadline-failed-color);
+  }
 }
 
 .theme-dark .deadline {

@@ -51,11 +51,11 @@ function createEditIcon(type, columnNum, itemNum = 0) {
   if (type === 'task') {
     const itemsLoaded = getLocalItems();
     const taskText = itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum].name;
-    editButton.setAttribute('aria-label', `Edit ${taskText} task name`);
+    editButton.ariaLabel = `Edit the ${taskText} task name`;
   } else if (type === 'category') {
     const categoriesLoaded = getLocalData('categoriesItems');
     const categoryText = categoriesLoaded[columnNum];
-    editButton.setAttribute('aria-label', `Edit ${categoryText} category name`);
+    editButton.ariaLabel = `Edit the ${categoryText} category name`;
   }
 
   editButton.appendChild(editIcon);

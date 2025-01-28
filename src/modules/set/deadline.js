@@ -6,9 +6,14 @@ function getTodayDate() {
   return new Date().toISOString().split('T')[0];
 }
 
+function toggleFailedColor(deadlineInput, isFailed) {
+  deadlineInput.classList.toggle('deadline-failed', isFailed);
+}
+
 function updateDeadlineStyle(nextDate, deadlineInput, notDoneColumn) {
   const today = getTodayDate();
-  deadlineInput.style.color = today > nextDate && notDoneColumn ? '#d02020' : '#777';
+  const isFailed = today > nextDate && notDoneColumn;
+  toggleFailedColor(deadlineInput, isFailed);
 }
 
 function setDeadline(columnNum, item, itemNum) {
@@ -22,6 +27,7 @@ function setDeadline(columnNum, item, itemNum) {
 
   deadlineInput.type = 'date';
   deadlineInput.min = today;
+  deadlineInput.ariaLabel = `Change the deadline for the ${currentItem.name} task`;
   deadlineInput.value = currentItem.deadline || today;
   updateDeadlineStyle(currentItem.deadline, deadlineInput, notDoneColumn);
 

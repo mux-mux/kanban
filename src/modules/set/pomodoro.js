@@ -107,7 +107,7 @@ function createPomodoroStartIcon(columnNum, itemNum) {
 
   function createPomodoroButton() {
     const button = createElementWithClass('button', ['icon', 'icon-pomodoro']);
-    button.setAttribute('aria-label', `Start pomodoro timer for ${taskName} task`);
+    button.ariaLabel = `Start the pomodoro timer for the ${taskName} task`;
     return button;
   }
 

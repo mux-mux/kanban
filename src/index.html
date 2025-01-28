@@ -98,7 +98,7 @@
         </div>
         <div class="theme-switch-wrapper">
           <i class="fas fa-sun"></i>
-          <label class="switch" for="theme-switch">
+          <label class="switch" for="theme-switch" aria-label="switch light/dark theme">
             <input type="checkbox" class="theme-checkbox" id="theme-switch" />
             <span class="slider round"></span>
           </label>
@@ -202,7 +202,7 @@
         </div>
 
         <div class="modal modal-categories custom-scroll">
-          <form action="" id="categoryForm" class="categories__form">
+          <form id="categoryForm" class="categories__form">
             <input
               type="text"
               id="categoryName"
@@ -232,7 +232,7 @@
           <div class="archive__buttons">
             <button
               class="btn btn-info btn-add-archive"
-              aria-label="Download done task as json file"
+              aria-label="Download done task as a JSON file"
             >
               <i class="fa-solid fa-download"></i>
             </button>
@@ -240,7 +240,7 @@
             <button
               onclick="document.getElementById('selectedFile').click();"
               class="btn btn-add btn-info-archive"
-              aria-label="Upload done task from json file"
+              aria-label="Upload done task from a JSON file"
             >
               <i class="fa-solid fa-upload"></i>
             </button>

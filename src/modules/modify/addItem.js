@@ -41,12 +41,12 @@ function renderButtonsAndFields() {
           ? createElementWithClass('button', ['btn', 'btn-move'])
           : createElementWithClass('button', 'btn-move-done');
 
-      closeButton.setAttribute('aria-label', 'Close add new task textarea');
-      openButton.setAttribute('aria-label', 'Open add new task textarea');
+      closeButton.ariaLabel = 'Close the add new task textarea';
+      openButton.ariaLabel = 'Open the add new task textarea';
       i !== 2
-        ? moveButton.setAttribute('aria-label', 'Move task to another column')
+        ? (moveButton.ariaLabel = 'Move the task to another column')
         : moveButton.setAttribute('tabindex', '-1');
-      addButton.setAttribute('aria-label', 'Confirm add new task');
+      addButton.ariaLabel = 'Confirm adding a new task';
 
       const closeIcon = createElementWithClass('i', [
         'btn-close-inner',
