@@ -82,13 +82,16 @@ function editItemText(e, type, columnNum, itemNum = 0) {
 
   function editCurrentItem(element) {
     if (type === 'task') {
-      [lastFocusedParentId, lastFocusedClass] = getFocusedElement(e);
+      [lastFocusedParentId, lastFocusedClass] = getFocusedElement(e, 'task');
       setLocalData('isEdit', true);
       setLocalData('isPaused', true);
       removePomodoroTimerListiners();
       selectElement.innerHTML = '';
       element.setAttribute('draggable', false);
+    } else if (type === 'category') {
+      [lastFocusedParentId, lastFocusedClass] = getFocusedElement(e, 'category');
     }
+
     element.textContent = element.innerText;
     element.setAttribute('contentEditable', true);
     element.focus();
@@ -100,10 +103,11 @@ function editItemText(e, type, columnNum, itemNum = 0) {
         event.currentTarget.setAttribute('draggable', true);
         editItem('task', columnNum, itemNum);
         removeLocalData('isEdit');
-        restoreFocus(lastFocusedParentId, lastFocusedClass);
+        restoreFocus(lastFocusedParentId, lastFocusedClass, 'task');
       } else if (type === 'category') {
         event.currentTarget.setAttribute('contentEditable', false);
         editItem('category', columnNum);
+        restoreFocus(lastFocusedParentId, lastFocusedClass, 'category');
       }
     });
   }

@@ -35,19 +35,33 @@ function findMaxId(data) {
   return Math.max(...allIds);
 }
 
-function restoreFocus(lastFocusedParentId, lastFocusedClass) {
+function restoreFocus(lastFocusedParentId, lastFocusedClass, type = 'task') {
   checkFunctionParameters(lastFocusedParentId, lastFocusedClass);
   const isTabPressed = getLocalData('isTabPressed');
   if (!isTabPressed) return;
 
-  const currentFocusedItem = document.querySelector(`[data-id="${lastFocusedParentId}"]`);
+  let currentFocusedItem;
+  if (type === 'task') {
+    currentFocusedItem = document.querySelector(
+      `.task__list-item[data-id="${lastFocusedParentId}"]`
+    );
+  } else if (type === 'category') {
+    currentFocusedItem = document.querySelector(
+      `.categories__item[data-id="${lastFocusedParentId}"]`
+    );
+  }
   const currentActiveElement = currentFocusedItem.getElementsByClassName(lastFocusedClass);
   if (!currentActiveElement.length) return;
   currentActiveElement[0].focus();
 }
 
-function getFocusedElement(e) {
-  const lastFocusedParentId = e.target.closest('.task__list-item').dataset.id;
+function getFocusedElement(e, type = 'task') {
+  let lastFocusedParentId;
+  if (type === 'task') {
+    lastFocusedParentId = e.target.closest('.task__list-item').dataset.id;
+  } else if (type === 'category') {
+    lastFocusedParentId = e.target.closest('.categories__item').dataset.id;
+  }
   const lastFocusedClass = e.target.className;
   if (!lastFocusedParentId) return;
   return [lastFocusedParentId, lastFocusedClass];

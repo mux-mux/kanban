@@ -20,6 +20,7 @@ function renderCategories(categoriesList) {
     const itemElement = createElementWithClass('li', 'categories__item');
     const categoriesIcons = createElementWithClass('div', 'categories__icons');
     itemElement.textContent = category;
+    itemElement.setAttribute('data-id', index);
     const categoryEditIcon = createEditIcon('category', index);
     const categoryDeleteIcon = createDeleteIcon('category', index);
 

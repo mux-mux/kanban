@@ -95,17 +95,17 @@ function createPomodoroStartIcon(columnNum, itemNum) {
   checkFunctionParameters(columnNum, itemNum);
 
   const itemsLoaded = getLocalItems();
-  const taskText = itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum].name;
+  const taskName = itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum].name;
 
-  const pomodoro = createPomodoroButton(taskText);
+  const pomodoro = createPomodoroButton();
   const startPomodoroIcon = createStartIcon();
 
   pomodoro.appendChild(startPomodoroIcon);
-  addPomodoroEventListeners(pomodoro, itemsLoaded, columnNum, itemNum);
+  addPomodoroEventListeners();
 
   return { pomodoro, startPomodoroByIcon };
 
-  function createPomodoroButton(taskName) {
+  function createPomodoroButton() {
     const button = createElementWithClass('button', ['icon', 'icon-pomodoro']);
     button.setAttribute('aria-label', `Start pomodoro timer for ${taskName} task`);
     return button;
@@ -115,21 +115,21 @@ function createPomodoroStartIcon(columnNum, itemNum) {
     return createElementWithClass('i', ['fa-regular', 'fa-circle-play']);
   }
 
-  function addPomodoroEventListeners(button, items, column, item) {
-    button.addEventListener('click', startPomodoroByIcon);
+  function addPomodoroEventListeners() {
+    pomodoro.addEventListener('click', startPomodoroByIcon);
     if (!isTouchDevice()) {
-      button.addEventListener('focus', (e) => toggleItemIconOpacity(e, 1));
-      button.addEventListener('blur', (e) => toggleItemIconOpacity(e, 0));
+      pomodoro.addEventListener('focus', (e) => toggleItemIconOpacity(e, 1));
+      pomodoro.addEventListener('blur', (e) => toggleItemIconOpacity(e, 0));
     }
   }
 
   function startPomodoroByIcon() {
-    resetAllPomodoroStates(itemsLoaded);
-    initializePomodoroTimer(itemsLoaded, columnNum, itemNum);
+    resetAllPomodoroStates();
+    initializePomodoroTimer();
   }
 
-  function resetAllPomodoroStates(items) {
-    for (const column of Object.values(items)) {
+  function resetAllPomodoroStates() {
+    for (const column of Object.values(itemsLoaded)) {
       for (const item of column.items) {
         item.pomodoro = false;
         item.time = '';
@@ -137,7 +137,7 @@ function createPomodoroStartIcon(columnNum, itemNum) {
     }
   }
 
-  function initializePomodoroTimer(items, column, item) {
+  function initializePomodoroTimer() {
     removePomodoroTimerListiners();
     setLocalData('isPaused', false);
 
@@ -211,7 +211,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     startPomodoro(calculateMinutes(time), timer, columnNum, itemNum);
 
     if (itemData.time === '' || isPaused || isEdit) {
-      addPomodoroEventListeners();
+      addPomodoroTimerListeners();
     }
 
     updateIconStyles(true);
@@ -312,7 +312,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     e && playSound('done.ogg');
   }
 
-  function addPomodoroEventListeners() {
+  function addPomodoroTimerListeners() {
     domElements.done.addEventListener('click', donePomodoro);
     domElements.reset.addEventListener('click', resetPomodoro);
     domElements.pause.addEventListener('click', pausePomodoro);
