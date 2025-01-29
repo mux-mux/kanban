@@ -3,8 +3,6 @@ import {
   setProperties,
   createElementWithClass,
   isTouchDevice,
-  restoreFocus,
-  getFocusedElement,
   removeClassFromElements,
 } from '../helpers/helpers';
 import { editItemText, createEditIcon } from '../modify/editItem';
@@ -13,7 +11,7 @@ import { setDeadline } from './deadline';
 import { dragItem } from '../modify/dragDropItem';
 import { createPomodoroStartIcon, pomodoroInit } from './pomodoro';
 
-import { relocateItem } from '../modify/relocateItem';
+import { relocateItem, setupKeyboardNavigation } from '../modify/relocateItem';
 import { renderCategoriesSelector } from '../modify/addCategories';
 import { getLocalItems, getLocalData, setLocalData } from '../update/localStorage';
 
@@ -112,44 +110,6 @@ function enableTouchInteractions() {
   taskLists.forEach((item) => {
     setProperties(item, { '--opacity': '1', '--pointer-events': 'auto' });
   });
-}
-
-function setupKeyboardNavigation(taskContainer, columnNum, itemNum) {
-  const moveTaskHandler = (e) => moveTask(e, columnNum, itemNum);
-
-  taskContainer.addEventListener('focusin', (e) => {
-    e.target.addEventListener('keydown', moveTaskHandler);
-  });
-
-  taskContainer.addEventListener('focusout', (e) => {
-    e.target.removeEventListener('keydown', moveTaskHandler);
-  });
-}
-
-function moveTask(e, columnNum, itemNum) {
-  if (!(e.ctrlKey && e.shiftKey)) return;
-
-  e.preventDefault();
-  const [lastFocusedParentId, lastFocusedClass] = getFocusedElement(e);
-  const itemsLoaded = getLocalItems();
-  const colLength = getLocalData('columnNames').length - 1;
-  const itemsInCol = itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items.length - 1;
-
-  switch (e.key) {
-    case 'ArrowRight':
-      relocateItem(columnNum, itemNum, columnNum === colLength ? 0 : columnNum + 1, 0);
-      break;
-    case 'ArrowLeft':
-      relocateItem(columnNum, itemNum, columnNum === 0 ? colLength : columnNum - 1, 0);
-      break;
-    case 'ArrowUp':
-      relocateItem(columnNum, itemNum, columnNum, itemNum === 0 ? itemsInCol : itemNum - 1);
-      break;
-    case 'ArrowDown':
-      relocateItem(columnNum, itemNum, columnNum, itemNum === itemsInCol ? 0 : itemNum + 1);
-      break;
-  }
-  restoreFocus(lastFocusedParentId, lastFocusedClass);
 }
 
 function setElementAttributes(element, id, text, isDraggable, taskNum, colNum) {
