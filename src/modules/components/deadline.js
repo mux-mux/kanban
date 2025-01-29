@@ -1,4 +1,4 @@
-import checkFunctionParameters from '../errors/checkFunctionParameters';
+import checkFunctionParameters from '../errors/errors';
 import { createElementWithClass } from '../helpers/helpers';
 import { getLocalItems, setLocalItems } from '../update/localStorage';
 

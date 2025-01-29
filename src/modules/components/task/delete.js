@@ -1,16 +1,20 @@
-import checkFunctionParameters from '../errors/checkFunctionParameters';
-import { createElementWithClass, toggleItemIconOpacity, isTouchDevice } from '../helpers/helpers';
-import updateDOM from '../update/updateDOM';
-import { removePomodoroTimerListiners } from '../set/pomodoro';
+import checkFunctionParameters from '../../errors/errors';
+import {
+  createElementWithClass,
+  toggleItemIconOpacity,
+  isTouchDevice,
+} from '../../helpers/helpers';
+import updateDOM from '../../update/updateDOM';
+import { removePomodoroTimerListiners } from '../pomodoro';
 import {
   setLocalData,
   getLocalData,
   removeLocalData,
   getLocalItems,
   setLocalItems,
-} from '../update/localStorage';
+} from '../../update/localStorage';
 
-import { setSessionRemovedItems, getSessionRemovedItems } from '../update/sessionStorage';
+import { setSessionRemovedItems, getSessionRemovedItems } from '../../update/sessionStorage';
 
 function deleteItem(type = 'task', columnNum = 0, itemNum = 0) {
   const pomodoroIntervalTick = getLocalData('pomodoroInterval');

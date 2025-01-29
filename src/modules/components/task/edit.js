@@ -1,21 +1,21 @@
-import checkFunctionParameters from '../errors/checkFunctionParameters';
+import checkFunctionParameters from '../../errors/errors';
 import {
   createElementWithClass,
   isTouchDevice,
   toggleItemIconOpacity,
   restoreFocus,
   getFocusedElement,
-} from '../helpers/helpers';
-import updateDOM from '../update/updateDOM';
-import { deleteItem } from './deleteItem';
-import { removePomodoroTimerListiners } from '../set/pomodoro';
+} from '../../helpers/helpers';
+import updateDOM from '../../update/updateDOM';
+import { deleteItem } from './delete';
+import { removePomodoroTimerListiners } from '../pomodoro';
 import {
   setLocalData,
   getLocalData,
   getLocalItems,
   setLocalItems,
   removeLocalData,
-} from '../update/localStorage';
+} from '../../update/localStorage';
 
 function editItem(type, columnNum, itemNum = 0) {
   checkFunctionParameters(type, columnNum);

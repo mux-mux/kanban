@@ -1,8 +1,8 @@
 import { getLocalItems, getLocalData } from './localStorage';
 
-import { renderArchive } from '../modify/archiveItem';
-import { renderCategories } from '../modify/addCategories';
-import { renderItems } from '../set/createItem';
+import { renderArchive } from '../components/archive';
+import { renderCategories } from '../components/categories';
+import { renderItems } from '../components/task/create';
 
 function updateDOM() {
   renderItems(getLocalItems());

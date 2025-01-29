@@ -1,19 +1,19 @@
-import checkFunctionParameters from '../errors/checkFunctionParameters';
+import checkFunctionParameters from '../../errors/errors';
 import {
   setProperties,
   createElementWithClass,
   isTouchDevice,
   removeClassFromElements,
-} from '../helpers/helpers';
-import { editItemText, createEditIcon } from '../modify/editItem';
-import { createDeleteIcon, deleteItem } from '../modify/deleteItem';
-import { setDeadline } from './deadline';
-import { dragItem } from '../modify/dragDropItem';
-import { createPomodoroStartIcon, pomodoroInit } from './pomodoro';
+} from '../../helpers/helpers';
+import { editItemText, createEditIcon } from './edit';
+import { createDeleteIcon, deleteItem } from './delete';
+import { setDeadline } from '../deadline';
+import { dragItem } from '../task/dragNdrop';
+import { createPomodoroStartIcon, pomodoroInit } from '../pomodoro';
 
-import { relocateItem, setupKeyboardNavigation } from '../modify/relocateItem';
-import { renderCategoriesSelector } from '../modify/addCategories';
-import { getLocalItems, getLocalData, setLocalData } from '../update/localStorage';
+import { relocateItem, setupKeyboardNavigation } from './relocate';
+import { renderCategoriesSelector } from '../categories';
+import { getLocalItems, getLocalData, setLocalData } from '../../update/localStorage';
 
 let pomodoroIcon = null;
 

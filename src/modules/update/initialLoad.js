@@ -1,8 +1,8 @@
 import { findMaxId } from '../helpers/helpers';
 import { setLocalItems, setLocalData } from './localStorage';
-import removeSpinner from '../spinner/removeSpinner';
+import removeSpinner from '../components/spinner';
 import getItems from '../services/ItemsService';
-import { setPomodoroIsPausedOnReload } from '../set/pomodoro';
+import { setPomodoroIsPausedOnReload } from '../components/pomodoro';
 import { getLocalItems } from '../update/localStorage';
 import updateDOM from './updateDOM';
 

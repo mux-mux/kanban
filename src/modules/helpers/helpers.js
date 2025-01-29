@@ -1,4 +1,4 @@
-import checkFunctionParameters from '../errors/checkFunctionParameters';
+import checkFunctionParameters from '../errors/errors';
 import { getLocalData, setLocalData } from '../update/localStorage';
 
 function setProperties(element, props) {

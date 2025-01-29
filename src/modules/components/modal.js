@@ -1,5 +1,5 @@
 import { createFocusTrap } from 'focus-trap';
-import checkFunctionParameters from '../errors/checkFunctionParameters';
+import checkFunctionParameters from '../errors/errors';
 
 function toggleModal(container, buttonClose, buttonToggle) {
   checkFunctionParameters(container, buttonClose, buttonToggle);
@@ -34,4 +34,13 @@ function toggleModal(container, buttonClose, buttonToggle) {
   }
 }
 
-export default toggleModal;
+function setInfoModalListeners() {
+  const container = document.querySelector('.modal-info');
+  const buttonClose = document.querySelector('.btn-close-info');
+  const buttonToggle = document.querySelector('.tool-info');
+  checkFunctionParameters(container, buttonClose, buttonToggle);
+
+  toggleModal(container, buttonClose, buttonToggle);
+}
+
+export default setInfoModalListeners;

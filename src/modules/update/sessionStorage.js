@@ -1,4 +1,4 @@
-import checkFunctionParameters from '../errors/checkFunctionParameters';
+import checkFunctionParameters from '../errors/errors';
 
 function getSessionRemovedItems() {
   return sessionStorage.getItem('removedItems') ? JSON.parse(sessionStorage.removedItems) : [];

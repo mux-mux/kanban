@@ -6,10 +6,10 @@ import {
   getFocusedElement,
 } from '../helpers/helpers';
 import updateDOM from '../update/updateDOM';
-import { createDeleteIcon, deleteItem } from './deleteItem';
-import { hoverAppearIcon } from '../set/createItem';
-import { createEditIcon, editItemText } from './editItem';
-import toggleModal from '../info/toggleModal';
+import { createDeleteIcon, deleteItem } from './task/delete';
+import { hoverAppearIcon } from './task/create';
+import { createEditIcon, editItemText } from './task/edit';
+import toggleModal from './modal';
 import { setLocalData, getLocalData, getLocalItems, setLocalItems } from '../update/localStorage';
 
 function renderCategories(categoriesList) {

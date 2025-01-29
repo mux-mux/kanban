@@ -1,5 +1,5 @@
 import { createFocusTrap } from 'focus-trap';
-import checkFunctionParameters from '../errors/checkFunctionParameters';
+import checkFunctionParameters from '../errors/errors';
 import {
   createElementWithClass,
   isTouchDevice,
@@ -14,7 +14,7 @@ import {
   getLocalData,
   removeLocalData,
 } from '../update/localStorage';
-import { relocateItem } from '../modify/relocateItem';
+import { relocateItem } from './task/relocate';
 
 let focusTrap = null;
 

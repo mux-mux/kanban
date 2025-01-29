@@ -1,6 +1,6 @@
 import { createElementWithClass } from '../helpers/helpers';
 import updateDOM from '../update/updateDOM';
-import toggleModal from '../info/toggleModal';
+import toggleModal from './modal';
 import { getLocalData, setLocalData, getLocalItems, setLocalItems } from '../update/localStorage';
 
 function archiveItem() {

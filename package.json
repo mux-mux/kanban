@@ -2,7 +2,7 @@
   "name": "kanban",
   "version": "1.0.0",
   "description": "Kanban with Deadline set and Pomodoro timer",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "start": "webpack serve --mode development --open",
     "build": "webpack --mode production",

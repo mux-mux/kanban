@@ -1,10 +1,10 @@
-import checkFunctionParameters from '../errors/checkFunctionParameters';
-import { restoreFocus, getFocusedElement } from '../helpers/helpers';
-import updateDOM from '../update/updateDOM';
-import { pomodoroIcon } from '../set/createItem';
-import { getTodayDate } from '../set/deadline';
-import { pomodoroInit } from '../set/pomodoro';
-import { getLocalItems, setLocalItems, getLocalData } from '../update/localStorage';
+import checkFunctionParameters from '../../errors/errors';
+import { restoreFocus, getFocusedElement } from '../../helpers/helpers';
+import updateDOM from '../../update/updateDOM';
+import { pomodoroIcon } from './create';
+import { getTodayDate } from '../deadline';
+import { pomodoroInit } from '../pomodoro';
+import { getLocalItems, setLocalItems, getLocalData } from '../../update/localStorage';
 
 function setupKeyboardNavigation(taskContainer, columnNum, itemNum) {
   checkFunctionParameters(taskContainer, columnNum, itemNum);

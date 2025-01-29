@@ -1,6 +1,6 @@
-import { setProperties } from '../helpers/helpers';
-import { relocateItem } from './relocateItem';
-import { removePomodoroTimerListiners } from '../set/pomodoro';
+import { setProperties } from '../../helpers/helpers';
+import { relocateItem } from './relocate';
+import { removePomodoroTimerListiners } from '../pomodoro';
 
 let draggedItem = null,
   currentColumn = null;

@@ -1,8 +1,13 @@
 import { createFocusTrap } from 'focus-trap';
-import { createElementWithClass } from '../helpers/helpers';
-import updateDOM from '../update/updateDOM';
-import { getTodayDate } from '../set/deadline';
-import { getLocalData, getLocalItems, setLocalData, setLocalItems } from '../update/localStorage';
+import { createElementWithClass } from '../../helpers/helpers';
+import updateDOM from '../../update/updateDOM';
+import { getTodayDate } from '../deadline';
+import {
+  getLocalData,
+  getLocalItems,
+  setLocalData,
+  setLocalItems,
+} from '../../update/localStorage';
 
 let focusTrap = null;
 

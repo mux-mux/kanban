@@ -1,7 +1,7 @@
-import checkFunctionParameters from '../errors/checkFunctionParameters';
-import updateDOM from '../update/updateDOM';
-import { getLocalItems, setLocalItems, getLocalData } from '../update/localStorage';
-import { setSessionRemovedItems, getSessionRemovedItems } from '../update/sessionStorage';
+import checkFunctionParameters from '../../errors/errors';
+import updateDOM from '../../update/updateDOM';
+import { getLocalItems, setLocalItems, getLocalData } from '../../update/localStorage';
+import { setSessionRemovedItems, getSessionRemovedItems } from '../../update/sessionStorage';
 
 function undoItem(columnNames, removedItems) {
   checkFunctionParameters(columnNames, removedItems);
