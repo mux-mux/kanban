@@ -103,14 +103,15 @@ function initializeTaskAttributes(taskContainer, item, itemNum, columnNum, itemD
     taskContainer.addEventListener('dragstart', (e) => dragItem(e, columnNum));
     hoverAppearIcon(taskContainer);
   } else {
-    const taskLists = document.querySelectorAll('.task__list');
-    taskLists.forEach((item) => {
-      setProperties(item, {
-        '--opacity': '1',
-        '--pointer-events': 'auto',
-      });
-    });
+    enableTouchInteractions();
   }
+}
+
+function enableTouchInteractions() {
+  const taskLists = document.querySelectorAll('.task__list');
+  taskLists.forEach((item) => {
+    setProperties(item, { '--opacity': '1', '--pointer-events': 'auto' });
+  });
 }
 
 function setupKeyboardNavigation(taskContainer, columnNum, itemNum) {
@@ -126,23 +127,27 @@ function setupKeyboardNavigation(taskContainer, columnNum, itemNum) {
 }
 
 function moveTask(e, columnNum, itemNum) {
+  if (!(e.ctrlKey && e.shiftKey)) return;
+
+  e.preventDefault();
   const [lastFocusedParentId, lastFocusedClass] = getFocusedElement(e);
   const itemsLoaded = getLocalItems();
   const colLength = getLocalData('columnNames').length - 1;
   const itemsInCol = itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items.length - 1;
 
-  const keyCombo = e.ctrlKey && e.shiftKey;
-  if (!keyCombo) return;
-
-  e.preventDefault();
-  if (keyCombo && e.key === 'ArrowRight') {
-    relocateItem(columnNum, itemNum, columnNum === colLength ? 0 : columnNum + 1, 0);
-  } else if (keyCombo && e.key === 'ArrowLeft') {
-    relocateItem(columnNum, itemNum, columnNum === 0 ? colLength : columnNum - 1, 0);
-  } else if (keyCombo && e.key === 'ArrowUp') {
-    relocateItem(columnNum, itemNum, columnNum, itemNum === 0 ? itemsInCol : itemNum - 1);
-  } else if (keyCombo && e.key === 'ArrowDown') {
-    relocateItem(columnNum, itemNum, columnNum, itemNum === itemsInCol ? 0 : itemNum + 1);
+  switch (e.key) {
+    case 'ArrowRight':
+      relocateItem(columnNum, itemNum, columnNum === colLength ? 0 : columnNum + 1, 0);
+      break;
+    case 'ArrowLeft':
+      relocateItem(columnNum, itemNum, columnNum === 0 ? colLength : columnNum - 1, 0);
+      break;
+    case 'ArrowUp':
+      relocateItem(columnNum, itemNum, columnNum, itemNum === 0 ? itemsInCol : itemNum - 1);
+      break;
+    case 'ArrowDown':
+      relocateItem(columnNum, itemNum, columnNum, itemNum === itemsInCol ? 0 : itemNum + 1);
+      break;
   }
   restoreFocus(lastFocusedParentId, lastFocusedClass);
 }
@@ -254,16 +259,14 @@ function changeIconOnBreak(data, icon) {
 
   if (data.break) {
     changeIcon(icon, 'fa-regular', 'fa-circle-play', 'fa-solid', 'fa-mug-hot');
-  }
-
-  if (data.break === false && icon.classList.contains('fa-mug-hot')) {
+  } else if (icon.classList.contains('fa-mug-hot')) {
     changeIcon(icon, 'fa-solid', 'fa-mug-hot', 'fa-regular', 'fa-circle-play');
   }
 
-  function changeIcon(icon, rem1, rem2, add1, add2) {
-    checkFunctionParameters(icon, rem1, rem2, add1, add2);
+  function changeIcon(icon, remove1, remove2, add1, add2) {
+    checkFunctionParameters(icon, remove1, remove2, add1, add2);
 
-    icon.classList.remove(rem1, rem2);
+    icon.classList.remove(remove1, remove2);
     icon.classList.add(add1, add2);
   }
 }
