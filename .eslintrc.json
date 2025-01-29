@@ -30,5 +30,8 @@
         "config": "webpack.config.js"
       }
     }
+  },
+  "globals": {
+    "process": "readonly"
   }
 }

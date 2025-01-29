@@ -1,6 +1,7 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: './src/index.js',
@@ -47,5 +48,6 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [{ from: 'src/assets', to: 'assets' }],
     }),
+    new Dotenv(),
   ],
 };
