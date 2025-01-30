@@ -92,67 +92,73 @@ function addHoverEffects(button) {
 function editItemText(e, type, columnNum, itemNum = 0) {
   checkFunctionParameters(type, columnNum);
 
-  let lastFocusedParentId, lastFocusedClass;
-  const taskListItem =
-    type === 'task' ? e.target.closest('.task__list-item') : e.target.closest('.categories__item');
-  const selectElement = type === 'task' && taskListItem.querySelector('.categories__select');
+  const taskListItem = getEditableElement(e, type);
+  if (!taskListItem) return;
+
+  const [lastFocusedParentId, lastFocusedClass] = getFocusedElement(e, type);
 
   if (e.target.classList.contains('icon-edit') || e.target.classList.contains('fa-pencil')) {
-    if (taskListItem) {
-      editCurrentItem(taskListItem);
+    editCurrentItem(taskListItem, type, columnNum, itemNum, lastFocusedParentId, lastFocusedClass);
+  }
+}
+
+function editCurrentItem(element, type, columnNum, itemNum, lastFocusedParentId, lastFocusedClass) {
+  if (type === 'task') {
+    setLocalData('isEdit', true);
+    setLocalData('isPaused', true);
+    removePomodoroTimerListiners();
+    const selectElement = type === 'task' && element.querySelector('.categories__select');
+    selectElement.innerHTML = '';
+    element.setAttribute('draggable', false);
+  }
+
+  element.textContent = element.innerText;
+  element.setAttribute('contentEditable', true);
+  element.focus();
+
+  moveCaretToEnd(element);
+
+  element.addEventListener('blur', () => {
+    finalizeEdit(element, type, columnNum, itemNum);
+    restoreFocus(lastFocusedParentId, lastFocusedClass, type);
+  });
+}
+
+function getEditableElement(e, type) {
+  const selector = type === 'task' ? '.task__list-item' : '.categories__item';
+  return e.target.closest(selector);
+}
+
+function finalizeEdit(element, type, columnNum, itemNum) {
+  if (type === 'task') {
+    element.setAttribute('draggable', true);
+    editItem('task', columnNum, itemNum);
+    removeLocalData('isEdit');
+  } else if (type === 'category') {
+    element.setAttribute('contentEditable', false);
+    editItem('category', columnNum);
+  }
+}
+
+function moveCaretToEnd(element) {
+  const range = document.createRange();
+  range.selectNodeContents(element);
+  range.collapse(false);
+
+  const selection = window.getSelection();
+  selection.removeAllRanges();
+  selection.addRange(range);
+
+  enableEnterToBlur(element);
+}
+
+function enableEnterToBlur(element) {
+  element.addEventListener('keypress', (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      element.blur();
     }
-  }
-
-  function editCurrentItem(element) {
-    if (type === 'task') {
-      [lastFocusedParentId, lastFocusedClass] = getFocusedElement(e, 'task');
-      setLocalData('isEdit', true);
-      setLocalData('isPaused', true);
-      removePomodoroTimerListiners();
-      selectElement.innerHTML = '';
-      element.setAttribute('draggable', false);
-    } else if (type === 'category') {
-      [lastFocusedParentId, lastFocusedClass] = getFocusedElement(e, 'category');
-    }
-
-    element.textContent = element.innerText;
-    element.setAttribute('contentEditable', true);
-    element.focus();
-
-    focusCarretEnd(element);
-
-    element.addEventListener('blur', (event) => {
-      if (type === 'task') {
-        event.currentTarget.setAttribute('draggable', true);
-        editItem('task', columnNum, itemNum);
-        removeLocalData('isEdit');
-        restoreFocus(lastFocusedParentId, lastFocusedClass, 'task');
-      } else if (type === 'category') {
-        event.currentTarget.setAttribute('contentEditable', false);
-        editItem('category', columnNum);
-        restoreFocus(lastFocusedParentId, lastFocusedClass, 'category');
-      }
-    });
-  }
-
-  function focusCarretEnd(element) {
-    const range = document.createRange();
-    range.selectNodeContents(element);
-    range.collapse(false);
-    const selection = window.getSelection();
-    selection.removeAllRanges();
-    selection.addRange(range);
-    onEnterBlur(element);
-  }
-
-  function onEnterBlur(element) {
-    element.addEventListener('keypress', function (event) {
-      if (event.key === 'Enter') {
-        event.preventDefault();
-        element.blur();
-      }
-    });
-  }
+  });
 }
 
 export { editItem, createEditIcon, editItemText };
