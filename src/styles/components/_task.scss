@@ -3,6 +3,7 @@
   align-items: flex-start;
   grid-template-columns: repeat(auto-fit, minmax($min-width, 1fr));
   gap: $gap-md;
+  font-weight: 400;
   &__set {
     display: flex;
     align-items: center;
