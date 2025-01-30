@@ -8,7 +8,7 @@ import { addCategories } from './modules/components/category';
 import { renderButtonsAndFields, setAddNewTaskKeysListeners } from './modules/components/task/add';
 import { setDragAndDropListeners } from './modules/components/task/dragNdrop';
 import { showMoveButton, setSelectOnTouchListener } from './modules/components/task/create';
-import setInfoModalListeners from './modules/components/modal';
+import setInfoModalListeners from './modules/components/info';
 import { isTabNavigation } from './modules/helpers/helpers';
 
 initialLoad();
