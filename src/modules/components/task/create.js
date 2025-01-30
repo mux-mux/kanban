@@ -12,7 +12,7 @@ import { dragItem } from '../task/dragNdrop';
 import { createPomodoroStartIcon, pomodoroInit } from '../pomodoro';
 
 import { relocateItem, setupKeyboardNavigation } from './relocate';
-import { renderCategoriesSelector } from '../categories';
+import { renderCategoriesSelector } from '../category';
 import { getLocalItems, getLocalData, setLocalData } from '../../update/localStorage';
 
 let pomodoroIcon = null;

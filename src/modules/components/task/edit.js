@@ -21,25 +21,39 @@ function editItem(type, columnNum, itemNum = 0) {
   checkFunctionParameters(type, columnNum);
 
   if (type === 'task') {
-    const taskLists = document.querySelectorAll('.task__list');
-    const itemsLoaded = getLocalItems();
-    const selectedList = Object.keys(itemsLoaded)[columnNum];
-    const selectedItem = taskLists[columnNum].children;
-
-    if (selectedItem[itemNum].textContent === '') {
-      deleteItem('task', columnNum, itemNum);
-    } else {
-      itemsLoaded[selectedList].items[itemNum].name = selectedItem[itemNum].textContent;
-      setLocalItems(itemsLoaded);
-    }
+    handleTaskEdit(columnNum, itemNum);
   } else if (type === 'category') {
-    const categoriesLoaded = getLocalData('categoriesItems');
-    const categoryEditedText =
-      document.querySelectorAll('.categories__item')[columnNum].textContent;
-    categoriesLoaded[columnNum] = categoryEditedText;
-    setLocalData('categoriesItems', categoriesLoaded);
+    handleCategoryEdit(columnNum);
   }
+
   updateDOM();
+}
+
+function handleTaskEdit(columnNum, itemNum) {
+  const taskLists = document.querySelectorAll('.task__list');
+  const itemsLoaded = getLocalItems();
+  const selectedList = Object.keys(itemsLoaded)[columnNum];
+  const selectedItem = taskLists[columnNum].children;
+
+  if (!selectedItem) return;
+
+  if (selectedItem[itemNum].textContent.trim() === '') {
+    deleteItem('task', columnNum, itemNum);
+  } else {
+    itemsLoaded[selectedList].items[itemNum].name = selectedItem[itemNum].textContent.trim();
+    setLocalItems(itemsLoaded);
+  }
+}
+
+function handleCategoryEdit(columnNum) {
+  const categoriesLoaded = getLocalData('categoriesItems');
+  const categoryText = document
+    .querySelectorAll('.categories__item')
+    [columnNum]?.textContent.trim();
+  if (!categoryText) return;
+
+  categoriesLoaded[columnNum] = categoryText;
+  setLocalData('categoriesItems', categoriesLoaded);
 }
 
 function createEditIcon(type, columnNum, itemNum = 0) {
@@ -47,23 +61,32 @@ function createEditIcon(type, columnNum, itemNum = 0) {
 
   const editButton = createElementWithClass('button', ['icon', 'icon-edit']);
   const editIcon = createElementWithClass('i', ['fa-solid', 'fa-pencil']);
-
-  if (type === 'task') {
-    const itemsLoaded = getLocalItems();
-    const taskText = itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum].name;
-    editButton.ariaLabel = `Edit the ${taskText} task name`;
-  } else if (type === 'category') {
-    const categoriesLoaded = getLocalData('categoriesItems');
-    const categoryText = categoriesLoaded[columnNum];
-    editButton.ariaLabel = `Edit the ${categoryText} category name`;
-  }
-
   editButton.appendChild(editIcon);
 
-  !isTouchDevice() && editButton.addEventListener('focus', (e) => toggleItemIconOpacity(e, 1));
-  !isTouchDevice() && editButton.addEventListener('blur', (e) => toggleItemIconOpacity(e, 0));
+  editButton.ariaLabel = getAriaLabel(type, columnNum, itemNum);
+  addHoverEffects(editButton);
 
   return editButton;
+}
+
+function getAriaLabel(type, columnNum, itemNum) {
+  if (type === 'task') {
+    const itemsLoaded = getLocalItems();
+    const taskName =
+      itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum]?.name || 'current';
+    return `Edit the ${taskName} task name`;
+  } else if (type === 'category') {
+    const categoriesLoaded = getLocalData('categoriesItems');
+    const categoryName = categoriesLoaded[columnNum] || 'current';
+    return `Edit the ${categoryName} category name`;
+  }
+}
+
+function addHoverEffects(button) {
+  if (!isTouchDevice()) {
+    button.addEventListener('focus', (e) => toggleItemIconOpacity(e, 1));
+    button.addEventListener('blur', (e) => toggleItemIconOpacity(e, 0));
+  }
 }
 
 function editItemText(e, type, columnNum, itemNum = 0) {
