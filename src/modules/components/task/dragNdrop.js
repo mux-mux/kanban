@@ -2,77 +2,81 @@ import { setProperties } from '../../helpers/helpers';
 import { relocateItem } from './relocate';
 import { removePomodoroTimerListiners } from '../pomodoro';
 
-let draggedItem = null,
-  currentColumn = null;
+function getDraggedItemData(event) {
+  const draggedItem = event.currentTarget;
 
-function dragItem(e, columnNum) {
-  draggedItem = e.currentTarget;
-  const itemNum = draggedItem.attributes['data-in-row'].value;
-
-  e.dataTransfer.clearData();
-
-  e.dataTransfer.setData('columnNum', columnNum);
-  e.dataTransfer.setData('itemNum', itemNum);
-
-  setProperties(draggedItem, { '--opacity': '0', '--pointer-events': 'none' });
+  return {
+    element: draggedItem,
+    columnNum: draggedItem.dataset.inCol,
+    itemNum: draggedItem.dataset.inRow,
+  };
 }
 
-function dragOverItem(e, column) {
-  const taskLists = document.querySelectorAll('.task__list');
-  currentColumn = column;
-  e.preventDefault();
+function handleDragStart(event) {
+  const { element, columnNum, itemNum } = getDraggedItemData(event);
 
-  const target = e.target;
+  event.dataTransfer.clearData();
+  event.dataTransfer.setData('columnNum', columnNum);
+  event.dataTransfer.setData('itemNum', itemNum);
+
+  setProperties(element, { '--opacity': '0', '--pointer-events': 'none' });
+
+  event.currentTarget.classList.add('dragging');
+}
+
+function handleDragOver(event) {
+  event.preventDefault();
+
+  const target = event.target;
+  const draggedItem = document.querySelector('.dragging');
+  const taskList = event.currentTarget;
+
+  if (!draggedItem || target === draggedItem) return;
 
   const getNextElement = (cursorPos, currElem) => {
     const currElemCoord = currElem.getBoundingClientRect();
     const currElemCenter = currElemCoord.y + currElemCoord.height / 2;
 
-    const nextElement = cursorPos < currElemCenter ? currElem : currElem.nextSibling;
-
-    return nextElement;
+    return cursorPos < currElemCenter ? currElem : currElem.nextSibling;
   };
 
-  const nextElement = getNextElement(e.clientY, target);
+  const nextElement = getNextElement(event.clientY, target);
 
   if (target && target !== draggedItem && target.nodeName === 'LI') {
-    taskLists[currentColumn].insertBefore(draggedItem, nextElement);
+    taskList.insertBefore(draggedItem, nextElement);
   }
   if (target.childElementCount === 0) {
-    taskLists[currentColumn].appendChild(draggedItem);
+    taskList.appendChild(draggedItem);
   }
 
-  taskLists.forEach((column) => column.classList.remove('drag-over'));
-  taskLists[column].classList.add('drag-over');
+  document.querySelectorAll('.task__list').forEach((list) => list.classList.remove('drag-over'));
+  taskList.classList.add('drag-over');
 }
 
-function dropItem(e, newColNum) {
-  const taskLists = document.querySelectorAll('.task__list');
+function handleDrop(event) {
+  event.preventDefault();
   removePomodoroTimerListiners();
 
-  e.preventDefault();
+  const draggedItem = document.querySelector('.dragging');
+  if (!draggedItem) return;
 
-  draggedItem = null;
+  draggedItem.classList.remove('dragging');
 
-  taskLists.forEach((list) => {
-    list.classList.remove('drag-over');
-  });
-
-  const columnNum = e.dataTransfer.getData('columnNum');
-  const itemNum = e.dataTransfer.getData('itemNum');
-
-  const newItemNum = Array.from(e.target.parentNode.children).indexOf(e.target);
+  const columnNum = event.dataTransfer.getData('columnNum');
+  const itemNum = event.dataTransfer.getData('itemNum');
+  const newColNum = [...document.querySelectorAll('.task__list')].indexOf(event.currentTarget);
+  const newItemNum = [...event.currentTarget.children].indexOf(draggedItem);
 
   relocateItem(columnNum, itemNum, newColNum, newItemNum);
+
+  document.querySelectorAll('.task__list').forEach((list) => list.classList.remove('drag-over'));
 }
 
 function setDragAndDropListeners() {
-  const taskLists = document.querySelectorAll('.task__list');
-
-  taskLists.forEach((list, i) => {
-    list.addEventListener('drop', (e) => dropItem(e, i));
-    list.addEventListener('dragover', (e) => dragOverItem(e, i));
+  document.querySelectorAll('.task__list').forEach((taskList) => {
+    taskList.addEventListener('dragover', handleDragOver);
+    taskList.addEventListener('drop', handleDrop);
   });
 }
 
-export { dragItem, dropItem, setDragAndDropListeners };
+export { handleDragStart, setDragAndDropListeners };

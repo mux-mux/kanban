@@ -8,7 +8,7 @@ import {
 import { editItemText, createEditIcon } from './edit';
 import { createDeleteIcon, deleteItem } from './delete';
 import { setDeadline } from '../deadline';
-import { dragItem } from '../task/dragNdrop';
+import { handleDragStart } from '../task/dragNdrop';
 import { createPomodoroStartIcon, pomodoroInit } from '../pomodoro';
 
 import { relocateItem, setupKeyboardNavigation } from './relocate';
@@ -98,7 +98,7 @@ function initializeTaskAttributes(taskContainer, item, itemNum, columnNum, itemD
   itemData.pomodoro && pomodoroInit(pomodoroIcon, itemData, 'init', columnNum, itemNum);
 
   if (!isTouchDevice()) {
-    taskContainer.addEventListener('dragstart', (e) => dragItem(e, columnNum));
+    taskContainer.addEventListener('dragstart', handleDragStart);
     hoverAppearIcon(taskContainer);
   } else {
     enableTouchInteractions();
