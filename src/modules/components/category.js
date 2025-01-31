@@ -14,66 +14,87 @@ import { setLocalData, getLocalData, getLocalItems, setLocalItems } from '../upd
 
 function renderCategories(categoriesList) {
   const categoriesContainer = document.getElementById('categoriesContainer');
-
   categoriesContainer.innerHTML = '';
+
   categoriesList.forEach((category, index) => {
-    const itemElement = createElementWithClass('li', 'categories__item');
-    const categoriesIcons = createElementWithClass('div', 'categories__icons');
-    itemElement.textContent = category;
-    itemElement.setAttribute('data-id', index);
-    const categoryEditIcon = createEditIcon('category', index);
-    const categoryDeleteIcon = createDeleteIcon('category', index);
-
-    categoryDeleteIcon.addEventListener('click', () => {
-      deleteItem('category', index);
-    });
-
-    itemElement.addEventListener('click', (e) => editItemText(e, 'category', index));
-
-    if (!isTouchDevice()) {
-      hoverAppearIcon(itemElement);
-      setProperties(itemElement, { '--opacity': '0', '--pointer-events': 'none' });
-    }
-
-    categoriesIcons.appendChild(categoryEditIcon);
-    categoriesIcons.appendChild(categoryDeleteIcon);
-    itemElement.appendChild(categoriesIcons);
-    categoriesContainer.appendChild(itemElement);
+    const categoryItem = createCategoryItem(category, index);
+    categoriesContainer.appendChild(categoryItem);
   });
+}
+
+function createCategoryItem(category, index) {
+  const itemElement = createElementWithClass('li', 'categories__item');
+  const categoriesIcons = createElementWithClass('div', 'categories__icons');
+  itemElement.textContent = category;
+  itemElement.setAttribute('data-id', index);
+
+  const categoryEditIcon = createEditIcon('category', index);
+  const categoryDeleteIcon = createDeleteIcon('category', index);
+
+  categoryDeleteIcon.addEventListener('click', () => deleteItem('category', index));
+  itemElement.addEventListener('click', (e) => editItemText(e, 'category', index));
+
+  if (!isTouchDevice()) {
+    hoverAppearIcon(itemElement);
+    setProperties(itemElement, { '--opacity': '0', '--pointer-events': 'none' });
+  }
+
+  categoriesIcons.append(categoryEditIcon, categoryDeleteIcon);
+  itemElement.appendChild(categoriesIcons);
+
+  return itemElement;
 }
 
 function addCategories() {
   const containerCategories = document.querySelector('.modal-categories');
   const buttonCloseCategories = document.querySelector('.btn-close-category');
-  const buttonToggleCategoreis = document.querySelector('.tool-categories');
+  const buttonToggleCategories = document.querySelector('.tool-categories');
   const categoryForm = document.getElementById('categoryForm');
+
+  toggleModal(containerCategories, buttonCloseCategories, buttonToggleCategories);
+  categoryForm.addEventListener('submit', handleCategorySubmit);
+}
+
+function handleCategorySubmit(event) {
+  event.preventDefault();
   const categoryNameInput = document.getElementById('categoryName');
+  const newCategoryName = categoryNameInput.value.trim();
 
-  toggleModal(containerCategories, buttonCloseCategories, buttonToggleCategoreis);
+  if (!newCategoryName) return;
 
-  categoryForm.addEventListener('submit', (e) => {
-    e.preventDefault();
+  const categoriesLoaded = getLocalData('categoriesItems');
 
-    const categoriesLoaded = getLocalData('categoriesItems');
-    const newCategoryName = categoryNameInput.value.trim();
+  if (categoriesLoaded.includes(newCategoryName)) {
+    alert('Category name already exists!');
+    return;
+  }
 
-    if (newCategoryName && !categoriesLoaded.includes(newCategoryName)) {
-      categoriesLoaded.push(newCategoryName);
-      setLocalData('categoriesItems', categoriesLoaded);
-      categoryNameInput.value = '';
-      updateDOM();
-    } else {
-      alert('Category name already exists!');
-    }
-  });
+  categoriesLoaded.push(newCategoryName);
+  setLocalData('categoriesItems', categoriesLoaded);
+  categoryNameInput.value = '';
+  updateDOM();
 }
 
 function renderCategoriesSelector(columnNum, itemNum) {
   const itemsLoaded = getLocalItems();
   const categoriesLoaded = getLocalData('categoriesItems');
-  let currentItem = itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum];
   const selectedList = Object.keys(itemsLoaded)[columnNum];
+  const currentItem = itemsLoaded[selectedList].items[itemNum];
 
+  const categorySelector = createCategorySelector(
+    currentItem,
+    selectedList,
+    itemNum,
+    categoriesLoaded
+  );
+  categorySelector.addEventListener('change', (e) =>
+    handleCategoryChange(e, selectedList, itemNum)
+  );
+
+  return categorySelector;
+}
+
+function createCategorySelector(currentItem, selectedList, itemNum, categoriesLoaded) {
   const categorySelector = createElementWithClass('select', 'categories__select');
   categorySelector.innerHTML = '<option value="" disabled selected>Select a category</option>';
   categorySelector.ariaLabel = `Change the category for the ${currentItem.name} task`;
@@ -82,23 +103,22 @@ function renderCategoriesSelector(columnNum, itemNum) {
     const option = createElementWithClass('option', 'categories__select-option');
     option.value = category;
     option.textContent = category;
-    option.selected = itemsLoaded[selectedList].items[itemNum].category === category;
+    option.selected = currentItem.category === category;
     categorySelector.appendChild(option);
   });
 
-  categorySelector.addEventListener('change', (e) => {
-    const itemsLoadedOnChange = getLocalItems();
-    const selectedCategory = e.target.value;
-    const [lastFocusedParentId, lastFocusedClass] = getFocusedElement(e);
-
-    itemsLoadedOnChange[selectedList].items[itemNum].category = selectedCategory;
-    setLocalItems(itemsLoadedOnChange);
-
-    updateDOM();
-    restoreFocus(lastFocusedParentId, lastFocusedClass);
-  });
-
   return categorySelector;
+}
+
+function handleCategoryChange(event, selectedList, itemNum) {
+  const itemsLoaded = getLocalItems();
+  const selectedCategory = event.target.value;
+  const [lastFocusedParentId, lastFocusedClass] = getFocusedElement(event);
+
+  itemsLoaded[selectedList].items[itemNum].category = selectedCategory;
+  setLocalItems(itemsLoaded);
+  updateDOM();
+  restoreFocus(lastFocusedParentId, lastFocusedClass);
 }
 
 export { addCategories, renderCategories, renderCategoriesSelector };
