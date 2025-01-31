@@ -13,170 +13,160 @@ let focusTrap = null;
 
 function renderButtonsAndFields() {
   const containersNewTask = document.querySelectorAll('.task__new');
-  renderNewTaskButtons(containersNewTask);
-  renderNewTaskFields(containersNewTask);
+
+  containersNewTask.forEach((column, index) => {
+    column.appendChild(createTaskButtons(index));
+    column.appendChild(createTaskField(index));
+  });
+
+  document.addEventListener('click', (e) => handleOutsideClick(e, containersNewTask));
+}
+
+function createTaskButtons(columnIndex) {
+  const container = createElementWithClass('div', 'task__new-btns');
+
+  const buttons = {
+    open: createButton(['btn', 'btn-open', 'btn-open-task'], 'Open the add new task textarea', [
+      'fa-regular',
+      'fa-square-plus',
+    ]),
+    add: createButton(['btn', 'btn-add', 'btn-add-task'], 'Confirm adding a new task', [
+      'fa-regular',
+      'fa-floppy-disk',
+    ]),
+    move:
+      columnIndex !== 2
+        ? createButton(['btn', 'btn-move'], 'Move the task to another column', [
+            'fa-solid',
+            'fa-arrows-up-down',
+          ])
+        : createButton(['btn-move-done'], '', []),
+    close: createButton(['btn', 'btn-close', 'btn-close-task'], 'Close the add new task textarea', [
+      'fa-regular',
+      'fa-rectangle-xmark',
+    ]),
+  };
+
+  buttons.open.appendChild(createButtonText('Item'));
+  buttons.add.appendChild(createButtonText('Item'));
+
+  Object.values(buttons).forEach((btn) => container.appendChild(btn));
+
+  buttons.open.addEventListener('click', () => toggleTaskTextarea(columnIndex, 'open'));
+  buttons.add.addEventListener('click', () => toggleTaskTextarea(columnIndex, 'add'));
+  buttons.close.addEventListener('click', () => focusTrap.deactivate());
+
+  return container;
+}
+
+function createButton(classes, ariaLabel, iconClasses) {
+  const button = createElementWithClass('button', classes);
+  button.ariaLabel = ariaLabel;
+  if (iconClasses.length) {
+    const icon = createElementWithClass('i', iconClasses);
+    button.appendChild(icon);
+  }
+  return button;
+}
+
+function createButtonText(text) {
+  const span = createElementWithClass('span', 'btn-text');
+  span.textContent = text;
+  return span;
+}
+
+function createTaskField(columnIndex) {
+  const fieldContainer = createElementWithClass('div', ['inputs', 'inputs-new-task']);
+  const textarea = createElementWithClass('textarea', [
+    'textarea',
+    'textarea-add',
+    'custom-scroll',
+  ]);
+  textarea.setAttribute('placeholder', 'Ctrl+Enter to a New line\nEsc to Close');
+  textarea.addEventListener('keydown', (e) => handleTaskKeypress(e, columnIndex));
+  fieldContainer.appendChild(textarea);
+
+  return fieldContainer;
+}
+
+function handleOutsideClick(event, containers) {
+  containers.forEach((container) => {
+    if (container.style.display === 'block' && !container.contains(event.target)) {
+      focusTrap.deactivate();
+    }
+  });
+}
+
+function handleTaskKeypress(event, columnIndex) {
   const textareas = document.querySelectorAll('.textarea-add');
 
-  function renderNewTaskFields(columns) {
-    columns.forEach((column, i) => {
-      const fieldContainer = createElementWithClass('div', ['inputs', 'inputs-new-task']);
+  if (event.ctrlKey && event.code === 'Enter') {
+    event.preventDefault();
+    textareas[columnIndex].value += '\n';
+  } else if (event.code === 'Enter') {
+    event.preventDefault();
+    addNewTask(columnIndex);
+  }
+}
 
-      const textareaElement = createElementWithClass('textarea', [
-        'textarea',
-        'textarea-add',
-        'custom-scroll',
-      ]);
-      textareaElement.setAttribute('placeholder', 'Ctrl+Enter to a New line\nEsc to Close');
-      fieldContainer.appendChild(textareaElement);
+function toggleTaskTextarea(columnIndex, state) {
+  const buttons = {
+    open: document.querySelectorAll('.btn-open-task'),
+    add: document.querySelectorAll('.btn-add-task'),
+    close: document.querySelectorAll('.btn-close-task'),
+  };
+  const containers = document.querySelectorAll('.inputs-new-task');
+  const textareas = document.querySelectorAll('.textarea-add');
+  const containersNewTask = document.querySelectorAll('.task__new');
 
-      textareaElement.addEventListener('keydown', (e) => handleNewTaskKeypress(e, i));
-      column.appendChild(fieldContainer);
+  const isOpening = state === 'open';
+  const isClosing = state === 'close' || state === 'add';
+
+  buttons.open[columnIndex].style.display = isOpening ? 'none' : 'flex';
+  buttons.add[columnIndex].style.display = isOpening ? 'flex' : 'none';
+  buttons.close[columnIndex].style.visibility = isOpening ? 'visible' : 'hidden';
+  containers[columnIndex].style.display = isOpening ? 'block' : 'none';
+
+  if (isOpening) {
+    focusTrap = createFocusTrap(containersNewTask[columnIndex], {
+      onActivate: () => textareas[columnIndex].focus(),
+      onDeactivate: () => toggleTaskTextarea(columnIndex, 'close'),
+      allowOutsideClick: true,
+      clickOutsideDeactivates: true,
     });
+    focusTrap.activate();
+  } else if (isClosing) {
+    if (state === 'add') addNewTask(columnIndex);
+    textareas[columnIndex].value = '';
+    focusTrap.deactivate();
   }
+}
 
-  function renderNewTaskButtons(columns) {
-    columns.forEach((column, i) => {
-      const buttonsContainer = createElementWithClass('div', 'task__new-btns');
+function addNewTask(columnIndex) {
+  const itemsLoaded = getLocalItems();
+  const nextId = getLocalData('currentId') + 1;
+  const textareas = document.querySelectorAll('.textarea-add');
 
-      const closeButton = createElementWithClass('button', ['btn', 'btn-close', 'btn-close-task']);
-      const openButton = createElementWithClass('button', ['btn', 'btn-open', 'btn-open-task']);
-      const addButton = createElementWithClass('button', ['btn', 'btn-add', 'btn-add-task']);
-      const moveButton =
-        i !== 2
-          ? createElementWithClass('button', ['btn', 'btn-move'])
-          : createElementWithClass('button', 'btn-move-done');
+  const itemText = textareas[columnIndex].value.trim();
+  if (!itemText) return;
 
-      closeButton.ariaLabel = 'Close the add new task textarea';
-      openButton.ariaLabel = 'Open the add new task textarea';
-      i !== 2
-        ? (moveButton.ariaLabel = 'Move the task to another column')
-        : moveButton.setAttribute('tabindex', '-1');
-      addButton.ariaLabel = 'Confirm adding a new task';
+  const selectedList = Object.keys(itemsLoaded)[columnIndex];
+  itemsLoaded[selectedList].items.push({
+    id: nextId,
+    name: itemText,
+    add: getTodayDate(),
+    deadline: getTodayDate(),
+    pomodoro: false,
+    sessions: 0,
+    time: '',
+    break: false,
+    done: columnIndex === 2 ? getTodayDate() : '',
+  });
 
-      const closeIcon = createElementWithClass('i', [
-        'btn-close-inner',
-        'fa-regular',
-        'fa-rectangle-xmark',
-      ]);
-      const openIcon = createElementWithClass('i', ['fa-regular', 'fa-square-plus']);
-      const moveIcon = createElementWithClass('i', ['fa-solid', 'fa-arrows-up-down']);
-      const addIcon = createElementWithClass('i', ['fa-regular', 'fa-floppy-disk']);
-
-      closeButton.appendChild(closeIcon);
-      openButton.appendChild(openIcon);
-      i !== 2 && moveButton.appendChild(moveIcon);
-      addButton.appendChild(addIcon);
-
-      for (let i = 0; i < 2; i++) {
-        const buttonText = createElementWithClass('span', 'btn-text');
-
-        buttonText.textContent = 'Item';
-
-        i === 0 && openButton.appendChild(buttonText);
-        i === 1 && addButton.appendChild(buttonText);
-      }
-
-      [openButton, addButton, moveButton, closeButton].forEach((btn) => {
-        buttonsContainer.appendChild(btn);
-      });
-
-      openButton.addEventListener('click', () => toggleNewTaskTextarea(i, 'open'));
-      addButton.addEventListener('click', () => toggleNewTaskTextarea(i, 'add'));
-      closeButton.addEventListener('click', () => toggleNewTaskTextarea(i, 'close'));
-      column.appendChild(buttonsContainer);
-    });
-  }
-
-  function handleNewTaskKeypress(e, column) {
-    if (e.ctrlKey && e.code === 'Enter') {
-      if (textareas[column].value.length !== 0) {
-        textareas[column].value = textareas[column].value + '\n';
-      }
-    } else if (e.code === 'Enter') {
-      e.preventDefault();
-      addNewTask(column);
-    }
-  }
-
-  function hideNewTaskTextarea(e) {
-    const containersTextarea = document.querySelectorAll('.inputs-new-task');
-    let column = null;
-    containersTextarea.forEach((container, index) => {
-      if (container.style.display === 'block') {
-        column = index;
-      }
-    });
-    if (column != null && !containersNewTask[column].contains(e.target)) {
-      toggleNewTaskTextarea(column, null);
-      document.removeEventListener('click', hideNewTaskTextarea);
-    }
-  }
-
-  function toggleNewTaskTextarea(column, state) {
-    const buttonsOpenTask = document.querySelectorAll('.btn-open-task');
-    const buttonsAddTask = document.querySelectorAll('.btn-add-task');
-    const buttonsCloseTask = document.querySelectorAll('.btn-close-task');
-    const containersTextarea = document.querySelectorAll('.inputs-new-task');
-
-    focusTrap && focusTrap.deactivate();
-
-    const buttonOpenStyle = state === 'open' ? 'none' : 'flex';
-    const buttonAddStyle = state === 'open' ? 'flex' : 'none';
-    const buttonCloseStyle = state === 'open' ? 'visible' : 'hidden';
-    const containerStyle = state === 'open' ? 'block' : 'none';
-
-    buttonsOpenTask[column].style.display = buttonOpenStyle;
-    buttonsAddTask[column].style.display = buttonAddStyle;
-    buttonsCloseTask[column].style.visibility = buttonCloseStyle;
-    containersTextarea[column].style.display = containerStyle;
-
-    focusTrap = createFocusTrap(containersNewTask[column], {
-      onActivate: () => textareas[column].focus(),
-      onDeactivate: () => textareas[column].blur(),
-      onPause: () => focusTrap.deactivate(),
-      allowOutsideClick: () => true,
-      clickOutsideDeactivates: () => true,
-    });
-
-    if (state === 'add' || state === 'close') {
-      state === 'add' && addNewTask(column);
-      textareas[column].value = '';
-      document.removeEventListener('click', hideNewTaskTextarea);
-      focusTrap.deactivate();
-    } else if (state === 'open') {
-      containersTextarea[column].scrollIntoView({ block: 'end' });
-      document.addEventListener('click', hideNewTaskTextarea);
-      focusTrap.activate();
-    }
-  }
-
-  function addNewTask(column) {
-    const itemsLoaded = getLocalItems();
-    const nextId = getLocalData('currentId') + 1;
-
-    if (textareas[column].value === '') {
-      return;
-    }
-    const itemText = textareas[column].value;
-    const selectedList = Object.keys(itemsLoaded)[column];
-    itemText.trim().length > 0
-      ? itemsLoaded[selectedList].items.push({
-          id: nextId,
-          name: itemText,
-          add: getTodayDate(),
-          deadline: getTodayDate(),
-          pomodoro: false,
-          sessions: 0,
-          time: '',
-          break: false,
-          done: column === 2 ? getTodayDate() : '',
-        })
-      : null;
-    textareas[column].value = '';
-    setLocalItems(itemsLoaded);
-    setLocalData('currentId', nextId);
-    updateDOM();
-  }
+  textareas[columnIndex].value = '';
+  setLocalItems(itemsLoaded);
+  setLocalData('currentId', nextId);
+  updateDOM();
 }
 
 function setAddNewTaskKeysListeners() {
@@ -186,7 +176,6 @@ function setAddNewTaskKeysListeners() {
   document.addEventListener('keydown', (event) => {
     if (event.ctrlKey && event.shiftKey && event.key === '+') {
       event.preventDefault();
-
       currentIndex = (currentIndex + 1) % openButtons.length;
       openButtons[currentIndex].focus();
     }
