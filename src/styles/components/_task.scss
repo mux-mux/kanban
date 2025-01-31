@@ -61,6 +61,7 @@
       display: flex;
       justify-content: space-between;
       font-size: $font-size-xl;
+      line-height: 1.6;
       text-align: left;
       word-break: break-word;
       white-space: pre-line;
@@ -75,7 +76,7 @@
 
       @include respond(mobile) {
         font-size: $font-size-lg;
-        line-height: 1;
+        line-height: 1.8;
       }
 
       &:focus {
