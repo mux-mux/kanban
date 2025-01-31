@@ -4,100 +4,91 @@ import toggleModal from './modal';
 import { getLocalData, setLocalData, getLocalItems, setLocalItems } from '../update/localStorage';
 
 function archiveItem() {
-  const containerArchive = document.querySelector('.modal-archive');
-  const buttonCloseArchive = document.querySelector('.btn-close-archive');
-  const buttonToggleArchive = document.querySelector('.tool-archive');
-  const buttonMoveToArchive = document.querySelector('.archive-move-to');
-  const buttonDownloadArchive = document.querySelector('.btn-add-archive');
-  const buttonUploadArchive = document.querySelector('#selectedFile');
+  const archiveModal = document.querySelector('.modal-archive');
+  const buttonClose = document.querySelector('.btn-close-archive');
+  const buttonToggle = document.querySelector('.tool-archive');
+  const buttonMoveTo = document.querySelector('.archive-move-to');
+  const buttonDownload = document.querySelector('.btn-add-archive');
+  const buttonUpload = document.querySelector('#selectedFile');
 
-  toggleModal(containerArchive, buttonCloseArchive, buttonToggleArchive);
+  toggleModal(archiveModal, buttonClose, buttonToggle);
 
-  buttonDownloadArchive.addEventListener('click', downloadArchive);
-  buttonUploadArchive.addEventListener('change', uploadArchive);
-  buttonMoveToArchive.addEventListener('click', () => {
-    const itemsLoaded = getLocalItems();
-    moveToArchive(itemsLoaded.done.items, 'done');
-  });
+  buttonDownload.addEventListener('click', downloadArchive);
+  buttonUpload.addEventListener('change', uploadArchive);
+  buttonMoveTo.addEventListener('click', moveCompletedTasksToArchive);
+}
 
-  function downloadArchive() {
-    const archiveLoaded = getLocalData('archiveItems');
-    if (archiveLoaded.length === 0) {
-      return;
+function moveCompletedTasksToArchive() {
+  const items = getLocalItems();
+  moveToArchive(items.done.items, 'done');
+}
+
+function downloadArchive() {
+  const archiveLoaded = getLocalData('archiveItems');
+  if (archiveLoaded.length === 0) return;
+
+  const timestamp = new Date().toISOString().replace('T', ' ').split('.')[0];
+
+  const fileData =
+    'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(archiveLoaded));
+
+  const link = document.createElement('a');
+  link.href = fileData;
+  link.download = `${timestamp} Kanban-Archive.json`;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+
+  confirmClearArchive();
+}
+
+function uploadArchive(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    if (isJsonString(e.target.result)) {
+      moveToArchive(JSON.parse(e.target.result), 'load');
     }
+  };
+  reader.readAsText(file);
+}
 
-    const dateISO = new Date().toISOString();
-    const dateFullTime = dateISO.replace('T', ' ');
-    const dateShortTime = dateFullTime.substring(0, dateFullTime.indexOf('.'));
-
-    const archiveData =
-      'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(archiveLoaded));
-    const anchorNode = document.createElement('a');
-    anchorNode.setAttribute('href', archiveData);
-    anchorNode.setAttribute('download', dateShortTime + ' Kanban-Archive' + '.json');
-    document.body.appendChild(anchorNode);
-    anchorNode.click();
-    anchorNode.remove();
-
-    clearArchiveTasks();
-  }
-
-  function uploadArchive(e) {
-    const files = document.getElementById('selectedFile').files;
-    if (files.length <= 0) return;
-
-    const readData = new FileReader();
-    readData.onload = onReaderLoad;
-    readData.readAsText(e.target.files[0]);
-
-    function onReaderLoad(e) {
-      if (isJsonString(e.target.result)) {
-        const result = JSON.parse(e.target.result);
-        moveToArchive(result, 'load');
-      }
-    }
-  }
-
-  function clearArchiveTasks() {
-    const isConfirm = confirm('Do you want to clear all archive tasks?');
-    if (!isConfirm) return;
-
-    setLocalData('archiveItems', []);
-
-    updateDOM();
-  }
+function confirmClearArchive() {
+  if (confirm('Do you want to clear all archive tasks?'));
+  setLocalData('archiveItems', []);
+  updateDOM();
 }
 
 function moveToArchive(doneTasks, action) {
   const itemsLoaded = getLocalItems();
   const archiveLoaded = getLocalData('archiveItems');
-  const columnDoneNum = Object.keys(itemsLoaded).length - 1;
-  const archiveItems = doneTasks;
-  archiveLoaded.push(...archiveItems);
-  itemsLoaded[Object.keys(itemsLoaded)[columnDoneNum]].items = [];
+  const doneColumn = Object.keys(itemsLoaded).length - 1;
+
+  archiveLoaded.push(...doneTasks);
+  itemsLoaded[Object.keys(itemsLoaded)[doneColumn]].items = [];
 
   setLocalData('archiveItems', archiveLoaded);
-  action === 'done' ? setLocalItems(itemsLoaded) : null;
+  action === 'done' && setLocalItems(itemsLoaded);
 
   updateDOM();
 }
 
 function renderArchive(archiveItems) {
   const archiveTable = document.querySelector('.archive__body');
-  const archiveElements = document.querySelectorAll('.archive__item');
+  const existingItems = document.querySelectorAll('.archive__item');
 
-  archiveItems.length === 0 &&
-    archiveElements.length !== 0 &&
-    archiveElements.forEach((item) => item.remove());
+  existingItems.length > 0 && existingItems.forEach((item) => item.remove());
 
   archiveItems.forEach((item) => {
-    const archiveRow = createElementWithClass('tr', 'archive__item');
+    const row = createElementWithClass('tr', 'archive__item');
     for (const [key, value] of Object.entries(item)) {
       if (key === 'name' || key === 'add' || key === 'sessions' || key === 'done') {
-        const archiveCell = document.createElement('td');
-        archiveCell.textContent = value;
-        archiveRow.appendChild(archiveCell);
-        archiveTable.appendChild(archiveRow);
+        const cell = document.createElement('td');
+        cell.textContent = value;
+        row.appendChild(cell);
+        archiveTable.appendChild(row);
       }
     }
   });
@@ -106,10 +97,10 @@ function renderArchive(archiveItems) {
 function isJsonString(str) {
   try {
     JSON.parse(str);
+    return true;
   } catch (e) {
     return false;
   }
-  return true;
 }
 
 export { archiveItem, renderArchive };
