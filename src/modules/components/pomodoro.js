@@ -281,6 +281,8 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   }
 
   function resetPomodoro(e) {
+    const itemsLoaded = getLocalItems();
+    const itemData = itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum];
     const lastFocusedIcon = document.querySelector('[data-pomodoro="true"]');
     const lastFocusedParentId = lastFocusedIcon.closest('.task__list-item').dataset.id;
 
