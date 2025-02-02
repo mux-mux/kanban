@@ -110,6 +110,7 @@ function editCurrentItem(element, type, columnNum, itemNum, lastFocusedParentId,
     const selectElement = type === 'task' && element.querySelector('.categories__select');
     selectElement.innerHTML = '';
     element.setAttribute('draggable', false);
+    element.style.paddingTop = '5px';
   }
 
   element.textContent = element.innerText;
@@ -132,6 +133,7 @@ function getEditableElement(e, type) {
 function finalizeEdit(element, type, columnNum, itemNum) {
   if (type === 'task') {
     element.setAttribute('draggable', true);
+    element.style.paddingTop = 0;
     editItem('task', columnNum, itemNum);
     removeLocalData('isEdit');
   } else if (type === 'category') {
