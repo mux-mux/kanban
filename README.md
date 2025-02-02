@@ -11,28 +11,20 @@
   <br>
 </div>
 
-## Stages :scroll:
+## Features :sparkles:
 
-1. file_structure
-2. html_structure
-3. common_styles
-4. kanban_styles
-5. local_storage
-6. webpack
-7. jest
-8. update_dom
-9. update_item
-10. add_remove_item
-11. theme_switch
-12. undo_item
-13. arrays_to_objects
-14. deadline_set
-15. pomodoro
-16. drag_n_drop
-17. archive
-18. responsive
-19. refactoring
-20. testing
+🔹 Drag&Drop tasks 🤚
+🔹 Pomodoro timer ⏲️
+🔹 Pomodoro progress bar 📶
+🔹 Add/select task category 📑
+🔹 Edit task/category text 🔤
+🔹 Set task deadlines ⏱️
+🔹 Delete task/category ❌
+🔹 Undo deleted tasks 🔃
+🔹 Move done tasks to archive 📒
+🔹 Download/upload archive ⏬⏫
+🔹 Use Tab key navigation ⌨️
+🔹 Switch light/dark theme 🎨
 
 ## Folder structure :open_file_folder:
 
