@@ -43,6 +43,15 @@ function moveTask(e, columnNum, itemNum) {
       relocateItem(columnNum, itemNum, columnNum, itemNum === itemsInCol ? 0 : itemNum + 1);
       break;
   }
+  const doneColumnUnfocusedClassNames = [
+    'deadline',
+    'deadline deadline-failed',
+    'icon icon-pomodoro',
+    'icon icon-edit',
+  ];
+  if (columnNum + 1 === colLength && doneColumnUnfocusedClassNames.includes(lastFocusedClass))
+    return;
+
   restoreFocus(lastFocusedParentId, lastFocusedClass);
 }
 
