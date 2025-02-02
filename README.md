@@ -13,18 +13,18 @@
 
 ## Features :sparkles:
 
-🔹 Drag&Drop tasks 🤚
-🔹 Pomodoro timer ⏲️
-🔹 Pomodoro progress bar 📶
-🔹 Add/select task category 📑
-🔹 Edit task/category text 🔤
-🔹 Set task deadlines ⏱️
-🔹 Delete task/category ❌
-🔹 Undo deleted tasks 🔃
-🔹 Move done tasks to archive 📒
-🔹 Download/upload archive ⏬⏫
-🔹 Use Tab key navigation ⌨️
-🔹 Switch light/dark theme 🎨
+- Drag&Drop tasks 🤚
+- Pomodoro timer ⏲️
+- Pomodoro progress bar 📶
+- Add/select task category 📑
+- Edit task/category text 🔤
+- Set task deadlines ⏱️
+- Delete task/category ❌
+- Undo deleted tasks 🔃
+- Move done tasks to archive 📒
+- Download/upload archive ⏬⏫
+- Use Tab key navigation ⌨️
+- Switch light/dark theme 🎨
 
 ## Folder structure :open_file_folder:
 
