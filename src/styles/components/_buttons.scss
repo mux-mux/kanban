@@ -7,9 +7,11 @@
   font-size: $font-size-xl;
   outline-offset: $outline-offset;
   transition: background-color 0.3s ease-in;
-  cursor: pointer;
-  &:active {
-    transform: scale(0.97);
+  @include pointer-device {
+    cursor: pointer;
+    &:active {
+      transform: scale(0.97);
+    }
   }
 
   &-move {
@@ -44,7 +46,7 @@
       position: absolute;
       top: 0;
       left: 0;
-      border-radius: $border-radius-sm 0;
+      border-radius: 0 0 $border-radius-sm 0;
     }
   }
 
@@ -75,7 +77,7 @@
       position: absolute;
       top: 0;
       right: 0;
-      border-radius: 0 $border-radius-sm;
+      border-radius: 0 0 0 $border-radius-sm;
     }
   }
 
@@ -83,14 +85,14 @@
     background-color: rgba(77, 77, 255, 0.6);
     @include pointer-device {
       &:hover {
-        background-color: rgba(77, 77, 255, 0.9);
+        background-color: rgba(77, 77, 255, 0.5);
       }
     }
     &-archive {
       position: absolute;
       top: 0;
       left: 50px;
-      border-radius: $border-radius-sm 0;
+      border-radius: 0 0 $border-radius-sm $border-radius-sm;
     }
   }
 
