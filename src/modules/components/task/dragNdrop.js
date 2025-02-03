@@ -14,13 +14,12 @@ function getDraggedItemData(event) {
 }
 
 function handleDragStart(event) {
-  const { element, columnNum, itemNum } = getDraggedItemData(event);
+  const { columnNum, itemNum } = getDraggedItemData(event);
 
   event.dataTransfer.clearData();
   event.dataTransfer.setData('columnNum', columnNum);
   event.dataTransfer.setData('itemNum', itemNum);
 
-  setProperties(element, { '--opacity': '0', '--pointer-events': 'none' });
   setLocalData('isDragged', true);
 
   event.currentTarget.classList.add('dragging');
@@ -35,21 +34,35 @@ function handleDragOver(event) {
 
   if (!draggedItem || target === draggedItem) return;
 
-  const getNextElement = (cursorPos, currElem) => {
-    const currElemCoord = currElem.getBoundingClientRect();
-    const currElemCenter = currElemCoord.y + currElemCoord.height / 2;
+  function getNextElement(cursorPos, draggedItem) {
+    const siblings = [...taskList.children].filter((el) => el !== draggedItem);
 
-    return cursorPos < currElemCenter ? currElem : currElem.nextSibling;
-  };
-
-  const nextElement = getNextElement(event.clientY, target);
-
-  if (target && target !== draggedItem && target.nodeName === 'LI') {
-    taskList.insertBefore(draggedItem, nextElement);
+    return (
+      siblings.find((el) => {
+        const rect = el.getBoundingClientRect();
+        return cursorPos < rect.top + rect.height / 2;
+      }) || null
+    );
   }
-  if (target.childElementCount === 0) {
-    taskList.appendChild(draggedItem);
+
+  const nextElement = getNextElement(event.clientY, draggedItem);
+
+  function insertToANewPosition() {
+    if (nextElement) {
+      const rect = nextElement.getBoundingClientRect();
+      const shouldInsertAfter = event.clientY > rect.top + rect.height / 2;
+
+      if (shouldInsertAfter) {
+        taskList.insertBefore(draggedItem, nextElement.nextSibling);
+      } else {
+        taskList.insertBefore(draggedItem, nextElement);
+      }
+    } else {
+      taskList.appendChild(draggedItem);
+    }
   }
+
+  insertToANewPosition();
 
   document.querySelectorAll('.task__list').forEach((list) => list.classList.remove('drag-over'));
   taskList.classList.add('drag-over');
