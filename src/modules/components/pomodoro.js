@@ -163,6 +163,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   const pomodoroIntervalTick = getLocalData('pomodoroInterval');
   const isPaused = getLocalData('isPaused');
   const isEdit = getLocalData('isEdit');
+  const isDragged = getLocalData('isDragged');
 
   focusTrap = createFocusTrap(domElements.pomodoroControls, {
     onActivate: () => domElements.pause.focus(),
@@ -210,7 +211,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     togglePomodoroDisplay(domElements.kanbanHeading, domElements.pomodoroContainer);
     startPomodoro(calculateMinutes(time), timer, columnNum, itemNum);
 
-    if (itemData.time === '' || isPaused || isEdit) {
+    if (itemData.time === '' || isPaused || isEdit || isDragged) {
       addPomodoroTimerListeners();
     }
 
@@ -219,6 +220,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     domElements.text.textContent = itemData.name;
     focusTrap.activate();
     removeLocalData('isEdit');
+    removeLocalData('isDragged');
   }
 
   function handleRemoveState() {

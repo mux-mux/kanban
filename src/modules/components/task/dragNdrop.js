@@ -1,6 +1,7 @@
 import { setProperties } from '../../helpers/helpers';
 import { relocateItem } from './relocate';
 import { removePomodoroTimerListiners } from '../pomodoro';
+import { setLocalData } from '../../update/localStorage';
 
 function getDraggedItemData(event) {
   const draggedItem = event.currentTarget;
@@ -20,6 +21,7 @@ function handleDragStart(event) {
   event.dataTransfer.setData('itemNum', itemNum);
 
   setProperties(element, { '--opacity': '0', '--pointer-events': 'none' });
+  setLocalData('isDragged', true);
 
   event.currentTarget.classList.add('dragging');
 }
