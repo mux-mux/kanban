@@ -98,4 +98,7 @@
       border-radius: $border-radius-md 0 0 $border-radius-md;
     }
   }
+  &__prevented {
+    pointer-events: none;
+  }
 }

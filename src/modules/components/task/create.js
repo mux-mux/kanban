@@ -195,6 +195,14 @@ function showMoveButton() {
         const moveData = getLocalData('moveData');
         const itemsLoaded = getLocalItems();
 
+        function preventAccidentalTap(className) {
+          const tappedItem = document.querySelectorAll(`.${className}`);
+          tappedItem.forEach((item) => item.classList.add('touch__prevented'));
+          setTimeout(() => {
+            tappedItem.forEach((item) => item.classList.remove('touch__prevented'));
+          }, 1000);
+        }
+
         const newColumnNum = moveData.columnNum != index ? index : index + 1;
         moveData.newColumnNum = newColumnNum;
         moveData.newItemnNum = itemsLoaded[Object.keys(itemsLoaded)[newColumnNum]].items.length;
@@ -206,6 +214,8 @@ function showMoveButton() {
             moveData.newColumnNum,
             moveData.newItemnNum
           );
+
+          preventAccidentalTap('deadline');
           setLocalData('moveData', {});
         }
       },
