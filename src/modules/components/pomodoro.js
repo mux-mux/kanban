@@ -159,7 +159,7 @@ function createPomodoroStartIcon(columnNum, itemNum) {
 function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   checkFunctionParameters(timer, itemData, state, columnNum, itemNum);
 
-  focusTrap?.deactivate();
+  !isFirefox && focusTrap?.deactivate();
 
   const domElements = getDomElements();
   const itemsLoaded = getLocalItems();
@@ -172,7 +172,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   focusTrap = createFocusTrap(domElements.pomodoroControls, {
     onActivate: () => domElements.pause.focus(),
     onDeactivate: () => domElements.pause.blur(),
-    allowOutsideClick: () => (!isFirefox ? true : false),
+    allowOutsideClick: () => true,
   });
 
   const time = parseTime(itemData.time);
@@ -222,7 +222,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     updateIconStyles(true);
     domElements.pomodoroControls.style.display = 'flex';
     domElements.text.textContent = itemData.name;
-    focusTrap.activate();
+    !isFirefox && focusTrap.activate();
     removeLocalData('isEdit');
     removeLocalData('isDragged');
   }
@@ -237,7 +237,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     domElements.pomodoroControls.style.display = 'none';
     domElements.text.textContent = '';
 
-    focusTrap.deactivate();
+    !isFirefox && focusTrap.deactivate();
     itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum] = itemData;
     setLocalItems(itemsLoaded);
     setLocalData('isPaused', false);
@@ -300,7 +300,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
 
     removePomodoroTimerListiners();
     pomodoroInit(timer, itemData, 'remove', columnNum, itemNum);
-    focusTrap.deactivate();
+    !isFirefox && focusTrap.deactivate();
     e && playSound('reset.ogg');
 
     restoreFocus(lastFocusedParentId, 'icon-pomodoro');
