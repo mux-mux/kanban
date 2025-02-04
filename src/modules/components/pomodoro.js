@@ -72,6 +72,7 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
       updateUI();
 
       if (itemData.pomodoro === true) {
+        const itemsLoaded = getLocalItems();
         itemData.time = `${MM.textContent}:${SS.textContent}`;
         setLocalItems(itemsLoaded);
       }
@@ -138,6 +139,7 @@ function createPomodoroStartIcon(columnNum, itemNum) {
   }
 
   function initializePomodoroTimer() {
+    const itemsLoaded = getLocalItems();
     removePomodoroTimerListiners();
     setLocalData('isPaused', false);
 

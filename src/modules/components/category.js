@@ -81,12 +81,7 @@ function renderCategoriesSelector(columnNum, itemNum) {
   const selectedList = Object.keys(itemsLoaded)[columnNum];
   const currentItem = itemsLoaded[selectedList].items[itemNum];
 
-  const categorySelector = createCategorySelector(
-    currentItem,
-    selectedList,
-    itemNum,
-    categoriesLoaded
-  );
+  const categorySelector = createCategorySelector(currentItem, categoriesLoaded);
   categorySelector.addEventListener('change', (e) =>
     handleCategoryChange(e, selectedList, itemNum)
   );
@@ -94,7 +89,7 @@ function renderCategoriesSelector(columnNum, itemNum) {
   return categorySelector;
 }
 
-function createCategorySelector(currentItem, selectedList, itemNum, categoriesLoaded) {
+function createCategorySelector(currentItem, categoriesLoaded) {
   const categorySelector = createElementWithClass('select', 'categories__select');
   categorySelector.innerHTML = '<option value="" disabled selected>Select a category</option>';
   categorySelector.ariaLabel = `Change the category for the ${currentItem.name} task`;
