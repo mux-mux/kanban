@@ -73,6 +73,7 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
 
       if (itemData.pomodoro === true) {
         const itemsLoaded = getLocalItems();
+        const itemData = itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum];
         itemData.time = `${MM.textContent}:${SS.textContent}`;
         setLocalItems(itemsLoaded);
       }
@@ -213,6 +214,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     togglePomodoroDisplay(domElements.kanbanHeading, domElements.pomodoroContainer);
     startPomodoro(calculateMinutes(time), timer, columnNum, itemNum);
 
+    console.log(itemData.time === '', { isPaused, isEdit, isDragged });
     if (itemData.time === '' || isPaused || isEdit || isDragged) {
       addPomodoroTimerListeners();
     }
