@@ -167,11 +167,12 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   const isPaused = getLocalData('isPaused');
   const isEdit = getLocalData('isEdit');
   const isDragged = getLocalData('isDragged');
+  const isFirefox = navigator.userAgent.toLowerCase().includes('firefox');
 
   focusTrap = createFocusTrap(domElements.pomodoroControls, {
     onActivate: () => domElements.pause.focus(),
     onDeactivate: () => domElements.pause.blur(),
-    allowOutsideClick: () => true,
+    allowOutsideClick: () => (!isFirefox ? true : false),
   });
 
   const time = parseTime(itemData.time);
@@ -214,7 +215,6 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     togglePomodoroDisplay(domElements.kanbanHeading, domElements.pomodoroContainer);
     startPomodoro(calculateMinutes(time), timer, columnNum, itemNum);
 
-    console.log(itemData.time === '', { isPaused, isEdit, isDragged });
     if (itemData.time === '' || isPaused || isEdit || isDragged) {
       addPomodoroTimerListeners();
     }
