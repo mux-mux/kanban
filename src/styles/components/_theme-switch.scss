@@ -10,7 +10,7 @@ $shiftMinusSize: $theme-slider-shift - $theme-slider-size;
   color: var(--text-color, #222);
   line-height: calc($theme-slider-size + $theme-slider-shift);
 
-  @include respond(mobile) {
+  @include respond(tablet) {
     font-size: $font-size-md;
     position: absolute;
     left: 5px;
@@ -38,7 +38,7 @@ $shiftMinusSize: $theme-slider-shift - $theme-slider-size;
   width: calc($theme-slider-size * 2.2);
   height: calc($sizePlusShift);
 
-  @include respond(mobile) {
+  @include respond(tablet) {
     height: calc($theme-slider-size * 1.6);
     width: calc($theme-slider-size / 1.4);
   }
@@ -66,7 +66,7 @@ $shiftMinusSize: $theme-slider-shift - $theme-slider-size;
     transition: transform 0.4s;
   }
 
-  @include respond(mobile) {
+  @include respond(tablet) {
     height: calc(($sizeMinusShift) / 2);
     width: calc(($sizeMinusShift) / 2);
   }
@@ -85,13 +85,13 @@ input:checked + .slider:before {
   -ms-transform: translateX(calc($sizePlusShift));
   transform: translateX(calc($sizePlusShift));
 
-  @include respond(mobile) {
+  @include respond(tablet) {
     -webkit-transform: translate(0, calc($shiftMinusSize));
     -ms-transform: translate(0, calc($shiftMinusSize));
     transform: translate(0, calc($shiftMinusSize));
   }
 
-  @include respond(mobile) {
+  @include respond(tablet) {
     border-radius: calc($theme-slider-size / 1.5);
   }
 }

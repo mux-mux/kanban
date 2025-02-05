@@ -21,7 +21,7 @@
     }
   }
 
-  @include respond(mobile) {
+  @include respond(tablet) {
     flex-direction: column;
     justify-content: center;
   }
