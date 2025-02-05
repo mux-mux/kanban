@@ -23,7 +23,7 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
 
   const MM = document.getElementById('minutes');
   const SS = document.getElementById('seconds');
-  const pomodoroBreak = document.querySelector('.pomodoro__break');
+  const pomodoroSkipButton = document.querySelector('.pomodoro__skip-break');
 
   const itemsLoaded = getLocalItems();
   const itemData = itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum];
@@ -46,10 +46,10 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
     progressBar.style.width = `${progressPercent}%`;
   }
 
-  function toggleBreakUI(isBreak, pomodoroBreak) {
-    pomodoroBreak.style.display = isBreak ? 'block' : 'none';
+  function toggleBreakUI(isBreak, pomodoroSkipButton) {
+    pomodoroSkipButton.addEventListener('click', handleCompletion, { once: true });
+    pomodoroSkipButton.style.display = isBreak ? 'block' : 'none';
   }
-  toggleBreakUI(itemData.break, pomodoroBreak);
 
   function handleCompletion() {
     clearInterval(pomodoroIntervalTick);
@@ -57,9 +57,10 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
     itemData.sessions += itemData.break ? 0 : 1;
     itemData.break = !itemData.break;
     itemData.break ? playSound('session-done.ogg') : playSound('play.ogg');
-    toggleBreakUI(itemData.break, pomodoroBreak);
+    toggleBreakUI(itemData.break, pomodoroSkipButton);
     itemData.time = itemData.break ? '05:00' : '25:00';
     setLocalItems(itemsLoaded);
+    pomodoroSkipButton.removeEventListener('click', handleCompletion);
     updateDOM();
   }
 
@@ -90,6 +91,7 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
   pomodoroIntervalTick = setInterval(pomodoroLogic, 1000);
   setLocalData('pomodoroInterval', pomodoroIntervalTick);
 
+  toggleBreakUI(itemData.break, pomodoroSkipButton);
   updateUI();
 }
 
@@ -158,7 +160,7 @@ function createPomodoroStartIcon(columnNum, itemNum) {
 
 function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   checkFunctionParameters(timer, itemData, state, columnNum, itemNum);
-
+  //Firefox focus-trap bug. Select the category jumping shown/hidden when activated
   !isFirefox && focusTrap?.deactivate();
 
   const domElements = getDomElements();
@@ -192,7 +194,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
       play: document.querySelector('.fa-play'),
       done: document.querySelector('.fa-check'),
       reset: document.querySelector('.fa-backward-step'),
-      coffee: document.querySelector('.pomodoro__break'),
+      skip: document.querySelector('.pomodoro__skip-break'),
       text: document.querySelector('.pomodoro__text'),
       icon: timer.pomodoro,
       kanbanHeading: document.querySelector('.heading-primary'),
@@ -294,7 +296,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
 
     if (itemData.break === true) {
       itemData.break = false;
-      domElements.coffee.style.display = 'none';
+      domElements.skip.style.display = 'none';
       setLocalItems(itemsLoaded);
     }
 

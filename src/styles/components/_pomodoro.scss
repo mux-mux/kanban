@@ -17,6 +17,7 @@
   }
 
   &__inner {
+    position: relative;
     display: flex;
     gap: $gap-md;
   }
@@ -72,9 +73,13 @@
     padding: 1px $padding-sm;
     background-color: green;
   }
-  &__break {
+  &__skip-break {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    transform: translate(50%, 20%);
     display: none;
-    font-size: $font-size-xl;
+    margin-left: $margin-md;
     color: #32a1d9;
   }
 }
