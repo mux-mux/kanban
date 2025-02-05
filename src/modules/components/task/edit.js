@@ -113,11 +113,13 @@ function editCurrentItem(element, type, columnNum, itemNum, lastFocusedParentId,
     element.style.paddingTop = '5px';
   }
 
+  const defaultText = element.innerText;
+
   element.textContent = element.innerText;
   element.setAttribute('contentEditable', true);
   element.focus();
 
-  moveCaretToEnd(element);
+  moveCaretToEnd(element, defaultText);
 
   element.addEventListener('blur', () => {
     finalizeEdit(element, type, columnNum, itemNum);
@@ -142,7 +144,7 @@ function finalizeEdit(element, type, columnNum, itemNum) {
   }
 }
 
-function moveCaretToEnd(element) {
+function moveCaretToEnd(element, defaultText) {
   const range = document.createRange();
   range.selectNodeContents(element);
   range.collapse(false);
@@ -151,16 +153,21 @@ function moveCaretToEnd(element) {
   selection.removeAllRanges();
   selection.addRange(range);
 
-  enableEnterToBlur(element);
+  enableBlurOnKeyPress(element, defaultText);
 }
 
-function enableEnterToBlur(element) {
-  element.addEventListener('keypress', (event) => {
-    if (event.key === 'Enter') {
+function enableBlurOnKeyPress(element, defaultText) {
+  element.addEventListener('keydown', handleKeyPress);
+
+  function handleKeyPress(event) {
+    if (event.key === 'Enter' || event.key === 'Escape') {
       event.preventDefault();
+      if (event.key === 'Escape') {
+        element.textContent = defaultText;
+      }
       element.blur();
     }
-  });
+  }
 }
 
 export { editItem, createEditIcon, editItemText };
