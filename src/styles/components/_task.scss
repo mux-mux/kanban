@@ -42,8 +42,10 @@
     left: 0;
     height: 100%;
     width: 0%;
-    background: rgba(0, 255, 0, 0.15);
+    background: rgba(0, 255, 0, 0.2);
     pointer-events: none;
+    isolation: isolate;
+    z-index: -1;
   }
   &__list {
     min-height: $height-lg;

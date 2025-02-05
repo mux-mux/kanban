@@ -58,7 +58,7 @@ function startPomodoro(duration, timer, columnNum, itemNum) {
     itemData.break = !itemData.break;
     itemData.break ? playSound('session-done.ogg') : playSound('play.ogg');
     toggleBreakUI(itemData.break, pomodoroSkipButton);
-    itemData.time = itemData.break ? '05:00' : '25:00';
+    itemData.time = itemData.break ? '00:30' : '01:00';
     setLocalItems(itemsLoaded);
     pomodoroSkipButton.removeEventListener('click', handleCompletion);
     updateDOM();
@@ -204,7 +204,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   }
 
   function parseTime(timeString) {
-    return timeString === '' ? ['25', '00'] : timeString.split(':');
+    return timeString === '' ? ['01', '00'] : timeString.split(':');
   }
 
   function calculateMinutes([minutes, seconds]) {
