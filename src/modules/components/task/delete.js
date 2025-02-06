@@ -41,6 +41,7 @@ function delteItemType(type, columnNum, itemNum = 0) {
     const pomodoroIntervalTick = getLocalData('pomodoroInterval');
     clearInterval(pomodoroIntervalTick);
     removeLocalData('pomodoroInterval');
+    setLocalData('isDeleted', true);
   } else if (type === 'category') {
     const categoriesLoaded = getLocalData('categoriesItems');
     categoriesLoaded.splice(columnNum, 1);
