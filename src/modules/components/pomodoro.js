@@ -244,7 +244,6 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     !isFirefox && focusTrap.deactivate();
     itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum] = itemData;
     setLocalItems(itemsLoaded);
-    setLocalData('isPaused', false);
     updateDOM();
   }
 
