@@ -139,6 +139,7 @@ function createPomodoroStartIcon(columnNum, itemNum) {
         item.time = '';
       }
     }
+    setLocalItems(itemsLoaded);
   }
 
   function initializePomodoroTimer() {
