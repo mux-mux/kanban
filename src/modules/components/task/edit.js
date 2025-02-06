@@ -104,8 +104,8 @@ function editItemText(e, type, columnNum, itemNum = 0) {
 
 function editCurrentItem(element, type, columnNum, itemNum, lastFocusedParentId, lastFocusedClass) {
   if (type === 'task') {
+    pausePomodoroIfActive(columnNum, itemNum);
     setLocalData('isEdit', true);
-    setLocalData('isPaused', true);
     removePomodoroTimerListiners();
     setInnerHeight(element);
     const selectElement = type === 'task' && element.querySelector('.categories__select');
@@ -126,6 +126,12 @@ function editCurrentItem(element, type, columnNum, itemNum, lastFocusedParentId,
     finalizeEdit(element, type, columnNum, itemNum);
     restoreFocus(lastFocusedParentId, lastFocusedClass, type);
   });
+}
+
+function pausePomodoroIfActive(columnNum, itemNum) {
+  const itemsLoaded = getLocalItems();
+  const pomodoroState = itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum].pomodoro;
+  pomodoroState === true && setLocalData('isPaused', true);
 }
 
 function setInnerHeight(element) {
