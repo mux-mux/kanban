@@ -77,7 +77,7 @@ function setupTaskIcons(taskContainer, columnNum, itemNum, itemData) {
   pomodoroIcon = createPomodoroStartIcon(columnNum, itemNum);
 
   taskDeleteIcon.addEventListener('click', () => handleDeleteTask(columnNum, itemNum, itemData));
-  taskContainer.addEventListener('click', (e) => editItemText(e, 'task', columnNum, itemNum));
+  taskEditIcon.addEventListener('click', (e) => editItemText(e, 'task', columnNum, itemNum));
 
   if (columnNum !== 2) {
     taskIcons.append(pomodoroIcon.pomodoro, taskEditIcon);
@@ -93,7 +93,6 @@ function handleDeleteTask(columnNum, itemNum, itemData) {
 
 function initializeTaskAttributes(taskContainer, item, itemNum, columnNum, itemData) {
   setElementAttributes(taskContainer, item.id, item.name, true, itemNum, columnNum);
-  setProperties(taskContainer, { height: taskContainer.clientHeight + 'px' });
 
   itemData.pomodoro && pomodoroInit(pomodoroIcon, itemData, 'init', columnNum, itemNum);
 

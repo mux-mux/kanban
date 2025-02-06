@@ -107,6 +107,7 @@ function editCurrentItem(element, type, columnNum, itemNum, lastFocusedParentId,
     setLocalData('isEdit', true);
     setLocalData('isPaused', true);
     removePomodoroTimerListiners();
+    setInnerHeight(element);
     const selectElement = type === 'task' && element.querySelector('.categories__select');
     selectElement.innerHTML = '';
     element.setAttribute('draggable', false);
@@ -125,6 +126,12 @@ function editCurrentItem(element, type, columnNum, itemNum, lastFocusedParentId,
     finalizeEdit(element, type, columnNum, itemNum);
     restoreFocus(lastFocusedParentId, lastFocusedClass, type);
   });
+}
+
+function setInnerHeight(element) {
+  element.style.height = 'auto';
+  const rect = element.getBoundingClientRect();
+  element.style.height = rect.height + 'px';
 }
 
 function getEditableElement(e, type) {
