@@ -96,6 +96,15 @@
     }
   }
 
+  &-edit {
+    &-category {
+      margin-top: $margin-sm;
+      padding: 0 $padding-md;
+      align-self: stretch;
+      border-radius: 0;
+    }
+  }
+
   &-text {
     padding: 0 $padding-sm;
   }

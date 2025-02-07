@@ -69,6 +69,31 @@ function createEditIcon(type, columnNum, itemNum = 0) {
   return editButton;
 }
 
+function createEditButtons(type) {
+  const container = createElementWithClass('div', ['edit-icons-container']);
+  const acceptButton = createElementWithClass('button', [
+    'btn',
+    'btn-add',
+    'btn-accept',
+    `btn-edit-${type}`,
+  ]);
+  const acceptIcon = createElementWithClass('i', ['fa-solid', 'fa-check']);
+  acceptButton.setAttribute('contenteditable', 'false');
+  const discardButton = createElementWithClass('button', [
+    'btn',
+    'btn-close',
+    'btn-discard',
+    `btn-edit-${type}`,
+  ]);
+  const discardIcon = createElementWithClass('i', ['fa-solid', 'fa-xmark']);
+  discardButton.setAttribute('contenteditable', 'false');
+  acceptButton.appendChild(acceptIcon);
+  discardButton.appendChild(discardIcon);
+  container.append(acceptButton, discardButton);
+
+  return container;
+}
+
 function getAriaLabel(type, columnNum, itemNum) {
   if (type === 'task') {
     const itemsLoaded = getLocalItems();
@@ -87,6 +112,17 @@ function addHoverEffects(button) {
     button.addEventListener('focus', (e) => toggleItemIconOpacity(e, 1));
     button.addEventListener('blur', (e) => toggleItemIconOpacity(e, 0));
   }
+}
+
+function limitConteEditableLength(type) {
+  const editableElem = document.querySelector("[contenteditable='true']");
+  const maxLength = type === 'task' ? 60 : 30;
+
+  editableElem.addEventListener('keydown', (event) => {
+    if (editableElem.textContent.length >= maxLength && event.key !== 'Backspace') {
+      event.preventDefault();
+    }
+  });
 }
 
 function editItemText(e, type, columnNum, itemNum = 0) {
@@ -119,8 +155,19 @@ function editCurrentItem(element, type, columnNum, itemNum, lastFocusedParentId,
   element.textContent = element.innerText;
   element.setAttribute('contentEditable', true);
   element.focus();
+  limitConteEditableLength(type);
 
   moveCaretToEnd(element, defaultText);
+
+  if (isTouchDevice()) {
+    const taskEditButtons = createEditButtons(type);
+    element.appendChild(taskEditButtons);
+    document.querySelector('.btn-discard').addEventListener('mousedown', (event) => {
+      event.preventDefault();
+      restoreDefaultText(element, defaultText);
+      finalizeEdit(element, type, columnNum, itemNum);
+    });
+  }
 
   element.addEventListener('blur', () => {
     finalizeEdit(element, type, columnNum, itemNum);
@@ -176,11 +223,15 @@ function enableBlurOnKeyPress(element, defaultText) {
     if (event.key === 'Enter' || event.key === 'Escape') {
       event.preventDefault();
       if (event.key === 'Escape') {
-        element.textContent = defaultText;
+        restoreDefaultText(element, defaultText);
       }
       element.blur();
     }
   }
 }
 
-export { editItem, createEditIcon, editItemText };
+function restoreDefaultText(element, defaultText) {
+  element.textContent = defaultText;
+}
+
+export { editItem, createEditIcon, createEditButtons, editItemText };

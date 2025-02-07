@@ -12,6 +12,15 @@
     border-left: 1px solid #ccc;
     padding-left: $padding-sm;
   }
+  &-action {
+    background-color: #e0e0e0;
+    color: #333;
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding: 2px 4px;
+    border-radius: 6px;
+    user-select: none;
+  }
   &-keys {
     display: flex;
     gap: $gap-xsm;

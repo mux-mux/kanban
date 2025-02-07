@@ -147,13 +147,15 @@ function setSelectOnTouchListener() {
       const moveData = getLocalData('moveData');
       const taskItem = e.target.closest('.task__list-item');
       const classes = e.target.classList;
+      const isEdit = getLocalData('isEdit');
 
       removeClassNames('task__list-item', 'touch__selected');
 
       if (
-        classes.contains('task__text') ||
-        classes.contains('task__list-item') ||
-        classes.contains('task__data')
+        (classes.contains('task__text') ||
+          classes.contains('task__list-item') ||
+          classes.contains('task__data')) &&
+        !isEdit
       ) {
         taskItem.classList.add('touch__selected');
         moveData.columnNum = taskItem.attributes['data-in-col'].value;
