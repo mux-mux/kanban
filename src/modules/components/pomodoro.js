@@ -147,15 +147,24 @@ function createPomodoroStartIcon(columnNum, itemNum) {
     removePomodoroTimerListiners();
     setLocalData('isPaused', false);
 
-    const pomodoroText = document.querySelector('.pomodoro__text');
     document.querySelector('.pomodoro__controls').style.display = 'flex';
+    const pomodoroText = document.querySelector('.pomodoro__text');
     pomodoroText.textContent = pomodoro.parentElement.innerText;
 
     itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum].pomodoro = true;
     playSound('play.ogg');
 
     setLocalItems(itemsLoaded);
-    updateDOM();
+    if (columnNum === 0) {
+      relocateItem(
+        columnNum,
+        itemNum,
+        columnNum + 1,
+        itemsLoaded[Object.keys(itemsLoaded)[columnNum + 1]].items.length
+      );
+    } else {
+      updateDOM();
+    }
   }
 }
 
@@ -317,7 +326,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     relocateItem(
       columnNum,
       itemNum,
-      2,
+      columnDoneNum,
       itemsLoaded[Object.keys(itemsLoaded)[columnDoneNum]].items.length
     );
 
