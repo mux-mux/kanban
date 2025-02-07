@@ -64,7 +64,11 @@ function handleCategorySubmit(event) {
 
   const categoriesLoaded = getLocalData('categoriesItems');
 
-  if (categoriesLoaded.includes(newCategoryName)) {
+  function checkIncludes(input) {
+    return categoriesLoaded.some((item) => item.toLowerCase() === input.toLowerCase());
+  }
+
+  if (checkIncludes(newCategoryName)) {
     alert('Category name already exists!');
     return;
   }

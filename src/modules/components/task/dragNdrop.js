@@ -81,8 +81,7 @@ function handleDrop(event) {
 
   relocateItem(columnNum, itemNum, newColNum, newItemNum);
 
-  removeClassNames('dragging', 'dragging');
-  removeClassNames('task__list', 'drag-over');
+  handleDragEnd();
 }
 
 function handleDragEnd() {
