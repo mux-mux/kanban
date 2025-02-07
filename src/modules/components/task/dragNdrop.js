@@ -1,4 +1,4 @@
-import { setProperties } from '../../helpers/helpers';
+import { removeClassNames } from '../../helpers/helpers';
 import { relocateItem } from './relocate';
 import { removePomodoroTimerListiners } from '../pomodoro';
 import { setLocalData } from '../../update/localStorage';
@@ -64,7 +64,7 @@ function handleDragOver(event) {
 
   insertToANewPosition();
 
-  document.querySelectorAll('.task__list').forEach((list) => list.classList.remove('drag-over'));
+  removeClassNames('task__list', 'drag-over');
   taskList.classList.add('drag-over');
 }
 
@@ -73,9 +73,6 @@ function handleDrop(event) {
   removePomodoroTimerListiners();
 
   const draggedItem = document.querySelector('.dragging');
-  if (!draggedItem) return;
-
-  draggedItem.classList.remove('dragging');
 
   const columnNum = event.dataTransfer.getData('columnNum');
   const itemNum = event.dataTransfer.getData('itemNum');
@@ -84,13 +81,20 @@ function handleDrop(event) {
 
   relocateItem(columnNum, itemNum, newColNum, newItemNum);
 
-  document.querySelectorAll('.task__list').forEach((list) => list.classList.remove('drag-over'));
+  removeClassNames('dragging', 'dragging');
+  removeClassNames('task__list', 'drag-over');
+}
+
+function handleDragEnd() {
+  removeClassNames('dragging', 'dragging');
+  removeClassNames('task__list', 'drag-over');
 }
 
 function setDragAndDropListeners() {
   document.querySelectorAll('.task__list').forEach((taskList) => {
     taskList.addEventListener('dragover', handleDragOver);
     taskList.addEventListener('drop', handleDrop);
+    taskList.addEventListener('dragend', handleDragEnd);
   });
 }
 

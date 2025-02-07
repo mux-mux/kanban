@@ -3,7 +3,7 @@ import {
   setProperties,
   createElementWithClass,
   isTouchDevice,
-  removeClassFromElements,
+  removeClassNames,
 } from '../../helpers/helpers';
 import { editItemText, createEditIcon } from './edit';
 import { createDeleteIcon, deleteItem } from './delete';
@@ -148,7 +148,7 @@ function setSelectOnTouchListener() {
       const taskItem = e.target.closest('.task__list-item');
       const classes = e.target.classList;
 
-      removeClassFromElements('task__list-item', 'touch__selected');
+      removeClassNames('task__list-item', 'touch__selected');
 
       if (
         classes.contains('task__text') ||

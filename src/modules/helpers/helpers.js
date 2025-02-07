@@ -77,10 +77,10 @@ function isTabNavigation() {
   });
 }
 
-function removeClassFromElements(className, classNameToRemove) {
-  document
-    .querySelectorAll(`.${className}`)
-    .forEach((item) => item.classList.remove(classNameToRemove));
+function removeClassNames(queryClass, removeClass) {
+  const elements = document.querySelectorAll(`.${queryClass}`);
+  if (elements.length === 0) return;
+  elements.forEach((element) => element.classList.remove(removeClass));
 }
 
 export {
@@ -92,5 +92,5 @@ export {
   getFocusedElement,
   findMaxId,
   isTabNavigation,
-  removeClassFromElements,
+  removeClassNames,
 };
