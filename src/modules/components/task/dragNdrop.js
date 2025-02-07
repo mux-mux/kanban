@@ -20,7 +20,7 @@ function handleDragStart(event) {
   event.dataTransfer.setData('columnNum', columnNum);
   event.dataTransfer.setData('itemNum', itemNum);
 
-  setLocalData('isDragged', true);
+  setLocalData('isMoved', true);
 
   event.currentTarget.classList.add('dragging');
 }

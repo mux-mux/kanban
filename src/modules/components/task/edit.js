@@ -17,6 +17,8 @@ import {
   removeLocalData,
 } from '../../update/localStorage';
 
+import { MAX_LENGTH_TASK, MAX_LENGTH_CATEGORY } from '../../../constants';
+
 function editItem(type, columnNum, itemNum = 0) {
   checkFunctionParameters(type, columnNum);
 
@@ -75,6 +77,7 @@ function createEditButtons(type) {
     'btn',
     'btn-add',
     'btn-accept',
+    'btn-edit',
     `btn-edit-${type}`,
   ]);
   const acceptIcon = createElementWithClass('i', ['fa-solid', 'fa-check']);
@@ -83,6 +86,7 @@ function createEditButtons(type) {
     'btn',
     'btn-close',
     'btn-discard',
+    'btn-edit',
     `btn-edit-${type}`,
   ]);
   const discardIcon = createElementWithClass('i', ['fa-solid', 'fa-xmark']);
@@ -116,11 +120,19 @@ function addHoverEffects(button) {
 
 function limitConteEditableLength(type) {
   const editableElem = document.querySelector("[contenteditable='true']");
-  const maxLength = type === 'task' ? 60 : 30;
+  const maxLength = type === 'task' ? MAX_LENGTH_TASK : MAX_LENGTH_CATEGORY;
 
-  editableElem.addEventListener('keydown', (event) => {
-    if (editableElem.textContent.length >= maxLength && event.key !== 'Backspace') {
+  editableElem.addEventListener('beforeinput', (event) => {
+    if (editableElem.textContent.length >= maxLength || editableElem.textContent.length <= 0) {
       event.preventDefault();
+    }
+  });
+  editableElem.addEventListener('paste', (event) => {
+    const pasteText = (event.clipboardData || window.Clipboard).getData('text');
+    const newText = editableElem.textContent + pasteText;
+    if (newText.length > MAX_LENGTH_TASK) {
+      event.preventDefault();
+      alert(`You can only paste up to ${MAX_LENGTH_TASK} characters.`);
     }
   });
 }

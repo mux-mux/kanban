@@ -4,7 +4,8 @@
   }
 
   &__body {
-    background-color: #eae8ed;
+    background-color: var(--background-color);
+    color: var(--text-color);
     opacity: 0.95;
   }
 

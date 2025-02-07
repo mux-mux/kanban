@@ -35,7 +35,8 @@
     position: relative;
     margin-top: $margin-sm;
     line-height: 1.8;
-    background-color: #eae8ed;
+    background-color: var(--background-color);
+    color: var(--text-color);
     opacity: 0.95;
     text-align: left;
     white-space: nowrap;

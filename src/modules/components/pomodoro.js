@@ -171,14 +171,15 @@ function createPomodoroStartIcon(columnNum, itemNum) {
 function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   checkFunctionParameters(timer, itemData, state, columnNum, itemNum);
   //Firefox focus-trap bug. Select the category jumping shown/hidden when activated
-  !isFirefox && focusTrap?.deactivate();
+  //On TouchDevices to prevent scrollToTop page on start pomodoro timer
+  !isFirefox && !isTouchDevice() && focusTrap?.deactivate();
 
   const domElements = getDomElements();
   const itemsLoaded = getLocalItems();
   const pomodoroIntervalTick = getLocalData('pomodoroInterval');
   const isPaused = getLocalData('isPaused');
   const isEdit = getLocalData('isEdit');
-  const isDragged = getLocalData('isDragged');
+  const isMoved = getLocalData('isMoved');
   const isDeleted = getLocalData('isDeleted');
   const isFirefox = navigator.userAgent.toLowerCase().includes('firefox');
 
@@ -228,16 +229,16 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     togglePomodoroDisplay(domElements.kanbanHeading, domElements.pomodoroContainer);
     startPomodoro(calculateMinutes(time), timer, columnNum, itemNum);
 
-    if (itemData.time === '' || isPaused || isEdit || isDragged || isDeleted) {
+    if (itemData.time === '' || isPaused || isEdit || isMoved || isDeleted) {
       addPomodoroTimerListeners();
     }
 
     updateIconStyles(true);
     domElements.pomodoroControls.style.display = 'flex';
     domElements.text.textContent = itemData.name;
-    !isFirefox && focusTrap.activate();
+    !isFirefox && !isTouchDevice() && focusTrap.activate();
     removeLocalData('isEdit');
-    removeLocalData('isDragged');
+    removeLocalData('isMoved');
     removeLocalData('isDeleted');
   }
 
@@ -251,7 +252,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     domElements.pomodoroControls.style.display = 'none';
     domElements.text.textContent = '';
 
-    !isFirefox && focusTrap.deactivate();
+    !isFirefox && !isTouchDevice() && focusTrap.deactivate();
     itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum] = itemData;
     setLocalItems(itemsLoaded);
     updateDOM();
@@ -285,7 +286,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     togglePlayPauseVisibility(true);
     setLocalData('isPaused', true);
     domElements.icon.classList.remove('fa-fade');
-    domElements.play.focus();
+    !isTouchDevice() && domElements.play.focus();
 
     e && playSound('pause.ogg');
   }
@@ -294,7 +295,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     togglePlayPauseVisibility(false);
     setLocalData('isPaused', false);
     domElements.icon.classList.add('fa-fade');
-    domElements.pause.focus();
+    !isTouchDevice() && domElements.pause.focus();
 
     e && playSound('play.ogg');
   }
@@ -313,7 +314,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
 
     removePomodoroTimerListiners();
     pomodoroInit(timer, itemData, 'remove', columnNum, itemNum);
-    !isFirefox && focusTrap.deactivate();
+    !isFirefox && !isTouchDevice() && focusTrap.deactivate();
     e && playSound('reset.ogg');
 
     restoreFocus(lastFocusedParentId, 'icon-pomodoro');

@@ -9,7 +9,7 @@ import { editItemText, createEditIcon } from './edit';
 import { createDeleteIcon, deleteItem } from './delete';
 import { setDeadline } from '../deadline';
 import { handleDragStart } from '../task/dragNdrop';
-import { createPomodoroStartIcon, pomodoroInit } from '../pomodoro';
+import { createPomodoroStartIcon, pomodoroInit, removePomodoroTimerListiners } from '../pomodoro';
 
 import { relocateItem, setupKeyboardNavigation } from './relocate';
 import { renderCategoriesSelector } from '../category';
@@ -209,6 +209,8 @@ function showMoveButton() {
         moveData.newItemnNum = itemsLoaded[Object.keys(itemsLoaded)[newColumnNum]].items.length;
 
         if (moveData.columnNum !== undefined) {
+          removePomodoroTimerListiners();
+          setLocalData('isMoved', true);
           relocateItem(
             moveData.columnNum,
             moveData.itemNum,

@@ -8,6 +8,7 @@ import {
   setLocalData,
   setLocalItems,
 } from '../../update/localStorage';
+import { MAX_LENGTH_TASK } from '../../../constants';
 
 let focusTrap = null;
 
@@ -83,6 +84,7 @@ function createTaskField(columnIndex) {
     'custom-scroll',
   ]);
   textarea.setAttribute('placeholder', 'Ctrl+Enter to a New line\nEsc to Close');
+  textarea.maxLength = MAX_LENGTH_TASK;
   textarea.addEventListener('keydown', (e) => handleTaskKeypress(e, columnIndex));
   fieldContainer.appendChild(textarea);
 

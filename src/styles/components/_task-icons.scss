@@ -29,13 +29,12 @@
     padding-left: $padding-sm;
     padding-right: $padding-sm;
     background-color: #ce6c70;
-    border-radius: 0 10px 10px 0;
   }
 }
 .edit-icons-container {
   display: flex;
   align-items: center;
-  gap: $gap-md;
+  gap: $gap-sm;
   margin-top: -$margin-sm;
   margin-right: $margin-md;
 }

@@ -41,6 +41,7 @@
 
   &-categories {
     left: 140px;
+    min-width: 360px;
     @include respond(mobile) {
       left: $spacing;
       padding-bottom: $padding-md;
