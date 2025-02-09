@@ -5,6 +5,7 @@ import {
   toggleItemIconOpacity,
   restoreFocus,
   getFocusedElement,
+  checkIncludesName,
 } from '../../helpers/helpers';
 import updateDOM from '../../update/updateDOM';
 import { deleteItem } from './delete';
@@ -124,6 +125,7 @@ function limitConteEditableLength(type, defaultText) {
 
   editableElem.addEventListener('input', () => {
     let text = editableElem.innerText;
+    setLocalData('isChanged', true);
 
     if (text.length === 0) {
       editableElem.innerHTML = '<br>';
@@ -184,8 +186,9 @@ function editCurrentItem(element, type, columnNum, itemNum, lastFocusedParentId,
   }
 
   element.addEventListener('blur', () => {
-    finalizeEdit(element, type, columnNum, itemNum);
+    finalizeEdit(element, type, columnNum, itemNum, defaultText);
     restoreFocus(lastFocusedParentId, lastFocusedClass, type);
+    removeLocalData('isChanged');
   });
 }
 
@@ -217,15 +220,46 @@ function getEditableElement(e, type) {
   return e.target.closest(selector);
 }
 
-function finalizeEdit(element, type, columnNum, itemNum) {
+function finalizeEdit(element, type, columnNum, itemNum, defaultText) {
+  function updateCategoriesNames(defaultText, newCategoryName) {
+    const itemsLoaded = getLocalItems();
+    const columnNames = getLocalData('columnNames');
+    let updated = false;
+
+    columnNames.forEach((column) => {
+      itemsLoaded[column].items.forEach((item) => {
+        if (item.category === defaultText) {
+          item.category = newCategoryName;
+          updated = true;
+        }
+      });
+    });
+    updated && setLocalItems(itemsLoaded);
+  }
+
   if (type === 'task') {
     element.setAttribute('draggable', true);
     element.style.paddingTop = 0;
     editItem('task', columnNum, itemNum);
     removeLocalData('isEdit');
   } else if (type === 'category') {
+    const isChanged = getLocalData('isChanged');
     element.setAttribute('contentEditable', false);
+    const newCategoryName = element.innerText.trim();
+    const categoriesLoaded = getLocalData('categoriesItems');
+
+    if (!newCategoryName) return;
+
+    if (isChanged && checkIncludesName(newCategoryName, categoriesLoaded)) {
+      alert('Category name already exists!');
+      restoreDefaultText(element, defaultText);
+      updateDOM();
+      return;
+    }
+
+    updateCategoriesNames(defaultText, newCategoryName);
     editItem('category', columnNum);
+    isChanged && removeLocalData('isChanged');
   }
 }
 

@@ -78,9 +78,15 @@ function isTabNavigation() {
 }
 
 function removeClassNames(queryClass, removeClass) {
+  checkFunctionParameters(queryClass, removeClass);
   const elements = document.querySelectorAll(`.${queryClass}`);
   if (elements.length === 0) return;
   elements.forEach((element) => element.classList.remove(removeClass));
+}
+
+function checkIncludesName(input, loaded) {
+  checkFunctionParameters(input);
+  return loaded.some((item) => item.toLowerCase() === input.toLowerCase());
 }
 
 export {
@@ -93,4 +99,5 @@ export {
   findMaxId,
   isTabNavigation,
   removeClassNames,
+  checkIncludesName,
 };

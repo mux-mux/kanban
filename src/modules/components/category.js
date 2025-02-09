@@ -4,6 +4,7 @@ import {
   isTouchDevice,
   restoreFocus,
   getFocusedElement,
+  checkIncludesName,
 } from '../helpers/helpers';
 import updateDOM from '../update/updateDOM';
 import { createDeleteIcon, deleteItem } from './task/delete';
@@ -59,16 +60,11 @@ function handleCategorySubmit(event) {
   event.preventDefault();
   const categoryNameInput = document.getElementById('categoryName');
   const newCategoryName = categoryNameInput.value.trim();
+  const categoriesLoaded = getLocalData('categoriesItems');
 
   if (!newCategoryName) return;
 
-  const categoriesLoaded = getLocalData('categoriesItems');
-
-  function checkIncludes(input) {
-    return categoriesLoaded.some((item) => item.toLowerCase() === input.toLowerCase());
-  }
-
-  if (checkIncludes(newCategoryName)) {
+  if (checkIncludesName(newCategoryName, categoriesLoaded)) {
     alert('Category name already exists!');
     return;
   }
