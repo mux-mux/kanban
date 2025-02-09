@@ -180,7 +180,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
   const isPaused = getLocalData('isPaused');
   const isEdit = getLocalData('isEdit');
   const isMoved = getLocalData('isMoved');
-  const isDeleted = getLocalData('isDeleted');
+  const isAnotherDeleted = getLocalData('isAnotherDeleted');
   const isFirefox = navigator.userAgent.toLowerCase().includes('firefox');
 
   focusTrap = createFocusTrap(domElements.pomodoroControls, {
@@ -229,7 +229,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     togglePomodoroDisplay(domElements.kanbanHeading, domElements.pomodoroContainer);
     startPomodoro(calculateMinutes(time), timer, columnNum, itemNum);
 
-    if (itemData.time === '' || isPaused || isEdit || isMoved || isDeleted) {
+    if (itemData.time === '' || isPaused || isEdit || isMoved || isAnotherDeleted) {
       addPomodoroTimerListeners();
     }
 
@@ -239,7 +239,7 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
     !isFirefox && !isTouchDevice() && focusTrap.activate();
     removeLocalData('isEdit');
     removeLocalData('isMoved');
-    removeLocalData('isDeleted');
+    removeLocalData('isAnotherDeleted');
   }
 
   function handleRemoveState() {

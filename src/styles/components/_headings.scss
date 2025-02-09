@@ -1,12 +1,11 @@
 .heading {
+  user-select: none;
+  color: var(--text-color, #222);
   &-primary {
     letter-spacing: 2px;
     font-size: calc($font-size-xxl * 1.75);
-    font-weight: 700;
     min-height: calc($height-md * 2);
     line-height: calc($height-md * 2);
-    color: var(--text-color, #222);
-
     @include respond(mobile) {
       min-height: calc($height-md * 3);
       line-height: calc($height-md * 3);
@@ -15,8 +14,6 @@
   &-secondary {
     letter-spacing: 1px;
     font-size: $font-size-xxl;
-    font-weight: 700;
-    color: var(--text-color, #222);
   }
   &-tertiary {
     letter-spacing: 1px;
