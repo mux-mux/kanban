@@ -30,7 +30,7 @@ function downloadArchive() {
   const timestamp = new Date().toISOString().replace('T', ' ').split('.')[0];
 
   const fileData =
-    'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(archiveLoaded));
+    'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(archiveLoaded, null, 2));
 
   const link = document.createElement('a');
   link.href = fileData;

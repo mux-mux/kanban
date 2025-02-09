@@ -82,7 +82,6 @@ function renderCategoriesSelector(columnNum, itemNum) {
   const currentItem = itemsLoaded[selectedList].items[itemNum];
 
   const categorySelector = createCategorySelector(currentItem, categoriesLoaded);
-  categorySelector.disabled = columnNum === 2 && true;
   categorySelector.addEventListener('change', (e) =>
     handleCategoryChange(e, selectedList, itemNum)
   );

@@ -198,6 +198,7 @@ function appendEditButtons(element, type, defaultText) {
 
   document.querySelector('.btn-discard').addEventListener('mousedown', (event) => {
     event.preventDefault();
+    setLocalData('isDismiss', true);
     restoreDefaultText(element, defaultText);
     element.setAttribute('contenteditable', 'false');
   });
@@ -244,13 +245,14 @@ function finalizeEdit(element, type, columnNum, itemNum, defaultText) {
     removeLocalData('isEdit');
   } else if (type === 'category') {
     const isChanged = getLocalData('isChanged');
+    const isDismiss = getLocalData('isDismiss');
     element.setAttribute('contentEditable', false);
     const newCategoryName = element.innerText.trim();
     const categoriesLoaded = getLocalData('categoriesItems');
 
     if (!newCategoryName) return;
 
-    if (isChanged && checkIncludesName(newCategoryName, categoriesLoaded)) {
+    if (!isDismiss && isChanged && checkIncludesName(newCategoryName, categoriesLoaded)) {
       alert('Category name already exists!');
       restoreDefaultText(element, defaultText);
       updateDOM();
@@ -260,6 +262,7 @@ function finalizeEdit(element, type, columnNum, itemNum, defaultText) {
     updateCategoriesNames(defaultText, newCategoryName);
     editItem('category', columnNum);
     isChanged && removeLocalData('isChanged');
+    isDismiss && removeLocalData('isDismiss');
   }
 }
 
@@ -282,6 +285,7 @@ function enableBlurOnKeyPress(element, defaultText) {
     if (event.key === 'Enter' || event.key === 'Escape') {
       event.preventDefault();
       if (event.key === 'Escape') {
+        setLocalData('isDismiss', true);
         restoreDefaultText(element, defaultText);
       }
       element.blur();
