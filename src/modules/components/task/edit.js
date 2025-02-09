@@ -118,13 +118,21 @@ function addHoverEffects(button) {
   }
 }
 
-function limitConteEditableLength(type) {
+function limitConteEditableLength(type, defaultText) {
   const editableElem = document.querySelector("[contenteditable='true']");
   const maxLength = type === 'task' ? MAX_LENGTH_TASK : MAX_LENGTH_CATEGORY;
 
-  editableElem.addEventListener('beforeinput', (event) => {
-    if (editableElem.textContent.length >= maxLength || editableElem.textContent.length <= 0) {
-      event.preventDefault();
+  editableElem.addEventListener('input', () => {
+    let text = editableElem.innerText;
+
+    if (text.length === 0) {
+      editableElem.innerHTML = '<br>';
+      appendEditButtons(editableElem, type, defaultText);
+    }
+    if (text.length > maxLength) {
+      editableElem.innerText = text.substring(0, maxLength);
+      moveCaretToEnd(editableElem, text);
+      appendEditButtons(editableElem, type, defaultText);
     }
   });
   editableElem.addEventListener('paste', (event) => {
@@ -167,23 +175,28 @@ function editCurrentItem(element, type, columnNum, itemNum, lastFocusedParentId,
   element.textContent = element.innerText;
   element.setAttribute('contentEditable', true);
   element.focus();
-  limitConteEditableLength(type);
+  limitConteEditableLength(type, defaultText);
 
   moveCaretToEnd(element, defaultText);
 
   if (isTouchDevice()) {
-    const taskEditButtons = createEditButtons(type);
-    element.appendChild(taskEditButtons);
-    document.querySelector('.btn-discard').addEventListener('mousedown', (event) => {
-      event.preventDefault();
-      restoreDefaultText(element, defaultText);
-      finalizeEdit(element, type, columnNum, itemNum);
-    });
+    appendEditButtons(element, type, defaultText);
   }
 
   element.addEventListener('blur', () => {
     finalizeEdit(element, type, columnNum, itemNum);
     restoreFocus(lastFocusedParentId, lastFocusedClass, type);
+  });
+}
+
+function appendEditButtons(element, type, defaultText) {
+  const taskEditButtons = createEditButtons(type);
+  element.appendChild(taskEditButtons);
+
+  document.querySelector('.btn-discard').addEventListener('mousedown', (event) => {
+    event.preventDefault();
+    restoreDefaultText(element, defaultText);
+    element.setAttribute('contenteditable', 'false');
   });
 }
 
@@ -196,7 +209,7 @@ function pausePomodoroIfActive(columnNum, itemNum) {
 function setInnerHeight(element) {
   element.style.height = 'auto';
   const rect = element.getBoundingClientRect();
-  element.style.height = rect.height + 'px';
+  element.style.minHeight = rect.height + 'px';
 }
 
 function getEditableElement(e, type) {
