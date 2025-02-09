@@ -1,12 +1,10 @@
 .inputs {
   display: none;
   margin: $margin-md;
-  padding: $padding-sm $padding-md;
 
   &-new-task {
-    min-height: $height-xl;
+    min-height: $height-textarea;
     border-radius: $border-radius-md;
-    background-color: rgba(255, 255, 255, 0.1);
   }
 
   &-categories {
@@ -21,19 +19,20 @@
 
 .textarea {
   width: 100%;
-  min-height: $height-xl;
+  min-height: $height-textarea;
   height: auto;
   margin: $margin-sm auto;
+  padding: $padding-sm $padding-md;
 
   &-add {
-    background-color: initial;
+    background-color: rgba(255, 255, 255, 0.1);
     border: none;
     border-radius: $border-radius-md;
     resize: none;
     color: var(--text-color, #222);
     font-size: $font-size-xl;
     text-align: left;
-    outline-offset: calc($outline-offset * 2);
+    outline-offset: $outline-offset;
 
     &::placeholder {
       color: var(--text-color, #222);
@@ -43,6 +42,12 @@
     @include respond(mobile) {
       font-size: $font-size-lg;
     }
+  }
+
+  &-charCount {
+    display: block;
+    text-align: right;
+    color: var(--text-color);
   }
 }
 

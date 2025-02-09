@@ -83,10 +83,12 @@ function createTaskField(columnIndex) {
     'textarea-add',
     'custom-scroll',
   ]);
+  const charCount = createElementWithClass('span', ['textarea-charCount']);
   textarea.setAttribute('placeholder', 'Ctrl+Enter to a New line\nEsc to Close');
   textarea.maxLength = MAX_LENGTH_TASK;
+  charCount.textContent = `0/${MAX_LENGTH_TASK}`;
   textarea.addEventListener('keydown', (e) => handleTaskKeypress(e, columnIndex));
-  fieldContainer.appendChild(textarea);
+  fieldContainer.append(textarea, charCount);
 
   return fieldContainer;
 }
@@ -102,6 +104,8 @@ function handleOutsideClick(event, containers) {
 function handleTaskKeypress(event, columnIndex) {
   const textareas = document.querySelectorAll('.textarea-add');
 
+  handleCharCountUpdate(event, columnIndex);
+
   if (event.ctrlKey && event.code === 'Enter') {
     event.preventDefault();
     textareas[columnIndex].value += '\n';
@@ -109,6 +113,13 @@ function handleTaskKeypress(event, columnIndex) {
     event.preventDefault();
     addNewTask(columnIndex);
   }
+}
+
+function handleCharCountUpdate(event, columnIndex) {
+  const charCounts = document.querySelectorAll('.textarea-charCount')[columnIndex];
+  setTimeout(function () {
+    charCounts.textContent = `${event.target.value.length}/${MAX_LENGTH_TASK}`;
+  }, 0);
 }
 
 function toggleTaskTextarea(columnIndex, state) {
@@ -120,6 +131,7 @@ function toggleTaskTextarea(columnIndex, state) {
   const containers = document.querySelectorAll('.inputs-new-task');
   const textareas = document.querySelectorAll('.textarea-add');
   const containersNewTask = document.querySelectorAll('.task__new');
+  const charCounts = document.querySelectorAll('.textarea-charCount');
 
   const isOpening = state === 'open';
   const isClosing = state === 'close' || state === 'add';
@@ -140,6 +152,7 @@ function toggleTaskTextarea(columnIndex, state) {
   } else if (isClosing) {
     if (state === 'add') addNewTask(columnIndex);
     textareas[columnIndex].value = '';
+    charCounts[columnIndex].textContent = `0/${MAX_LENGTH_TASK}`;
     focusTrap.deactivate();
   }
 }
