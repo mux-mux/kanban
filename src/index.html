@@ -37,6 +37,9 @@
           transform: rotate(360deg);
         }
       }
+      #noscript {
+        display: none;
+      }
       @font-face {
         font-family: 'Rubik';
         font-style: normal;
@@ -45,8 +48,28 @@
         src: url(./assets/fonts/Rubik-variable.woff2) format('woff2');
       }
     </style>
+    <noscript>
+      <style>
+        #noscript {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          transform: translateY(10%);
+          position: fixed;
+          top: 0;
+          bottom: 0;
+          width: 100%;
+          height: 100%;
+          font-family: Arial, Helvetica, sans-serif;
+          font-weight: 700;
+          isolation: isolate;
+          z-index: 10000;
+        }
+      </style>
+    </noscript>
   </head>
   <body>
+    <div id="noscript">You need to enable JavaScript to use this App</div>
     <div id="app-loader">
       <div class="spinner"></div>
     </div>
