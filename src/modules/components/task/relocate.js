@@ -8,8 +8,13 @@ import { getLocalItems, setLocalItems, getLocalData } from '../../update/localSt
 
 function relocateItem(columnNum, itemNum, newColNum, newItemNum) {
   checkFunctionParameters(columnNum, itemNum, newColNum, newItemNum);
-  const itemsLoaded = getLocalItems();
 
+  // Validate itemNum to prevent prototype pollution
+  if (['__proto__', 'constructor', 'prototype'].includes(itemNum)) {
+    throw new Error('Invalid itemNum value');
+  }
+
+  const itemsLoaded = getLocalItems();
   const currentColumnItems = itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items;
   const newColumnItems = itemsLoaded[Object.keys(itemsLoaded)[newColNum]].items;
 
