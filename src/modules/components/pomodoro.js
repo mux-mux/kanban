@@ -302,12 +302,12 @@ function pomodoroInit(timer, itemData, state, columnNum, itemNum) {
 
   function resetPomodoro(e) {
     const itemsLoaded = getLocalItems();
-    
+
     // Validate itemNum to prevent prototype pollution
     if (['__proto__', 'constructor', 'prototype'].includes(itemNum)) {
       throw new Error('Invalid itemNum value');
     }
-    
+
     const itemData = itemsLoaded[Object.keys(itemsLoaded)[columnNum]].items[itemNum];
     const lastFocusedIcon = document.querySelector('[data-pomodoro="true"]');
     const lastFocusedParentId = lastFocusedIcon.closest('.task__list-item').dataset.id;
